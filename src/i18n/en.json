@@ -39,6 +39,13 @@
     "warning": {
       "title": "Security Notice",
       "description": "Always verify skill sources before installation. Only install skills from trusted publishers."
+    },
+    "recommended": {
+      "badge": "Hand-Picked",
+      "title": "Recommended for You",
+      "subtitle": "Start with these popular tutorials and essential skills",
+      "tutorials": "Top Tutorials",
+      "skills": "Popular Skills"
     }
   },
   "skills": {

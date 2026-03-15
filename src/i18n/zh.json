@@ -39,6 +39,13 @@
     "warning": {
       "title": "安全提示",
       "description": "安装前请务必验证技能来源。只从可信发布者安装技能。"
+    },
+    "recommended": {
+      "badge": "精选推荐",
+      "title": "为你推荐",
+      "subtitle": "从这些热门教程和必备技能开始你的学习之旅",
+      "tutorials": "热门教程",
+      "skills": "热门技能"
     }
   },
   "skills": {
