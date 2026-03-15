@@ -1,0 +1,92 @@
+{
+  "home": {
+    "title": "OpenClaw 101 - AI 技能学习指南",
+    "subtitle": "7天入门指南",
+    "description": "发现和学习 OpenClaw 技能，开启 AI 自动化之旅",
+    "hero": {
+      "title": "7天掌握 OpenClaw",
+      "subtitle": "全面的 AI 智能体技能和自动化指南",
+      "cta": "开始学习",
+      "learnMore": "了解更多"
+    },
+    "features": {
+      "title": "什么是 OpenClaw？",
+      "subtitle": "人人可用的 AI 智能体平台",
+      "automation": {
+        "title": "AI 驱动自动化",
+        "description": "使用能搜索、编码和与应用交互的 AI 智能体自动化任何任务"
+      },
+      "skills": {
+        "title": "31+ 技能分类",
+        "description": "从网页抓取到智能家居控制，找到满足您需求的完美技能"
+      },
+      "deploy": {
+        "title": "轻松部署",
+        "description": "一键部署到本地或云端"
+      }
+    },
+    "skills": {
+      "title": "技能分类",
+      "subtitle": "浏览 {categories} 个分类中的 {count} 个技能",
+      "viewAll": "查看所有技能"
+    },
+    "tutorials": {
+      "title": "精选教程",
+      "subtitle": "来自社区的精选学习资源",
+      "viewAll": "查看所有教程"
+    },
+    "warning": {
+      "title": "安全提示",
+      "description": "安装前请务必验证技能来源。只从可信发布者安装技能。"
+    }
+  },
+  "skills": {
+    "title": "浏览技能",
+    "subtitle": "发现适用于各种场景的 AI 智能体技能",
+    "searchPlaceholder": "搜索技能...",
+    "categories": "分类",
+    "all": "全部",
+    "install": "安装",
+    "stars": "星标",
+    "noResults": "未找到技能",
+    "totalSkills": "技能总数",
+    "browseByCategory": "按分类浏览",
+    "featuredSkills": "精选技能",
+    "aiLlm": "AI & LLM",
+    "research": "研究",
+    "copyCommand": "复制命令"
+  },
+  "tutorials": {
+    "title": "浏览教程",
+    "subtitle": "从最佳资源学习 OpenClaw",
+    "searchPlaceholder": "搜索教程...",
+    "allCategories": "全部分类",
+    "allLanguages": "所有语言",
+    "resultsCount": "找到 {count} 个教程",
+    "noResults": "未找到教程",
+    "categories": {
+      "official": "官方文档",
+      "cloudDeploy": "云部署",
+      "gettingStarted": "入门教程",
+      "channels": "通道配置",
+      "skills": "技能开发",
+      "videos": "视频教程",
+      "deepDives": "深度分析",
+      "tools": "工具使用"
+    }
+  },
+  "nav": {
+    "home": "首页",
+    "skills": "技能",
+    "tutorials": "教程"
+  },
+  "footer": {
+    "description": "您的 OpenClaw AI 智能体技能综合指南",
+    "links": {
+      "docs": "文档",
+      "github": "GitHub",
+      "discord": "Discord"
+    },
+    "copyright": "© {year} OpenClaw 101. 保留所有权利。"
+  }
+}

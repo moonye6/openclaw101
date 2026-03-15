@@ -1,0 +1,92 @@
+{
+  "home": {
+    "title": "OpenClaw 101 - Your Guide to AI Agent Skills",
+    "subtitle": "7-Day Beginner's Guide",
+    "description": "Discover and learn OpenClaw skills for AI-powered automation",
+    "hero": {
+      "title": "Master OpenClaw in 7 Days",
+      "subtitle": "Your comprehensive guide to AI agent skills and automation",
+      "cta": "Get Started",
+      "learnMore": "Learn More"
+    },
+    "features": {
+      "title": "What is OpenClaw?",
+      "subtitle": "The AI Agent Platform for Everyone",
+      "automation": {
+        "title": "AI-Powered Automation",
+        "description": "Automate any task with AI agents that can search, code, and interact with apps"
+      },
+      "skills": {
+        "title": "31+ Skill Categories",
+        "description": "From web scraping to smart home control, find the perfect skill for your needs"
+      },
+      "deploy": {
+        "title": "Easy Deployment",
+        "description": "Deploy locally or to the cloud with a single command"
+      }
+    },
+    "skills": {
+      "title": "Skill Categories",
+      "subtitle": "Browse {count} skills across {categories} categories",
+      "viewAll": "View All Skills"
+    },
+    "tutorials": {
+      "title": "Best Tutorials",
+      "subtitle": "Curated learning resources from the community",
+      "viewAll": "View All Tutorials"
+    },
+    "warning": {
+      "title": "Security Notice",
+      "description": "Always verify skill sources before installation. Only install skills from trusted publishers."
+    }
+  },
+  "skills": {
+    "title": "Browse Skills",
+    "subtitle": "Discover AI agent skills for every use case",
+    "searchPlaceholder": "Search skills...",
+    "categories": "Categories",
+    "all": "All",
+    "install": "Install",
+    "stars": "stars",
+    "noResults": "No skills found",
+    "totalSkills": "Total Skills",
+    "browseByCategory": "Browse by Category",
+    "featuredSkills": "Featured Skills",
+    "aiLlm": "AI & LLM",
+    "research": "Research",
+    "copyCommand": "Copy command"
+  },
+  "tutorials": {
+    "title": "Browse Tutorials",
+    "subtitle": "Learn OpenClaw from the best resources",
+    "searchPlaceholder": "Search tutorials...",
+    "allCategories": "All Categories",
+    "allLanguages": "All Languages",
+    "resultsCount": "{count} tutorials found",
+    "noResults": "No tutorials found",
+    "categories": {
+      "official": "Official",
+      "cloudDeploy": "Cloud Deploy",
+      "gettingStarted": "Getting Started",
+      "channels": "Channels",
+      "skills": "Skills",
+      "videos": "Videos",
+      "deepDives": "Deep Dives",
+      "tools": "Tools"
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "skills": "Skills",
+    "tutorials": "Tutorials"
+  },
+  "footer": {
+    "description": "Your comprehensive guide to OpenClaw AI agent skills",
+    "links": {
+      "docs": "Documentation",
+      "github": "GitHub",
+      "discord": "Discord"
+    },
+    "copyright": "© {year} OpenClaw 101. All rights reserved."
+  }
+}
