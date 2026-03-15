@@ -6,23 +6,24 @@
     "hero": {
       "title": "7天掌握 OpenClaw",
       "subtitle": "全面的 AI 智能体技能和自动化指南",
+      "badge": "7天学习路径",
       "cta": "开始学习",
-      "learnMore": "了解更多"
+      "learnMore": "浏览技能"
     },
     "features": {
       "title": "什么是 OpenClaw？",
-      "subtitle": "人人可用的 AI 智能体平台",
-      "automation": {
-        "title": "AI 驱动自动化",
-        "description": "使用能搜索、编码和与应用交互的 AI 智能体自动化任何任务"
+      "subtitle": "开源 AI 助手平台，为你提供 24/7 的个人 AI 助理",
+      "multiplatform": {
+        "title": "多平台支持",
+        "description": "通过 Telegram、Discord、WhatsApp、Signal 等连接，随时随地与你的 AI 对话。"
       },
       "skills": {
-        "title": "31+ 技能分类",
-        "description": "从网页抓取到智能家居控制，找到满足您需求的完美技能"
+        "title": "5490+ 技能",
+        "description": "社区技能从天气查询到代码生成，一键安装扩展你的 AI 能力。"
       },
-      "deploy": {
-        "title": "轻松部署",
-        "description": "一键部署到本地或云端"
+      "selfhosted": {
+        "title": "自托管",
+        "description": "完全数据主权，数据保存在你的服务器上，隐私和安全尽在掌握。"
       }
     },
     "skills": {

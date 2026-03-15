@@ -6,23 +6,24 @@
     "hero": {
       "title": "Master OpenClaw in 7 Days",
       "subtitle": "Your comprehensive guide to AI agent skills and automation",
+      "badge": "7-Day Learning Path",
       "cta": "Get Started",
-      "learnMore": "Learn More"
+      "learnMore": "Browse Skills"
     },
     "features": {
       "title": "What is OpenClaw?",
-      "subtitle": "The AI Agent Platform for Everyone",
-      "automation": {
-        "title": "AI-Powered Automation",
-        "description": "Automate any task with AI agents that can search, code, and interact with apps"
+      "subtitle": "The open-source AI assistant platform that gives you a 24/7 personal AI",
+      "multiplatform": {
+        "title": "Multi-Platform",
+        "description": "Connect via Telegram, Discord, WhatsApp, Signal and more. Chat with your AI anywhere."
       },
       "skills": {
-        "title": "31+ Skill Categories",
-        "description": "From web scraping to smart home control, find the perfect skill for your needs"
+        "title": "5490+ Skills",
+        "description": "Community skills from weather queries to code generation. One-click install to extend your AI."
       },
-      "deploy": {
-        "title": "Easy Deployment",
-        "description": "Deploy locally or to the cloud with a single command"
+      "selfhosted": {
+        "title": "Self-Hosted",
+        "description": "Full data sovereignty. Your data stays on your server. Privacy and security in your hands."
       }
     },
     "skills": {
