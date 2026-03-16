@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "OpenClaw 101 - Master Your AI Assistant in 7 Days",
     description:
-      "409+ tutorials and 5490+ skills for OpenClaw AI assistant. From setup to advanced automation.",
+      "414+ tutorials and 5490+ skills for OpenClaw AI assistant. From setup to advanced automation.",
     url: SITE_URL,
     siteName: "OpenClaw 101",
     locale: "en_US",
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "OpenClaw 101 - Master Your AI Assistant in 7 Days",
     description:
-      "409+ tutorials and 5490+ skills for OpenClaw AI assistant. From setup to advanced automation.",
+      "414+ tutorials and 5490+ skills for OpenClaw AI assistant. From setup to advanced automation.",
     images: ["/og-image.png"],
   },
   robots: {

@@ -5,25 +5,63 @@
     "description": "发现和学习 OpenClaw 技能，开启 AI 自动化之旅",
     "hero": {
       "title": "7天掌握 OpenClaw",
-      "subtitle": "全面的 AI 智能体技能和自动化指南",
-      "badge": "7天学习路径",
+      "subtitle": "真正为你做事的 AI 助手。从安装配置到高级自动化——从这里开始你的旅程。",
+      "badge": "开源 · 精选 414+ 教程",
       "cta": "开始学习",
-      "learnMore": "浏览技能"
+      "learnMore": "浏览资源",
+      "stats": {
+        "tutorials": "精选教程",
+        "skills": "社区技能",
+        "stars": "OpenClaw Stars",
+        "openSource": "完全开源"
+      }
     },
     "features": {
       "title": "什么是 OpenClaw？",
-      "subtitle": "开源 AI 助手平台，为你提供 24/7 的个人 AI 助理",
+      "subtitle": "开源 AI 助手平台，为你提供 24/7 的个人 AI，理解你、帮助你、代表你执行任务",
       "multiplatform": {
-        "title": "多平台支持",
-        "description": "通过 Telegram、Discord、WhatsApp、Signal 等连接，随时随地与你的 AI 对话。"
+        "title": "全平台接入",
+        "description": "支持 Telegram、Discord、WhatsApp、Signal、飞书等平台，随时随地与你的 AI 对话。"
       },
       "skills": {
-        "title": "5490+ 技能",
-        "description": "社区技能从天气查询到代码生成，一键安装扩展你的 AI 能力。"
+        "title": "可扩展技能",
+        "description": "5490+ 社区技能，从天气查询到代码生成，一键安装即可扩展你的 AI 能力。"
       },
       "selfhosted": {
-        "title": "自托管",
+        "title": "数据自主",
         "description": "完全数据主权，数据保存在你的服务器上，隐私和安全尽在掌握。"
+      }
+    },
+    "learningPath": {
+      "title": "7天学习路径",
+      "subtitle": "从初学者到高级，每天一个主题，循序渐进掌握 OpenClaw。",
+      "day1": {
+        "title": "认识 OpenClaw",
+        "description": "安装 OpenClaw，连接你的第一个平台（Telegram/Discord），与 AI 助手进行第一次对话。"
+      },
+      "day2": {
+        "title": "深度对话",
+        "description": "掌握对话技巧：上下文管理、多轮对话、人设定制和记忆设置。"
+      },
+      "day3": {
+        "title": "文件与代码",
+        "description": "让 AI 处理文件：读取文档、编写代码、运行脚本、管理本地文件系统。"
+      },
+      "day4": {
+        "title": "网络能力",
+        "description": "解锁网络能力：搜索互联网、抓取网页、调用 API、集成在线服务。"
+      },
+      "day5": {
+        "title": "技能扩展",
+        "description": "从 ClawHub 安装社区技能扩展能力：GitHub、天气、智能家居等数千种技能。"
+      },
+      "day6": {
+        "title": "自动化",
+        "description": "设置定时任务、心跳检查、主动提醒和自动化工作流，让日常事务自动运转。"
+      },
+      "day7": {
+        "title": "进阶技术",
+        "description": "多智能体协作、浏览器控制、设备集成，以及构建你自己的自定义技能。"
       }
     },
     "skills": {
@@ -32,13 +70,14 @@
       "viewAll": "查看所有技能"
     },
     "tutorials": {
-      "title": "精选教程",
-      "subtitle": "来自社区的精选学习资源",
+      "title": "精选教程与指南",
+      "subtitle": "414+ 篇精选教程，来自官方文档、云平台和社区贡献者",
       "viewAll": "查看所有教程"
     },
     "warning": {
       "title": "安全提示",
-      "description": "安装前请务必验证技能来源。只从可信发布者安装技能。"
+      "description": "研究人员发现 341 个恶意 ClawHub 技能窃取用户数据。安装前请务必审查源代码，只从可信发布者安装技能。",
+      "learnMore": "了解更多技能安全信息"
     },
     "recommended": {
       "badge": "精选推荐",
@@ -89,11 +128,24 @@
     "tutorials": "教程"
   },
   "footer": {
-    "description": "您的 OpenClaw AI 智能体技能综合指南",
+    "description": "您的 OpenClaw AI 智能体技能综合指南。开源项目，致力于成为最好的 OpenClaw 资源中心。",
+    "openSourceBanner": "OpenClaw 101 是开源项目，致力于成为最好的 OpenClaw 资源中心。欢迎贡献！",
+    "contribute": "帮助改进 OpenClaw 101",
+    "sections": {
+      "official": "官方",
+      "learn": "学习",
+      "community": "社区",
+      "cloudPlatforms": "云平台"
+    },
     "links": {
       "docs": "文档",
       "github": "GitHub",
-      "discord": "Discord"
+      "discord": "Discord",
+      "allResources": "全部资源",
+      "featuredSkills": "精选技能",
+      "feishuWiki": "飞书知识库",
+      "alibabaCloud": "阿里云",
+      "tencentCloud": "腾讯云"
     },
     "copyright": "© {year} OpenClaw 101. 保留所有权利。"
   }

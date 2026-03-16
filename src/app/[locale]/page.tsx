@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { HeroSection } from '@/components/home/HeroSection';
 import { FeaturesSection } from '@/components/home/FeaturesSection';
+import { LearningPath } from '@/components/home/LearningPath';
 import { RecommendedSection } from '@/components/home/RecommendedSection';
 import { SkillsStats } from '@/components/home/SkillsStats';
 import { TutorialsSection } from '@/components/home/TutorialsSection';
@@ -57,7 +58,7 @@ export default async function Home({
     name: 'OpenClaw 101',
     url: SITE_URL,
     description:
-      '409+ tutorials and 5490+ skills for OpenClaw AI assistant.',
+      '414+ tutorials and 5490+ skills for OpenClaw AI assistant.',
     inLanguage: [locale === 'zh' ? 'zh-CN' : 'en'],
     potentialAction: {
       '@type': 'SearchAction',
@@ -87,6 +88,7 @@ export default async function Home({
       <JsonLd data={orgJsonLd} />
       <HeroSection />
       <FeaturesSection />
+      <LearningPath />
       <RecommendedSection />
       <SkillsStats />
       <TutorialsSection />

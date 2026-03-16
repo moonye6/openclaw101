@@ -5,25 +5,63 @@
     "description": "Discover and learn OpenClaw skills for AI-powered automation",
     "hero": {
       "title": "Master OpenClaw in 7 Days",
-      "subtitle": "Your comprehensive guide to AI agent skills and automation",
-      "badge": "7-Day Learning Path",
-      "cta": "Get Started",
-      "learnMore": "Browse Skills"
+      "subtitle": "Your AI assistant that actually does things. From setup to advanced automation — start your journey here.",
+      "badge": "Open Source · 414+ Tutorials Curated",
+      "cta": "Start Learning",
+      "learnMore": "Browse Resources",
+      "stats": {
+        "tutorials": "Tutorials",
+        "skills": "Skills",
+        "stars": "OpenClaw Stars",
+        "openSource": "Open Source"
+      }
     },
     "features": {
       "title": "What is OpenClaw?",
-      "subtitle": "The open-source AI assistant platform that gives you a 24/7 personal AI",
+      "subtitle": "The open-source AI assistant platform that gives you a 24/7 personal AI that understands, assists, and acts on your behalf",
       "multiplatform": {
         "title": "Multi-Platform",
         "description": "Connect via Telegram, Discord, WhatsApp, Signal and more. Chat with your AI anywhere."
       },
       "skills": {
-        "title": "5490+ Skills",
-        "description": "Community skills from weather queries to code generation. One-click install to extend your AI."
+        "title": "Extensible Skills",
+        "description": "5490+ community skills from weather queries to code generation. One-click install to extend your AI capabilities."
       },
       "selfhosted": {
         "title": "Self-Hosted",
         "description": "Full data sovereignty. Your data stays on your server. Privacy and security in your hands."
+      }
+    },
+    "learningPath": {
+      "title": "7-Day Learning Path",
+      "subtitle": "From beginner to advanced, one topic per day. Master OpenClaw step by step.",
+      "day1": {
+        "title": "Meet OpenClaw",
+        "description": "Install OpenClaw, connect your first platform (Telegram/Discord), and have your first conversation with your AI assistant."
+      },
+      "day2": {
+        "title": "Deep Conversations",
+        "description": "Master conversation techniques: context management, multi-turn dialogue, persona customization, and memory settings."
+      },
+      "day3": {
+        "title": "Files & Code",
+        "description": "Let your AI handle files: read documents, write code, run scripts, and manage your local file system."
+      },
+      "day4": {
+        "title": "Web Capabilities",
+        "description": "Unlock web powers: search the internet, scrape pages, call APIs, and integrate with online services."
+      },
+      "day5": {
+        "title": "Skill Extensions",
+        "description": "Install community skills from ClawHub to extend capabilities: GitHub, weather, smart home, and thousands more."
+      },
+      "day6": {
+        "title": "Automation",
+        "description": "Set up scheduled tasks, heartbeat checks, proactive reminders, and automated workflows for your daily routine."
+      },
+      "day7": {
+        "title": "Advanced Techniques",
+        "description": "Multi-agent orchestration, browser control, device integration, and building your own custom skills."
       }
     },
     "skills": {
@@ -32,13 +70,14 @@
       "viewAll": "View All Skills"
     },
     "tutorials": {
-      "title": "Best Tutorials",
-      "subtitle": "Curated learning resources from the community",
+      "title": "Best Tutorials & Guides",
+      "subtitle": "414+ curated tutorials from official docs, cloud platforms, and community contributors",
       "viewAll": "View All Tutorials"
     },
     "warning": {
       "title": "Security Notice",
-      "description": "Always verify skill sources before installation. Only install skills from trusted publishers."
+      "description": "Researchers found 341 malicious ClawHub skills stealing user data. Always review source code before installation. Only install skills from trusted publishers.",
+      "learnMore": "Learn more about skill security"
     },
     "recommended": {
       "badge": "Hand-Picked",
@@ -89,11 +128,24 @@
     "tutorials": "Tutorials"
   },
   "footer": {
-    "description": "Your comprehensive guide to OpenClaw AI agent skills",
+    "description": "Your comprehensive guide to OpenClaw AI agent skills. Open source, aiming to be the best resource hub for OpenClaw.",
+    "openSourceBanner": "OpenClaw 101 is open source, aiming to be the best resource hub for OpenClaw. Contributions welcome!",
+    "contribute": "Help Make OpenClaw 101 Better",
+    "sections": {
+      "official": "Official",
+      "learn": "Learn",
+      "community": "Community",
+      "cloudPlatforms": "Cloud Platforms"
+    },
     "links": {
       "docs": "Documentation",
       "github": "GitHub",
-      "discord": "Discord"
+      "discord": "Discord",
+      "allResources": "All Resources",
+      "featuredSkills": "Featured Skills",
+      "feishuWiki": "Feishu Wiki",
+      "alibabaCloud": "Alibaba Cloud",
+      "tencentCloud": "Tencent Cloud"
     },
     "copyright": "© {year} OpenClaw 101. All rights reserved."
   }
