@@ -11,6 +11,7 @@ export function Footer() {
     { label: t('links.docs'), href: 'https://docs.openclaw.ai', external: true },
     { label: t('links.github'), href: 'https://github.com/openclaw/openclaw', external: true },
     { label: t('links.discord'), href: 'https://discord.com/invite/clawd', external: true },
+    { label: 'OC Compass', href: 'https://oc-role.com', external: true },
   ];
 
   return (

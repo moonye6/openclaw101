@@ -255,27 +255,36 @@ export function TutorialList() {
           />
         </div>
         <div className="flex gap-2">
-          <Badge
-            variant={selectedLanguage === null ? 'default' : 'outline'}
-            className="cursor-pointer"
+          <button
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              selectedLanguage === null 
+                ? 'bg-gray-900 text-white' 
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300'
+            }`}
             onClick={() => setSelectedLanguage(null)}
           >
             {t('allLanguages')}
-          </Badge>
-          <Badge
-            variant={selectedLanguage === 'en' ? 'default' : 'outline'}
-            className="cursor-pointer"
+          </button>
+          <button
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              selectedLanguage === 'en' 
+                ? 'bg-blue-600 text-white' 
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300'
+            }`}
             onClick={() => setSelectedLanguage('en')}
           >
             EN
-          </Badge>
-          <Badge
-            variant={selectedLanguage === 'zh' ? 'default' : 'outline'}
-            className="cursor-pointer"
+          </button>
+          <button
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              selectedLanguage === 'zh' 
+                ? 'bg-blue-600 text-white' 
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300'
+            }`}
             onClick={() => setSelectedLanguage('zh')}
           >
             中文
-          </Badge>
+          </button>
         </div>
       </div>
 

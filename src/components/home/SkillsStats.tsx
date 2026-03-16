@@ -42,7 +42,7 @@ export function SkillsStats() {
             </p>
           </div>
           <Link href="/skills">
-            <Button variant="outline">
+            <Button className="bg-gray-900 text-white hover:bg-gray-800">
               {t('viewAll')}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
