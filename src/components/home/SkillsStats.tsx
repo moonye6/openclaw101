@@ -70,7 +70,7 @@ export function SkillsStats() {
                         <h3 className="font-semibold text-gray-900">
                           {category.name}
                         </h3>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-gray-600">
                           {category.count} skills
                         </p>
                       </div>
@@ -86,19 +86,19 @@ export function SkillsStats() {
         <div className="mt-12 flex justify-center gap-8">
           <div className="text-center">
             <div className="text-3xl font-bold text-blue-600">{totalSkills.toLocaleString()}+</div>
-            <div className="text-sm text-gray-500">Total Skills</div>
+            <div className="text-sm text-gray-600">Total Skills</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold text-purple-600">31</div>
-            <div className="text-sm text-gray-500">Categories</div>
+            <div className="text-sm text-gray-600">Categories</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold text-green-600">159</div>
-            <div className="text-sm text-gray-500">AI & LLM</div>
+            <div className="text-sm text-gray-600">AI & LLM</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold text-orange-600">148</div>
-            <div className="text-sm text-gray-500">Research</div>
+            <div className="text-sm text-gray-600">Research</div>
           </div>
         </div>
       </div>

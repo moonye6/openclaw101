@@ -105,7 +105,7 @@ export function TutorialsSection() {
                 >
                   <div className="flex items-center gap-2 mb-2">
                     <span className={`w-2 h-2 rounded-full ${categoryColors[tutorial.category]}`} />
-                    <span className="text-xs text-gray-500">{tutorial.source}</span>
+                    <span className="text-xs text-gray-600">{tutorial.source}</span>
                     <Badge variant="outline" className="text-xs ml-auto">
                       {tutorial.language === 'en' ? 'EN' : '中文'}
                     </Badge>
@@ -113,7 +113,7 @@ export function TutorialsSection() {
                   <h3 className="font-semibold text-gray-900 line-clamp-2 hover:text-blue-600 transition-colors">
                     {tutorial.title}
                   </h3>
-                  <p className="mt-2 text-sm text-gray-600 line-clamp-2">
+                  <p className="mt-2 text-sm text-gray-700 line-clamp-2">
                     {tutorial.description}
                   </p>
                 </a>

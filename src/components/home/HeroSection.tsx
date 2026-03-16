@@ -68,7 +68,7 @@ export function HeroSection() {
 
         {/* Subtitle */}
         <motion.p
-          className="mx-auto mt-6 max-w-2xl text-lg sm:text-xl text-blue-100/80"
+          className="mx-auto mt-6 max-w-2xl text-lg sm:text-xl text-gray-200"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -85,15 +85,15 @@ export function HeroSection() {
         >
           <div className="text-center">
             <div className="text-3xl font-bold text-white">409+</div>
-            <div className="text-sm text-blue-200/60">Tutorials</div>
+            <div className="text-sm text-gray-300">Tutorials</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold text-white">5,490+</div>
-            <div className="text-sm text-blue-200/60">Skills</div>
+            <div className="text-sm text-gray-300">Skills</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold text-white">31</div>
-            <div className="text-sm text-blue-200/60">Categories</div>
+            <div className="text-sm text-gray-300">Categories</div>
           </div>
         </motion.div>
 
@@ -117,7 +117,7 @@ export function HeroSection() {
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-blue-400/50 text-blue-200 hover:bg-blue-500/10 hover:border-blue-400 px-8"
+              className="border-blue-400/50 text-white hover:bg-blue-500/10 hover:border-blue-400 px-8"
             >
               {t('learnMore')}
             </Button>

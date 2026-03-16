@@ -301,7 +301,7 @@ export function TutorialList() {
       </div>
 
       {/* Results count */}
-      <p className="text-sm text-gray-500">
+      <p className="text-sm text-gray-600">
         {t('resultsCount', { count: filteredTutorials.length })}
       </p>
 
@@ -321,13 +321,13 @@ export function TutorialList() {
                 rel="noopener noreferrer"
                 className="block p-5"
               >
-                <div className="flex items-start gap-3">
+                    <div className="flex items-start gap-3">
                   <div className={`flex-shrink-0 p-2 rounded-lg text-white ${categoryColors[tutorial.category]}`}>
                     {categoryIcons[tutorial.category]}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs text-gray-500">{tutorial.source}</span>
+                      <span className="text-xs text-gray-600">{tutorial.source}</span>
                       <Badge variant="outline" className="text-xs">
                         {tutorial.language === 'en' ? 'EN' : '中文'}
                       </Badge>
@@ -335,7 +335,7 @@ export function TutorialList() {
                     <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2">
                       {tutorial.title}
                     </h3>
-                    <p className="mt-2 text-sm text-gray-600 line-clamp-2">
+                    <p className="mt-2 text-sm text-gray-700 line-clamp-2">
                       {tutorial.description}
                     </p>
                   </div>

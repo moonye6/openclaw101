@@ -119,12 +119,12 @@ export function RecommendedSection() {
                             <span className={`text-xs px-2 py-0.5 rounded text-white ${tutorial.badgeColor}`}>
                               {tutorial.badge}
                             </span>
-                            <span className="text-xs text-gray-500">{tutorial.source}</span>
+                            <span className="text-xs text-gray-600">{tutorial.source}</span>
                           </div>
                           <h4 className="font-semibold text-gray-900 hover:text-blue-600 transition-colors">
                             {tutorial.title}
                           </h4>
-                          <p className="mt-1 text-sm text-gray-600 line-clamp-1">
+                          <p className="mt-1 text-sm text-gray-700 line-clamp-1">
                             {tutorial.description}
                           </p>
                         </div>
@@ -168,7 +168,7 @@ export function RecommendedSection() {
                           <h4 className="font-semibold text-gray-900">
                             {skill.name}
                           </h4>
-                          <p className="mt-1 text-sm text-gray-600">
+                          <p className="mt-1 text-sm text-gray-700">
                             {skill.description}
                           </p>
                         </div>
