@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ExternalLink, ArrowLeft, Globe, Book, Cloud, Lightbulb, MessageSquare, Wrench, Video, Cpu, Zap } from 'lucide-react';
-import { getTutorialById, tutorials, tutorialCategories, getTutorialsByCategory, getCategoryInfo } from '@/data/tutorials';
+import { getTutorialById, tutorials, getTutorialsByCategory, getCategoryInfo } from '@/data/tutorials';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Link } from '@/i18n/routing';
 

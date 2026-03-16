@@ -7,109 +7,8 @@ import { Search, Terminal, Star, ExternalLink } from 'lucide-react';
 import { Input } from '@/components/ui/Input';
 import { Badge } from '@/components/ui/Badge';
 import { Card } from '@/components/ui/Card';
-
-interface SkillCategory {
-  id: string;
-  name: string;
-  nameZh: string;
-  icon: string;
-  count: number;
-}
-
-interface Skill {
-  id: string;
-  name: string;
-  description: string;
-  categoryId: string;
-  installCommand: string;
-  githubUrl?: string;
-  stars: number;
-}
-
-// 技能分类数据
-const skillCategories: SkillCategory[] = [
-  { id: 'ai-llm', name: 'AI & LLMs', nameZh: 'AI & LLM', icon: '🧠', count: 159 },
-  { id: 'research', name: 'Search & Research', nameZh: '搜索与研究', icon: '🔍', count: 148 },
-  { id: 'devops', name: 'DevOps & Cloud', nameZh: 'DevOps & 云', icon: '☁️', count: 144 },
-  { id: 'marketing', name: 'Marketing & Sales', nameZh: '营销与销售', icon: '📈', count: 94 },
-  { id: 'coding', name: 'Coding Agents', nameZh: '编程代理', icon: '🤖', count: 55 },
-  { id: 'communication', name: 'Communication', nameZh: '通讯', icon: '💬', count: 58 },
-  { id: 'notes', name: 'Notes & PKM', nameZh: '笔记与知识管理', icon: '📝', count: 61 },
-  { id: 'web', name: 'Web & Frontend', nameZh: 'Web 与前端', icon: '🌐', count: 46 },
-  { id: 'smarthome', name: 'Smart Home & IoT', nameZh: '智能家居', icon: '🏠', count: 50 },
-  { id: 'speech', name: 'Speech & Audio', nameZh: '语音与音频', icon: '🗣️', count: 44 },
-  { id: 'health', name: 'Health & Fitness', nameZh: '健康与健身', icon: '🏋️', count: 35 },
-  { id: 'gaming', name: 'Gaming', nameZh: '游戏', icon: '🎮', count: 7 },
-];
-
-// 示例技能数据
-const sampleSkills: Skill[] = [
-  {
-    id: '1',
-    name: 'github',
-    description: 'GitHub operations via gh CLI: issues, PRs, CI runs, code review, API queries',
-    categoryId: 'coding',
-    installCommand: 'npx clawhub@latest install github',
-    githubUrl: 'https://github.com/openclaw/skills/tree/main/github',
-    stars: 1250,
-  },
-  {
-    id: '2',
-    name: 'weather',
-    description: 'Get current weather and forecasts via wttr.in or Open-Meteo',
-    categoryId: 'research',
-    installCommand: 'npx clawhub@latest install weather',
-    stars: 890,
-  },
-  {
-    id: '3',
-    name: 'gemini',
-    description: 'Gemini CLI for one-shot Q&A, summaries, and generation',
-    categoryId: 'ai-llm',
-    installCommand: 'npx clawhub@latest install gemini',
-    stars: 756,
-  },
-  {
-    id: '4',
-    name: 'tmux',
-    description: 'Remote-control tmux sessions for interactive CLIs',
-    categoryId: 'devops',
-    installCommand: 'npx clawhub@latest install tmux',
-    stars: 623,
-  },
-  {
-    id: '5',
-    name: 'web-search',
-    description: 'Search the web using Brave Search API',
-    categoryId: 'research',
-    installCommand: 'npx clawhub@latest install web-search',
-    stars: 534,
-  },
-  {
-    id: '6',
-    name: 'healthcheck',
-    description: 'Host security hardening and risk-tolerance configuration',
-    categoryId: 'devops',
-    installCommand: 'npx clawhub@latest install healthcheck',
-    stars: 412,
-  },
-  {
-    id: '7',
-    name: 'browser',
-    description: 'Control web browser via Playwright automation',
-    categoryId: 'web',
-    installCommand: 'npx clawhub@latest install browser',
-    stars: 567,
-  },
-  {
-    id: '8',
-    name: 'coding-agent',
-    description: 'Delegate coding tasks to Codex, Claude Code, or Pi agents',
-    categoryId: 'coding',
-    installCommand: 'npx clawhub@latest install coding-agent',
-    stars: 1102,
-  },
-];
+import { Link } from '@/i18n/routing';
+import { skillCategories, sampleSkills } from '@/data/skills';
 
 export function SkillBrowser() {
   const t = useTranslations('skills');
@@ -181,17 +80,18 @@ export function SkillBrowser() {
             <div className="text-xs text-gray-500">{totalSkills.toLocaleString()}</div>
           </Card>
           {skillCategories.map((category) => (
-            <Card
-              key={category.id}
-              className={`p-4 text-center cursor-pointer transition-all hover:shadow-md ${
-                selectedCategory === category.id ? 'ring-2 ring-blue-500 bg-blue-50' : ''
-              }`}
-              onClick={() => setSelectedCategory(category.id)}
-            >
-              <div className="text-2xl mb-1">{category.icon}</div>
-              <div className="font-medium text-sm">{category.name}</div>
-              <div className="text-xs text-gray-500">{category.count}</div>
-            </Card>
+            <Link key={category.id} href={`/skills/${category.id}`}>
+              <Card
+                className={`p-4 text-center cursor-pointer transition-all hover:shadow-md ${
+                  selectedCategory === category.id ? 'ring-2 ring-blue-500 bg-blue-50' : ''
+                }`}
+                onClick={(e: React.MouseEvent) => { e.preventDefault(); setSelectedCategory(category.id); }}
+              >
+                <div className="text-2xl mb-1">{category.icon}</div>
+                <div className="font-medium text-sm">{category.name}</div>
+                <div className="text-xs text-gray-500">{category.count}</div>
+              </Card>
+            </Link>
           ))}
         </div>
       </div>
