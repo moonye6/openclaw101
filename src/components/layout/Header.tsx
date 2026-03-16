@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, Star } from 'lucide-react';
 import { Link, usePathname, useRouter } from '@/i18n/routing';
 import { Button } from '@/components/ui';
 
@@ -50,6 +50,15 @@ export function Header() {
 
           {/* Actions */}
           <div className="flex items-center gap-2">
+            <a
+              href="https://github.com/openclaw/openclaw"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              <Star className="h-4 w-4" />
+              GitHub
+            </a>
             <Button
               variant="ghost"
               size="sm"
@@ -84,6 +93,15 @@ export function Header() {
                   {item.label}
                 </Link>
               ))}
+              <a
+                href="https://github.com/openclaw/openclaw"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg flex items-center gap-2"
+              >
+                <Star className="h-4 w-4" />
+                GitHub (314k+ ⭐)
+              </a>
               <button
                 onClick={toggleLanguage}
                 className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg text-left flex items-center gap-2"

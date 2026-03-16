@@ -1,93 +1,107 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { ExternalLink, Palette } from 'lucide-react';
+import { ExternalLink, Github } from 'lucide-react';
 import { Link } from '@/i18n/routing';
+
+function ExtLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-sm text-gray-400 hover:text-white transition-colors inline-flex items-center gap-1"
+    >
+      {children}
+      <ExternalLink className="h-3 w-3" />
+    </a>
+  );
+}
 
 export function Footer() {
   const t = useTranslations('footer');
 
-  const links = [
-    { label: t('links.docs'), href: 'https://docs.openclaw.ai', external: true },
-    { label: t('links.github'), href: 'https://github.com/openclaw/openclaw', external: true },
-    { label: t('links.discord'), href: 'https://discord.com/invite/clawd', external: true },
-    { label: 'OC Compass', href: 'https://oc-role.com', external: true },
-  ];
-
   return (
     <footer className="bg-gray-900 text-gray-300">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid gap-8 md:grid-cols-4">
+        {/* Open source banner */}
+        <div className="mb-10 p-6 rounded-xl bg-gray-800/50 border border-gray-700 text-center">
+          <p className="text-sm text-gray-300">
+            {t('openSourceBanner')}
+          </p>
+          <a
+            href="https://github.com/openclaw/openclaw"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors"
+          >
+            <Github className="h-4 w-4" />
+            {t('contribute')}
+            <ExternalLink className="h-3 w-3" />
+          </a>
+        </div>
+
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
           {/* Brand */}
-          <div>
+          <div className="lg:col-span-1">
             <h3 className="text-lg font-bold text-white mb-2">OpenClaw 101</h3>
             <p className="text-sm text-gray-400">{t('description')}</p>
           </div>
 
-          {/* Links */}
+          {/* Official */}
           <div>
             <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
-              Resources
+              {t('sections.official')}
             </h4>
             <ul className="space-y-2">
-              {links.map((link) => (
-                <li key={link.href}>
-                  {link.external ? (
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-gray-400 hover:text-white transition-colors inline-flex items-center gap-1"
-                    >
-                      {link.label}
-                      <ExternalLink className="h-3 w-3" />
-                    </a>
-                  ) : (
-                    <Link
-                      href={link.href}
-                      className="text-sm text-gray-400 hover:text-white transition-colors"
-                    >
-                      {link.label}
-                    </Link>
-                  )}
-                </li>
-              ))}
+              <li><ExtLink href="https://openclaw.ai">OpenClaw Website</ExtLink></li>
+              <li><ExtLink href="https://docs.openclaw.ai">{t('links.docs')}</ExtLink></li>
+              <li><ExtLink href="https://github.com/openclaw/openclaw">{t('links.github')} (314k+ ⭐)</ExtLink></li>
+              <li><ExtLink href="https://clawhub.com">ClawHub Skills</ExtLink></li>
             </ul>
           </div>
 
-          {/* Stats */}
+          {/* Learn */}
           <div>
             <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
-              Stats
-            </h4>
-            <ul className="space-y-2 text-sm text-gray-400">
-              <li>5490+ Skills</li>
-              <li>409+ Tutorials</li>
-              <li>31 Categories</li>
-            </ul>
-          </div>
-
-          {/* Products */}
-          <div>
-            <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
-              Products
+              {t('sections.learn')}
             </h4>
             <ul className="space-y-2">
               <li>
-                <a
-                  href="https://oc-role.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-gray-400 hover:text-white transition-colors inline-flex items-center gap-2"
-                >
-                  <Palette className="h-4 w-4 text-purple-400" />
-                  OC Compass
-                  <ExternalLink className="h-3 w-3" />
-                </a>
+                <Link href="/tutorials" className="text-sm text-gray-400 hover:text-white transition-colors">
+                  {t('links.allResources')}
+                </Link>
               </li>
-              <li className="text-xs text-gray-500 mt-1">
-                Free OC Maker & Character Creator
+              <li>
+                <Link href="/skills" className="text-sm text-gray-400 hover:text-white transition-colors">
+                  {t('links.featuredSkills')}
+                </Link>
               </li>
+              <li><ExtLink href="https://my.feishu.cn/wiki/YkWgwqSchi9xW3kEuZscAm0lnFf">{t('links.feishuWiki')}</ExtLink></li>
+            </ul>
+          </div>
+
+          {/* Community */}
+          <div>
+            <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+              {t('sections.community')}
+            </h4>
+            <ul className="space-y-2">
+              <li><ExtLink href="https://discord.com/invite/clawd">Discord</ExtLink></li>
+              <li><ExtLink href="https://reddit.com/r/openclaw">Reddit</ExtLink></li>
+              <li><ExtLink href="https://oc-role.com">OC Compass</ExtLink></li>
+            </ul>
+          </div>
+
+          {/* Cloud Platforms */}
+          <div>
+            <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+              {t('sections.cloudPlatforms')}
+            </h4>
+            <ul className="space-y-2">
+              <li><ExtLink href="https://help.aliyun.com/zh/simple-application-server/use-cases/quickly-deploy-and-use-openclaw">{t('links.alibabaCloud')}</ExtLink></li>
+              <li><ExtLink href="https://cloud.tencent.com/developer/article/2625073">{t('links.tencentCloud')}</ExtLink></li>
+              <li><ExtLink href="https://www.digitalocean.com/community/tutorials/how-to-run-openclaw">DigitalOcean</ExtLink></li>
             </ul>
           </div>
         </div>

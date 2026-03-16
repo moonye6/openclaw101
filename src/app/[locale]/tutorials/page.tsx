@@ -90,20 +90,20 @@ export default async function TutorialsPage({
           </h1>
           <p className="mt-4 text-lg text-blue-100 text-center max-w-2xl mx-auto">
             {isZh
-              ? '409+ 篇精选教程，来自官方文档、云平台和社区贡献者'
-              : '409+ curated tutorials from official docs, cloud platforms, and community contributors'}
+              ? '414+ 篇精选教程，来自官方文档、云平台和社区贡献者'
+              : '414+ curated tutorials from official docs, cloud platforms, and community contributors'}
           </p>
           <div className="mt-8 flex justify-center gap-8 text-white">
             <div className="text-center">
-              <div className="text-3xl font-bold">409+</div>
+              <div className="text-3xl font-bold">414+</div>
               <div className="text-sm text-blue-200">{isZh ? '教程' : 'Tutorials'}</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold">58</div>
+              <div className="text-3xl font-bold">61</div>
               <div className="text-sm text-blue-200">{isZh ? '中文' : 'Chinese'}</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold">351</div>
+              <div className="text-3xl font-bold">353</div>
               <div className="text-sm text-blue-200">{isZh ? '英文' : 'English'}</div>
             </div>
             <div className="text-center">

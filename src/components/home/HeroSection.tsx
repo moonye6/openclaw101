@@ -78,22 +78,26 @@ export function HeroSection() {
 
         {/* Stats */}
         <motion.div
-          className="mt-10 flex flex-wrap justify-center gap-8"
+          className="mt-10 flex flex-wrap justify-center gap-6 sm:gap-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
           <div className="text-center">
-            <div className="text-3xl font-bold text-white">409+</div>
-            <div className="text-sm text-gray-300">Tutorials</div>
+            <div className="text-3xl font-bold text-white">414+</div>
+            <div className="text-sm text-gray-300">{t('stats.tutorials')}</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold text-white">5,490+</div>
-            <div className="text-sm text-gray-300">Skills</div>
+            <div className="text-sm text-gray-300">{t('stats.skills')}</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-white">31</div>
-            <div className="text-sm text-gray-300">Categories</div>
+            <div className="text-3xl font-bold text-white">314k+</div>
+            <div className="text-sm text-gray-300">{t('stats.stars')}</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-white">100%</div>
+            <div className="text-sm text-gray-300">{t('stats.openSource')}</div>
           </div>
         </motion.div>
 

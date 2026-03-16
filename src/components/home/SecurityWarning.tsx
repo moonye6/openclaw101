@@ -24,7 +24,7 @@ export function SecurityWarning() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 mt-2 text-sm font-medium text-amber-800 hover:text-amber-900"
             >
-              Learn more about skill security
+              {t('learnMore')}
               <ExternalLink className="h-3 w-3" />
             </a>
           </div>
