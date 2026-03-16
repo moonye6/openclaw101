@@ -2,16 +2,17 @@
 
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
-import { BookOpen, MessageSquare, FileCode, Globe, Puzzle, Clock, Rocket } from 'lucide-react';
+import { BookOpen, MessageSquare, FileCode, Globe, Puzzle, Clock, Rocket, ArrowRight } from 'lucide-react';
+import { Link } from '@/i18n/routing';
 
 const days = [
-  { day: 1, icon: BookOpen, emoji: '👋', key: 'day1', color: 'from-blue-500 to-blue-600' },
-  { day: 2, icon: MessageSquare, emoji: '💬', key: 'day2', color: 'from-violet-500 to-violet-600' },
-  { day: 3, icon: FileCode, emoji: '📁', key: 'day3', color: 'from-emerald-500 to-emerald-600' },
-  { day: 4, icon: Globe, emoji: '🌐', key: 'day4', color: 'from-cyan-500 to-cyan-600' },
-  { day: 5, icon: Puzzle, emoji: '🧩', key: 'day5', color: 'from-orange-500 to-orange-600' },
-  { day: 6, icon: Clock, emoji: '⏰', key: 'day6', color: 'from-pink-500 to-pink-600' },
-  { day: 7, icon: Rocket, emoji: '🚀', key: 'day7', color: 'from-indigo-500 to-indigo-600' },
+  { day: 1, icon: BookOpen, emoji: '👋', key: 'day1', color: 'from-blue-500 to-blue-600', tutorialId: '9' },
+  { day: 2, icon: MessageSquare, emoji: '💬', key: 'day2', color: 'from-violet-500 to-violet-600', tutorialId: '11' },
+  { day: 3, icon: FileCode, emoji: '📁', key: 'day3', color: 'from-emerald-500 to-emerald-600', tutorialId: '14' },
+  { day: 4, icon: Globe, emoji: '🌐', key: 'day4', color: 'from-cyan-500 to-cyan-600', tutorialId: '23' },
+  { day: 5, icon: Puzzle, emoji: '🧩', key: 'day5', color: 'from-orange-500 to-orange-600', tutorialId: '33' },
+  { day: 6, icon: Clock, emoji: '⏰', key: 'day6', color: 'from-pink-500 to-pink-600', tutorialId: '4' },
+  { day: 7, icon: Rocket, emoji: '🚀', key: 'day7', color: 'from-indigo-500 to-indigo-600', tutorialId: '22' },
 ];
 
 export function LearningPath() {
@@ -57,20 +58,26 @@ export function LearningPath() {
                   </div>
 
                   {/* Content card */}
-                  <div className="flex-1 bg-white rounded-xl border border-gray-200 p-5 hover:shadow-lg hover:border-gray-300 transition-all group">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="text-xs font-bold uppercase tracking-wider text-gray-400">
-                        Day {item.day}
-                      </span>
-                      <Icon className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors" />
+                  <Link href={`/tutorials/${item.tutorialId}`} className="flex-1 block">
+                    <div className="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-lg hover:border-gray-300 transition-all group">
+                      <div className="flex items-center gap-3 mb-2">
+                        <span className="text-xs font-bold uppercase tracking-wider text-gray-400">
+                          Day {item.day}
+                        </span>
+                        <Icon className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+                        {t(`${item.key}.title`)}
+                      </h3>
+                      <p className="mt-1 text-sm text-gray-600 leading-relaxed">
+                        {t(`${item.key}.description`)}
+                      </p>
+                      <div className="mt-3 flex items-center text-sm text-blue-600 font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span>{t('viewTutorial')}</span>
+                        <ArrowRight className="ml-1 w-4 h-4" />
+                      </div>
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900">
-                      {t(`${item.key}.title`)}
-                    </h3>
-                    <p className="mt-1 text-sm text-gray-600 leading-relaxed">
-                      {t(`${item.key}.description`)}
-                    </p>
-                  </div>
+                  </Link>
                 </motion.div>
               );
             })}

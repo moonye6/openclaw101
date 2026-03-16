@@ -121,7 +121,7 @@ export function HeroSection() {
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-blue-400/50 text-white hover:bg-blue-500/10 hover:border-blue-400 px-8"
+              className="border-blue-400/50 bg-transparent text-white hover:bg-blue-500/10 hover:border-blue-400 px-8"
             >
               {t('learnMore')}
             </Button>
