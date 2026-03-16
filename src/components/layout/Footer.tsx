@@ -4,12 +4,12 @@ import { useTranslations } from 'next-intl';
 import { ExternalLink, Github } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 
-function ExtLink({ href, children }: { href: string; children: React.ReactNode }) {
+function ExtLink({ href, children, follow }: { href: string; children: React.ReactNode; follow?: boolean }) {
   return (
     <a
       href={href}
       target="_blank"
-      rel="noopener noreferrer"
+      rel={follow ? 'noopener noreferrer' : 'noopener noreferrer nofollow'}
       className="text-sm text-gray-400 hover:text-white transition-colors inline-flex items-center gap-1"
     >
       {children}
@@ -54,10 +54,10 @@ export function Footer() {
               {t('sections.official')}
             </h4>
             <ul className="space-y-2">
-              <li><ExtLink href="https://openclaw.ai">OpenClaw Website</ExtLink></li>
-              <li><ExtLink href="https://docs.openclaw.ai">{t('links.docs')}</ExtLink></li>
-              <li><ExtLink href="https://github.com/openclaw/openclaw">{t('links.github')} (314k+ ⭐)</ExtLink></li>
-              <li><ExtLink href="https://clawhub.com">ClawHub Skills</ExtLink></li>
+              <li><ExtLink href="https://openclaw.ai" follow>OpenClaw Website</ExtLink></li>
+              <li><ExtLink href="https://docs.openclaw.ai" follow>{t('links.docs')}</ExtLink></li>
+              <li><ExtLink href="https://github.com/openclaw/openclaw" follow>{t('links.github')} (314k+ ⭐)</ExtLink></li>
+              <li><ExtLink href="https://clawhub.com" follow>ClawHub Skills</ExtLink></li>
             </ul>
           </div>
 

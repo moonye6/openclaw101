@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: "%s | OpenClaw 101",
   },
   description:
-    "409+ tutorials and 5490+ skills for OpenClaw AI assistant. From setup to advanced automation.",
+    "414+ tutorials and 5490+ skills for OpenClaw AI assistant. From setup to advanced automation.",
   keywords: [
     "OpenClaw",
     "AI assistant",
@@ -91,9 +91,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#2563eb" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
