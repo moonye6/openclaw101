@@ -1,4 +1,6 @@
 import { MetadataRoute } from 'next'
+import { tutorials } from '@/data/tutorials'
+import { skillCategories } from '@/data/skills'
 
 const BUILD_DATE = new Date('2026-03-16')
 
@@ -26,6 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ]
 
+  // Main pages
   for (const page of pages) {
     for (const locale of ['en', 'zh']) {
       entries.push({
@@ -37,6 +40,42 @@ export default function sitemap(): MetadataRoute.Sitemap {
           languages: {
             en: `${baseUrl}/en${page.path}`,
             zh: `${baseUrl}/zh${page.path}`,
+          },
+        },
+      })
+    }
+  }
+
+  // Tutorial detail pages
+  for (const tutorial of tutorials) {
+    for (const locale of ['en', 'zh']) {
+      entries.push({
+        url: `${baseUrl}/${locale}/tutorials/${tutorial.id}`,
+        lastModified: BUILD_DATE,
+        changeFrequency: 'monthly' as const,
+        priority: 0.6,
+        alternates: {
+          languages: {
+            en: `${baseUrl}/en/tutorials/${tutorial.id}`,
+            zh: `${baseUrl}/zh/tutorials/${tutorial.id}`,
+          },
+        },
+      })
+    }
+  }
+
+  // Skill category pages
+  for (const category of skillCategories) {
+    for (const locale of ['en', 'zh']) {
+      entries.push({
+        url: `${baseUrl}/${locale}/skills/${category.id}`,
+        lastModified: BUILD_DATE,
+        changeFrequency: 'weekly' as const,
+        priority: 0.7,
+        alternates: {
+          languages: {
+            en: `${baseUrl}/en/skills/${category.id}`,
+            zh: `${baseUrl}/zh/skills/${category.id}`,
           },
         },
       })

@@ -52,7 +52,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1024,
         height: 1024,
-        alt: "OpenClaw 101 - AI Assistant Tutorial & Skills Platform",
+        alt: "OpenClaw 101 - Master Your AI Assistant | 414+ Tutorials & 5490+ Skills",
       },
     ],
   },
@@ -94,6 +94,7 @@ export default function RootLayout({
     <html suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#2563eb" />
       </head>
