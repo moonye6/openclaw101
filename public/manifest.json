@@ -1,0 +1,22 @@
+{
+  "name": "OpenClaw 101",
+  "short_name": "OC101",
+  "description": "414+ tutorials and 5490+ skills for OpenClaw AI assistant",
+  "start_url": "/en",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/og-image.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

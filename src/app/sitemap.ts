@@ -1,5 +1,7 @@
 import { MetadataRoute } from 'next'
 
+const BUILD_DATE = new Date('2026-03-16')
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://openclaw101.vip'
 
@@ -12,7 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
-      lastModified: new Date(),
+      lastModified: BUILD_DATE,
       changeFrequency: 'weekly',
       priority: 1,
       alternates: {
@@ -28,7 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     for (const locale of ['en', 'zh']) {
       entries.push({
         url: `${baseUrl}/${locale}${page.path}`,
-        lastModified: new Date(),
+        lastModified: BUILD_DATE,
         changeFrequency: page.changeFrequency,
         priority: page.priority,
         alternates: {

@@ -23,15 +23,15 @@ export async function generateMetadata({
       ? 'OpenClaw 101 - 7天掌握你的AI助手'
       : 'OpenClaw 101 - Master Your AI Assistant in 7 Days',
     description: isZh
-      ? '409+ 教程和 5490+ 技能，助你快速掌握 OpenClaw AI 助手。从安装配置到高级自动化。'
-      : '409+ tutorials and 5490+ skills for OpenClaw AI assistant. From setup to advanced automation.',
+      ? '414+ 教程和 5490+ 技能，助你快速掌握 OpenClaw AI 助手。从安装配置到高级自动化。'
+      : '414+ tutorials and 5490+ skills for OpenClaw AI assistant. From setup to advanced automation.',
     openGraph: {
       title: isZh
         ? 'OpenClaw 101 - 7天掌握你的AI助手'
         : 'OpenClaw 101 - Master Your AI Assistant in 7 Days',
       description: isZh
-        ? '409+ 教程和 5490+ 技能，助你快速掌握 OpenClaw AI 助手。'
-        : '409+ tutorials and 5490+ skills for OpenClaw AI assistant.',
+        ? '414+ 教程和 5490+ 技能，助你快速掌握 OpenClaw AI 助手。'
+        : '414+ tutorials and 5490+ skills for OpenClaw AI assistant.',
       url: `${SITE_URL}/${locale}`,
       locale: isZh ? 'zh_CN' : 'en_US',
     },
@@ -59,7 +59,7 @@ export default async function Home({
     url: SITE_URL,
     description:
       '414+ tutorials and 5490+ skills for OpenClaw AI assistant.',
-    inLanguage: [locale === 'zh' ? 'zh-CN' : 'en'],
+    inLanguage: ['en', 'zh-CN'],
     potentialAction: {
       '@type': 'SearchAction',
       target: {
@@ -75,7 +75,12 @@ export default async function Home({
     '@type': 'Organization',
     name: 'OpenClaw 101',
     url: SITE_URL,
-    logo: `${SITE_URL}/og-image.png`,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${SITE_URL}/og-image.png`,
+      width: 1024,
+      height: 1024,
+    },
     sameAs: [
       'https://github.com/openclaw/openclaw',
       'https://discord.com/invite/clawd',

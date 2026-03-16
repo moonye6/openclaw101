@@ -13,15 +13,15 @@ export async function generateMetadata({
   const isZh = locale === 'zh';
 
   return {
-    title: isZh ? '教程 - 409+ 精选教程' : 'Tutorials - 409+ Curated Guides',
+    title: isZh ? '教程 - 414+ 精选教程' : 'Tutorials - 414+ Curated Guides',
     description: isZh
-      ? '浏览 409+ 篇 OpenClaw AI 助手教程，包含官方文档、云部署指南、入门教程和深度分析。'
-      : 'Browse 409+ tutorials for OpenClaw AI assistant. Official docs, cloud deployment guides, getting started tutorials, and deep dives.',
+      ? '浏览 414+ 篇 OpenClaw AI 助手教程，包含官方文档、云部署指南、入门教程和深度分析。'
+      : 'Browse 414+ tutorials for OpenClaw AI assistant. Official docs, cloud deployment guides, getting started tutorials, and deep dives.',
     openGraph: {
-      title: isZh ? 'OpenClaw 教程 - 409+ 精选教程' : 'OpenClaw Tutorials - 409+ Curated Guides',
+      title: isZh ? 'OpenClaw 教程 - 414+ 精选教程' : 'OpenClaw Tutorials - 414+ Curated Guides',
       description: isZh
-        ? '浏览 409+ 篇精选教程，从入门到高级自动化。'
-        : 'Browse 409+ curated tutorials. From setup to advanced automation.',
+        ? '浏览 414+ 篇精选教程，从入门到高级自动化。'
+        : 'Browse 414+ curated tutorials. From setup to advanced automation.',
       url: `${SITE_URL}/${locale}/tutorials`,
       locale: isZh ? 'zh_CN' : 'en_US',
     },
@@ -67,10 +67,10 @@ export default async function TutorialsPage({
     '@type': 'CollectionPage',
     name: isZh ? 'OpenClaw 教程' : 'OpenClaw Tutorials',
     description: isZh
-      ? '409+ 篇 OpenClaw AI 助手教程'
-      : '409+ tutorials for OpenClaw AI assistant',
+      ? '414+ 篇 OpenClaw AI 助手教程'
+      : '414+ tutorials for OpenClaw AI assistant',
     url: `${SITE_URL}/${locale}/tutorials`,
-    numberOfItems: 409,
+    numberOfItems: 414,
     isPartOf: {
       '@type': 'WebSite',
       name: 'OpenClaw 101',
