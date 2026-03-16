@@ -13,27 +13,73 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const SITE_URL = "https://openclaw101.vip";
+
 export const metadata: Metadata = {
-  title: "OpenClaw 101 - Master Your AI Assistant in 7 Days",
-  description: "409+ tutorials and 5490+ skills for OpenClaw AI assistant. From setup to advanced automation.",
-  keywords: ["OpenClaw", "AI assistant", "tutorials", "skills", "ClawHub", "AI agent"],
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "OpenClaw 101 - Master Your AI Assistant in 7 Days",
+    template: "%s | OpenClaw 101",
+  },
+  description:
+    "409+ tutorials and 5490+ skills for OpenClaw AI assistant. From setup to advanced automation.",
+  keywords: [
+    "OpenClaw",
+    "AI assistant",
+    "tutorials",
+    "skills",
+    "ClawHub",
+    "AI agent",
+    "OpenClaw skills",
+    "OpenClaw tutorials",
+    "AI automation",
+    "self-hosted AI",
+  ],
   authors: [{ name: "OpenClaw 101" }],
+  creator: "OpenClaw 101",
+  publisher: "OpenClaw 101",
   openGraph: {
     title: "OpenClaw 101 - Master Your AI Assistant in 7 Days",
-    description: "409+ tutorials and 5490+ skills for OpenClaw AI assistant.",
-    url: "https://openclaw101.vip",
+    description:
+      "409+ tutorials and 5490+ skills for OpenClaw AI assistant. From setup to advanced automation.",
+    url: SITE_URL,
     siteName: "OpenClaw 101",
     locale: "en_US",
+    alternateLocale: "zh_CN",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1024,
+        height: 1024,
+        alt: "OpenClaw 101 - AI Assistant Tutorial & Skills Platform",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "OpenClaw 101 - Master Your AI Assistant in 7 Days",
-    description: "409+ tutorials and 5490+ skills for OpenClaw AI assistant.",
+    description:
+      "409+ tutorials and 5490+ skills for OpenClaw AI assistant. From setup to advanced automation.",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: SITE_URL,
+    languages: {
+      en: `${SITE_URL}/en`,
+      zh: `${SITE_URL}/zh`,
+    },
   },
 };
 
@@ -48,7 +94,6 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="canonical" href="https://openclaw101.vip" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

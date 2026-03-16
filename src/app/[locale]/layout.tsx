@@ -5,6 +5,25 @@ import { routing } from '@/i18n/routing';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const SITE_URL = 'https://openclaw101.vip';
+
+  return {
+    alternates: {
+      canonical: `${SITE_URL}/${locale}`,
+      languages: {
+        en: `${SITE_URL}/en`,
+        zh: `${SITE_URL}/zh`,
+      },
+    },
+  };
+}
+
 export default async function LocaleLayout({
   children,
   params,
@@ -23,7 +42,7 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col" lang={locale}>
         <Header />
         <main className="flex-1">
           {children}

@@ -1,39 +1,114 @@
 import { Metadata } from 'next';
 import { TutorialList } from '@/components/tutorials/TutorialList';
+import { JsonLd } from '@/components/seo/JsonLd';
 
-export const metadata: Metadata = {
-  title: 'Tutorials - OpenClaw 101',
-  description: 'Browse 409+ tutorials for OpenClaw AI assistant. Official docs, cloud deployment guides, getting started tutorials, and deep dives.',
-};
+const SITE_URL = 'https://openclaw101.vip';
 
-export default function TutorialsPage() {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isZh = locale === 'zh';
+
+  return {
+    title: isZh ? '教程 - 409+ 精选教程' : 'Tutorials - 409+ Curated Guides',
+    description: isZh
+      ? '浏览 409+ 篇 OpenClaw AI 助手教程，包含官方文档、云部署指南、入门教程和深度分析。'
+      : 'Browse 409+ tutorials for OpenClaw AI assistant. Official docs, cloud deployment guides, getting started tutorials, and deep dives.',
+    openGraph: {
+      title: isZh ? 'OpenClaw 教程 - 409+ 精选教程' : 'OpenClaw Tutorials - 409+ Curated Guides',
+      description: isZh
+        ? '浏览 409+ 篇精选教程，从入门到高级自动化。'
+        : 'Browse 409+ curated tutorials. From setup to advanced automation.',
+      url: `${SITE_URL}/${locale}/tutorials`,
+      locale: isZh ? 'zh_CN' : 'en_US',
+    },
+    alternates: {
+      canonical: `${SITE_URL}/${locale}/tutorials`,
+      languages: {
+        en: `${SITE_URL}/en/tutorials`,
+        zh: `${SITE_URL}/zh/tutorials`,
+      },
+    },
+  };
+}
+
+export default async function TutorialsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const isZh = locale === 'zh';
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: isZh ? '首页' : 'Home',
+        item: `${SITE_URL}/${locale}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: isZh ? '教程' : 'Tutorials',
+        item: `${SITE_URL}/${locale}/tutorials`,
+      },
+    ],
+  };
+
+  const collectionJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: isZh ? 'OpenClaw 教程' : 'OpenClaw Tutorials',
+    description: isZh
+      ? '409+ 篇 OpenClaw AI 助手教程'
+      : '409+ tutorials for OpenClaw AI assistant',
+    url: `${SITE_URL}/${locale}/tutorials`,
+    numberOfItems: 409,
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'OpenClaw 101',
+      url: SITE_URL,
+    },
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
+      <JsonLd data={breadcrumbJsonLd} />
+      <JsonLd data={collectionJsonLd} />
       {/* Header */}
       <section className="bg-gradient-to-br from-blue-600 to-indigo-700 py-16">
         <div className="container mx-auto px-4">
           <h1 className="text-4xl font-bold text-white text-center">
-            OpenClaw Tutorials
+            {isZh ? 'OpenClaw 教程' : 'OpenClaw Tutorials'}
           </h1>
           <p className="mt-4 text-lg text-blue-100 text-center max-w-2xl mx-auto">
-            409+ curated tutorials from official docs, cloud platforms, and community contributors
+            {isZh
+              ? '409+ 篇精选教程，来自官方文档、云平台和社区贡献者'
+              : '409+ curated tutorials from official docs, cloud platforms, and community contributors'}
           </p>
           <div className="mt-8 flex justify-center gap-8 text-white">
             <div className="text-center">
               <div className="text-3xl font-bold">409+</div>
-              <div className="text-sm text-blue-200">Tutorials</div>
+              <div className="text-sm text-blue-200">{isZh ? '教程' : 'Tutorials'}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold">58</div>
-              <div className="text-sm text-blue-200">Chinese</div>
+              <div className="text-sm text-blue-200">{isZh ? '中文' : 'Chinese'}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold">351</div>
-              <div className="text-sm text-blue-200">English</div>
+              <div className="text-sm text-blue-200">{isZh ? '英文' : 'English'}</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold">9</div>
-              <div className="text-sm text-blue-200">Categories</div>
+              <div className="text-sm text-blue-200">{isZh ? '分类' : 'Categories'}</div>
             </div>
           </div>
         </div>
