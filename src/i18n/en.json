@@ -62,7 +62,8 @@
       "day7": {
         "title": "Advanced Techniques",
         "description": "Multi-agent orchestration, browser control, device integration, and building your own custom skills."
-      }
+      },
+      "viewTutorial": "View Tutorial"
     },
     "skills": {
       "title": "Skill Categories",
