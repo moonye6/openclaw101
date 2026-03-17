@@ -22,19 +22,17 @@ export const blogPosts: BlogPost[] = [
     slug: "openclaw-vs-chatgpt",
     title: "OpenClaw vs ChatGPT：为什么你需要一个能动的 AI 助手",
     titleEn: "OpenClaw vs ChatGPT: Why You Need an AI Assistant That Can Act",
-    excerpt: "传统 AI 聊天机器人只能说不能做。OpenClaw 是一个真正能执行任务的 AI 助手，让你从顾问升级到执行者。",
+    excerpt: "传统 AI 聊天机器人只能说不能做。OpenClaw 是一个真正能执行任务的 AI 助手。",
     excerptEn: "Traditional AI chatbots can only talk, not do. OpenClaw is an AI assistant that can actually execute tasks.",
     content: `你是否有过这样的经历？
 
 问 ChatGPT："帮我整理一下这个文件夹里的照片，按日期分类。"
 
-它回答："你可以使用 Python 的 os 和 shutil 库来遍历文件夹，然后根据照片的 EXIF 信息提取日期，再创建对应的文件夹..."
+它回答："你可以使用 Python 的 os 和 shutil 库来遍历文件夹..."
 
 然后你看着这堆建议，心里想："能不能直接帮我做了？"
 
 这就是传统 AI 聊天机器人的痛点——它们只能说，不能做。
-
-今天我们来聊聊 OpenClaw，一个真正能执行任务的 AI 助手，以及它和 ChatGPT 的核心差异。
 
 ## 核心差异：从顾问到执行者
 
@@ -47,9 +45,6 @@ ChatGPT 是一个优秀的顾问：
 - 提供代码片段和建议
 - 无法直接操作你的电脑
 - 无法执行文件操作
-- 无法实时搜索网络
-
-你需要把它的建议复制出来，自己动手执行。
 
 ### OpenClaw 能做什么？
 
@@ -61,34 +56,25 @@ OpenClaw 是一个执行者：
 - 控制浏览器、操作应用
 - 设置定时任务、发送通知
 
-同样是整理照片的问题，OpenClaw 会直接写一个脚本并运行它。
+## 如何选择？
 
-## 技术架构：为什么 OpenClaw 能动手？
+### 选 ChatGPT 如果你：
 
-### ChatGPT 架构
+- 只需要文本生成、翻译、写作辅助
+- 不需要 AI 执行实际操作
+- 希望有简单的 Web 界面
 
-用户 → 浏览器 → ChatGPT 服务器 → 返回文本
+### 选 OpenClaw 如果你：
 
-- 单一对话接口
-- 无工具调用能力
-- 数据上传到云端
-
-### OpenClaw 架构
-
-用户 → Telegram/Discord/飞书 → OpenClaw 本地服务 → 执行工具 → 返回结果
-
-核心优势：
-
-1. 本地运行 - 代码在你的机器上执行，数据不出你的电脑
-2. 工具系统 - 内置 100+ 工具，涵盖文件、网络、浏览器等
-3. 技能市场 - 5490+ 社区技能，可扩展任意功能
-4. 多平台 - 支持 Telegram、Discord、WhatsApp、飞书、钉钉等
-5. 多模型 - 可选 Claude、GPT、本地模型，不被单一厂商锁定`,
+- 希望自动化日常任务，提高效率
+- 需要代码执行、文件操作能力
+- 看重数据隐私（本地运行）
+- 想在 Telegram/Discord 等平台使用 AI`,
     contentEn: `Have you ever had this experience?
 
 You ask ChatGPT: "Help me organize the photos in this folder by date."
 
-It answers: "You can use Python's os and shutil libraries to iterate through the folder, then extract the date from the photos' EXIF information..."
+It answers: "You can use Python's os and shutil libraries to iterate through the folder..."
 
 Then you look at this pile of suggestions and think: "Can't you just do it for me?"
 
@@ -105,7 +91,6 @@ ChatGPT is an excellent consultant:
 - Provide code snippets and suggestions
 - Cannot directly operate your computer
 - Cannot execute file operations
-- Cannot search the web in real-time
 
 ### What Can OpenClaw Do?
 
@@ -133,12 +118,12 @@ OpenClaw is an executor:
     excerptEn: "Step-by-step guide to configure OpenClaw + Telegram bot.",
     content: `想把 Telegram 变成你的 AI 私人助理？
 
-这篇文章手把手教你配置 OpenClaw + Telegram 机器人，10 分钟内完成，开始对话。
+这篇文章手把手教你配置 OpenClaw + Telegram 机器人，10 分钟内完成。
 
 ## 为什么选择 Telegram？
 
 - 跨平台：iOS、Android、Desktop、Web 都能用
-- 免费无广告：消息即时送达，无延迟
+- 免费无广告：消息即时送达
 - API 开放：创建机器人非常简单
 - 隐私友好：支持端到端加密
 
@@ -153,37 +138,26 @@ OpenClaw is an executor:
 ### 安装命令
 
 \`\`\`bash
-# 全局安装 OpenClaw
 npm install -g openclaw
-
-# 验证安装成功
 openclaw --version
 \`\`\`
 
 ## 第二步：创建 Telegram Bot
 
-### 获取 Bot Token
-
 1. 打开 Telegram，搜索 @BotFather
 2. 发送 /newbot 命令
 3. 输入 Bot 名称
-4. 输入 Bot 用户名（必须以 bot 结尾）
-5. 保存返回的 API Token
+4. 保存返回的 API Token
 
-## 第三步：配置 OpenClaw 连接 Telegram
+## 第三步：配置 OpenClaw
 
 \`\`\`bash
-# 设置 Telegram Token
 openclaw config set telegram.token YOUR_BOT_TOKEN
-
-# 启动服务
 openclaw start
-\`\`\`
-
-现在你可以在 Telegram 中与你的 AI 助手对话了！`,
+\`\`\``,
     contentEn: `Want to turn Telegram into your AI personal assistant?
 
-This article will guide you step-by-step to configure OpenClaw + Telegram bot, complete in 10 minutes.
+This article will guide you step-by-step to configure OpenClaw + Telegram bot.
 
 ## Why Choose Telegram?
 
@@ -209,13 +183,10 @@ openclaw --version
 
 ## Step 2: Create Telegram Bot
 
-### Get Bot Token
-
 1. Open Telegram, search @BotFather
 2. Send /newbot command
 3. Enter Bot name
-4. Enter Bot username (must end with bot)
-5. Save the returned API Token
+4. Save the returned API Token
 
 ## Step 3: Configure OpenClaw
 
@@ -236,60 +207,41 @@ openclaw start
     slug: "openclaw-best-skills",
     title: "OpenClaw 最佳技能推荐：提升效率的 10 个必备插件",
     titleEn: "OpenClaw Best Skills: 10 Must-Have Plugins",
-    excerpt: "从图像生成到视频分析，从飞书文档到网站搭建，这些技能将让你的 OpenClaw 如虎添翼。",
+    excerpt: "从图像生成到视频分析，这些技能将让你的 OpenClaw 如虎添翼。",
     excerptEn: "From image generation to video analysis, these skills will supercharge your OpenClaw.",
-    content: `OpenClaw 的核心能力（文件、代码、网络）是通用的。但有些场景需要专业能力——比如生成图片、分析视频、操作飞书文档、搭建网站。
+    content: `OpenClaw 的核心能力（文件、代码、网络）是通用的。但有些场景需要专业能力。
 
 这些专业能力通过技能（Skills）实现。
 
 ClawHub 是 OpenClaw 的技能市场，目前已有 5490+ 技能可供安装。
 
-今天推荐 10 个最受欢迎、最实用的技能，帮你快速提升效率。
+## Top Skills
 
-## 1. nano-banana-pro - AI 图像生成
-
-用途：生成和编辑图片
+### 1. nano-banana-pro - AI 图像生成
 
 \`\`\`bash
 openclaw skills install nano-banana-pro
 \`\`\`
 
-使用场景：
-- 生成博客封面图
-- 创建 App 图标
-- 编辑现有图片
-
-## 2. feishu-doc - 飞书文档操作
-
-用途：读写飞书文档、多维表格
+### 2. feishu-doc - 飞书文档操作
 
 \`\`\`bash
 openclaw skills install feishu-doc
 \`\`\`
 
-使用场景：
-- 自动生成周报文档
-- 同步数据到飞书表格
-- 批量处理文档内容
+### 3. video-frames - 视频帧提取
+
+\`\`\`bash
+openclaw skills install video-frames
+\`\`\`
 
 ## 如何安装技能？
 
-### 方法一：命令行
-
 \`\`\`bash
-# 搜索技能
 openclaw skills search 图像生成
-
-# 安装技能
 openclaw skills install nano-banana-pro
-
-# 查看已安装
 openclaw skills list
-\`\`\`
-
-### 方法二：ClawHub 网站
-
-访问 clawhub.com，浏览和安装技能。`,
+\`\`\``,
     contentEn: `OpenClaw's core capabilities (files, code, network) are general-purpose. But some scenarios require specialized capabilities.
 
 These specialized capabilities are implemented through Skills.
@@ -330,7 +282,7 @@ openclaw skills list
     slug: "openclaw-feishu-tutorial",
     title: "OpenClaw 飞书配置完全指南：打造企业级 AI 助手",
     titleEn: "Complete Guide to OpenClaw + Feishu",
-    excerpt: "从创建飞书应用到配置机器人，从权限设置到实际使用，一篇文章解决所有问题。",
+    excerpt: "从创建飞书应用到配置机器人，一篇文章解决所有问题。",
     excerptEn: "From creating Feishu app to configuring bot, solve all problems in one article.",
     content: `飞书是字节跳动旗下的企业协作平台，在国内企业中广泛使用。
 
@@ -341,36 +293,18 @@ openclaw skills list
 - 同步数据到多维表格
 - 发送消息通知
 
-这篇文章将带你完成完整的配置流程。
-
 ## 第一步：创建飞书应用
 
-### 1.1 访问开发者后台
-
-打开飞书开放平台，登录你的飞书账号。
-
-### 1.2 创建企业自建应用
-
-1. 点击创建企业自建应用
-2. 填写应用名称（如：OpenClaw 助手）
-3. 选择应用图标
-4. 点击创建
-
-### 1.3 获取凭证
-
-在应用详情页，找到：
-
-- App ID
-- App Secret
-
-保存这两个值，后面配置要用。
+1. 打开飞书开放平台，登录你的飞书账号
+2. 点击创建企业自建应用
+3. 填写应用名称
+4. 获取 App ID 和 App Secret
 
 ## 第二步：配置权限
 
-在权限管理页面，添加以下权限：
+添加以下权限：
 
 - im:message - 获取与发送消息
-- im:message:send_as_bot - 以应用身份发消息
 - docs:doc:readonly - 查看文档
 - docs:doc - 编辑文档
 
@@ -380,16 +314,7 @@ openclaw skills list
 openclaw config set feishu.app_id YOUR_APP_ID
 openclaw config set feishu.app_secret YOUR_APP_SECRET
 openclaw start
-\`\`\`
-
-## 第四步：添加机器人到群聊
-
-1. 在飞书中创建一个群聊
-2. 点击群设置 → 添加机器人
-3. 选择你创建的应用
-4. 完成！
-
-现在你可以在群聊中 @机器人 与 AI 对话了。`,
+\`\`\``,
     contentEn: `Feishu is ByteDance's enterprise collaboration platform, widely used in Chinese enterprises.
 
 Connecting OpenClaw to Feishu allows you to:
