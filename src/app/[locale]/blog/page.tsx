@@ -3,6 +3,9 @@ import { Link } from '@/i18n/routing';
 import { blogPosts } from '@/data/blog';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
 
+// Enable ISR - revalidate every hour
+export const revalidate = 3600;
+
 export async function generateMetadata({
   params,
 }: {
