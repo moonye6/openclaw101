@@ -16,6 +16,7 @@ export function Header() {
     { href: '/', label: t('home') },
     { href: '/skills', label: t('skills') },
     { href: '/tutorials', label: t('tutorials') },
+    { href: '/blog', label: t('blog') },
   ];
 
   const toggleLanguage = () => {

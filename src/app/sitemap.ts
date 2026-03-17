@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 import { tutorials } from '@/data/tutorials'
 import { skillCategories } from '@/data/skills'
+import { blogPosts } from '@/data/blog'
 
 const BUILD_DATE = new Date('2026-03-17')
 
@@ -11,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '', changeFrequency: 'weekly' as const, priority: 1 },
     { path: '/skills', changeFrequency: 'daily' as const, priority: 0.8 },
     { path: '/tutorials', changeFrequency: 'daily' as const, priority: 0.8 },
+    { path: '/blog', changeFrequency: 'weekly' as const, priority: 0.9 },
   ]
 
   const learningDays = [1, 2, 3, 4, 5, 6, 7]
@@ -60,6 +62,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
           languages: {
             en: `${baseUrl}/en/learn/${day}`,
             zh: `${baseUrl}/zh/learn/${day}`,
+          },
+        },
+      })
+    }
+  }
+
+  // Blog post pages
+  for (const post of blogPosts) {
+    for (const locale of ['en', 'zh']) {
+      entries.push({
+        url: `${baseUrl}/${locale}/blog/${post.slug}`,
+        lastModified: new Date(post.date),
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+        alternates: {
+          languages: {
+            en: `${baseUrl}/en/blog/${post.slug}`,
+            zh: `${baseUrl}/zh/blog/${post.slug}`,
           },
         },
       })

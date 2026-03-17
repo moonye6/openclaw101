@@ -126,7 +126,8 @@
   "nav": {
     "home": "首页",
     "skills": "技能",
-    "tutorials": "教程"
+    "tutorials": "教程",
+    "blog": "博客"
   },
   "footer": {
     "description": "您的 OpenClaw AI 智能体技能综合指南。开源项目，致力于成为最好的 OpenClaw 资源中心。",
