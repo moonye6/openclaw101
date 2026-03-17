@@ -37,7 +37,7 @@
       "subtitle": "从初学者到高级，每天一个主题，循序渐进掌握 OpenClaw。",
       "day1": {
         "title": "认识 OpenClaw",
-        "description": "安装 OpenClaw，连接你的第一个平台（Telegram/Discord），与 AI 助手进行第一次对话。"
+        "description": "安装 OpenClaw，连接你的第一个平台，与 AI 助手进行第一次对话。"
       },
       "day2": {
         "title": "深度对话",
@@ -63,7 +63,7 @@
         "title": "进阶技术",
         "description": "多智能体协作、浏览器控制、设备集成，以及构建你自己的自定义技能。"
       },
-      "viewTutorial": "查看教程"
+      "viewTutorial": "开始学习"
     },
     "skills": {
       "title": "技能分类",
