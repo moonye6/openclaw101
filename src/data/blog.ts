@@ -353,6 +353,203 @@ openclaw start
     tags: ["飞书", "配置", "企业", "机器人"],
     readingTime: 12,
     image: "/og-image.png"
+  },
+  {
+    id: 5,
+    slug: "openclaw-deployment-guide",
+    title: "OpenClaw 本地部署 vs 云端部署：如何选择？",
+    titleEn: "OpenClaw Local vs Cloud Deployment: How to Choose?",
+    excerpt: "对比 5 种部署方式：本地开发机、家庭服务器、VPS、云平台一键部署、企业私有云，找到最适合你的方案。",
+    excerptEn: "Compare 5 deployment methods: local machine, home server, VPS, one-click cloud deploy, enterprise private cloud.",
+    content: `OpenClaw 支持多种部署方式：本地电脑、家庭服务器、VPS、云平台一键部署、企业私有云。
+
+不同方式适合不同场景，选错了可能白花钱，或者功能受限。
+
+## 部署方式概览
+
+| 部署方式 | 成本 | 难度 | 可用性 |
+|----------|------|------|--------|
+| 本地开发机 | 免费 | 低 | 仅本机 |
+| 家庭服务器 | 低 | 中 | 24小时 |
+| VPS 云服务器 | 中 | 中 | 24小时 |
+| 云平台一键部署 | 中 | 低 | 24小时 |
+| 企业私有云 | 高 | 高 | 24小时 |
+
+## 方案一：本地开发机部署
+
+### 适合人群
+
+- 个人尝鲜用户
+- 开发者调试
+- 不需要 24 小时在线
+
+### 优势
+
+- 零成本，使用现有设备
+- 数据完全本地，隐私最高
+- 无需网络配置，即装即用
+
+### 劣势
+
+- 仅在本机可用
+- 关机后无法访问
+- 无法对接 Telegram/Discord
+
+### 部署命令
+
+\`\`\`bash
+npm install -g openclaw
+openclaw config set model anthropic/claude-3-sonnet
+openclaw web
+\`\`\`
+
+## 方案二：家庭服务器部署
+
+### 适合人群
+
+- 有 NAS / 树莓派 / 旧电脑
+- 需要家庭自动化
+- 重视数据隐私
+
+### 优势
+
+- 成本低（利用现有设备）
+- 数据本地存储
+- 24 小时可用
+
+### 部署命令
+
+\`\`\`bash
+npm install -g openclaw
+openclaw tailscale setup
+openclaw telegram start
+\`\`\`
+
+## 方案三：VPS 云服务器部署
+
+### 适合人群
+
+- 需要稳定服务
+- 想要公网访问
+- 预算有限
+
+### 推荐服务商
+
+| 服务商 | 最低价格 | 特点 |
+|--------|----------|------|
+| DigitalOcean | $6/月 | 简单易用 |
+| Vultr | $5/月 | 全球节点多 |
+| 阿里云 | ¥50/月 | 国内访问快 |
+
+### 部署命令
+
+\`\`\`bash
+# 安装 Node.js
+curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+apt install -y nodejs
+
+# 安装 OpenClaw
+npm install -g openclaw
+
+# 配置 systemd 服务
+openclaw service install
+systemctl enable openclaw
+systemctl start openclaw
+\`\`\`
+
+## 如何选择？
+
+\`\`\`
+需要 24 小时在线？
+├── 是 → 需要公网访问？
+│   ├── 是 → 有运维经验？
+│   │   ├── 是 → VPS 云服务器
+│   │   └── 否 → 云平台一键部署
+│   └── 否 → 家庭服务器
+└── 否 → 本地开发机
+\`\`\``,
+    contentEn: `OpenClaw supports multiple deployment methods: local machine, home server, VPS, one-click cloud deploy, enterprise private cloud.
+
+## Deployment Overview
+
+| Method | Cost | Difficulty | Availability |
+|--------|------|------------|--------------|
+| Local Machine | Free | Low | Local only |
+| Home Server | Low | Medium | 24/7 |
+| VPS Cloud | Medium | Medium | 24/7 |
+| One-Click Deploy | Medium | Low | 24/7 |
+| Enterprise | High | High | 24/7 |
+
+## Option 1: Local Machine
+
+### Best For
+
+- Personal testing
+- Developers debugging
+- No 24/7 requirement
+
+### Commands
+
+\`\`\`bash
+npm install -g openclaw
+openclaw config set model anthropic/claude-3-sonnet
+openclaw web
+\`\`\`
+
+## Option 2: Home Server
+
+### Best For
+
+- NAS / Raspberry Pi users
+- Home automation
+- Data privacy focus
+
+### Commands
+
+\`\`\`bash
+npm install -g openclaw
+openclaw tailscale setup
+openclaw telegram start
+\`\`\`
+
+## Option 3: VPS Cloud Server
+
+### Recommended Providers
+
+| Provider | Starting Price | Features |
+|----------|----------------|----------|
+| DigitalOcean | $6/month | Easy to use |
+| Vultr | $5/month | Global nodes |
+| Alibaba Cloud | ¥50/month | Fast in China |
+
+### Commands
+
+\`\`\`bash
+curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+apt install -y nodejs
+npm install -g openclaw
+openclaw service install
+systemctl start openclaw
+\`\`\`
+
+## How to Choose?
+
+\`\`\`
+Need 24/7 availability?
+├── Yes → Need public access?
+│   ├── Yes → Have ops experience?
+│   │   ├── Yes → VPS Cloud Server
+│   │   └── No → One-Click Deploy
+│   └── No → Home Server
+└── No → Local Machine
+\`\`\``,
+    author: "OpenClaw 101",
+    date: "2026-03-17",
+    category: "部署指南",
+    categoryEn: "Deployment",
+    tags: ["部署", "VPS", "云服务器", "教程"],
+    readingTime: 15,
+    image: "/og-image.png"
   }
 ];
 
