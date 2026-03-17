@@ -7,6 +7,7 @@ import { SkillsStats } from '@/components/home/SkillsStats';
 import { TutorialsSection } from '@/components/home/TutorialsSection';
 import { SecurityWarning } from '@/components/home/SecurityWarning';
 import { JsonLd } from '@/components/seo/JsonLd';
+import { FAQSection } from '@/components/seo/FAQSection';
 
 const SITE_URL = 'https://openclaw101.vip';
 
@@ -98,6 +99,7 @@ export default async function Home({
       <SkillsStats />
       <TutorialsSection />
       <SecurityWarning />
+      <FAQSection />
     </main>
   );
 }
