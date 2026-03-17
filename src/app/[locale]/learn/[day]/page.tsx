@@ -5,6 +5,9 @@ import { LearningDayClient } from './LearningDayClient';
 
 const SITE_URL = 'https://openclaw101.vip';
 
+// Enable ISR - revalidate every hour
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
   const params: { locale: string; day: string }[] = [];
   for (const locale of ['en', 'zh']) {
