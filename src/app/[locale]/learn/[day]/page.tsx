@@ -1,8 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, CheckCircle, Target, Lightbulb, ArrowRight, BookOpen } from 'lucide-react';
-import { getLearningDay, learningPath } from '@/data/learning-path';
-import { JsonLd } from '@/components/seo/JsonLd';
+import { learningPath } from '@/data/learning-path';
 import { Link } from '@/i18n/routing';
 
 const SITE_URL = 'https://openclaw101.vip';
@@ -17,7 +16,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string; day: string }>;
 }): Promise<Metadata> {
   const { locale, day } = await params;
-  const learningDay = getLearningDay(Number(day));
+  const learningDay = learningPath.find(d => d.day === Number(day));
   if (!learningDay) return {};
 
   const isZh = locale === 'zh';
@@ -35,7 +34,7 @@ export default async function LearningDayPage({
   params: Promise<{ locale: string; day: string }>;
 }) {
   const { locale, day } = await params;
-  const learningDay = getLearningDay(Number(day));
+  const learningDay = learningPath.find(d => d.day === Number(day));
 
   if (!learningDay) {
     notFound();
@@ -48,31 +47,8 @@ export default async function LearningDayPage({
   const exercises = isZh ? learningDay.exercises : learningDay.exercisesEn;
   const nextStep = isZh ? learningDay.nextStep : learningDay.nextStepEn;
 
-  const prevDay = learningDay.day > 1 ? getLearningDay(learningDay.day - 1) : null;
-  const nextDay = learningDay.day < 7 ? getLearningDay(learningDay.day + 1) : null;
-
-  // Simple markdown to HTML conversion
-  const markdownToHtml = (text: string) => {
-    return text
-      // Code blocks
-      .replace(/```(\w*)\n([\s\S]*?)```/g, '<pre class="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto my-4 text-sm"><code>$2</code></pre>')
-      // Inline code
-      .replace(/`([^`]+)`/g, '<code class="bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-sm font-mono">$1</code>')
-      // Bold
-      .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-gray-900">$1</strong>')
-      // Headers
-      .replace(/^## (.+)$/gm, '<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4 first:mt-0">$1</h2>')
-      .replace(/^### (.+)$/gm, '<h3 class="text-xl font-semibold text-gray-900 mt-6 mb-3">$1</h3>')
-      // Lists
-      .replace(/^- (.+)$/gm, '<li class="text-gray-700 ml-6 list-disc">$1</li>')
-      .replace(/^(\d+)\. (.+)$/gm, '<li class="text-gray-700 ml-6 list-decimal">$2</li>')
-      // Paragraphs
-      .replace(/\n\n/g, '</p><p class="text-gray-700 leading-relaxed mb-4">')
-      // Horizontal rule
-      .replace(/^---$/gm, '<hr class="my-8 border-gray-200" />');
-  };
-
-  const htmlContent = `<div class="prose prose-gray max-w-none"><p class="text-gray-700 leading-relaxed mb-4">${markdownToHtml(content)}</p></div>`;
+  const prevDay = learningDay.day > 1 ? learningPath.find(d => d.day === learningDay.day - 1) : null;
+  const nextDay = learningDay.day < 7 ? learningPath.find(d => d.day === learningDay.day + 1) : null;
 
   return (
     <div className="min-h-screen bg-white">
@@ -120,10 +96,55 @@ export default async function LearningDayPage({
         </div>
       </section>
 
-      {/* Content */}
+      {/* Content - Simple plain text rendering */}
       <section className="py-12">
         <div className="container mx-auto px-4 max-w-4xl">
-          <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+          <div className="prose prose-gray max-w-none">
+            {content.split('\n\n').map((paragraph, idx) => {
+              // Skip empty paragraphs
+              if (!paragraph.trim()) return null;
+              
+              // Headers
+              if (paragraph.startsWith('## ')) {
+                return <h2 key={idx} className="text-2xl font-bold text-gray-900 mt-8 mb-4 first:mt-0">{paragraph.replace('## ', '')}</h2>;
+              }
+              if (paragraph.startsWith('### ')) {
+                return <h3 key={idx} className="text-xl font-semibold text-gray-900 mt-6 mb-3">{paragraph.replace('### ', '')}</h3>;
+              }
+              
+              // Code blocks
+              if (paragraph.startsWith('```')) {
+                const lines = paragraph.split('\n');
+                const lang = lines[0].replace('```', '').trim();
+                const code = lines.slice(1, -1).join('\n');
+                return (
+                  <pre key={idx} className="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto my-4 text-sm">
+                    <code>{code}</code>
+                  </pre>
+                );
+              }
+              
+              // Horizontal rule
+              if (paragraph === '---') {
+                return <hr key={idx} className="my-8 border-gray-200" />;
+              }
+              
+              // Regular paragraph - handle inline formatting
+              return (
+                <p key={idx} className="text-gray-700 leading-relaxed mb-4">
+                  {paragraph.split(/(`[^`]+`|\*\*[^*]+\*\*)/).map((part, i) => {
+                    if (part.startsWith('`') && part.endsWith('`')) {
+                      return <code key={i} className="bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-sm font-mono">{part.slice(1, -1)}</code>;
+                    }
+                    if (part.startsWith('**') && part.endsWith('**')) {
+                      return <strong key={i} className="font-semibold text-gray-900">{part.slice(2, -2)}</strong>;
+                    }
+                    return part;
+                  })}
+                </p>
+              );
+            })}
+          </div>
         </div>
       </section>
 
