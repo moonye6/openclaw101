@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { tutorials } from '@/data/tutorials'
 import { skillCategories } from '@/data/skills'
 
-const BUILD_DATE = new Date('2026-03-16')
+const BUILD_DATE = new Date('2026-03-17')
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://openclaw101.vip'
@@ -12,6 +12,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/skills', changeFrequency: 'daily' as const, priority: 0.8 },
     { path: '/tutorials', changeFrequency: 'daily' as const, priority: 0.8 },
   ]
+
+  const learningDays = [1, 2, 3, 4, 5, 6, 7]
 
   const entries: MetadataRoute.Sitemap = [
     {
@@ -40,6 +42,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
           languages: {
             en: `${baseUrl}/en${page.path}`,
             zh: `${baseUrl}/zh${page.path}`,
+          },
+        },
+      })
+    }
+  }
+
+  // Learning path pages (7 days × 2 locales)
+  for (const day of learningDays) {
+    for (const locale of ['en', 'zh']) {
+      entries.push({
+        url: `${baseUrl}/${locale}/learn/${day}`,
+        lastModified: BUILD_DATE,
+        changeFrequency: 'monthly' as const,
+        priority: 0.8,
+        alternates: {
+          languages: {
+            en: `${baseUrl}/en/learn/${day}`,
+            zh: `${baseUrl}/zh/learn/${day}`,
           },
         },
       })
@@ -76,24 +96,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
           languages: {
             en: `${baseUrl}/en/skills/${category.id}`,
             zh: `${baseUrl}/zh/skills/${category.id}`,
-          },
-        },
-      })
-    }
-  }
-
-  // Learning path pages (7 days × 2 locales)
-  for (let day = 1; day <= 7; day++) {
-    for (const locale of ['en', 'zh']) {
-      entries.push({
-        url: `${baseUrl}/${locale}/learn/${day}`,
-        lastModified: BUILD_DATE,
-        changeFrequency: 'monthly' as const,
-        priority: 0.8,
-        alternates: {
-          languages: {
-            en: `${baseUrl}/en/learn/${day}`,
-            zh: `${baseUrl}/zh/learn/${day}`,
           },
         },
       })

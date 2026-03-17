@@ -8,9 +8,10 @@
   "theme_color": "#2563eb",
   "icons": [
     {
-      "src": "/favicon.ico",
-      "sizes": "48x48",
-      "type": "image/x-icon"
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
     },
     {
       "src": "/apple-touch-icon.png",
@@ -23,6 +24,14 @@
       "sizes": "1024x1024",
       "type": "image/png",
       "purpose": "any"
+    }
+  ],
+  "categories": ["education", "productivity", "developer tools"],
+  "screenshots": [
+    {
+      "src": "/og-image.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
     }
   ]
 }
