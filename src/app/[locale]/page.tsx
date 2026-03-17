@@ -88,10 +88,88 @@ export default async function Home({
     ],
   };
 
+  // Course Schema for 7-Day Learning Path
+  const courseJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Course',
+    name: 'OpenClaw 101 - 7-Day Learning Path',
+    description: locale === 'zh'
+      ? '7天掌握 OpenClaw AI 助手，从安装配置到高级自动化'
+      : 'Master OpenClaw AI assistant in 7 days, from setup to advanced automation',
+    provider: {
+      '@type': 'Organization',
+      name: 'OpenClaw 101',
+      url: SITE_URL,
+    },
+    educationalLevel: 'Beginner',
+    isAccessibleForFree: true,
+    numberOfLessons: 7,
+    timeRequired: 'P7D',
+    hasCourseInstance: [
+      {
+        '@type': 'CourseInstance',
+        name: locale === 'zh' ? 'Day 1: 认识 OpenClaw' : 'Day 1: Meet OpenClaw',
+        description: locale === 'zh'
+          ? '安装 OpenClaw，连接第一个平台，与 AI 助手进行第一次对话'
+          : 'Install OpenClaw, connect your first platform, and have your first conversation',
+        courseMode: 'online',
+      },
+      {
+        '@type': 'CourseInstance',
+        name: locale === 'zh' ? 'Day 2: 深度对话' : 'Day 2: Deep Conversations',
+        description: locale === 'zh'
+          ? '掌握对话技巧：上下文管理、多轮对话、人设定制'
+          : 'Master conversation techniques: context management, multi-turn dialogue',
+        courseMode: 'online',
+      },
+      {
+        '@type': 'CourseInstance',
+        name: locale === 'zh' ? 'Day 3: 文件与代码' : 'Day 3: Files & Code',
+        description: locale === 'zh'
+          ? '让 AI 处理文件：读取文档、编写代码、运行脚本'
+          : 'Let AI handle files: read documents, write code, run scripts',
+        courseMode: 'online',
+      },
+      {
+        '@type': 'CourseInstance',
+        name: locale === 'zh' ? 'Day 4: 网络能力' : 'Day 4: Web Capabilities',
+        description: locale === 'zh'
+          ? '解锁网络能力：搜索互联网、抓取网页、调用 API'
+          : 'Unlock web powers: search the internet, scrape pages, call APIs',
+        courseMode: 'online',
+      },
+      {
+        '@type': 'CourseInstance',
+        name: locale === 'zh' ? 'Day 5: 技能扩展' : 'Day 5: Skill Extensions',
+        description: locale === 'zh'
+          ? '从 ClawHub 安装社区技能扩展能力'
+          : 'Install community skills from ClawHub to extend capabilities',
+        courseMode: 'online',
+      },
+      {
+        '@type': 'CourseInstance',
+        name: locale === 'zh' ? 'Day 6: 自动化' : 'Day 6: Automation',
+        description: locale === 'zh'
+          ? '设置定时任务、心跳检查、主动提醒'
+          : 'Set up scheduled tasks, heartbeat checks, proactive reminders',
+        courseMode: 'online',
+      },
+      {
+        '@type': 'CourseInstance',
+        name: locale === 'zh' ? 'Day 7: 进阶技术' : 'Day 7: Advanced Techniques',
+        description: locale === 'zh'
+          ? '多智能体协作、浏览器控制、设备集成'
+          : 'Multi-agent orchestration, browser control, device integration',
+        courseMode: 'online',
+      },
+    ],
+  };
+
   return (
     <main>
       <JsonLd data={websiteJsonLd} />
       <JsonLd data={orgJsonLd} />
+      <JsonLd data={courseJsonLd} />
       <HeroSection />
       <FeaturesSection />
       <LearningPath />

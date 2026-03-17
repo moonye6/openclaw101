@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
-import { ChevronDown, HelpCircle } from 'lucide-react';
-import { FAQSchema } from '@/components/seo/FAQSchema';
+import { FAQSchema } from './FAQSchema';
 import { faqData } from '@/data/faq';
 import { useParams } from 'next/navigation';
+import { useState } from 'react';
+import { HelpCircle, ChevronDown } from 'lucide-react';
 
 export function FAQSection() {
   const params = useParams();
