@@ -82,5 +82,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
+  // Learning path pages (7 days × 2 locales)
+  for (let day = 1; day <= 7; day++) {
+    for (const locale of ['en', 'zh']) {
+      entries.push({
+        url: `${baseUrl}/${locale}/learn/${day}`,
+        lastModified: BUILD_DATE,
+        changeFrequency: 'monthly' as const,
+        priority: 0.8,
+        alternates: {
+          languages: {
+            en: `${baseUrl}/en/learn/${day}`,
+            zh: `${baseUrl}/zh/learn/${day}`,
+          },
+        },
+      })
+    }
+  }
+
   return entries
 }

@@ -1,107 +1,200 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import Link from 'next/link';
-import { ArrowLeft, ArrowRight, BookOpen } from 'lucide-react';
+import { ArrowLeft, ArrowRight, BookOpen, Target, CheckCircle, Lightbulb } from 'lucide-react';
+import { learningPath } from '@/data/learning-path';
+import { Link } from '@/i18n/routing';
+import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
 
-// Static data
-const days = [
-  { day: 1, title: "认识 OpenClaw", titleEn: "Meet OpenClaw", emoji: "👋", color: "from-blue-500 to-blue-600", objective: "安装 OpenClaw，连接第一个平台，与 AI 助手进行第一次对话。", objectiveEn: "Install OpenClaw, connect your first platform, and have your first conversation with the AI assistant." },
-  { day: 2, title: "深度对话", titleEn: "Deep Conversation", emoji: "💬", color: "from-violet-500 to-violet-600", objective: "掌握对话技巧：上下文管理、多轮对话、人设定制。", objectiveEn: "Master conversation skills: context management, multi-turn dialogue, persona customization." },
-  { day: 3, title: "文件与代码", titleEn: "Files & Code", emoji: "📁", color: "from-emerald-500 to-emerald-600", objective: "让 AI 处理文件：读取文档、编写代码、运行脚本。", objectiveEn: "Let AI handle files: read documents, write code, run scripts." },
-  { day: 4, title: "网络能力", titleEn: "Web Capabilities", emoji: "🌐", color: "from-orange-500 to-orange-600", objective: "解锁网络能力：搜索互联网、抓取网页、调用 API。", objectiveEn: "Unlock web capabilities: search the internet, scrape webpages, call APIs." },
-  { day: 5, title: "技能扩展", titleEn: "Skill Extensions", emoji: "🔧", color: "from-pink-500 to-pink-600", objective: "从 ClawHub 安装社区技能扩展能力。", objectiveEn: "Install community skills from ClawHub to extend capabilities." },
-  { day: 6, title: "自动化", titleEn: "Automation", emoji: "⏰", color: "from-cyan-500 to-cyan-600", objective: "设置定时任务、心跳检查、主动提醒。", objectiveEn: "Set up scheduled tasks, heartbeat checks, and proactive reminders." },
-  { day: 7, title: "进阶技术", titleEn: "Advanced Techniques", emoji: "🚀", color: "from-indigo-500 to-indigo-600", objective: "掌握多智能体协作、浏览器控制、自定义技能开发。", objectiveEn: "Master multi-agent collaboration, browser control, and custom skill development." },
-];
-
-export default function LearningDayClient() {
+export function LearningDayClient() {
   const params = useParams();
-  const locale = params.locale as string || 'zh';
-  const dayParam = params.day as string;
-  const dayNum = parseInt(dayParam, 10);
-  const d = days.find(x => x.day === dayNum);
-  
-  if (!d) {
+  const locale = params.locale as string;
+  const day = Number(params.day);
+
+  const learningDay = learningPath.find(d => d.day === day);
+
+  if (!learningDay) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">页面未找到</h1>
-          <Link href={`/${locale}`} className="text-blue-600 hover:underline">返回首页</Link>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">404</h1>
+          <p className="text-gray-600">Day not found</p>
+          <Link href="/" className="mt-4 inline-block text-blue-600 hover:underline">
+            Back to Home
+          </Link>
         </div>
       </div>
     );
   }
 
   const isZh = locale === 'zh';
-  const title = isZh ? d.title : d.titleEn;
-  const objective = isZh ? d.objective : d.objectiveEn;
-  const prevDay = d.day > 1 ? days.find(x => x.day === d.day - 1) : null;
-  const nextDay = d.day < 7 ? days.find(x => x.day === d.day + 1) : null;
+  const title = isZh ? learningDay.title : learningDay.titleEn;
+  const objective = isZh ? learningDay.objective : learningDay.objectiveEn;
+  const content = isZh ? learningDay.content : learningDay.contentEn;
+  const exercises = isZh ? learningDay.exercises : learningDay.exercisesEn;
+  const nextStep = isZh ? learningDay.nextStep : learningDay.nextStepEn;
+
+  const prevDay = learningDay.day > 1 ? learningPath.find(d => d.day === learningDay.day - 1) : null;
+  const nextDay = learningDay.day < 7 ? learningPath.find(d => d.day === learningDay.day + 1) : null;
+
+  // Breadcrumb items
+  const breadcrumbItems = [
+    { label: isZh ? '首页' : 'Home', href: '/' },
+    { label: isZh ? '学习路径' : 'Learning Path', href: '/#learning-path' },
+    { label: `Day ${learningDay.day}: ${title}` },
+  ];
+
+  // Simple markdown to HTML conversion
+  const markdownToHtml = (text: string) => {
+    return text
+      // Code blocks (must be first)
+      .replace(/```(\w*)\n([\s\S]*?)```/g, '<pre class="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto my-4 text-sm"><code>$2</code></pre>')
+      // Inline code
+      .replace(/`([^`]+)`/g, '<code class="bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-sm font-mono">$1</code>')
+      // Bold
+      .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-gray-900">$1</strong>')
+      // Headers
+      .replace(/^## (.+)$/gm, '<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4 first:mt-0">$1</h2>')
+      .replace(/^### (.+)$/gm, '<h3 class="text-xl font-semibold text-gray-900 mt-6 mb-3">$1</h3>')
+      // Lists
+      .replace(/^- (.+)$/gm, '<li class="text-gray-700 ml-6 list-disc">$1</li>')
+      .replace(/^(\d+)\. (.+)$/gm, '<li class="text-gray-700 ml-6 list-decimal">$2</li>')
+      // Horizontal rule
+      .replace(/^---$/gm, '<hr class="my-8 border-gray-200" />')
+      // Paragraphs
+      .replace(/\n\n/g, '</p><p class="text-gray-700 leading-relaxed mb-4">');
+  };
+
+  const htmlContent = markdownToHtml(content);
 
   return (
     <div className="min-h-screen bg-white">
-      <section className={`py-12 bg-gradient-to-br ${d.color}`}>
+      {/* Breadcrumbs */}
+      <div className="bg-gray-50 border-b py-3">
         <div className="container mx-auto px-4 max-w-4xl">
-          <Link href={`/${locale}`} className="inline-flex items-center gap-1.5 text-sm text-white/80 hover:text-white transition-colors mb-6">
+          <Breadcrumbs items={breadcrumbItems} />
+        </div>
+      </div>
+
+      {/* Hero */}
+      <section className={`py-12 bg-gradient-to-br ${learningDay.color}`}>
+        <div className="container mx-auto px-4 max-w-4xl">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1.5 text-sm text-white/80 hover:text-white transition-colors mb-6"
+          >
             <ArrowLeft className="w-4 h-4" />
             {isZh ? '返回首页' : 'Back to Home'}
           </Link>
+
           <div className="flex items-center gap-4">
             <div className="flex-shrink-0 w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-3xl">
-              {d.emoji}
+              {learningDay.emoji}
             </div>
             <div>
-              <span className="text-sm font-medium text-white/90 bg-white/10 px-3 py-0.5 rounded-full">
-                {isZh ? `第 ${d.day} 天` : `Day ${d.day}`}
-              </span>
-              <h1 className="text-3xl md:text-4xl font-bold text-white mt-2">{title}</h1>
+              <div className="flex items-center gap-3 mb-2">
+                <span className="text-sm font-medium text-white/90 bg-white/10 px-3 py-0.5 rounded-full">
+                  {isZh ? `第 ${learningDay.day} 天` : `Day ${learningDay.day}`}
+                </span>
+              </div>
+              <h1 className="text-3xl md:text-4xl font-bold text-white">
+                {title}
+              </h1>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Objective */}
       <section className="py-6 bg-gray-50 border-b">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="flex items-start gap-3">
-            <span className="text-xl">🎯</span>
+            <Target className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
             <div>
-              <h2 className="text-sm font-medium text-gray-500 mb-1">{isZh ? '学习目标' : 'Learning Objective'}</h2>
+              <h2 className="text-sm font-medium text-gray-500 mb-1">
+                {isZh ? '学习目标' : 'Learning Objective'}
+              </h2>
               <p className="text-gray-900">{objective}</p>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Content */}
       <section className="py-12">
         <div className="container mx-auto px-4 max-w-4xl">
-          <div className="prose prose-gray max-w-none">
-            <p className="text-gray-700 leading-relaxed">
-              {isZh ? '此页面完整内容正在建设中，敬请期待...' : 'Full content coming soon...'}
-            </p>
+          <div 
+            className="prose prose-gray max-w-none"
+            dangerouslySetInnerHTML={{ __html: `<p class="text-gray-700 leading-relaxed mb-4">${htmlContent}</p>` }}
+          />
+        </div>
+      </section>
+
+      {/* Exercises */}
+      <section className="py-12 bg-gray-50">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="flex items-center gap-3 mb-6">
+            <Lightbulb className="w-6 h-6 text-yellow-500" />
+            <h2 className="text-2xl font-bold text-gray-900">
+              {isZh ? '实践练习' : 'Practice Exercises'}
+            </h2>
+          </div>
+          <ul className="space-y-3">
+            {exercises.map((exercise, index) => (
+              <li key={index} className="flex items-start gap-3 bg-white rounded-lg p-4 shadow-sm">
+                <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                <span className="text-gray-700">{exercise}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Next Step */}
+      <section className="py-8 border-t">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="flex items-start gap-3 bg-blue-50 rounded-lg p-4">
+            <ArrowRight className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+            <div>
+              <h3 className="text-sm font-medium text-blue-600 mb-1">
+                {isZh ? '下一步' : 'Next Step'}
+              </h3>
+              <p className="text-gray-700">{nextStep}</p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="py-8 border-t">
+      {/* Navigation */}
+      <section className="py-8 bg-white border-t">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="flex justify-between items-center">
-            {prevDay && (
-              <Link href={`/${locale}/learn/${prevDay.day}`} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
+            {prevDay ? (
+              <Link
+                href={`/learn/${prevDay.day}`}
+                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+              >
                 <ArrowLeft className="w-4 h-4" />
-                Day {prevDay.day}: {isZh ? prevDay.title : prevDay.titleEn}
+                <span>Day {prevDay.day}: {isZh ? prevDay.title : prevDay.titleEn}</span>
               </Link>
+            ) : (
+              <div />
             )}
-            {!prevDay && <div />}
             {nextDay ? (
-              <Link href={`/${locale}/learn/${nextDay.day}`} className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
-                Day {nextDay.day}: {isZh ? nextDay.title : nextDay.titleEn}
+              <Link
+                href={`/learn/${nextDay.day}`}
+                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                <span>Day {nextDay.day}: {isZh ? nextDay.title : nextDay.titleEn}</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             ) : (
-              <Link href={`/${locale}/tutorials`} className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+              <Link
+                href="/tutorials"
+                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
                 <BookOpen className="w-4 h-4" />
-                {isZh ? '浏览更多教程' : 'Browse More Tutorials'}
+                <span>{isZh ? '浏览更多教程' : 'Browse More Tutorials'}</span>
               </Link>
             )}
           </div>
