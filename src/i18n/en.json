@@ -126,7 +126,8 @@
   "nav": {
     "home": "Home",
     "skills": "Skills",
-    "tutorials": "Tutorials"
+    "tutorials": "Tutorials",
+    "blog": "Blog"
   },
   "footer": {
     "description": "Your comprehensive guide to OpenClaw AI agent skills. Open source, aiming to be the best resource hub for OpenClaw.",
