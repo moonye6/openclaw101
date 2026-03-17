@@ -14,6 +14,11 @@
       "purpose": "any"
     },
     {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    },
+    {
       "src": "/apple-touch-icon.png",
       "sizes": "180x180",
       "type": "image/png",
@@ -26,12 +31,13 @@
       "purpose": "any"
     }
   ],
-  "categories": ["education", "productivity", "developer tools"],
+  "categories": ["education", "productivity", "utilities"],
   "screenshots": [
     {
       "src": "/og-image.png",
       "sizes": "1024x1024",
-      "type": "image/png"
+      "type": "image/png",
+      "form_factor": "wide"
     }
   ]
 }
