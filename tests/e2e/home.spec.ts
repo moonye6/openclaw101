@@ -3,10 +3,11 @@ import { test, expect } from '@playwright/test';
 const BASE_URL = process.env.BASE_URL || 'https://openclaw101.vip';
 
 test.describe('OpenClaw 101 E2E Tests', () => {
-  test('homepage redirects to /en', async ({ page }) => {
-    await page.goto(BASE_URL);
+  test('homepage redirects to /en (with cache bypass)', async ({ page }) => {
+    // Add nocache param to bypass Cloudflare cache
+    await page.goto(`${BASE_URL}/?nocache=${Date.now()}`);
     // Should redirect to /en or /zh
-    await expect(page).toHaveURL(new RegExp(`^${BASE_URL}/(en|zh)$`));
+    await expect(page).toHaveURL(new RegExp(`^${BASE_URL}/(en|zh)`));
   });
 
   test('blog page loads correctly', async ({ page }) => {
