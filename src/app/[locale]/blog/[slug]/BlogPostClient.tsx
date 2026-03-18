@@ -35,9 +35,9 @@ export function BlogPostClient({ post, locale, content }: BlogPostClientProps) {
       .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-gray-900">$1</strong>')
       .replace(/^## (.+)$/gm, '<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4 first:mt-0">$1</h2>')
       .replace(/^### (.+)$/gm, '<h3 class="text-xl font-semibold text-gray-900 mt-6 mb-3">$1</h3>')
-      .replace(/^- (.+)$/gm, '<li class="text-gray-700 ml-6 list-disc">$1</li>')
-      .replace(/^(\d+)\. (.+)$/gm, '<li class="text-gray-700 ml-6 list-decimal">$2</li>')
-      .replace(/\n\n/g, '</p><p class="text-gray-700 leading-relaxed mb-4">');
+      .replace(/^- (.+)$/gm, '<li class="text-gray-900 ml-6 list-disc mb-2">$1</li>')
+      .replace(/^(\d+)\. (.+)$/gm, '<li class="text-gray-900 ml-6 list-decimal mb-2">$2</li>')
+      .replace(/\n\n/g, '</p><p class="text-gray-900 leading-relaxed mb-4 text-base">');
   };
 
   const htmlContent = markdownToHtml(content);
@@ -93,9 +93,9 @@ export function BlogPostClient({ post, locale, content }: BlogPostClientProps) {
       <article className="py-12">
         <div className="container mx-auto px-4 max-w-4xl">
           <div
-            className="prose prose-gray max-w-none"
+            className="prose prose-lg max-w-none text-gray-900"
             dangerouslySetInnerHTML={{
-              __html: `<p class="text-gray-700 leading-relaxed mb-4">${htmlContent}</p>`,
+              __html: `<p class="text-gray-900 leading-relaxed mb-4 text-base">${htmlContent}</p>`,
             }}
           />
         </div>
