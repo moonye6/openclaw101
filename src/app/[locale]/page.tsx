@@ -6,6 +6,9 @@ import { RecommendedSection } from '@/components/home/RecommendedSection';
 import { SkillsStats } from '@/components/home/SkillsStats';
 import { TutorialsSection } from '@/components/home/TutorialsSection';
 import { SecurityWarning } from '@/components/home/SecurityWarning';
+import { UseCases } from '@/components/home/UseCases';
+import { CommunityShowcase } from '@/components/home/CommunityShowcase';
+import { NewsUpdates } from '@/components/home/NewsUpdates';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { FAQSection } from '@/components/seo/FAQSection';
 
@@ -172,10 +175,13 @@ export default async function Home({
       <JsonLd data={courseJsonLd} />
       <HeroSection />
       <FeaturesSection />
+      <UseCases />
       <LearningPath />
       <RecommendedSection />
       <SkillsStats />
       <TutorialsSection />
+      <CommunityShowcase />
+      <NewsUpdates />
       <SecurityWarning />
       <FAQSection />
     </main>

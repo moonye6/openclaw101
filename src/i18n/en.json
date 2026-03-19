@@ -86,6 +86,93 @@
       "subtitle": "Start with these popular tutorials and essential skills",
       "tutorials": "Top Tutorials",
       "skills": "Popular Skills"
+    },
+    "community": {
+      "badge": "Community",
+      "title": "Join the OpenClaw Community",
+      "subtitle": "A vibrant global community of developers, makers, and AI enthusiasts building the future of personal AI assistants.",
+      "stats": {
+        "contributors": "Contributors",
+        "discordMembers": "Discord Members",
+        "forks": "GitHub Forks",
+        "weeklyDownloads": "Weekly Downloads"
+      },
+      "testimonial1": {
+        "name": "Alex Chen",
+        "role": "Full-Stack Developer",
+        "quote": "OpenClaw replaced 5 different tools in my workflow. I use it to manage servers, write code, and automate deployments. It's like having a junior dev who never sleeps."
+      },
+      "testimonial2": {
+        "name": "Dr. Sarah Kim",
+        "role": "AI Researcher",
+        "quote": "The architecture is elegant — gateway-based multi-platform support with a pluggable skill system. I've built 3 custom skills for my research pipeline already."
+      },
+      "testimonial3": {
+        "name": "Marco Liu",
+        "role": "Product Manager",
+        "quote": "We deployed OpenClaw on Feishu for our team. It handles daily reports, monitors our services, and even reminds us of deadlines. The ROI is incredible."
+      },
+      "partnersTitle": "Integrated Ecosystem",
+      "joinCta": "Star on GitHub & Join Community"
+    },
+    "useCases": {
+      "badge": "Use Cases",
+      "title": "What Can OpenClaw Do?",
+      "subtitle": "From coding assistance to smart home control — discover real-world use cases powered by OpenClaw.",
+      "exampleCommands": "Example Commands",
+      "exploreCta": "Explore 5490+ Skills for More Use Cases",
+      "coding": {
+        "title": "Coding Assistant",
+        "description": "Write, debug, and refactor code in any language. Generate unit tests, create scripts, and automate your dev workflow."
+      },
+      "research": {
+        "title": "Research & Analysis",
+        "description": "Search the web, summarize documents, compare technologies, and compile research reports automatically."
+      },
+      "automation": {
+        "title": "Task Automation",
+        "description": "Schedule recurring tasks, monitor services, send alerts, and build automated workflows with natural language."
+      },
+      "content": {
+        "title": "Content Creation",
+        "description": "Generate blog posts, translate documents, create social media content, and manage your editorial calendar."
+      },
+      "smarthome": {
+        "title": "Smart Home Control",
+        "description": "Control IoT devices, set scenes, manage thermostats, and automate your home through conversational commands."
+      },
+      "data": {
+        "title": "Data Processing",
+        "description": "Analyze CSV files, generate charts, query databases, and create data-driven insights from natural language."
+      }
+    },
+    "news": {
+      "badge": "Latest Updates",
+      "title": "News & Updates",
+      "subtitle": "Stay up to date with the latest releases, features, and community milestones.",
+      "viewAllCta": "Read All Blog Posts",
+      "types": {
+        "release": "Release",
+        "community": "Community",
+        "feature": "Feature",
+        "milestone": "Milestone"
+      },
+      "news1": {
+        "title": "OpenClaw v4.2 Released — Enhanced Multi-Agent Support",
+        "description": "The latest release brings improved multi-agent orchestration, faster skill loading, and support for Gemini 2.5 Pro. Upgrade now for up to 40% performance improvement."
+      },
+      "news2": {
+        "title": "ClawHub Reaches 5,500+ Community Skills",
+        "description": "The community skill marketplace continues to grow rapidly with new categories including Voice Assistants, Health & Fitness, and Gaming integrations."
+      },
+      "news3": {
+        "title": "New: Browser Automation with Playwright Integration",
+        "description": "OpenClaw can now control browsers natively using Playwright. Automate web testing, form filling, data extraction, and more with simple natural language commands."
+      },
+      "news4": {
+        "title": "OpenClaw Passes 314k GitHub Stars",
+        "description": "A major milestone for the project! OpenClaw is now one of the most starred AI projects on GitHub, reflecting the incredible growth of the open-source AI assistant community."
+      }
     }
   },
   "skills": {
