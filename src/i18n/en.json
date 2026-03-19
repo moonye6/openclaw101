@@ -33,37 +33,37 @@
       }
     },
     "learningPath": {
-      "title": "7-Day Learning Path",
-      "subtitle": "From beginner to advanced, one topic per day. Master OpenClaw step by step.",
+      "title": "7-Day Hands-On Path",
+      "subtitle": "One project per day, zero to productive. Follow along, and in 7 days you'll have a fully automated personal AI assistant.",
       "day1": {
-        "title": "Meet OpenClaw",
-        "description": "Install OpenClaw, connect your first platform (Telegram/Discord), and have your first conversation with your AI assistant."
+        "title": "Install & First Reply",
+        "description": "One Docker command to install OpenClaw. Connect an LLM and get your first AI reply."
       },
       "day2": {
-        "title": "Deep Conversations",
-        "description": "Master conversation techniques: context management, multi-turn dialogue, persona customization, and memory settings."
+        "title": "Connect Telegram",
+        "description": "Create a Telegram bot, connect to OpenClaw, customize AI persona, and master context & memory."
       },
       "day3": {
-        "title": "Files & Code",
-        "description": "Let your AI handle files: read documents, write code, run scripts, and manage your local file system."
+        "title": "Code & File Operations",
+        "description": "Enable file access, let AI read code, generate scripts, and execute them. Build a real utility tool."
       },
       "day4": {
-        "title": "Web Capabilities",
-        "description": "Unlock web powers: search the internet, scrape pages, call APIs, and integrate with online services."
+        "title": "Feishu / WeChat / DingTalk",
+        "description": "Connect Chinese platforms. Deploy to Alibaba or Tencent Cloud. Configure Chinese-friendly LLMs."
       },
       "day5": {
-        "title": "Skill Extensions",
-        "description": "Install community skills from ClawHub to extend capabilities: GitHub, weather, smart home, and thousands more."
+        "title": "Install Skills",
+        "description": "Install web search, GitHub, weather skills from ClawHub. Build a morning briefing workflow."
       },
       "day6": {
         "title": "Automation",
-        "description": "Set up scheduled tasks, heartbeat checks, proactive reminders, and automated workflows for your daily routine."
+        "description": "Set up scheduled briefings, proactive alerts, conditional monitoring. Let AI work 24/7 for you."
       },
       "day7": {
-        "title": "Advanced Techniques",
-        "description": "Multi-agent orchestration, browser control, device integration, and building your own custom skills."
+        "title": "Advanced: Multi-Agent & Custom Skills",
+        "description": "Orchestrate multiple AIs, browser automation, build and publish your own custom skill from scratch."
       },
-      "viewTutorial": "View Tutorial"
+      "viewTutorial": "Start Learning →"
     },
     "skills": {
       "title": "Skill Categories",

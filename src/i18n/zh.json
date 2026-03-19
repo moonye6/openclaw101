@@ -33,37 +33,37 @@
       }
     },
     "learningPath": {
-      "title": "7天学习路径",
-      "subtitle": "从初学者到高级，每天一个主题，循序渐进掌握 OpenClaw。",
+      "title": "7天实战入门",
+      "subtitle": "每天一个动手项目，从零到上手。跟着做，7 天后你会拥有一个全自动的个人 AI 助手。",
       "day1": {
-        "title": "认识 OpenClaw",
-        "description": "安装 OpenClaw，连接你的第一个平台，与 AI 助手进行第一次对话。"
+        "title": "安装与第一句回复",
+        "description": "一条 Docker 命令安装 OpenClaw，接入 LLM，在终端拿到 AI 的第一句回复。"
       },
       "day2": {
-        "title": "深度对话",
-        "description": "掌握对话技巧：上下文管理、多轮对话、人设定制和记忆设置。"
+        "title": "接入 Telegram",
+        "description": "创建 Telegram 机器人，接入 OpenClaw，定制 AI 人设，掌握上下文和记忆。"
       },
       "day3": {
-        "title": "文件与代码",
-        "description": "让 AI 处理文件：读取文档、编写代码、运行脚本、管理本地文件系统。"
+        "title": "代码与文件操作",
+        "description": "启用文件权限，让 AI 阅读代码、生成脚本并执行。构建一个实用小工具。"
       },
       "day4": {
-        "title": "网络能力",
-        "description": "解锁网络能力：搜索互联网、抓取网页、调用 API、集成在线服务。"
+        "title": "飞书/微信/钉钉",
+        "description": "接入飞书、微信或钉钉。部署到阿里云/腾讯云。配置中文友好的 LLM。"
       },
       "day5": {
-        "title": "技能扩展",
-        "description": "从 ClawHub 安装社区技能扩展能力：GitHub、天气、智能家居等数千种技能。"
+        "title": "安装技能",
+        "description": "从 ClawHub 安装网络搜索、GitHub、天气等技能。构建一个早间简报工作流。"
       },
       "day6": {
-        "title": "自动化",
-        "description": "设置定时任务、心跳检查、主动提醒和自动化工作流，让日常事务自动运转。"
+        "title": "自动化任务",
+        "description": "设置定时简报、主动提醒、条件告警和网站监控。让 AI 24 小时替你干活。"
       },
       "day7": {
-        "title": "进阶技术",
-        "description": "多智能体协作、浏览器控制、设备集成，以及构建你自己的自定义技能。"
+        "title": "进阶：多智能体与自定义技能",
+        "description": "编排多个 AI 协作、浏览器自动化、从零构建并发布你自己的技能。"
       },
-      "viewTutorial": "开始学习"
+      "viewTutorial": "开始学习 →"
     },
     "skills": {
       "title": "技能分类",

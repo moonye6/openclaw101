@@ -2,16 +2,16 @@
 
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
-import { BookOpen, MessageSquare, FileCode, Globe, Puzzle, Clock, Rocket, ArrowRight } from 'lucide-react';
+import { Wrench, MessageSquare, Code, Globe, Puzzle, Zap, Rocket, ArrowRight } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 
 const days = [
-  { day: 1, icon: BookOpen, emoji: '👋', key: 'day1', color: 'from-blue-500 to-blue-600' },
+  { day: 1, icon: Wrench, emoji: '🔧', key: 'day1', color: 'from-blue-500 to-blue-600' },
   { day: 2, icon: MessageSquare, emoji: '💬', key: 'day2', color: 'from-violet-500 to-violet-600' },
-  { day: 3, icon: FileCode, emoji: '📁', key: 'day3', color: 'from-emerald-500 to-emerald-600' },
-  { day: 4, icon: Globe, emoji: '🌐', key: 'day4', color: 'from-cyan-500 to-cyan-600' },
+  { day: 3, icon: Code, emoji: '⌨️', key: 'day3', color: 'from-emerald-500 to-emerald-600' },
+  { day: 4, icon: Globe, emoji: '🇨🇳', key: 'day4', color: 'from-cyan-500 to-cyan-600' },
   { day: 5, icon: Puzzle, emoji: '🧩', key: 'day5', color: 'from-orange-500 to-orange-600' },
-  { day: 6, icon: Clock, emoji: '⏰', key: 'day6', color: 'from-pink-500 to-pink-600' },
+  { day: 6, icon: Zap, emoji: '⚡', key: 'day6', color: 'from-pink-500 to-pink-600' },
   { day: 7, icon: Rocket, emoji: '🚀', key: 'day7', color: 'from-indigo-500 to-indigo-600' },
 ];
 
@@ -19,7 +19,7 @@ export function LearningPath() {
   const t = useTranslations('home.learningPath');
 
   return (
-    <section className="py-24 bg-white">
+    <section id="learning-path" className="py-24 bg-white">
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center mb-16"
@@ -58,7 +58,7 @@ export function LearningPath() {
                   </div>
 
                   {/* Content card */}
-                  <Link href={`/learn/${item.day}`} className="flex-1 block">
+                  <Link href={`/7days/${item.day}`} className="flex-1 block">
                     <div className="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-lg hover:border-gray-300 transition-all group">
                       <div className="flex items-center gap-3 mb-2">
                         <span className="text-xs font-bold uppercase tracking-wider text-gray-400">
