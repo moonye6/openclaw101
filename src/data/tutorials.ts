@@ -54,8 +54,6 @@ export const tutorials: Tutorial[] = [
   { id: '34', title: 'Awesome OpenClaw Skills — 社区精选技能合集', description: 'Community-curated list of the best OpenClaw skills', url: 'https://github.com/VoltAgent/awesome-openclaw-skills', source: 'GitHub', category: 'skills', language: 'en' },
   // Tools
   { id: '35', title: 'OpenClaw 汉化版 — CLI + Dashboard 全中文', description: '每小时自动同步官方仓库，含完整中文 README、全流程搭建教程和排错指南', url: 'https://github.com/1186258278/OpenClawChineseTranslation', source: 'GitHub', category: 'tools', language: 'zh' },
-<<<<<<< HEAD
-=======
   // Channels
   { id: '36', title: 'Telegram Bot 配置完全指南', description: '从创建 BotFather 到完成 OpenClaw 对接，详细的 Telegram 机器人配置教程', url: 'https://docs.openclaw.ai/gateways/telegram', source: 'OpenClaw Docs', category: 'channels', language: 'en' },
   { id: '37', title: 'Discord Bot 接入教程', description: '创建 Discord Application、配置权限和 Intents，完整接入 OpenClaw', url: 'https://docs.openclaw.ai/gateways/discord', source: 'OpenClaw Docs', category: 'channels', language: 'en' },
@@ -72,7 +70,6 @@ export const tutorials: Tutorial[] = [
   { id: '45', title: 'Clawctl — OpenClaw 命令行管理工具', description: 'CLI tool for managing OpenClaw instances, skills, and configurations', url: 'https://github.com/clawctl/clawctl', source: 'GitHub', category: 'tools', language: 'en' },
   { id: '46', title: 'OpenClaw Dashboard — Web 管理面板', description: '可视化管理 OpenClaw 实例，查看日志、管理技能、监控对话', url: 'https://github.com/openclaw/openclaw-dashboard', source: 'GitHub', category: 'tools', language: 'en' },
   { id: '47', title: 'VS Code Extension for OpenClaw Skill Development', description: 'VS Code extension with syntax highlighting, snippets, and debugging for skill development', url: 'https://marketplace.visualstudio.com/items?itemName=openclaw.skill-dev', source: 'VS Code', category: 'tools', language: 'en' },
->>>>>>> develop
 ];
 
 export const tutorialCategories = [

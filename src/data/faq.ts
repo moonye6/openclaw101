@@ -32,8 +32,6 @@ export const faqData = {
       question: "What are Skills in OpenClaw?",
       answer: "Skills are specialized capabilities that extend OpenClaw's core functionality. They can be installed from ClawHub, the community skill marketplace, and include abilities like image generation, video analysis, document management, and more."
     },
-<<<<<<< HEAD
-=======
     {
       question: "How does OpenClaw compare to ChatGPT or Claude?",
       answer: "While ChatGPT and Claude are cloud-based chat services, OpenClaw is a self-hosted AI agent framework. The key difference is that OpenClaw can take real actions on your behalf — executing code, managing files, controlling browsers, scheduling tasks, and connecting to platforms like Telegram or Discord. Think of ChatGPT as an advisor, and OpenClaw as an executor."
@@ -50,7 +48,6 @@ export const faqData = {
       question: "Is OpenClaw safe to use? Are there security concerns?",
       answer: "OpenClaw is designed with security in mind — it runs locally and you control all permissions. However, be cautious with third-party Skills from ClawHub: researchers have found malicious skills in the marketplace. Always review skill source code before installation, stick to verified publishers, and keep your OpenClaw installation updated for the latest security patches."
     },
->>>>>>> develop
   ],
   zh: [
     {
@@ -85,8 +82,6 @@ export const faqData = {
       question: "OpenClaw 中的 Skills 是什么？",
       answer: "Skills 是扩展 OpenClaw 核心功能的专业能力。它们可以从社区技能市场 ClawHub 安装，包括图像生成、视频分析、文档管理等多种能力。"
     },
-<<<<<<< HEAD
-=======
     {
       question: "OpenClaw 与 ChatGPT 或 Claude 相比有什么不同？",
       answer: "ChatGPT 和 Claude 是基于云的聊天服务，而 OpenClaw 是一个可自托管的 AI 智能体框架。核心区别在于 OpenClaw 可以代你执行真实操作——执行代码、管理文件、控制浏览器、调度任务，还能连接 Telegram、Discord 等平台。简单说，ChatGPT 是顾问，OpenClaw 是执行者。"
@@ -103,6 +98,5 @@ export const faqData = {
       question: "使用 OpenClaw 安全吗？有什么安全顾虑？",
       answer: "OpenClaw 在设计上注重安全性——它在本地运行，你控制所有权限。但对 ClawHub 上的第三方技能需要保持谨慎：研究人员曾在市场中发现恶意技能。安装前请务必审查技能源代码，优先选择已验证的发布者，并保持 OpenClaw 更新以获得最新的安全补丁。"
     },
->>>>>>> develop
   ],
 };

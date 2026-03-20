@@ -1,0 +1,512 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "OpenClaw 101" [ref=e6] [cursor=pointer]:
+          - /url: /zh
+          - generic [ref=e7]: OpenClaw 101
+        - navigation [ref=e8]:
+          - link "首页" [ref=e9] [cursor=pointer]:
+            - /url: /zh
+          - link "技能" [ref=e10] [cursor=pointer]:
+            - /url: /zh/skills
+          - link "教程" [ref=e11] [cursor=pointer]:
+            - /url: /zh/tutorials
+          - link "博客" [ref=e12] [cursor=pointer]:
+            - /url: /zh/blog
+        - generic [ref=e13]:
+          - link "GitHub" [ref=e14] [cursor=pointer]:
+            - /url: https://github.com/openclaw/openclaw
+            - img [ref=e15]
+            - text: GitHub
+          - button "中文" [ref=e17]:
+            - img [ref=e18]
+            - text: 中文
+    - main [ref=e21]:
+      - main [ref=e22]:
+        - generic [ref=e23]:
+          - img [ref=e29]
+          - img [ref=e35]
+          - img [ref=e51]
+          - generic [ref=e56]:
+            - generic [ref=e58]:
+              - img [ref=e59]
+              - text: 开源 · 精选 414+ 教程
+            - heading "7天掌握 OpenClaw" [level=1] [ref=e61]:
+              - generic [ref=e62]: 7天掌握 OpenClaw
+            - paragraph [ref=e63]: 真正为你做事的 AI 助手。从安装配置到高级自动化——从这里开始你的旅程。
+            - generic [ref=e64]:
+              - generic [ref=e65]:
+                - generic [ref=e66]: 414+
+                - generic [ref=e67]: 精选教程
+              - generic [ref=e68]:
+                - generic [ref=e69]: 5,490+
+                - generic [ref=e70]: 社区技能
+              - generic [ref=e71]:
+                - generic [ref=e72]: 314k+
+                - generic [ref=e73]: OpenClaw Stars
+              - generic [ref=e74]:
+                - generic [ref=e75]: 100%
+                - generic [ref=e76]: 完全开源
+            - generic [ref=e77]:
+              - link "开始学习" [ref=e78] [cursor=pointer]:
+                - /url: /zh/tutorials
+                - button "开始学习" [ref=e79]:
+                  - text: 开始学习
+                  - img [ref=e80]
+              - link "浏览资源" [ref=e82] [cursor=pointer]:
+                - /url: /zh/skills
+                - button "浏览资源" [ref=e83]
+        - generic [ref=e85]:
+          - generic [ref=e86]:
+            - heading "什么是 OpenClaw？" [level=2] [ref=e87]
+            - paragraph [ref=e88]: 开源 AI 助手平台，为你提供 24/7 的个人 AI，理解你、帮助你、代表你执行任务
+          - generic [ref=e89]:
+            - generic [ref=e92]:
+              - img [ref=e94]
+              - heading "全平台接入" [level=3] [ref=e97]
+              - paragraph [ref=e98]: 支持 Telegram、Discord、WhatsApp、Signal、飞书等平台，随时随地与你的 AI 对话。
+            - generic [ref=e101]:
+              - img [ref=e103]
+              - heading "可扩展技能" [level=3] [ref=e107]
+              - paragraph [ref=e108]: 5490+ 社区技能，从天气查询到代码生成，一键安装即可扩展你的 AI 能力。
+            - generic [ref=e111]:
+              - img [ref=e113]
+              - heading "数据自主" [level=3] [ref=e115]
+              - paragraph [ref=e116]: 完全数据主权，数据保存在你的服务器上，隐私和安全尽在掌握。
+        - generic [ref=e118]:
+          - generic [ref=e119]:
+            - heading "7天学习路径" [level=2] [ref=e120]
+            - paragraph [ref=e121]: 从初学者到高级，每天一个主题，循序渐进掌握 OpenClaw。
+          - generic [ref=e124]:
+            - generic [ref=e125]:
+              - generic [ref=e127]: 👋
+              - link "Day 1 认识 OpenClaw 安装 OpenClaw，连接你的第一个平台，与 AI 助手进行第一次对话。 开始学习" [ref=e128] [cursor=pointer]:
+                - /url: /zh/learn/1
+                - generic [ref=e129]:
+                  - generic [ref=e130]:
+                    - generic [ref=e131]: Day 1
+                    - img [ref=e132]
+                  - heading "认识 OpenClaw" [level=3] [ref=e134]
+                  - paragraph [ref=e135]: 安装 OpenClaw，连接你的第一个平台，与 AI 助手进行第一次对话。
+                  - generic [ref=e136]:
+                    - generic [ref=e137]: 开始学习
+                    - img [ref=e138]
+            - generic [ref=e140]:
+              - generic [ref=e142]: 💬
+              - link "Day 2 深度对话 掌握对话技巧：上下文管理、多轮对话、人设定制和记忆设置。 开始学习" [ref=e143] [cursor=pointer]:
+                - /url: /zh/learn/2
+                - generic [ref=e144]:
+                  - generic [ref=e145]:
+                    - generic [ref=e146]: Day 2
+                    - img [ref=e147]
+                  - heading "深度对话" [level=3] [ref=e149]
+                  - paragraph [ref=e150]: 掌握对话技巧：上下文管理、多轮对话、人设定制和记忆设置。
+                  - generic [ref=e151]:
+                    - generic [ref=e152]: 开始学习
+                    - img [ref=e153]
+            - generic [ref=e155]:
+              - generic [ref=e157]: 📁
+              - link "Day 3 文件与代码 让 AI 处理文件：读取文档、编写代码、运行脚本、管理本地文件系统。 开始学习" [ref=e158] [cursor=pointer]:
+                - /url: /zh/learn/3
+                - generic [ref=e159]:
+                  - generic [ref=e160]:
+                    - generic [ref=e161]: Day 3
+                    - img [ref=e162]
+                  - heading "文件与代码" [level=3] [ref=e167]
+                  - paragraph [ref=e168]: 让 AI 处理文件：读取文档、编写代码、运行脚本、管理本地文件系统。
+                  - generic [ref=e169]:
+                    - generic [ref=e170]: 开始学习
+                    - img [ref=e171]
+            - generic [ref=e173]:
+              - generic [ref=e175]: 🌐
+              - link "Day 4 网络能力 解锁网络能力：搜索互联网、抓取网页、调用 API、集成在线服务。 开始学习" [ref=e176] [cursor=pointer]:
+                - /url: /zh/learn/4
+                - generic [ref=e177]:
+                  - generic [ref=e178]:
+                    - generic [ref=e179]: Day 4
+                    - img [ref=e180]
+                  - heading "网络能力" [level=3] [ref=e183]
+                  - paragraph [ref=e184]: 解锁网络能力：搜索互联网、抓取网页、调用 API、集成在线服务。
+                  - generic [ref=e185]:
+                    - generic [ref=e186]: 开始学习
+                    - img [ref=e187]
+            - generic [ref=e189]:
+              - generic [ref=e191]: 🧩
+              - link "Day 5 技能扩展 从 ClawHub 安装社区技能扩展能力：GitHub、天气、智能家居等数千种技能。 开始学习" [ref=e192] [cursor=pointer]:
+                - /url: /zh/learn/5
+                - generic [ref=e193]:
+                  - generic [ref=e194]:
+                    - generic [ref=e195]: Day 5
+                    - img [ref=e196]
+                  - heading "技能扩展" [level=3] [ref=e198]
+                  - paragraph [ref=e199]: 从 ClawHub 安装社区技能扩展能力：GitHub、天气、智能家居等数千种技能。
+                  - generic [ref=e200]:
+                    - generic [ref=e201]: 开始学习
+                    - img [ref=e202]
+            - generic [ref=e204]:
+              - generic [ref=e206]: ⏰
+              - link "Day 6 自动化 设置定时任务、心跳检查、主动提醒和自动化工作流，让日常事务自动运转。 开始学习" [ref=e207] [cursor=pointer]:
+                - /url: /zh/learn/6
+                - generic [ref=e208]:
+                  - generic [ref=e209]:
+                    - generic [ref=e210]: Day 6
+                    - img [ref=e211]
+                  - heading "自动化" [level=3] [ref=e214]
+                  - paragraph [ref=e215]: 设置定时任务、心跳检查、主动提醒和自动化工作流，让日常事务自动运转。
+                  - generic [ref=e216]:
+                    - generic [ref=e217]: 开始学习
+                    - img [ref=e218]
+            - generic [ref=e220]:
+              - generic [ref=e222]: 🚀
+              - link "Day 7 进阶技术 多智能体协作、浏览器控制、设备集成，以及构建你自己的自定义技能。 开始学习" [ref=e223] [cursor=pointer]:
+                - /url: /zh/learn/7
+                - generic [ref=e224]:
+                  - generic [ref=e225]:
+                    - generic [ref=e226]: Day 7
+                    - img [ref=e227]
+                  - heading "进阶技术" [level=3] [ref=e232]
+                  - paragraph [ref=e233]: 多智能体协作、浏览器控制、设备集成，以及构建你自己的自定义技能。
+                  - generic [ref=e234]:
+                    - generic [ref=e235]: 开始学习
+                    - img [ref=e236]
+        - generic [ref=e239]:
+          - generic [ref=e240]:
+            - generic [ref=e241]:
+              - img [ref=e242]
+              - generic [ref=e245]: 精选推荐
+            - heading "为你推荐" [level=2] [ref=e246]
+            - paragraph [ref=e247]: 从这些热门教程和必备技能开始你的学习之旅
+          - generic [ref=e248]:
+            - generic [ref=e249]:
+              - generic [ref=e250]:
+                - img [ref=e251]
+                - heading "热门教程" [level=3] [ref=e254]
+              - generic [ref=e255]:
+                - link "Official OpenClaw OpenClaw 官方文档 完整的 API 参考、配置指南和架构说明" [ref=e258] [cursor=pointer]:
+                  - /url: https://docs.openclaw.ai
+                  - generic [ref=e259]:
+                    - generic [ref=e260]:
+                      - generic [ref=e261]:
+                        - generic [ref=e262]: Official
+                        - generic [ref=e263]: OpenClaw
+                      - heading "OpenClaw 官方文档" [level=4] [ref=e264]
+                      - paragraph [ref=e265]: 完整的 API 参考、配置指南和架构说明
+                    - img [ref=e266]
+                - link "Popular freeCodeCamp freeCodeCamp — OpenClaw Full Tutorial 从被动聊天到主动 Agent 的全面入门教程" [ref=e272] [cursor=pointer]:
+                  - /url: https://www.freecodecamp.org/news/openclaw-full-tutorial-for-beginners/
+                  - generic [ref=e273]:
+                    - generic [ref=e274]:
+                      - generic [ref=e275]:
+                        - generic [ref=e276]: Popular
+                        - generic [ref=e277]: freeCodeCamp
+                      - heading "freeCodeCamp — OpenClaw Full Tutorial" [level=4] [ref=e278]
+                      - paragraph [ref=e279]: 从被动聊天到主动 Agent 的全面入门教程
+                    - img [ref=e280]
+                - link "Deep Dive IBM IBM Think — The Viral \"Space Lobster\" Agent IBM 深度分析 OpenClaw 的架构创新" [ref=e286] [cursor=pointer]:
+                  - /url: https://www.ibm.com/think/news/clawdbot-ai-agent-testing-limits-vertical-integration
+                  - generic [ref=e287]:
+                    - generic [ref=e288]:
+                      - generic [ref=e289]:
+                        - generic [ref=e290]: Deep Dive
+                        - generic [ref=e291]: IBM
+                      - heading "IBM Think — The Viral \"Space Lobster\" Agent" [level=4] [ref=e292]
+                      - paragraph [ref=e293]: IBM 深度分析 OpenClaw 的架构创新
+                    - img [ref=e294]
+            - generic [ref=e298]:
+              - generic [ref=e299]:
+                - img [ref=e300]
+                - heading "热门技能" [level=3] [ref=e302]
+              - generic [ref=e303]:
+                - generic [ref=e307]:
+                  - generic [ref=e308]:
+                    - generic [ref=e309]:
+                      - generic [ref=e310]: Coding
+                      - generic [ref=e311]:
+                        - img [ref=e312]
+                        - generic [ref=e314]: "1250"
+                    - heading "github" [level=4] [ref=e315]
+                    - paragraph [ref=e316]: GitHub operations via gh CLI
+                  - code [ref=e317]: npx clawhub install github
+                - generic [ref=e321]:
+                  - generic [ref=e322]:
+                    - generic [ref=e323]:
+                      - generic [ref=e324]: Coding
+                      - generic [ref=e325]:
+                        - img [ref=e326]
+                        - generic [ref=e328]: "1102"
+                    - heading "coding-agent" [level=4] [ref=e329]
+                    - paragraph [ref=e330]: Delegate coding tasks to AI agents
+                  - code [ref=e331]: npx clawhub install coding-agent
+                - generic [ref=e335]:
+                  - generic [ref=e336]:
+                    - generic [ref=e337]:
+                      - generic [ref=e338]: Research
+                      - generic [ref=e339]:
+                        - img [ref=e340]
+                        - generic [ref=e342]: "890"
+                    - heading "weather" [level=4] [ref=e343]
+                    - paragraph [ref=e344]: Get weather and forecasts
+                  - code [ref=e345]: npx clawhub install weather
+        - generic [ref=e347]:
+          - generic [ref=e348]:
+            - generic [ref=e349]:
+              - heading "技能分类" [level=2] [ref=e350]
+              - paragraph [ref=e351]: 浏览 31 个分类中的 5490 个技能
+            - link "查看所有技能" [ref=e352] [cursor=pointer]:
+              - /url: /zh/skills
+              - button "查看所有技能" [ref=e353]:
+                - text: 查看所有技能
+                - img [ref=e354]
+          - generic [ref=e356]:
+            - link "AI & LLMs 159 skills" [ref=e358] [cursor=pointer]:
+              - /url: /zh/skills?category=ai-llm
+              - generic [ref=e360]:
+                - img [ref=e362]
+                - generic [ref=e370]:
+                  - heading "AI & LLMs" [level=3] [ref=e371]
+                  - paragraph [ref=e372]: 159 skills
+            - link "Search & Research 148 skills" [ref=e374] [cursor=pointer]:
+              - /url: /zh/skills?category=research
+              - generic [ref=e376]:
+                - img [ref=e378]
+                - generic [ref=e381]:
+                  - heading "Search & Research" [level=3] [ref=e382]
+                  - paragraph [ref=e383]: 148 skills
+            - link "DevOps & Cloud 144 skills" [ref=e385] [cursor=pointer]:
+              - /url: /zh/skills?category=devops
+              - generic [ref=e387]:
+                - img [ref=e389]
+                - generic [ref=e391]:
+                  - heading "DevOps & Cloud" [level=3] [ref=e392]
+                  - paragraph [ref=e393]: 144 skills
+            - link "Marketing & Sales 94 skills" [ref=e395] [cursor=pointer]:
+              - /url: /zh/skills?category=marketing
+              - generic [ref=e397]:
+                - img [ref=e399]
+                - generic [ref=e402]:
+                  - heading "Marketing & Sales" [level=3] [ref=e403]
+                  - paragraph [ref=e404]: 94 skills
+            - link "Coding Agents 55 skills" [ref=e406] [cursor=pointer]:
+              - /url: /zh/skills?category=coding
+              - generic [ref=e408]:
+                - img [ref=e410]
+                - generic [ref=e413]:
+                  - heading "Coding Agents" [level=3] [ref=e414]
+                  - paragraph [ref=e415]: 55 skills
+            - link "Communication 58 skills" [ref=e417] [cursor=pointer]:
+              - /url: /zh/skills?category=communication
+              - generic [ref=e419]:
+                - img [ref=e421]
+                - generic [ref=e423]:
+                  - heading "Communication" [level=3] [ref=e424]
+                  - paragraph [ref=e425]: 58 skills
+            - link "Notes & PKM 61 skills" [ref=e427] [cursor=pointer]:
+              - /url: /zh/skills?category=notes
+              - generic [ref=e429]:
+                - img [ref=e431]
+                - generic [ref=e433]:
+                  - heading "Notes & PKM" [level=3] [ref=e434]
+                  - paragraph [ref=e435]: 61 skills
+            - link "Web & Frontend 46 skills" [ref=e437] [cursor=pointer]:
+              - /url: /zh/skills?category=web
+              - generic [ref=e439]:
+                - img [ref=e441]
+                - generic [ref=e444]:
+                  - heading "Web & Frontend" [level=3] [ref=e445]
+                  - paragraph [ref=e446]: 46 skills
+          - generic [ref=e447]:
+            - generic [ref=e448]:
+              - generic [ref=e449]: 5,490+
+              - generic [ref=e450]: Total Skills
+            - generic [ref=e451]:
+              - generic [ref=e452]: "31"
+              - generic [ref=e453]: Categories
+            - generic [ref=e454]:
+              - generic [ref=e455]: "159"
+              - generic [ref=e456]: AI & LLM
+            - generic [ref=e457]:
+              - generic [ref=e458]: "148"
+              - generic [ref=e459]: Research
+        - generic [ref=e461]:
+          - generic [ref=e462]:
+            - heading "精选教程与指南" [level=2] [ref=e463]
+            - paragraph [ref=e464]: 414+ 篇精选教程，来自官方文档、云平台和社区贡献者
+          - generic [ref=e465]:
+            - link "OpenClaw EN OpenClaw 官方文档 完整的 API 参考、配置指南和架构说明" [ref=e468] [cursor=pointer]:
+              - /url: https://docs.openclaw.ai
+              - generic [ref=e469]:
+                - generic [ref=e471]: OpenClaw
+                - generic [ref=e472]: EN
+              - heading "OpenClaw 官方文档" [level=3] [ref=e473]
+              - paragraph [ref=e474]: 完整的 API 参考、配置指南和架构说明
+            - link "阿里云 中文 阿里云 — 部署 OpenClaw 构建钉钉 AI 助理 轻量应用服务器一键部署，可视化配置面板接入钉钉" [ref=e477] [cursor=pointer]:
+              - /url: https://help.aliyun.com/zh/simple-application-server/use-cases/quickly-deploy-and-use-openclaw
+              - generic [ref=e478]:
+                - generic [ref=e480]: 阿里云
+                - generic [ref=e481]: 中文
+              - heading "阿里云 — 部署 OpenClaw 构建钉钉 AI 助理" [level=3] [ref=e482]
+              - paragraph [ref=e483]: 轻量应用服务器一键部署，可视化配置面板接入钉钉
+            - link "freeCodeCamp EN freeCodeCamp — OpenClaw Full Tutorial for Beginners 从被动聊天到主动 Agent 的转变，freeCodeCamp 出品的全面入门教程" [ref=e486] [cursor=pointer]:
+              - /url: https://www.freecodecamp.org/news/openclaw-full-tutorial-for-beginners/
+              - generic [ref=e487]:
+                - generic [ref=e489]: freeCodeCamp
+                - generic [ref=e490]: EN
+              - heading "freeCodeCamp — OpenClaw Full Tutorial for Beginners" [level=3] [ref=e491]
+              - paragraph [ref=e492]: 从被动聊天到主动 Agent 的转变，freeCodeCamp 出品的全面入门教程
+            - link "Bilibili 中文 OpenClaw 海量全玩法攻略 B站详细视频教程，涵盖所有主要功能和配置" [ref=e495] [cursor=pointer]:
+              - /url: https://www.bilibili.com/video/BV1kH6nBFEPq/
+              - generic [ref=e496]:
+                - generic [ref=e498]: Bilibili
+                - generic [ref=e499]: 中文
+              - heading "OpenClaw 海量全玩法攻略" [level=3] [ref=e500]
+              - paragraph [ref=e501]: B站详细视频教程，涵盖所有主要功能和配置
+            - 'link "IBM EN IBM Think — OpenClaw: The Viral \"Space Lobster\" Agent IBM 深度分析 OpenClaw 的架构创新和垂直集成策略" [ref=e504] [cursor=pointer]':
+              - /url: https://www.ibm.com/think/news/clawdbot-ai-agent-testing-limits-vertical-integration
+              - generic [ref=e505]:
+                - generic [ref=e507]: IBM
+                - generic [ref=e508]: EN
+              - 'heading "IBM Think — OpenClaw: The Viral \"Space Lobster\" Agent" [level=3] [ref=e509]'
+              - paragraph [ref=e510]: IBM 深度分析 OpenClaw 的架构创新和垂直集成策略
+            - link "OpenClaw Docs EN ClawHub 技能开发文档 如何创建、发布和管理自定义技能" [ref=e513] [cursor=pointer]:
+              - /url: https://docs.openclaw.ai/tools/clawhub
+              - generic [ref=e514]:
+                - generic [ref=e516]: OpenClaw Docs
+                - generic [ref=e517]: EN
+              - heading "ClawHub 技能开发文档" [level=3] [ref=e518]
+              - paragraph [ref=e519]: 如何创建、发布和管理自定义技能
+          - link "查看所有教程" [ref=e521] [cursor=pointer]:
+            - /url: /zh/tutorials
+            - button "查看所有教程" [ref=e522]:
+              - text: 查看所有教程
+              - img [ref=e523]
+        - generic [ref=e527]:
+          - img [ref=e529]
+          - generic [ref=e531]:
+            - heading "安全提示" [level=3] [ref=e532]
+            - paragraph [ref=e533]: 研究人员发现 341 个恶意 ClawHub 技能窃取用户数据。安装前请务必审查源代码，只从可信发布者安装技能。
+            - link "了解更多技能安全信息" [ref=e534] [cursor=pointer]:
+              - /url: https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html
+              - text: 了解更多技能安全信息
+              - img [ref=e535]
+        - generic [ref=e540]:
+          - generic [ref=e541]:
+            - img [ref=e542]
+            - heading "常见问题" [level=2] [ref=e545]
+          - generic [ref=e546]:
+            - button "OpenClaw 是什么？" [ref=e548]:
+              - generic [ref=e549]: OpenClaw 是什么？
+              - img [ref=e550]
+            - button "OpenClaw 是免费的吗？" [ref=e553]:
+              - generic [ref=e554]: OpenClaw 是免费的吗？
+              - img [ref=e555]
+            - button "学习 OpenClaw 需要多长时间？" [ref=e558]:
+              - generic [ref=e559]: 学习 OpenClaw 需要多长时间？
+              - img [ref=e560]
+            - button "OpenClaw 支持哪些平台？" [ref=e563]:
+              - generic [ref=e564]: OpenClaw 支持哪些平台？
+              - img [ref=e565]
+            - button "没有编程基础可以使用 OpenClaw 吗？" [ref=e568]:
+              - generic [ref=e569]: 没有编程基础可以使用 OpenClaw 吗？
+              - img [ref=e570]
+            - button "OpenClaw 支持哪些 AI 模型？" [ref=e573]:
+              - generic [ref=e574]: OpenClaw 支持哪些 AI 模型？
+              - img [ref=e575]
+            - button "使用 OpenClaw 我的数据安全吗？" [ref=e578]:
+              - generic [ref=e579]: 使用 OpenClaw 我的数据安全吗？
+              - img [ref=e580]
+            - button "OpenClaw 中的 Skills 是什么？" [ref=e583]:
+              - generic [ref=e584]: OpenClaw 中的 Skills 是什么？
+              - img [ref=e585]
+    - contentinfo [ref=e587]:
+      - generic [ref=e588]:
+        - generic [ref=e589]:
+          - paragraph [ref=e590]: OpenClaw 101 是开源项目，致力于成为最好的 OpenClaw 资源中心。欢迎贡献！
+          - link "帮助改进 OpenClaw 101" [ref=e591] [cursor=pointer]:
+            - /url: https://github.com/openclaw/openclaw
+            - img [ref=e592]
+            - text: 帮助改进 OpenClaw 101
+            - img [ref=e595]
+        - generic [ref=e599]:
+          - generic [ref=e600]:
+            - heading "OpenClaw 101" [level=3] [ref=e601]
+            - paragraph [ref=e602]: 您的 OpenClaw AI 智能体技能综合指南。开源项目，致力于成为最好的 OpenClaw 资源中心。
+          - generic [ref=e603]:
+            - heading "官方" [level=4] [ref=e604]
+            - list [ref=e605]:
+              - listitem [ref=e606]:
+                - link "OpenClaw Website" [ref=e607] [cursor=pointer]:
+                  - /url: https://openclaw.ai
+                  - text: OpenClaw Website
+                  - img [ref=e608]
+              - listitem [ref=e612]:
+                - link "文档" [ref=e613] [cursor=pointer]:
+                  - /url: https://docs.openclaw.ai
+                  - text: 文档
+                  - img [ref=e614]
+              - listitem [ref=e618]:
+                - link "GitHub (314k+ ⭐)" [ref=e619] [cursor=pointer]:
+                  - /url: https://github.com/openclaw/openclaw
+                  - text: GitHub (314k+ ⭐)
+                  - img [ref=e620]
+              - listitem [ref=e624]:
+                - link "ClawHub Skills" [ref=e625] [cursor=pointer]:
+                  - /url: https://clawhub.com
+                  - text: ClawHub Skills
+                  - img [ref=e626]
+          - generic [ref=e630]:
+            - heading "学习" [level=4] [ref=e631]
+            - list [ref=e632]:
+              - listitem [ref=e633]:
+                - link "全部资源" [ref=e634] [cursor=pointer]:
+                  - /url: /zh/tutorials
+              - listitem [ref=e635]:
+                - link "精选技能" [ref=e636] [cursor=pointer]:
+                  - /url: /zh/skills
+              - listitem [ref=e637]:
+                - link "飞书知识库" [ref=e638] [cursor=pointer]:
+                  - /url: https://my.feishu.cn/wiki/YkWgwqSchi9xW3kEuZscAm0lnFf
+                  - text: 飞书知识库
+                  - img [ref=e639]
+          - generic [ref=e643]:
+            - heading "社区" [level=4] [ref=e644]
+            - list [ref=e645]:
+              - listitem [ref=e646]:
+                - link "Discord" [ref=e647] [cursor=pointer]:
+                  - /url: https://discord.com/invite/clawd
+                  - text: Discord
+                  - img [ref=e648]
+              - listitem [ref=e652]:
+                - link "Reddit" [ref=e653] [cursor=pointer]:
+                  - /url: https://reddit.com/r/openclaw
+                  - text: Reddit
+                  - img [ref=e654]
+              - listitem [ref=e658]:
+                - link "OC Compass" [ref=e659] [cursor=pointer]:
+                  - /url: https://oc-role.com
+                  - text: OC Compass
+                  - img [ref=e660]
+          - generic [ref=e664]:
+            - heading "云平台" [level=4] [ref=e665]
+            - list [ref=e666]:
+              - listitem [ref=e667]:
+                - link "阿里云" [ref=e668] [cursor=pointer]:
+                  - /url: https://help.aliyun.com/zh/simple-application-server/use-cases/quickly-deploy-and-use-openclaw
+                  - text: 阿里云
+                  - img [ref=e669]
+              - listitem [ref=e673]:
+                - link "腾讯云" [ref=e674] [cursor=pointer]:
+                  - /url: https://cloud.tencent.com/developer/article/2625073
+                  - text: 腾讯云
+                  - img [ref=e675]
+              - listitem [ref=e679]:
+                - link "DigitalOcean" [ref=e680] [cursor=pointer]:
+                  - /url: https://www.digitalocean.com/community/tutorials/how-to-run-openclaw
+                  - text: DigitalOcean
+                  - img [ref=e681]
+        - generic [ref=e685]: © 2026 OpenClaw 101. 保留所有权利。
+  - alert [ref=e686]
+```
