@@ -116,6 +116,14 @@ export default function RootLayout({
             gtag('config', '${GA_ID}');
           `}
         </Script>
+
+        {/* Google AdSense */}
+        <Script
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1509155490380091"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+
         {children}
       </body>
     </html>
