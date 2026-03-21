@@ -18,6 +18,304 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    id: 6,
+    slug: "build-ai-product-in-3-days",
+    title: "3天上线一个 AI 产品：从需求到收钱的完整复盘",
+    titleEn: "Build an AI Product in 3 Days: From Idea to Revenue",
+    excerpt: "用 Next.js + PayPal + Replicate，3天完成 AvatarDoll 玩偶头像生成器。踩过的坑、解决思路、关键代码全公开。",
+    excerptEn: "Built AvatarDoll doll avatar generator in 3 days with Next.js + PayPal + Replicate. All the pitfalls, solutions, and key code revealed.",
+    content: `## 背景
+
+我有一个想法：AI 生成玩偶风格头像，用户上传照片，选择风格（Barbie/Anime/Chibi），一键生成个性化头像。
+
+3天后，产品上线了：[avatardoll.online](https://avatardoll.online)
+
+这篇文章复盘整个开发过程，重点讲**我踩过的坑**。
+
+## 技术选型
+
+| 需求 | 选择 | 理由 |
+|------|------|------|
+| 框架 | Next.js 16 | App Router + Server Components |
+| 数据库 | Turso | SQLite 兼容，免费，边缘部署 |
+| 支付 | PayPal | 全球支持，沙盒完善 |
+| 认证 | Google OAuth | 用户基数大，实现简单 |
+| 图片生成 | Replicate | API 简单，按量付费 |
+
+## 坑 1：配额计算错误
+
+**现象**：Header 显示 20 次，Create 页面显示 18 次
+
+**原因**：
+\`\`\`typescript
+// 错误：重复计算
+const total = usedToday + pointsBalance;
+// usedToday 已经包含了免费使用次数
+\`\`\`
+
+**解决**：
+\`\`\`typescript
+// 正确：分离计算
+const freeRemaining = Math.max(0, dailyQuota - usedToday);
+const total = freeRemaining + pointsBalance;
+\`\`\`
+
+## 坑 2：积分扣除缺失（严重！）
+
+**现象**：用户生成 4 次图片，积分余额仍然是 20
+
+**原因**：
+\`\`\`typescript
+// 只更新 usedToday，不扣除积分
+await prisma.user.update({
+  data: { usedToday: { increment: 1 } }
+});
+\`\`\`
+
+**后果**：用户可以无限生成！
+
+**解决**：
+\`\`\`typescript
+const freeRemaining = dailyQuota - usedToday;
+
+if (freeRemaining > 0) {
+  // 使用免费额度
+  await prisma.user.update({
+    data: { usedToday: { increment: 1 } }
+  });
+} else {
+  // 扣除积分
+  await prisma.pointsAccount.update({
+    data: { balance: { decrement: 1 } }
+  });
+  await prisma.pointsTransaction.create({
+    data: { type: 'USAGE', amount: -1, ... }
+  });
+}
+\`\`\`
+
+## 坑 3：PayPal 沙盒陷阱
+
+**问题 1**：订单状态一直是 PENDING
+- 原因：没有正确处理 webhook
+- 解决：添加 webhook 验证和状态轮询
+
+**问题 2**：支付成功后积分没到账
+- 原因：capture 接口调用失败，没有事务回滚
+- 解决：添加详细日志，使用数据库事务
+
+## 关键代码：PayPal 支付流程
+
+\`\`\`typescript
+// 1. 创建订单
+const order = await fetch('https://api-m.sandbox.paypal.com/v2/checkout/orders', {
+  method: 'POST',
+  headers: {
+    'Authorization': \`Basic \${credentials}\`,
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    intent: 'CAPTURE',
+    purchase_units: [{
+      amount: { currency_code: 'USD', value: '2.99' },
+      custom_id: 'POINTS_20',
+    }],
+  }),
+});
+
+// 2. 前端批准后 capture
+const capture = await fetch(
+  \`https://api-m.sandbox.paypal.com/v2/checkout/orders/\${orderId}/capture\`,
+  { method: 'POST', ... }
+);
+
+// 3. 更新积分
+await prisma.pointsAccount.update({
+  where: { userId },
+  data: { balance: { increment: 20 } }
+});
+\`\`\`
+
+## 数据模型
+
+\`\`\`prisma
+model User {
+  id           String   @id
+  email        String   @unique
+  dailyQuota   Int      @default(1)  // 每日免费额度
+  usedToday    Int      @default(0)  // 今日已用
+}
+
+model PointsAccount {
+  userId   String   @id
+  balance  Int      @default(0)  // 积分余额
+}
+
+model PointsTransaction {
+  id           String   @id
+  userId       String
+  type         String   // PURCHASE, USAGE, REFUND
+  amount       Int
+  balanceAfter Int
+}
+\`\`\`
+
+## 部署架构
+
+\`\`\`
+用户 → Cloudflare (CDN/防护) → Vercel (应用) → Turso (数据库)
+                                      ↓
+                                Replicate (AI)
+\`\`\`
+
+## 教训总结
+
+1. **支付逻辑必须闭环**：测试要覆盖完整流程
+2. **配额计算要清晰**：数据模型避免语义混淆
+3. **日志要详细**：出问题时能快速定位
+4. **第三方 API 要先读文档**：不要想当然
+
+## 成本分析
+
+| 项目 | 成本 |
+|------|------|
+| 域名 | $12/年 |
+| Vercel | 免费额度足够 |
+| Turso | 免费额度足够 |
+| Replicate | ~$0.002/次 |
+| 总计 | ~$15/月起步 |
+
+---
+
+**完整代码**：[github.com/moonye6/AvatarDoll](https://github.com/moonye6/AvatarDoll)
+
+**在线体验**：[avatardoll.online](https://avatardoll.online)`,
+    contentEn: `## Background
+
+I had an idea: AI-generated doll-style avatars. Users upload a photo, choose a style (Barbie/Anime/Chibi), and get a personalized avatar.
+
+3 days later, the product went live: [avatardoll.online](https://avatardoll.online)
+
+This article reviews the entire development process, focusing on **the pitfalls I encountered**.
+
+## Tech Stack
+
+| Need | Choice | Reason |
+|------|------|------|
+| Framework | Next.js 16 | App Router + Server Components |
+| Database | Turso | SQLite compatible, free, edge deployment |
+| Payment | PayPal | Global support, good sandbox |
+| Auth | Google OAuth | Large user base, simple implementation |
+| Image Gen | Replicate | Simple API, pay-per-use |
+
+## Pitfall 1: Quota Calculation Error
+
+**Symptom**: Header shows 20, Create page shows 18
+
+**Cause**:
+\`\`\`typescript
+// Wrong: double counting
+const total = usedToday + pointsBalance;
+// usedToday already includes free usage
+\`\`\`
+
+**Solution**:
+\`\`\`typescript
+// Correct: separate calculation
+const freeRemaining = Math.max(0, dailyQuota - usedToday);
+const total = freeRemaining + pointsBalance;
+\`\`\`
+
+## Pitfall 2: Points Not Deducted (Critical!)
+
+**Symptom**: User generated 4 images, balance still 20
+
+**Cause**:
+\`\`\`typescript
+// Only update usedToday, never deduct points
+await prisma.user.update({
+  data: { usedToday: { increment: 1 } }
+});
+\`\`\`
+
+**Result**: Users can generate infinitely!
+
+**Solution**:
+\`\`\`typescript
+const freeRemaining = dailyQuota - usedToday;
+
+if (freeRemaining > 0) {
+  // Use free quota
+  await prisma.user.update({
+    data: { usedToday: { increment: 1 } }
+  });
+} else {
+  // Deduct points
+  await prisma.pointsAccount.update({
+    data: { balance: { decrement: 1 } }
+  });
+}
+\`\`\`
+
+## Pitfall 3: PayPal Sandbox Traps
+
+**Problem 1**: Order status stuck at PENDING
+- Cause: Not handling webhook correctly
+- Solution: Add webhook verification and status polling
+
+**Problem 2**: Points not credited after payment
+- Cause: Capture API failed, no transaction rollback
+- Solution: Add detailed logs, use database transactions
+
+## Key Code: PayPal Payment Flow
+
+\`\`\`typescript
+// 1. Create order
+const order = await fetch('https://api-m.sandbox.paypal.com/v2/checkout/orders', {
+  method: 'POST',
+  body: JSON.stringify({
+    intent: 'CAPTURE',
+    purchase_units: [{
+      amount: { currency_code: 'USD', value: '2.99' },
+      custom_id: 'POINTS_20',
+    }],
+  }),
+});
+
+// 2. Capture after user approval
+const capture = await fetch(
+  \`https://api-m.sandbox.paypal.com/v2/checkout/orders/\${orderId}/capture\`,
+  { method: 'POST', ... }
+);
+
+// 3. Update points
+await prisma.pointsAccount.update({
+  where: { userId },
+  data: { balance: { increment: 20 } }
+});
+\`\`\`
+
+## Lessons Learned
+
+1. **Payment logic must be complete**: Test the full flow
+2. **Clear quota calculation**: Avoid semantic confusion
+3. **Detailed logs**: Quick troubleshooting
+4. **Read third-party API docs**: Don't assume
+
+---
+
+**Full Code**: [github.com/moonye6/AvatarDoll](https://github.com/moonye6/AvatarDoll)
+
+**Try It**: [avatardoll.online](https://avatardoll.online)`,
+    author: "OpenClaw 101",
+    date: "2026-03-21",
+    category: "实战案例",
+    categoryEn: "Case Study",
+    tags: ["Next.js", "PayPal", "AI产品", "实战"],
+    readingTime: 12,
+    image: "/og-image.png"
+  },
+  {
     id: 1,
     slug: "openclaw-vs-chatgpt",
     title: "OpenClaw vs ChatGPT：为什么你需要一个能动的 AI 助手",
