@@ -1,7 +1,7 @@
 import { RSS } from '@/lib/rss'
 import { tutorials } from '@/data/tutorials'
 
-const SITE_URL = 'https://openclaw101.vip'
+const SITE_URL = 'https://openclaw101.com'
 
 export async function GET() {
   const rss = new RSS({

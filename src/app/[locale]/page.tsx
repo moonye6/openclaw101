@@ -12,7 +12,7 @@ import { NewsUpdates } from '@/components/home/NewsUpdates';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { FAQSection } from '@/components/seo/FAQSection';
 
-const SITE_URL = 'https://openclaw101.vip';
+const SITE_URL = 'https://openclaw101.com';
 
 export async function generateMetadata({
   params,

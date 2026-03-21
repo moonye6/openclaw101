@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { blogPosts, getBlogPostBySlug, BlogPost } from '@/data/blog';
 import { BlogPostClient } from './BlogPostClient';
 
-const SITE_URL = 'https://openclaw101.vip';
+const SITE_URL = 'https://openclaw101.com';
 
 // Enable ISR - revalidate every hour
 export const revalidate = 3600;

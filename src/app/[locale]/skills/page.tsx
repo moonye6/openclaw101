@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { SkillBrowser } from '@/components/skills/SkillBrowser';
 import { JsonLd } from '@/components/seo/JsonLd';
 
-const SITE_URL = 'https://openclaw101.vip';
+const SITE_URL = 'https://openclaw101.com';
 
 export async function generateMetadata({
   params,
