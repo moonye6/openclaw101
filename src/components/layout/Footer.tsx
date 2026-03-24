@@ -29,16 +29,29 @@ export function Footer() {
           <p className="text-sm text-gray-300">
             {t('openSourceBanner')}
           </p>
-          <a
-            href="https://github.com/openclaw/openclaw"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors"
-          >
-            <Github className="h-4 w-4" />
-            {t('contribute')}
-            <ExternalLink className="h-3 w-3" />
-          </a>
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="https://github.com/moonye6/openclaw101"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-medium text-green-400 hover:text-green-300 transition-colors"
+            >
+              <Github className="h-4 w-4" />
+              {t('thisProjectSource')}
+              <ExternalLink className="h-3 w-3" />
+            </a>
+            <span className="text-gray-600">|</span>
+            <a
+              href="https://github.com/openclaw/openclaw"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors"
+            >
+              <Github className="h-4 w-4" />
+              {t('contribute')}
+              <ExternalLink className="h-3 w-3" />
+            </a>
+          </div>
         </div>
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-5">

@@ -219,6 +219,7 @@
   "footer": {
     "description": "Your comprehensive guide to OpenClaw AI agent skills. Open source, aiming to be the best resource hub for OpenClaw.",
     "openSourceBanner": "OpenClaw 101 is open source, aiming to be the best resource hub for OpenClaw. Contributions welcome!",
+    "thisProjectSource": "This Project Source",
     "contribute": "Help Make OpenClaw 101 Better",
     "sections": {
       "official": "Official",
