@@ -150,7 +150,7 @@ export function CommunityShowcase() {
           viewport={{ once: true }}
         >
           <a
-            href="https://github.com/openclaw/openclaw"
+            href="https://github.com/moonye6/openclaw101"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full hover:bg-gray-800 transition-colors"
