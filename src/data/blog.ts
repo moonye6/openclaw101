@@ -2301,6 +2301,931 @@ Need 24/7 availability?
     tags: ["部署", "VPS", "云服务器", "教程"],
     readingTime: 15,
     image: "/og-image.png"
+  },
+  {
+    id: 11,
+    slug: "agent-harness-architecture",
+    title: "Agent 架构解密：OpenClaw 的 Harness 设计哲学",
+    titleEn: "Agent Architecture Decoded: OpenClaw's Harness Design Philosophy",
+    excerpt: "Agent = Model + Harness。为什么模型本身不是 Agent？Harness 如何让模型变成真正能工作的 Agent？深度解析 OpenClaw 的架构设计。",
+    excerptEn: "Agent = Model + Harness. Why models alone aren't agents? How harnesses turn models into working agents? Deep dive into OpenClaw's architecture.",
+    content: `在 AI Agent 的世界里，有一个核心公式：
+
+**Agent = Model + Harness**
+
+这个公式来自 LangChain 团队的洞察，同样适用于理解 OpenClaw 的设计哲学。
+
+## 什么是 Harness？
+
+如果你不是模型，你就是 Harness。
+
+**Harness（安全带/框架）** 是所有不是模型本身的代码、配置和执行逻辑：
+
+- 系统提示词（System Prompts）
+- 工具和技能（Tools, Skills, MCP）
+- 基础设施（文件系统、沙箱、浏览器）
+- 编排逻辑（子代理生成、任务分发、模型路由）
+- 钩子/中间件（压缩、续写、检查）
+
+**原始模型不是 Agent**，但当 Harness 赋予它状态、工具执行、反馈循环和约束时，它就变成了 Agent。
+
+## 为什么需要 Harness？
+
+模型天生有一些限制：
+
+| 模型能做的 | 模型不能做的 |
+|-----------|-------------|
+| 理解文本、图像、音频 | 维持持久的对话状态 |
+| 生成文本输出 | 执行代码 |
+| 推理和规划 | 访问实时知识 |
+| 理解工具使用方式 | 设置环境、安装依赖 |
+
+这些限制都需要 Harness 来解决。
+
+## OpenClaw 的 Harness 组件
+
+### 1. 文件系统抽象
+
+\`\`\`
+工作原理：
+1. 用户请求读取文件
+2. Harness 检查路径权限（fs.allowed_paths）
+3. 安全读取文件内容
+4. 返回给模型处理
+\`\`\`
+
+**为什么重要**：
+- 持久化存储：工作可以跨越会话保持
+- 上下文管理：大文件不需要全部加载到上下文
+- 协作表面：多 Agent 可以通过文件协调工作
+
+### 2. 代码执行沙箱
+
+\`\`\`
+OpenClaw 执行流程：
+1. 模型生成代码
+2. Harness 在沙箱中执行
+3. 捕获输出和错误
+4. 反馈给模型进行迭代
+\`\`\`
+
+**安全机制**：
+\`\`\`bash
+# 禁止危险命令
+openclaw config set exec.blocked_commands "rm -rf,format,dd"
+
+# 限制执行超时
+openclaw config set exec.timeout 60000
+\`\`\`
+
+### 3. 技能系统（Skills）
+
+\`\`\`bash
+# 安装技能
+openclaw skills install github
+
+# 技能本质上扩展了 Harness 的能力
+\`\`\`
+
+技能 = 工具描述 + 执行逻辑 + 错误处理
+
+### 4. 多 Agent 编排
+
+\`\`\`
+OpenClaw 子代理系统：
+1. 主 Agent 接收任务
+2. 评估是否需要子 Agent
+3. 生成子 Agent（专注特定任务）
+4. 子 Agent 完成后汇报
+5. 主 Agent 整合结果
+\`\`\`
+
+### 5. 上下文管理
+
+\`\`\`
+自动压缩机制：
+- 监控上下文使用量
+- 在合适时机压缩历史
+- 保留关键信息摘要
+- 避免 "context rot"
+\`\`\`
+
+## Harness 设计原则
+
+### 原则 1：让 Harness "让路"
+
+随着模型能力提升，Harness 应该尽量少干预：
+
+\`\`\`
+好的设计：
+- 给 Agent 更多控制权
+- 避免手工调参
+- 让模型自己决定何时压缩、何时切换任务
+\`\`\`
+
+### 原则 2：从行为反推设计
+
+\`\`\`
+我们想要的行为 → Harness 设计
+
+想要持久存储 → 文件系统抽象
+想要执行代码 → Bash/沙箱环境
+想要浏览器操作 → Playwright 集成
+想要定时任务 → Cron 调度器
+\`\`\`
+
+### 原则 3：安全第一
+
+\`\`\`
+Harness 的约束功能：
+- 路径白名单
+- 命令黑名单
+- 执行超时
+- 资源限制
+\`\`\`
+
+## 实战：理解你的 Harness
+
+检查你的 OpenClaw Harness 配置：
+
+\`\`\`bash
+# 查看所有配置
+openclaw config list
+
+# 文件系统权限
+openclaw config get fs.allowed_paths
+
+# 执行限制
+openclaw config get exec.blocked_commands
+
+# 模型配置
+openclaw config get model
+\`\`\`
+
+## Harness vs 模型：谁更重要？
+
+| 维度 | 模型 | Harness |
+|------|------|---------|
+| 智能 | 核心推理能力 | 工具和约束 |
+| 灵活性 | 模型能力上限 | 可扩展性强 |
+| 可控性 | 黑盒 | 完全可控 |
+| 成本 | API 费用 | 本地资源 |
+
+**结论**：好的 Harness 让普通模型表现优秀，差的 Harness 让优秀模型表现糟糕。
+
+---
+
+## 总结
+
+| 概念 | 说明 |
+|------|------|
+| **Agent** | Model + Harness |
+| **Model** | 提供智能和推理 |
+| **Harness** | 让智能变得有用 |
+| **技能** | 扩展 Harness 能力 |
+| **安全** | Harness 的约束功能 |
+
+**下一步**：检查你的 Harness 配置，确保它让模型发挥最大价值。`,
+    contentEn: `In the world of AI Agents, there's a core formula:
+
+**Agent = Model + Harness**
+
+This insight from the LangChain team applies equally to understanding OpenClaw's design philosophy.
+
+## What is a Harness?
+
+If you're not the model, you're the Harness.
+
+**Harness** is all the code, configuration, and execution logic that isn't the model itself:
+
+- System Prompts
+- Tools, Skills, MCP
+- Infrastructure (filesystem, sandbox, browser)
+- Orchestration Logic (subagent spawning, task routing)
+- Hooks/Middleware (compression, continuation, checks)
+
+**A raw model is not an Agent**. But when a Harness gives it state, tool execution, feedback loops, and constraints, it becomes one.
+
+## Why Do We Need Harnesses?
+
+Models have inherent limitations:
+
+| What Models Can Do | What Models Can't Do |
+|-------------------|---------------------|
+| Understand text, images, audio | Maintain durable state |
+| Generate text output | Execute code |
+| Reason and plan | Access real-time knowledge |
+| Understand tool usage | Setup environments |
+
+These limitations require a Harness to solve.
+
+## OpenClaw's Harness Components
+
+### 1. Filesystem Abstraction
+
+\`\`\`
+How it works:
+1. User requests file read
+2. Harness checks path permissions
+3. Safely reads file content
+4. Returns to model for processing
+\`\`\`
+
+### 2. Code Execution Sandbox
+
+\`\`\`bash
+# Security mechanisms
+openclaw config set exec.blocked_commands "rm -rf,format,dd"
+openclaw config set exec.timeout 60000
+\`\`\`
+
+### 3. Skills System
+
+\`\`\`bash
+# Install skills to extend Harness
+openclaw skills install github
+\`\`\`
+
+### 4. Multi-Agent Orchestration
+
+\`\`\`
+OpenClaw Subagent System:
+1. Main Agent receives task
+2. Evaluates if subagent needed
+3. Spawns subagent (focused on specific task)
+4. Subagent reports back
+5. Main Agent integrates results
+\`\`\`
+
+## Harness Design Principles
+
+### Principle 1: Get Out of the Way
+
+As models improve, Harness should intervene less:
+- Give Agents more control
+- Avoid manual tuning
+- Let models decide when to compress, when to switch tasks
+
+### Principle 2: Design Backwards from Behavior
+
+\`\`\`
+Desired Behavior → Harness Design
+
+Want persistent storage → Filesystem abstraction
+Want code execution → Bash/sandbox environment
+Want browser control → Playwright integration
+Want scheduled tasks → Cron scheduler
+\`\`\`
+
+### Principle 3: Security First
+
+\`\`\`
+Harness constraint features:
+- Path whitelist
+- Command blacklist
+- Execution timeout
+- Resource limits
+\`\`\`
+
+---
+
+## Summary
+
+| Concept | Description |
+|---------|-------------|
+| **Agent** | Model + Harness |
+| **Model** | Provides intelligence and reasoning |
+| **Harness** | Makes intelligence useful |
+| **Skills** | Extend Harness capabilities |
+| **Security** | Harness constraint features |
+
+**Next Step**: Check your Harness configuration to ensure it lets your model perform at its best.`,
+    author: "OpenClaw 101",
+    date: "2026-03-24",
+    category: "技术深度",
+    categoryEn: "Deep Dive",
+    tags: ["架构", "Harness", "Agent", "设计"],
+    readingTime: 12,
+    image: "/og-image.png"
+  },
+  {
+    id: 12,
+    slug: "coding-agents-reshape-software-development",
+    title: "编程 Agent 如何重塑软件开发：从 PRD 到原型只需几分钟",
+    titleEn: "How Coding Agents Reshape Software Development: From PRD to Prototype in Minutes",
+    excerpt: "PRD 已死？瓶颈从实现转向审查？编程 Agent 正在改变 Engineering、Product、Design 的协作方式。",
+    excerptEn: "PRDs are dead? The bottleneck shifts from implementation to review? Coding agents are changing how Engineering, Product, and Design collaborate.",
+    content: `软件开发正在经历一场革命。
+
+过去，一个功能从想法到上线需要：
+1. Product 写 PRD（产品需求文档）
+2. Design 出设计稿
+3. Engineering 写代码实现
+
+现在？有了编程 Agent，这个流程被彻底颠覆。
+
+## PRD 已死？
+
+LangChain 创始人 Harrison Chase 说：**"PRDs are dead"**
+
+这不意味着产品需求不存在了，而是**传统的瀑布式开发流程已经过时**。
+
+### 传统流程 vs Agent 时代
+
+| 传统流程 | Agent 时代 |
+|---------|-----------|
+| PRD → 设计稿 → 代码 | 想法 → 原型 → 迭代 |
+| 周级/月级 | 小时级/分钟级 |
+| 专业分工 | 全栈通才 |
+| 文档驱动 | 原型驱动 |
+
+### 新的开发流程
+
+\`\`\`
+1. 有人有一个想法
+2. 直接用编程 Agent 生成原型
+3. 团队审查原型
+4. 快速迭代优化
+5. 发布
+\`\`\`
+
+## 瓶颈转移：从实现到审查
+
+以前，写代码是瓶颈：
+- 实现需要专业技能
+- 耗时长
+- 人力成本高
+
+现在，审查成了瓶颈：
+- 任何人都能生成代码
+- 但代码质量参差不齐
+- 需要专业人员把关
+
+### 审查者的新角色
+
+\`\`\`
+审查者需要关注：
+
+工程视角：
+- 架构是否合理？
+- 是否可扩展、可维护？
+- 性能是否达标？
+
+产品视角：
+- 是否解决了用户痛点？
+- 功能是否完整？
+
+设计视角：
+- 界面是否直观？
+- 体验是否流畅？
+\`\`\`
+
+## 角色变化
+
+### 通才更受欢迎
+
+\`\`\`
+Agent 时代的黄金技能组合：
+
+1. 产品思维 + 技术理解
+   → 能快速验证想法
+
+2. 设计能力 + 编程基础
+   → 能独立完成原型
+
+3. 工程经验 + 审查能力
+   → 能把控代码质量
+\`\`\`
+
+### 专业化的门槛更高
+
+\`\`\`
+普通工程师：
+- 写 CRUD → Agent 替代
+- 写模板代码 → Agent 替代
+
+高级工程师：
+- 架构设计 → 仍需人类
+- 复杂问题 → 仍需人类
+- 代码审查 → 更加重要
+\`\`\`
+
+## OpenClaw 如何加速开发
+
+### 1. 快速原型
+
+\`\`\`
+用户：帮我创建一个 Next.js 博客网站
+
+OpenClaw：
+✅ 创建项目结构
+✅ 配置 Tailwind CSS
+✅ 创建博客页面
+✅ 添加 Markdown 支持
+→ 原型就绪，5 分钟
+\`\`\`
+
+### 2. 迭代优化
+
+\`\`\`
+用户：添加暗黑模式支持
+
+OpenClaw：
+✅ 添加主题切换组件
+✅ 更新 Tailwind 配置
+✅ 修改现有组件
+→ 功能完成，2 分钟
+\`\`\`
+
+### 3. 代码审查
+
+\`\`\`
+用户：审查这个 PR
+
+OpenClaw：
+📋 发现 3 个潜在问题：
+1. 缺少错误处理
+2. XSS 漏洞风险
+3. 性能优化建议
+\`\`\`
+
+## 团队协作新模式
+
+### 原型驱动开发
+
+\`\`\`
+传统：
+会议 → PRD → 评审 → 设计 → 开发 → 测试 → 上线
+（周期：周-月）
+
+Agent 时代：
+想法 → 原型 → 评审 → 迭代 → 上线
+（周期：小时-天）
+\`\`\`
+
+### 异步协作
+
+\`\`\`
+团队成员可以：
+- 在不同时区工作
+- 独立完成端到端功能
+- 通过 Agent 辅助沟通
+
+Agent 充当：
+- 实时翻译（想法 → 代码）
+- 文档生成
+- 测试自动化
+\`\`\`
+
+## 实践建议
+
+### 1. 从小开始
+
+\`\`\`
+第一步：用 Agent 生成原型
+第二步：人工审查和优化
+第三步：逐步增加 Agent 职责
+\`\`\`
+
+### 2. 保持审查质量
+
+\`\`\`
+审查清单：
+□ 功能是否正确？
+□ 代码是否可读？
+□ 是否有安全隐患？
+□ 是否有性能问题？
+□ 是否有测试覆盖？
+\`\`\`
+
+### 3. 持续学习
+
+\`\`\`
+Agent 能力在提升：
+- 你需要知道它能做什么
+- 你需要知道它不能做什么
+- 你需要知道如何指导它
+\`\`\`
+
+---
+
+## 总结
+
+| 变化 | 说明 |
+|------|------|
+| **PRD** | 从文档驱动到原型驱动 |
+| **瓶颈** | 从实现转移到审查 |
+| **角色** | 通才更受欢迎，专才门槛更高 |
+| **流程** | 从瀑布到敏捷，从同步到异步 |
+
+**未来已来**：会用 Agent 的人，将比不用 Agent 的人效率高 10 倍。`,
+    contentEn: `Software development is undergoing a revolution.
+
+In the past, a feature from idea to production required:
+1. Product writes PRD
+2. Design creates mockups
+3. Engineering implements code
+
+Now? With coding agents, this workflow is completely disrupted.
+
+## PRDs Are Dead?
+
+LangChain founder Harrison Chase says: **"PRDs are dead"**
+
+This doesn't mean product requirements don't exist, but the **traditional waterfall development process is outdated**.
+
+### Traditional vs Agent Era
+
+| Traditional Process | Agent Era |
+|--------------------|-----------|
+| PRD → Design → Code | Idea → Prototype → Iterate |
+| Weeks/Months | Hours/Minutes |
+| Specialized roles | Full-stack generalists |
+| Document-driven | Prototype-driven |
+
+## Bottleneck Shift: From Implementation to Review
+
+Before, coding was the bottleneck:
+- Implementation required specialized skills
+- Time-consuming
+- High labor costs
+
+Now, review is the bottleneck:
+- Anyone can generate code
+- But code quality varies
+- Needs professional oversight
+
+## OpenClaw Accelerates Development
+
+### 1. Rapid Prototyping
+
+\`\`\`
+User: Create a Next.js blog website
+
+OpenClaw:
+✅ Create project structure
+✅ Configure Tailwind CSS
+✅ Create blog pages
+✅ Add Markdown support
+→ Prototype ready, 5 minutes
+\`\`\`
+
+### 2. Iterative Optimization
+
+\`\`\`
+User: Add dark mode support
+
+OpenClaw:
+✅ Add theme toggle component
+✅ Update Tailwind config
+✅ Modify existing components
+→ Feature complete, 2 minutes
+\`\`\`
+
+---
+
+## Summary
+
+| Change | Description |
+|--------|-------------|
+| **PRD** | From document-driven to prototype-driven |
+| **Bottleneck** | Shifts from implementation to review |
+| **Roles** | Generalists more valuable, specialists higher bar |
+| **Process** | From waterfall to agile, from sync to async |
+
+**The future is here**: Those who use agents will be 10x more productive than those who don't.`,
+    author: "OpenClaw 101",
+    date: "2026-03-24",
+    category: "行业洞察",
+    categoryEn: "Insights",
+    tags: ["编程Agent", "软件开发", "PRD", "效率"],
+    readingTime: 10,
+    image: "/og-image.png"
+  },
+  {
+    id: 13,
+    slug: "multi-agent-collaboration",
+    title: "多 Agent 协作实战：OpenClaw 子代理系统详解",
+    titleEn: "Multi-Agent Collaboration: Deep Dive into OpenClaw Subagent System",
+    excerpt: "单 Agent 有局限？多 Agent 协作来帮忙。详解 OpenClaw 的子代理系统，实现专业分工、并行执行、任务编排。",
+    excerptEn: "Single agent has limits? Multi-agent collaboration helps. Deep dive into OpenClaw's subagent system for specialization, parallel execution, and task orchestration.",
+    content: `一个 Agent 能做什么？
+
+- 执行任务
+- 使用工具
+- 与用户对话
+
+但一个 Agent 也有局限：
+- 上下文窗口有限
+- 专业能力有限
+- 无法并行处理
+
+**解决方案：多 Agent 协作**
+
+## 什么是多 Agent 协作？
+
+借鉴 CrewAI 的概念，一个 Agent 是：
+
+\`\`\`
+Agent = 角色 + 目标 + 背景故事 + 工具 + 记忆
+\`\`\`
+
+多 Agent 协作就是让多个专业化的 Agent 组成团队，各自负责擅长的领域。
+
+### 类比：软件开发团队
+
+| Agent 角色 | 职责 |
+|-----------|------|
+| Researcher | 搜索、分析、整理信息 |
+| Developer | 编写、修改代码 |
+| Reviewer | 审查代码质量 |
+| Tester | 编写测试、验证功能 |
+| Coordinator | 协调各 Agent、整合结果 |
+
+## OpenClaw 子代理系统
+
+### 架构设计
+
+\`\`\`
+                    ┌─────────────┐
+                    │   用户请求   │
+                    └──────┬──────┘
+                           │
+                    ┌──────▼──────┐
+                    │  主 Agent   │
+                    │ (协调者)    │
+                    └──────┬──────┘
+                           │
+        ┌──────────┬───────┼───────┬──────────┐
+        │          │       │       │          │
+   ┌────▼────┐ ┌───▼───┐ ┌─▼──┐ ┌──▼───┐ ┌───▼────┐
+   │子Agent A│ │子Agent│ │子  │ │子    │ │子Agent │
+   │(研究)   │ │  B    │ │C   │ │D     │ │  E     │
+   │         │ │(开发) │ │(测 │ │(审查)│ │(部署)  │
+   └─────────┘ └───────┘ └────┘ └──────┘ └────────┘
+\`\`\`
+
+### 工作流程
+
+\`\`\`
+1. 主 Agent 接收用户任务
+2. 分析任务，决定是否需要子 Agent
+3. 创建专业化的子 Agent
+4. 分配子任务给子 Agent
+5. 子 Agent 执行并返回结果
+6. 主 Agent 整合结果
+7. 向用户报告
+\`\`\`
+
+## 实战案例：自动化 PR 审查
+
+### 场景
+
+用户提交了一个 PR，需要：
+1. 检查代码风格
+2. 运行测试
+3. 检查安全漏洞
+4. 生成审查报告
+
+### 单 Agent 方案
+
+\`\`\`
+问题：
+- 串行执行，耗时长
+- 上下文膨胀
+- 专业程度有限
+\`\`\`
+
+### 多 Agent 方案
+
+\`\`\`bash
+# 在 OpenClaw 中配置子代理
+openclaw config set subagents.enabled true
+
+# 定义子 Agent 角色
+openclaw subagent create linter --role "代码风格检查专家"
+openclaw subagent create tester --role "测试工程师"
+openclaw subagent create security --role "安全审计专家"
+\`\`\`
+
+执行流程：
+
+\`\`\`
+用户：审查这个 PR
+
+主 Agent：
+├── 创建子 Agent: linter
+│   └── 输出：发现 3 个风格问题
+├── 创建子 Agent: tester
+│   └── 输出：测试通过 15/16
+├── 创建子 Agent: security
+│   └── 输出：发现 1 个潜在漏洞
+└── 整合报告：需要修复 4 个问题
+\`\`\`
+
+## 配置指南
+
+### 基础配置
+
+\`\`\`bash
+# 启用子代理
+openclaw config set subagents.enabled true
+
+# 最大并发子代理数
+openclaw config set subagents.max_concurrent 5
+
+# 子代理超时时间
+openclaw config set subagents.timeout 300000
+\`\`\`
+
+### 子代理模板
+
+\`\`\`typescript
+// 子代理配置示例
+const subagentConfig = {
+  name: 'researcher',
+  role: '研究员',
+  goal: '搜索和分析信息',
+  backstory: '你是一个专业的研究员，擅长搜索网络和整理信息',
+  tools: ['web_search', 'web_fetch', 'read'],
+  max_iterations: 10,
+  verbose: true
+};
+\`\`\`
+
+## 最佳实践
+
+### 1. 明确角色分工
+
+\`\`\`
+好的设计：
+- 每个子 Agent 有明确的职责
+- 职责不重叠
+- 便于独立测试和调试
+
+不好的设计：
+- 角色模糊
+- 职责重叠
+- 难以追踪问题
+\`\`\`
+
+### 2. 控制并发
+
+\`\`\`
+考虑因素：
+- API 速率限制
+- 系统资源
+- 任务依赖关系
+
+建议：
+- 并发数不超过 5
+- 有依赖的任务串行执行
+\`\`\`
+
+### 3. 结果整合
+
+\`\`\`
+主 Agent 职责：
+1. 收集子 Agent 结果
+2. 去重和验证
+3. 生成最终报告
+4. 向用户呈现
+\`\`\`
+
+## 常见问题
+
+### Q: 多 Agent 会增加成本吗？
+
+\`\`\`
+是的，但有优化方法：
+1. 使用更小的模型给子 Agent
+2. 缓存中间结果
+3. 并行执行减少时间成本
+\`\`\`
+
+### Q: 如何调试多 Agent 系统？
+
+\`\`\`bash
+# 启用详细日志
+openclaw config set logging.level debug
+
+# 查看子代理日志
+openclaw logs --subagent researcher
+\`\`\`
+
+---
+
+## 总结
+
+| 概念 | 说明 |
+|------|------|
+| **单 Agent** | 适合简单任务 |
+| **多 Agent** | 适合复杂、多步骤任务 |
+| **角色分工** | 每个 Agent 有明确职责 |
+| **协调者** | 主 Agent 负责整合 |
+| **并发控制** | 平衡效率和成本 |
+
+**下一步**：尝试配置你的第一个子代理，体验多 Agent 协作的力量。`,
+    contentEn: `What can a single Agent do?
+
+- Execute tasks
+- Use tools
+- Chat with users
+
+But a single Agent also has limitations:
+- Limited context window
+- Limited specialized capabilities
+- Cannot process in parallel
+
+**Solution: Multi-Agent Collaboration**
+
+## What is Multi-Agent Collaboration?
+
+Borrowing from CrewAI's concept, an Agent is:
+
+\`\`\`
+Agent = Role + Goal + Backstory + Tools + Memory
+\`\`\`
+
+Multi-agent collaboration means multiple specialized agents form a team, each responsible for their area of expertise.
+
+### Analogy: Software Development Team
+
+| Agent Role | Responsibility |
+|------------|----------------|
+| Researcher | Search, analyze, organize information |
+| Developer | Write, modify code |
+| Reviewer | Review code quality |
+| Tester | Write tests, verify functionality |
+| Coordinator | Coordinate agents, integrate results |
+
+## OpenClaw Subagent System
+
+### Architecture
+
+\`\`\`
+                    ┌─────────────┐
+                    │ User Request│
+                    └──────┬──────┘
+                           │
+                    ┌──────▼──────┐
+                    │ Main Agent  │
+                    │(Coordinator)│
+                    └──────┬──────┘
+                           │
+        ┌──────────┬───────┼───────┬──────────┐
+        │          │       │       │          │
+   ┌────▼────┐ ┌───▼───┐ ┌─▼──┐ ┌──▼───┐ ┌───▼────┐
+   │SubAgent │ │SubAgnt│ │Sub │ │Sub   │ │SubAgent│
+   │    A    │ │   B   │ │ C  │ │  D   │ │   E    │
+   └─────────┘ └───────┘ └────┘ └──────┘ └────────┘
+\`\`\`
+
+### Workflow
+
+\`\`\`
+1. Main Agent receives user task
+2. Analyzes task, decides if subagents needed
+3. Creates specialized subagents
+4. Assigns subtasks to subagents
+5. Subagents execute and return results
+6. Main Agent integrates results
+7. Reports to user
+\`\`\`
+
+## Configuration Guide
+
+\`\`\`bash
+# Enable subagents
+openclaw config set subagents.enabled true
+
+# Max concurrent subagents
+openclaw config set subagents.max_concurrent 5
+
+# Subagent timeout
+openclaw config set subagents.timeout 300000
+\`\`\`
+
+---
+
+## Summary
+
+| Concept | Description |
+|---------|-------------|
+| **Single Agent** | Good for simple tasks |
+| **Multi-Agent** | Good for complex, multi-step tasks |
+| **Role Division** | Each Agent has clear responsibility |
+| **Coordinator** | Main Agent integrates results |
+| **Concurrency Control** | Balance efficiency and cost |
+
+**Next Step**: Try configuring your first subagent to experience multi-agent collaboration.`,
+    author: "OpenClaw 101",
+    date: "2026-03-24",
+    category: "技术深度",
+    categoryEn: "Deep Dive",
+    tags: ["多Agent", "协作", "子代理", "架构"],
+    readingTime: 12,
+    image: "/og-image.png"
   }
 ];
 
