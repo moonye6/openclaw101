@@ -4,6 +4,9 @@ import { JsonLd } from '@/components/seo/JsonLd';
 
 const SITE_URL = 'https://openclaw101.com';
 
+// Enable ISR - revalidate every hour
+export const revalidate = 3600;
+
 export async function generateMetadata({
   params,
 }: {

@@ -14,6 +14,9 @@ import { FAQSection } from '@/components/seo/FAQSection';
 
 const SITE_URL = 'https://openclaw101.com';
 
+// Enable ISR - revalidate every hour for better caching
+export const revalidate = 3600;
+
 export async function generateMetadata({
   params,
 }: {
