@@ -18,6 +18,1213 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    id: 13,
+    slug: "openclaw-vs-claude-code",
+    title: "OpenClaw vs Claude Code：谁才是最好的 AI 编程助手？",
+    titleEn: "OpenClaw vs Claude Code: Which is the Best AI Coding Assistant?",
+    excerpt: "Claude Code 是 Anthropic 官方的编程助手，OpenClaw 是开源社区的明星项目。两者有什么区别？该选哪一个？从多平台支持、开源性、技能生态、自托管、定价全方位对比。",
+    excerptEn: "Claude Code is Anthropic's official coding assistant, while OpenClaw is a star in the open-source community. What's the difference? Which one should you choose? Comprehensive comparison from platform support, open source, skills ecosystem, self-hosting, and pricing.",
+    content: `2026 年，AI 编程助手市场百花齐放。Claude Code 和 OpenClaw 是其中最受关注的两款产品。
+
+Claude Code 由 Anthropic 官方推出，闭源商业化；OpenClaw 是开源社区的明星项目，GitHub 336k+ stars。
+
+这篇文章深度对比这两款产品，帮你做出选择。
+
+## 核心对比一览
+
+| 维度 | OpenClaw | Claude Code |
+|------|----------|-------------|
+| **开发方** | 开源社区 | Anthropic 官方 |
+| **开源性** | ✅ 完全开源 | ❌ 闭源 |
+| **GitHub Stars** | 336,466 | 82,917 |
+| **平台支持** | 多平台 | 仅终端 |
+| **自托管** | ✅ 支持 | ❌ 不支持 |
+| **技能生态** | ✅ 42,000+ stars | ❌ 无 |
+| **定价** | 免费（需 API 费用） | 按使用量付费 |
+
+## 1. 平台支持对比
+
+### OpenClaw：真正的多平台
+
+OpenClaw 原生支持 **10+ 消息平台**：
+
+- Telegram
+- WhatsApp
+- Discord
+- Signal
+- 飞书
+- 钉钉
+- 企业微信
+- QQ
+- iMessage
+- Slack
+
+**这意味着**：你可以在任何你常用的聊天软件中使用 OpenClaw，无需切换工具。
+
+### Claude Code：仅支持终端
+
+Claude Code 只能在 **终端** 中使用：
+
+- 需要命令行操作
+- 不支持移动端
+- 没有图形界面
+
+**这意味着**：你需要习惯命令行操作，不适合非技术用户。
+
+## 2. 开源性对比
+
+### OpenClaw：完全开源
+
+\`\`\`
+- 代码完全透明
+- 可自行修改和扩展
+- 社区驱动发展
+- 无供应商锁定风险
+\`\`\`
+
+**优势**：
+- 安全性可审计
+- 可根据需求定制
+- 社区贡献丰富
+
+### Claude Code：闭源商业
+
+\`\`\`
+- 代码不公开
+- 无法自行修改
+- Anthropic 独家控制
+- 存在供应商锁定风险
+\`\`\`
+
+**风险**：
+- 无法审计安全性
+- 依赖 Anthropic 决策
+- 价格可能上涨
+
+## 3. 技能生态对比
+
+### OpenClaw：42,000+ Stars 的技能库
+
+OpenClaw 拥有庞大的技能生态：
+
+- **ClawHub**：官方技能市场，8000+ 技能
+- **awesome-openclaw-skills**：社区精选技能，42,027 stars
+- **Skills API**：自定义技能开发
+
+**热门技能类别**：
+- 文档操作（飞书、Notion）
+- 图片生成（DALL-E、Midjourney）
+- 数据分析（SQL、Excel）
+- 自动化（定时任务、工作流）
+
+### Claude Code：无技能系统
+
+Claude Code 没有技能扩展机制：
+
+- 功能由 Anthropic 决定
+- 无法自定义扩展
+- 依赖官方更新
+
+## 4. 自托管对比
+
+### OpenClaw：支持自托管
+
+OpenClaw 提供多种自托管方案：
+
+1. **本地部署**：直接运行在本地机器
+2. **VPS 部署**：部署到云服务器
+3. **nanoclaw**：容器化安全方案
+4. **Clawith**：企业级私有化
+
+**优势**：
+- 数据完全自主
+- 满足合规要求
+- 降低 API 成本
+
+### Claude Code：不支持自托管
+
+Claude Code 必须连接 Anthropic 云端：
+
+- 数据经过 Anthropic 服务器
+- 无法本地部署
+- API 调用必产生费用
+
+## 5. 定价对比
+
+### OpenClaw：免费 + API 费用
+
+\`\`\`
+OpenClaw 本身：免费
+Claude API 调用：按实际使用付费
+自托管：无 API 费用（使用本地模型）
+\`\`\`
+
+**成本估算**：
+- 个人用户：$5-20/月
+- 企业用户：$50-200/月
+- 自托管：$0（使用 LocalAI）
+
+### Claude Code：按使用量付费
+
+\`\`\`
+按 token 计费
+无免费额度
+无自托管选项
+\`\`\`
+
+**成本估算**：
+- 个人用户：$20-50/月
+- 企业用户：$200-500/月
+
+## 6. 适用场景
+
+### OpenClaw 适合
+
+✅ 需要多平台支持的用户
+✅ 注重数据安全的企业
+✅ 希望自定扩展的开发者
+✅ 追求成本优化的团队
+✅ 需要技能生态的用户
+
+### Claude Code 适合
+
+✅ Anthropic 生态用户
+✅ 习惯终端操作的开发者
+✅ 不需要自托管的个人用户
+✅ 追求官方支持的用户
+
+## 总结
+
+**OpenClaw 的优势**：
+- 多平台支持，随时随地使用
+- 完全开源，安全可控
+- 庞大的技能生态
+- 支持自托管，数据安全
+- 成本更低
+
+**Claude Code 的优势**：
+- Anthropic 官方支持
+- 与 Claude 模型深度集成
+- 无需配置，开箱即用
+
+**建议**：
+- 如果你需要多平台、自托管、技能扩展 → **OpenClaw**
+- 如果你只需要终端编程助手、追求官方支持 → **Claude Code**
+
+对于大多数用户，OpenClaw 的综合优势更明显。
+
+---
+
+*OpenClaw GitHub: https://github.com/openclaw/openclaw*
+*Claude Code GitHub: https://github.com/anthropics/claude-code*`,
+    contentEn: `In 2026, the AI coding assistant market is flourishing. Claude Code and OpenClaw are two of the most prominent products.
+
+Claude Code is launched by Anthropic, closed-source and commercial; OpenClaw is a star in the open-source community with 336k+ GitHub stars.
+
+This article provides an in-depth comparison to help you choose.
+
+## Quick Comparison
+
+| Dimension | OpenClaw | Claude Code |
+|------|----------|-------------|
+| **Developer** | Open Source Community | Anthropic Official |
+| **Open Source** | ✅ Fully Open | ❌ Closed |
+| **GitHub Stars** | 336,466 | 82,917 |
+| **Platform Support** | Multi-platform | Terminal Only |
+| **Self-hosting** | ✅ Supported | ❌ Not Supported |
+| **Skills Ecosystem** | ✅ 42,000+ stars | ❌ None |
+| **Pricing** | Free (API fees only) | Pay-per-use |
+
+## 1. Platform Support
+
+### OpenClaw: True Multi-Platform
+
+OpenClaw natively supports **10+ messaging platforms**:
+
+- Telegram, WhatsApp, Discord, Signal
+- Feishu, DingTalk, WeCom, QQ
+- iMessage, Slack
+
+**This means**: Use OpenClaw in any chat app you already use.
+
+### Claude Code: Terminal Only
+
+Claude Code only works in **terminal**:
+
+- Command-line operation required
+- No mobile support
+- No GUI
+
+**This means**: Not suitable for non-technical users.
+
+## 2. Open Source
+
+### OpenClaw: Fully Open Source
+
+\`\`\`
+- Code fully transparent
+- Modify and extend freely
+- Community-driven development
+- No vendor lock-in
+\`\`\`
+
+**Advantages**: Security auditable, customizable, rich community contributions.
+
+### Claude Code: Closed Source
+
+\`\`\`
+- Code not public
+- Cannot modify
+- Anthropic controlled
+- Vendor lock-in risk
+\`\`\`
+
+**Risks**: No security audit, dependent on Anthropic decisions, potential price increases.
+
+## 3. Skills Ecosystem
+
+### OpenClaw: 42,000+ Stars Skills Library
+
+OpenClaw has a massive skills ecosystem:
+
+- **ClawHub**: Official marketplace, 8000+ skills
+- **awesome-openclaw-skills**: Community curated, 42,027 stars
+- **Skills API**: Custom skill development
+
+### Claude Code: No Skills System
+
+No extension mechanism. Features decided by Anthropic.
+
+## 4. Self-hosting
+
+### OpenClaw: Supported
+
+Multiple self-hosting options:
+
+1. Local deployment
+2. VPS deployment
+3. nanoclaw (containerized)
+4. Clawith (enterprise)
+
+**Advantages**: Data sovereignty, compliance, lower API costs.
+
+### Claude Code: Not Supported
+
+Must connect to Anthropic cloud. Data passes through Anthropic servers.
+
+## 5. Pricing
+
+### OpenClaw: Free + API Fees
+
+\`\`\`
+OpenClaw: Free
+Claude API: Pay-per-use
+Self-hosting: $0 (local models)
+\`\`\`
+
+**Cost estimate**: $5-20/month (personal), $50-200/month (enterprise)
+
+### Claude Code: Pay-per-use
+
+\`\`\`
+Per-token billing
+No free tier
+No self-hosting option
+\`\`\`
+
+**Cost estimate**: $20-50/month (personal), $200-500/month (enterprise)
+
+## Summary
+
+**OpenClaw Advantages**:
+- Multi-platform support
+- Fully open source
+- Massive skills ecosystem
+- Self-hosting support
+- Lower cost
+
+**Claude Code Advantages**:
+- Anthropic official support
+- Deep integration with Claude
+- Zero configuration
+
+**Recommendation**:
+- If you need multi-platform, self-hosting, skills ecosystem → **OpenClaw**
+- If you only need terminal coding assistant with official support → **Claude Code**
+
+For most users, OpenClaw's comprehensive advantages are more compelling.`,
+    author: "OpenClaw 101",
+    date: "2026-03-26",
+    category: "对比评测",
+    categoryEn: "Comparison",
+    tags: ["对比", "Claude Code", "竞品", "编程助手"],
+    readingTime: 12,
+    image: "/images/blog/comparison.jpg"
+  },
+  {
+    id: 12,
+    slug: "openclaw-self-hosting-guide",
+    title: "OpenClaw 自托管完全指南：从 nanoclaw 到 Clawith 企业版",
+    titleEn: "Complete Guide to OpenClaw Self-hosting: From nanoclaw to Clawith Enterprise",
+    excerpt: "数据安全、本地部署、企业合规——详解 OpenClaw 的 4 种自托管方案。包括 nanoclaw 容器化部署、Clawith 企业版、LocalAI 集成，以及成本优化策略。",
+    excerptEn: "Data security, local deployment, enterprise compliance — Detailed guide to 4 OpenClaw self-hosting options. Including nanoclaw containerization, Clawith enterprise edition, LocalAI integration, and cost optimization strategies.",
+    content: `越来越多的企业和个人开始关注数据安全，自托管成为刚需。
+
+OpenClaw 提供 **4 种自托管方案**，满足不同场景的需求。
+
+## 为什么需要自托管？
+
+### 数据安全
+
+- 敏感数据不经过第三方服务器
+- 满足 GDPR、等保等合规要求
+- 避免数据泄露风险
+
+### 成本优化
+
+- 使用本地模型，无 API 费用
+- 一次性部署，长期使用
+- 适合高频使用场景
+
+### 自主控制
+
+- 完全控制服务运行
+- 可根据需求定制
+- 无供应商锁定风险
+
+## 方案 1：本地部署（最简单）
+
+### 适用场景
+
+- 个人用户
+- 开发测试
+- 学习研究
+
+### 部署步骤
+
+\`\`\`bash
+# 克隆项目
+git clone https://github.com/openclaw/openclaw.git
+cd openclaw
+
+# 安装依赖
+npm install
+
+# 配置环境变量
+cp .env.example .env
+# 编辑 .env 文件，填入 API 密钥
+
+# 启动服务
+npm run dev
+\`\`\`
+
+### 优势
+
+- 部署简单，5 分钟完成
+- 完全免费
+- 适合开发和测试
+
+### 劣势
+
+- 需要保持电脑开机
+- 不适合生产环境
+- 无高可用保障
+
+## 方案 2：VPS 部署（推荐）
+
+### 适用场景
+
+- 个人或小团队
+- 24/7 在线服务
+- 生产环境
+
+### 部署步骤
+
+\`\`\`bash
+# 在 VPS 上安装 Docker
+curl -fsSL https://get.docker.com | sh
+
+# 拉取 OpenClaw 镜像
+docker pull openclaw/openclaw:latest
+
+# 运行容器
+docker run -d \\
+  --name openclaw \\
+  -p 3000:3000 \\
+  -v /data/openclaw:/app/data \\
+  -e ANTHROPIC_API_KEY=your_key \\
+  openclaw/openclaw:latest
+\`\`\`
+
+### 推荐配置
+
+| 用户规模 | CPU | 内存 | 存储 | 月费用 |
+|----------|-----|------|------|--------|
+| 个人 | 2 核 | 4GB | 40GB | $5-10 |
+| 小团队 | 4 核 | 8GB | 100GB | $20-40 |
+| 中团队 | 8 核 | 16GB | 200GB | $50-100 |
+
+### 优势
+
+- 24/7 在线
+- 可配置域名和 HTTPS
+- 支持多用户访问
+
+## 方案 3：nanoclaw（最安全）
+
+### 适用场景
+
+- 对安全要求高
+- 需要容器隔离
+- 企业级部署
+
+### 什么是 nanoclaw？
+
+nanoclaw 是 OpenClaw 的安全容器化版本：
+
+- 运行在 Docker 容器中
+- 网络隔离
+- 资源限制
+- 审计日志
+
+### 部署步骤
+
+\`\`\`bash
+# 克隆 nanoclaw
+git clone https://github.com/qwibitai/nanoclaw.git
+cd nanoclaw
+
+# 配置
+cp config.example.yaml config.yaml
+# 编辑 config.yaml
+
+# 启动
+docker-compose up -d
+\`\`\`
+
+### 安全特性
+
+\`\`\`yaml
+# nanoclaw 安全配置示例
+security:
+  network:
+    isolation: true
+    allowed_hosts:
+      - api.anthropic.com
+  resources:
+    memory_limit: 2GB
+    cpu_limit: 1
+  audit:
+    enabled: true
+    log_file: /var/log/nanoclaw/audit.log
+\`\`\`
+
+### 优势
+
+- 容器隔离，安全性高
+- 资源可控
+- 审计日志完善
+
+## 方案 4：Clawith 企业版（企业首选）
+
+### 适用场景
+
+- 中大型企业
+- 多团队协作
+- 高合规要求
+
+### 什么是 Clawith？
+
+Clawith 是 OpenClaw 的企业版：
+
+- 多租户支持
+- 权限管理
+- SSO 集成
+- 企业级支持
+
+### 部署架构
+
+\`\`\`
+┌─────────────┐
+│   Nginx     │ ← 负载均衡
+└──────┬──────┘
+       │
+┌──────┴──────┐
+│  Clawith    │ ← 主服务
+├─────────────┤
+│ PostgreSQL  │ ← 数据库
+│ Redis       │ ← 缓存
+│ MinIO       │ ← 对象存储
+└─────────────┘
+\`\`\`
+
+### 企业特性
+
+| 特性 | 说明 |
+|------|------|
+| 多租户 | 支持多部门独立管理 |
+| 权限管理 | RBAC 角色权限控制 |
+| SSO | 支持 LDAP、SAML、OAuth |
+| 审计日志 | 完整操作记录 |
+| 高可用 | 支持集群部署 |
+| 技术支持 | 企业级 SLA |
+
+### 优势
+
+- 企业级功能完整
+- 技术支持有保障
+- 合规性强
+
+## 成本对比
+
+| 方案 | 初期成本 | 月度成本 | 适用规模 |
+|------|----------|----------|----------|
+| 本地部署 | $0 | $0-20（API） | 个人 |
+| VPS 部署 | $0 | $10-50 | 小团队 |
+| nanoclaw | $0 | $20-100 | 中团队 |
+| Clawith 企业版 | $500-2000 | $200-1000 | 企业 |
+
+## 选择建议
+
+| 需求 | 推荐方案 |
+|------|----------|
+| 个人使用，预算有限 | 本地部署 |
+| 小团队，24/7 在线 | VPS 部署 |
+| 安全要求高 | nanoclaw |
+| 企业合规 | Clawith 企业版 |
+
+---
+
+*nanoclaw GitHub: https://github.com/qwibitai/nanoclaw*
+*Clawith GitHub: https://github.com/dataelement/Clawith*`,
+    contentEn: `More enterprises and individuals are concerned about data security, making self-hosting a necessity.
+
+OpenClaw provides **4 self-hosting options** for different scenarios.
+
+## Why Self-host?
+
+### Data Security
+
+- Sensitive data stays on your servers
+- Meet GDPR, compliance requirements
+- Avoid data breach risks
+
+### Cost Optimization
+
+- Use local models, no API fees
+- One-time deployment, long-term use
+- Suitable for high-frequency usage
+
+### Full Control
+
+- Complete control over service
+- Customize as needed
+- No vendor lock-in
+
+## Option 1: Local Deployment (Simplest)
+
+### Use Case
+
+- Personal users
+- Development & testing
+- Learning & research
+
+### Deployment Steps
+
+\`\`\`bash
+# Clone project
+git clone https://github.com/openclaw/openclaw.git
+cd openclaw
+
+# Install dependencies
+npm install
+
+# Configure environment
+cp .env.example .env
+# Edit .env file, add API keys
+
+# Start service
+npm run dev
+\`\`\`
+
+### Pros & Cons
+
+✅ Simple, 5-minute setup
+✅ Completely free
+✅ Great for development
+
+❌ Requires computer to stay on
+❌ Not for production
+❌ No high availability
+
+## Option 2: VPS Deployment (Recommended)
+
+### Use Case
+
+- Personal or small teams
+- 24/7 online service
+- Production environment
+
+### Deployment Steps
+
+\`\`\`bash
+# Install Docker on VPS
+curl -fsSL https://get.docker.com | sh
+
+# Pull OpenClaw image
+docker pull openclaw/openclaw:latest
+
+# Run container
+docker run -d \\
+  --name openclaw \\
+  -p 3000:3000 \\
+  -v /data/openclaw:/app/data \\
+  -e ANTHROPIC_API_KEY=your_key \\
+  openclaw/openclaw:latest
+\`\`\`
+
+### Recommended Configurations
+
+| Scale | CPU | RAM | Storage | Monthly Cost |
+|-------|-----|-----|---------|--------------|
+| Personal | 2 cores | 4GB | 40GB | $5-10 |
+| Small team | 4 cores | 8GB | 100GB | $20-40 |
+| Medium team | 8 cores | 16GB | 200GB | $50-100 |
+
+## Option 3: nanoclaw (Most Secure)
+
+### Use Case
+
+- High security requirements
+- Container isolation needed
+- Enterprise deployment
+
+### What is nanoclaw?
+
+nanoclaw is OpenClaw's secure containerized version:
+
+- Runs in Docker containers
+- Network isolation
+- Resource limits
+- Audit logs
+
+### Deployment
+
+\`\`\`bash
+git clone https://github.com/qwibitai/nanoclaw.git
+cd nanoclaw
+
+cp config.example.yaml config.yaml
+# Edit config.yaml
+
+docker-compose up -d
+\`\`\`
+
+### Security Features
+
+\`\`\`yaml
+security:
+  network:
+    isolation: true
+    allowed_hosts:
+      - api.anthropic.com
+  resources:
+    memory_limit: 2GB
+    cpu_limit: 1
+  audit:
+    enabled: true
+    log_file: /var/log/nanoclaw/audit.log
+\`\`\`
+
+## Option 4: Clawith Enterprise (Enterprise Choice)
+
+### Use Case
+
+- Medium to large enterprises
+- Multi-team collaboration
+- High compliance requirements
+
+### What is Clawith?
+
+Clawith is OpenClaw's enterprise edition:
+
+- Multi-tenant support
+- Permission management
+- SSO integration
+- Enterprise support
+
+### Enterprise Features
+
+| Feature | Description |
+|---------|-------------|
+| Multi-tenant | Support multiple departments |
+| Permission Management | RBAC role-based control |
+| SSO | LDAP, SAML, OAuth support |
+| Audit Logs | Complete operation records |
+| High Availability | Cluster deployment |
+| Technical Support | Enterprise SLA |
+
+## Cost Comparison
+
+| Option | Initial Cost | Monthly Cost | Scale |
+|--------|--------------|--------------|-------|
+| Local | $0 | $0-20 (API) | Personal |
+| VPS | $0 | $10-50 | Small team |
+| nanoclaw | $0 | $20-100 | Medium team |
+| Clawith Enterprise | $500-2000 | $200-1000 | Enterprise |
+
+## Recommendations
+
+| Need | Recommended Option |
+|------|-------------------|
+| Personal, limited budget | Local deployment |
+| Small team, 24/7 online | VPS deployment |
+| High security requirements | nanoclaw |
+| Enterprise compliance | Clawith Enterprise |
+
+---
+
+*nanoclaw GitHub: https://github.com/qwibitai/nanoclaw*
+*Clawith GitHub: https://github.com/dataelement/Clawith*`,
+    author: "OpenClaw 101",
+    date: "2026-03-26",
+    category: "部署指南",
+    categoryEn: "Deployment Guide",
+    tags: ["自托管", "部署", "企业", "安全"],
+    readingTime: 15,
+    image: "/images/blog/deployment.jpg"
+  },
+  {
+    id: 11,
+    slug: "openclaw-localai-integration",
+    title: "OpenClaw + LocalAI 集成实战：零成本运行你的 AI 助手",
+    titleEn: "OpenClaw + LocalAI Integration: Run Your AI Assistant at Zero Cost",
+    excerpt: "LocalAI 是开源的本地 AI 引擎，44k+ GitHub stars。结合 OpenClaw，可以实现完全本地化、零 API 费用的 AI 助手。本文详解集成步骤、模型选择和性能优化。",
+    excerptEn: "LocalAI is an open-source local AI engine with 44k+ GitHub stars. Combined with OpenClaw, you can achieve a fully local, zero API cost AI assistant. This article details integration steps, model selection, and performance optimization.",
+    content: `LocalAI 是一个强大的开源本地 AI 引擎，GitHub 44,300+ stars。
+
+结合 OpenClaw，你可以实现：
+- **完全本地化**：数据不离开你的服务器
+- **零 API 费用**：使用开源模型，无需付费
+- **多模型支持**：Llama, Mistral, Qwen 等主流模型
+
+## 为什么选择 LocalAI？
+
+### 与 OpenClaw 的完美契合
+
+| OpenClaw | LocalAI | 结合优势 |
+|----------|---------|----------|
+| 多平台接入 | 本地推理 | 数据完全自主 |
+| 技能生态 | 多模型支持 | 灵活切换模型 |
+| 自托管支持 | 开源免费 | 零成本运行 |
+
+### LocalAI 核心特性
+
+- ✅ **多模型支持**：Llama 3, Mistral, Qwen, DeepSeek
+- ✅ **API 兼容**：兼容 OpenAI API 格式
+- ✅ **MCP 支持**：原生支持 Model Context Protocol
+- ✅ **GPU 加速**：支持 CUDA, Metal, ROCm
+- ✅ **分布式推理**：支持多 GPU 和 P2P
+
+## 第一步：安装 LocalAI
+
+### Docker 安装（推荐）
+
+\`\`\`bash
+# 拉取 LocalAI 镜像
+docker pull localai/localai:latest
+
+# 启动 LocalAI
+docker run -d \\
+  --name localai \\
+  -p 8080:8080 \\
+  -v /data/models:/models \\
+  --gpus all \\
+  localai/localai:latest
+\`\`\`
+
+### 验证安装
+
+\`\`\`bash
+# 检查服务状态
+curl http://localhost:8080/health
+
+# 列出可用模型
+curl http://localhost:8080/v1/models
+\`\`\`
+
+## 第二步：下载模型
+
+### 推荐模型
+
+| 模型 | 参数量 | 内存需求 | 特点 |
+|------|--------|----------|------|
+| Qwen2.5-7B | 7B | 8GB | 中文优秀 |
+| Llama-3-8B | 8B | 10GB | 英文优秀 |
+| Mistral-7B | 7B | 8GB | 综合性能好 |
+| DeepSeek-Coder-6.7B | 6.7B | 8GB | 编程专用 |
+
+### 下载模型
+
+\`\`\`bash
+# 下载 Qwen2.5 模型（推荐中文用户）
+docker exec localai local-ai download \\
+  huggingface://Qwen/Qwen2.5-7B-Instruct-GGUF
+
+# 或下载 Llama-3 模型
+docker exec localai local-ai download \\
+  huggingface://meta-llama/Llama-3-8B-Instruct-GGUF
+\`\`\`
+
+## 第三步：配置 OpenClaw
+
+### 修改 OpenClaw 配置
+
+编辑 OpenClaw 的配置文件 \`~/.openclaw/config.json\`：
+
+\`\`\`json
+{
+  "providers": {
+    "localai": {
+      "type": "openai-compatible",
+      "baseUrl": "http://localhost:8080/v1",
+      "apiKey": "not-needed",
+      "defaultModel": "qwen2.5-7b-instruct"
+    }
+  },
+  "defaultProvider": "localai"
+}
+\`\`\`
+
+### 环境变量方式
+
+\`\`\`bash
+# 设置 LocalAI 为默认提供商
+export OPENAI_API_BASE=http://localhost:8080/v1
+export OPENAI_API_KEY=not-needed
+export OPENAI_MODEL=qwen2.5-7b-instruct
+\`\`\`
+
+## 第四步：测试集成
+
+### 基础测试
+
+\`\`\`bash
+# 启动 OpenClaw
+openclaw start
+
+# 在 Telegram 中测试
+# 发送消息，观察是否使用 LocalAI
+\`\`\`
+
+### 验证本地推理
+
+\`\`\`bash
+# 查看 LocalAI 日志
+docker logs -f localai
+
+# 确认请求被处理
+# 应该看到类似输出：
+# [INFO] Processing request with model: qwen2.5-7b-instruct
+\`\`\`
+
+## 性能优化
+
+### 1. GPU 加速
+
+\`\`\`bash
+# 使用 GPU 启动 LocalAI
+docker run -d \\
+  --name localai \\
+  -p 8080:8080 \\
+  --gpus all \\
+  -e CUDA_VISIBLE_DEVICES=0 \\
+  localai/localai:latest
+\`\`\`
+
+### 2. 多 GPU 分布式
+
+\`\`\`yaml
+# docker-compose.yaml
+services:
+  localai:
+    image: localai/localai:latest
+    environment:
+      - CUDA_VISIBLE_DEVICES=0,1
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+\`\`\`
+
+### 3. 模型量化
+
+\`\`\`bash
+# 使用量化模型减少内存占用
+# Q4_K_M 量化：4-bit，质量损失小
+# Q5_K_M 量化：5-bit，质量更好
+# Q8_0 量化：8-bit，质量最好
+
+docker exec localai local-ai download \\
+  huggingface://Qwen/Qwen2.5-7B-Instruct-GGUF:Q4_K_M
+\`\`\`
+
+## 成本对比
+
+| 方案 | API 费用 | 硬件成本 | 月度总成本 |
+|------|----------|----------|------------|
+| OpenAI GPT-4 | $20-100/月 | $0 | $20-100 |
+| Claude Opus | $30-150/月 | $0 | $30-150 |
+| LocalAI + Qwen | $0 | VPS $20-50 | $20-50 |
+
+**节省 50-70% 成本！**
+
+## 高级配置
+
+### 多模型切换
+
+\`\`\`json
+{
+  "providers": {
+    "localai": {
+      "models": {
+        "coding": "deepseek-coder-6.7b",
+        "chat": "qwen2.5-7b-instruct",
+        "fast": "mistral-7b"
+      }
+    }
+  }
+}
+\`\`\`
+
+### 自动降级
+
+\`\`\`json
+{
+  "fallback": {
+    "enabled": true,
+    "rules": [
+      {
+        "condition": "rate_limit",
+        "action": "switch_to_localai"
+      }
+    ]
+  }
+}
+\`\`\`
+
+## 常见问题
+
+### Q1: LocalAI 推理速度慢？
+
+**解决方案**：
+1. 使用 GPU 加速
+2. 选择更小的模型（如 3B 参数）
+3. 使用量化模型（Q4_K_M）
+
+### Q2: 内存不足？
+
+**解决方案**：
+1. 使用量化模型
+2. 增加系统内存
+3. 使用更小的模型
+
+### Q3: 回答质量不如 GPT-4？
+
+**解决方案**：
+1. 尝试更大的模型（如 13B 参数）
+2. 调整温度参数
+3. 使用提示词优化
+
+## 总结
+
+**OpenClaw + LocalAI 的优势**：
+- ✅ 数据完全自主
+- ✅ 零 API 费用
+- ✅ 多模型支持
+- ✅ 开源可控
+
+**适用场景**：
+- 注重数据安全的企业
+- 高频使用，成本敏感的用户
+- 需要自定义模型的开发者
+
+---
+
+*LocalAI GitHub: https://github.com/mudler/LocalAI*
+*OpenClaw GitHub: https://github.com/openclaw/openclaw*`,
+    contentEn: `LocalAI is a powerful open-source local AI engine with 44,300+ GitHub stars.
+
+Combined with OpenClaw, you can achieve:
+- **Fully Local**: Data never leaves your server
+- **Zero API Cost**: Use open-source models for free
+- **Multi-model Support**: Llama, Mistral, Qwen, and more
+
+## Why LocalAI?
+
+### Perfect Match with OpenClaw
+
+| OpenClaw | LocalAI | Combined Advantage |
+|----------|---------|-------------------|
+| Multi-platform access | Local inference | Complete data sovereignty |
+| Skills ecosystem | Multi-model support | Flexible model switching |
+| Self-hosting support | Open-source free | Zero cost operation |
+
+### LocalAI Core Features
+
+- ✅ **Multi-model**: Llama 3, Mistral, Qwen, DeepSeek
+- ✅ **API Compatible**: OpenAI API format
+- ✅ **MCP Support**: Native Model Context Protocol
+- ✅ **GPU Acceleration**: CUDA, Metal, ROCm
+- ✅ **Distributed**: Multi-GPU and P2P support
+
+## Step 1: Install LocalAI
+
+### Docker Installation (Recommended)
+
+\`\`\`bash
+# Pull LocalAI image
+docker pull localai/localai:latest
+
+# Start LocalAI
+docker run -d \\
+  --name localai \\
+  -p 8080:8080 \\
+  -v /data/models:/models \\
+  --gpus all \\
+  localai/localai:latest
+\`\`\`
+
+### Verify Installation
+
+\`\`\`bash
+# Check service status
+curl http://localhost:8080/health
+
+# List available models
+curl http://localhost:8080/v1/models
+\`\`\`
+
+## Step 2: Download Models
+
+### Recommended Models
+
+| Model | Parameters | Memory | Strength |
+|-------|------------|--------|----------|
+| Qwen2.5-7B | 7B | 8GB | Excellent for Chinese |
+| Llama-3-8B | 8B | 10GB | Excellent for English |
+| Mistral-7B | 7B | 8GB | Good overall |
+| DeepSeek-Coder-6.7B | 6.7B | 8GB | Coding specialist |
+
+### Download Model
+
+\`\`\`bash
+# Download Qwen2.5 (recommended for Chinese users)
+docker exec localai local-ai download \\
+  huggingface://Qwen/Qwen2.5-7B-Instruct-GGUF
+
+# Or download Llama-3
+docker exec localai local-ai download \\
+  huggingface://meta-llama/Llama-3-8B-Instruct-GGUF
+\`\`\`
+
+## Step 3: Configure OpenClaw
+
+### Edit OpenClaw Config
+
+Edit \`~/.openclaw/config.json\`:
+
+\`\`\`json
+{
+  "providers": {
+    "localai": {
+      "type": "openai-compatible",
+      "baseUrl": "http://localhost:8080/v1",
+      "apiKey": "not-needed",
+      "defaultModel": "qwen2.5-7b-instruct"
+    }
+  },
+  "defaultProvider": "localai"
+}
+\`\`\`
+
+## Step 4: Test Integration
+
+\`\`\`bash
+# Start OpenClaw
+openclaw start
+
+# Test in Telegram
+# Send a message, observe if using LocalAI
+
+# Check LocalAI logs
+docker logs -f localai
+\`\`\`
+
+## Performance Optimization
+
+### GPU Acceleration
+
+\`\`\`bash
+docker run -d \\
+  --name localai \\
+  -p 8080:8080 \\
+  --gpus all \\
+  -e CUDA_VISIBLE_DEVICES=0 \\
+  localai/localai:latest
+\`\`\`
+
+### Model Quantization
+
+\`\`\`bash
+# Use quantized models to reduce memory
+# Q4_K_M: 4-bit, small quality loss
+# Q5_K_M: 5-bit, better quality
+# Q8_0: 8-bit, best quality
+
+docker exec localai local-ai download \\
+  huggingface://Qwen/Qwen2.5-7B-Instruct-GGUF:Q4_K_M
+\`\`\`
+
+## Cost Comparison
+
+| Option | API Cost | Hardware Cost | Monthly Total |
+|--------|----------|---------------|---------------|
+| OpenAI GPT-4 | $20-100/mo | $0 | $20-100 |
+| Claude Opus | $30-150/mo | $0 | $30-150 |
+| LocalAI + Qwen | $0 | VPS $20-50 | $20-50 |
+
+**Save 50-70% cost!**
+
+## Summary
+
+**OpenClaw + LocalAI Advantages**:
+- ✅ Complete data sovereignty
+- ✅ Zero API cost
+- ✅ Multi-model support
+- ✅ Open-source and controllable
+
+**Use Cases**:
+- Enterprises concerned about data security
+- High-frequency, cost-sensitive users
+- Developers needing custom models
+
+---
+
+*LocalAI GitHub: https://github.com/mudler/LocalAI*
+*OpenClaw GitHub: https://github.com/openclaw/openclaw*`,
+    author: "OpenClaw 101",
+    date: "2026-03-26",
+    category: "技术教程",
+    categoryEn: "Tutorial",
+    tags: ["LocalAI", "自托管", "本地部署", "成本优化"],
+    readingTime: 10,
+    image: "/images/blog/localai.jpg"
+  },
+  {
     id: 10,
     slug: "openclaw-enterprise-use-cases",
     title: "企业如何用 OpenClaw 提升效率：5 个真实案例",
