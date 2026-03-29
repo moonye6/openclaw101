@@ -18,6 +18,1902 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    id: 16,
+    slug: "openclaw-api-reference",
+    title: "OpenClaw API 完整参考指南：开发者必备手册",
+    titleEn: "Complete OpenClaw API Reference: Developer's Essential Guide",
+    excerpt: "OpenClaw 提供了完整的 REST API 和 WebSocket API，支持对话管理、技能调用、文件操作等核心功能。本文详细讲解所有 API 端点、请求参数、响应格式和最佳实践。",
+    excerptEn: "OpenClaw provides comprehensive REST API and WebSocket API, supporting conversation management, skill invocation, file operations, and more. This guide covers all API endpoints, request parameters, response formats, and best practices.",
+    content: `OpenClaw 提供了强大的 API 接口，让开发者可以将其集成到任何应用中。
+
+本文将详细介绍所有 API 端点、参数和使用方法。
+
+## API 基础
+
+### 基础 URL
+
+\`\`\`
+http://localhost:3000/api/v1
+\`\`\`
+
+生产环境建议使用 HTTPS。
+
+### 认证方式
+
+所有 API 请求需要在 Header 中携带认证信息：
+
+\`\`\`bash
+curl -H "Authorization: Bearer YOUR_API_KEY" \\
+  http://localhost:3000/api/v1/conversations
+\`\`\`
+
+API Key 可以在 Dashboard 的设置页面生成。
+
+---
+
+## 对话 API
+
+### 创建对话
+
+\`\`\`http
+POST /api/v1/conversations
+\`\`\`
+
+**请求参数**：
+
+| 参数 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| title | string | 否 | 对话标题 |
+| model | string | 否 | 模型 ID，默认使用配置的模型 |
+| context | object | 否 | 初始上下文 |
+| skills | string[] | 否 | 启用的技能列表 |
+
+**示例**：
+
+\`\`\`bash
+curl -X POST http://localhost:3000/api/v1/conversations \\
+  -H "Authorization: Bearer YOUR_API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "title": "新对话",
+    "model": "claude-sonnet-4-6"
+  }'
+\`\`\`
+
+**响应**：
+
+\`\`\`json
+{
+  "id": "conv_abc123",
+  "title": "新对话",
+  "createdAt": "2026-03-29T06:00:00Z",
+  "model": "claude-sonnet-4-6"
+}
+\`\`\`
+
+### 发送消息
+
+\`\`\`http
+POST /api/v1/conversations/{id}/messages
+\`\`\`
+
+**请求参数**：
+
+| 参数 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| content | string | 是 | 消息内容 |
+| role | string | 否 | 角色，默认 "user" |
+| stream | boolean | 否 | 是否流式响应 |
+
+**示例**：
+
+\`\`\`bash
+curl -X POST http://localhost:3000/api/v1/conversations/conv_abc123/messages \\
+  -H "Authorization: Bearer YOUR_API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "content": "帮我写一个 Python 爬虫",
+    "stream": false
+  }'
+\`\`\`
+
+**响应**：
+
+\`\`\`json
+{
+  "id": "msg_xyz789",
+  "role": "assistant",
+  "content": "好的，我来帮你写一个 Python 爬虫...",
+  "createdAt": "2026-03-29T06:01:00Z"
+}
+\`\`\`
+
+### 获取对话历史
+
+\`\`\`http
+GET /api/v1/conversations/{id}/messages
+\`\`\`
+
+**查询参数**：
+
+| 参数 | 类型 | 说明 |
+|------|------|------|
+| limit | number | 返回消息数量，默认 50 |
+| before | string | 获取此消息 ID 之前的消息 |
+| after | string | 获取此消息 ID 之后的消息 |
+
+---
+
+## 技能 API
+
+### 调用技能
+
+\`\`\`http
+POST /api/v1/skills/{skillId}/invoke
+\`\`\`
+
+**请求参数**：
+
+| 参数 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| input | any | 是 | 技能输入参数 |
+| conversationId | string | 否 | 关联的对话 ID |
+
+**示例**：
+
+\`\`\`bash
+# 调用天气技能
+curl -X POST http://localhost:3000/api/v1/skills/weather/invoke \\
+  -H "Authorization: Bearer YOUR_API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "input": {
+      "city": "北京"
+    }
+  }'
+\`\`\`
+
+### 列出技能
+
+\`\`\`http
+GET /api/v1/skills
+\`\`\`
+
+**响应**：
+
+\`\`\`json
+{
+  "skills": [
+    {
+      "id": "weather",
+      "name": "天气查询",
+      "description": "获取指定城市的天气信息",
+      "version": "1.0.0",
+      "enabled": true
+    }
+  ]
+}
+\`\`\`
+
+---
+
+## 文件 API
+
+### 上传文件
+
+\`\`\`http
+POST /api/v1/files
+\`\`\`
+
+**请求格式**：multipart/form-data
+
+**参数**：
+
+| 参数 | 类型 | 说明 |
+|------|------|------|
+| file | File | 上传的文件 |
+| conversationId | string | 关联的对话 ID |
+
+**示例**：
+
+\`\`\`bash
+curl -X POST http://localhost:3000/api/v1/files \\
+  -H "Authorization: Bearer YOUR_API_KEY" \\
+  -F "file=@document.pdf" \\
+  -F "conversationId=conv_abc123"
+\`\`\`
+
+### 读取文件
+
+\`\`\`http
+GET /api/v1/files/{fileId}
+\`\`\`
+
+### 删除文件
+
+\`\`\`http
+DELETE /api/v1/files/{fileId}
+\`\`\`
+
+---
+
+## WebSocket API
+
+### 连接
+
+\`\`\`javascript
+const ws = new WebSocket('ws://localhost:3000/ws');
+
+ws.onopen = () => {
+  // 发送认证
+  ws.send(JSON.stringify({
+    type: 'auth',
+    token: 'YOUR_API_KEY'
+  }));
+};
+
+ws.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  console.log('收到消息:', data);
+};
+\`\`\`
+
+### 消息类型
+
+| 类型 | 说明 |
+|------|------|
+| auth | 认证请求 |
+| message | 对话消息 |
+| stream | 流式响应 |
+| skill | 技能调用结果 |
+| error | 错误信息 |
+
+### 流式对话
+
+\`\`\`javascript
+ws.send(JSON.stringify({
+  type: 'message',
+  conversationId: 'conv_abc123',
+  content: '帮我写代码',
+  stream: true
+}));
+
+// 接收流式响应
+ws.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  if (data.type === 'stream') {
+    process.stdout.write(data.chunk);
+  }
+};
+\`\`\`
+
+---
+
+## 错误处理
+
+### 错误响应格式
+
+\`\`\`json
+{
+  "error": {
+    "code": "INVALID_REQUEST",
+    "message": "请求参数无效",
+    "details": {
+      "field": "content",
+      "reason": "content 不能为空"
+    }
+  }
+}
+\`\`\`
+
+### 错误码
+
+| 错误码 | 说明 | HTTP 状态码 |
+|--------|------|-------------|
+| UNAUTHORIZED | 认证失败 | 401 |
+| FORBIDDEN | 权限不足 | 403 |
+| NOT_FOUND | 资源不存在 | 404 |
+| INVALID_REQUEST | 请求参数无效 | 400 |
+| RATE_LIMITED | 请求频率超限 | 429 |
+| INTERNAL_ERROR | 服务器内部错误 | 500 |
+
+---
+
+## 速率限制
+
+| 端点 | 限制 | 窗口 |
+|------|------|------|
+| /messages | 60 次 | 1 分钟 |
+| /skills/invoke | 30 次 | 1 分钟 |
+| /files | 20 次 | 1 分钟 |
+
+超出限制将返回 429 错误。
+
+---
+
+## SDK 使用
+
+### Node.js
+
+\`\`\`bash
+npm install @openclaw/sdk
+\`\`\`
+
+\`\`\`javascript
+import { OpenClaw } from '@openclaw/sdk';
+
+const client = new OpenClaw({
+  apiKey: 'YOUR_API_KEY',
+  baseUrl: 'http://localhost:3000'
+});
+
+// 创建对话
+const conversation = await client.conversations.create({
+  title: 'API 测试'
+});
+
+// 发送消息
+const response = await client.messages.send({
+  conversationId: conversation.id,
+  content: '你好！'
+});
+
+console.log(response.content);
+\`\`\`
+
+### Python
+
+\`\`\`bash
+pip install openclaw-sdk
+\`\`\`
+
+\`\`\`python
+from openclaw import OpenClaw
+
+client = OpenClaw(
+    api_key="YOUR_API_KEY",
+    base_url="http://localhost:3000"
+)
+
+# 创建对话
+conversation = client.conversations.create(
+    title="API 测试"
+)
+
+# 发送消息
+response = client.messages.send(
+    conversation_id=conversation.id,
+    content="你好！"
+)
+
+print(response.content)
+\`\`\`
+
+---
+
+## 最佳实践
+
+### 1. 使用环境变量存储 API Key
+
+\`\`\`bash
+export OPENCLAW_API_KEY=your_key_here
+\`\`\`
+
+### 2. 实现错误重试
+
+\`\`\`javascript
+async function withRetry(fn, maxRetries = 3) {
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      return await fn();
+    } catch (error) {
+      if (error.code === 'RATE_LIMITED') {
+        await new Promise(r => setTimeout(r, 1000 * (i + 1)));
+        continue;
+      }
+      throw error;
+    }
+  }
+}
+\`\`\`
+
+### 3. 流式处理大响应
+
+对于长文本生成，建议使用 WebSocket 流式接收，避免超时。
+
+### 4. 缓存常用结果
+
+对于重复请求（如技能列表），可以在客户端缓存。
+
+---
+
+## 参考资源
+
+- [OpenClaw 官方文档](https://docs.openclaw.ai)
+- [SDK GitHub](https://github.com/openclaw/openclaw-sdk)
+- [API 变更日志](https://docs.openclaw.ai/changelog/api)
+
+---
+
+*最后更新: 2026-03-29*`,
+    contentEn: `OpenClaw provides powerful APIs that allow developers to integrate it into any application.
+
+This guide covers all API endpoints, parameters, and usage patterns.
+
+## API Basics
+
+### Base URL
+
+\`\`\`
+http://localhost:3000/api/v1
+\`\`\`
+
+Use HTTPS in production.
+
+### Authentication
+
+All API requests require authentication in the Header:
+
+\`\`\`bash
+curl -H "Authorization: Bearer YOUR_API_KEY" \\
+  http://localhost:3000/api/v1/conversations
+\`\`\`
+
+Generate API Keys in Dashboard settings.
+
+---
+
+## Conversations API
+
+### Create Conversation
+
+\`\`\`http
+POST /api/v1/conversations
+\`\`\`
+
+**Parameters**:
+
+| Parameter | Type | Required | Description |
+|------|------|------|------|
+| title | string | No | Conversation title |
+| model | string | No | Model ID |
+| context | object | No | Initial context |
+| skills | string[] | No | Enabled skills list |
+
+**Response**:
+
+\`\`\`json
+{
+  "id": "conv_abc123",
+  "title": "New Conversation",
+  "createdAt": "2026-03-29T06:00:00Z",
+  "model": "claude-sonnet-4-6"
+}
+\`\`\`
+
+### Send Message
+
+\`\`\`http
+POST /api/v1/conversations/{id}/messages
+\`\`\`
+
+**Parameters**:
+
+| Parameter | Type | Required | Description |
+|------|------|------|------|
+| content | string | Yes | Message content |
+| role | string | No | Role, default "user" |
+| stream | boolean | No | Stream response |
+
+---
+
+## Skills API
+
+### Invoke Skill
+
+\`\`\`http
+POST /api/v1/skills/{skillId}/invoke
+\`\`\`
+
+**Example**:
+
+\`\`\`bash
+curl -X POST http://localhost:3000/api/v1/skills/weather/invoke \\
+  -H "Authorization: Bearer YOUR_API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "input": {
+      "city": "Beijing"
+    }
+  }'
+\`\`\`
+
+### List Skills
+
+\`\`\`http
+GET /api/v1/skills
+\`\`\`
+
+---
+
+## Files API
+
+### Upload File
+
+\`\`\`http
+POST /api/v1/files
+\`\`\`
+
+Format: multipart/form-data
+
+---
+
+## WebSocket API
+
+### Connect
+
+\`\`\`javascript
+const ws = new WebSocket('ws://localhost:3000/ws');
+
+ws.onopen = () => {
+  ws.send(JSON.stringify({
+    type: 'auth',
+    token: 'YOUR_API_KEY'
+  }));
+};
+\`\`\`
+
+### Message Types
+
+| Type | Description |
+|------|------|
+| auth | Authentication |
+| message | Conversation message |
+| stream | Stream response |
+| skill | Skill result |
+| error | Error |
+
+---
+
+## Error Handling
+
+### Error Response
+
+\`\`\`json
+{
+  "error": {
+    "code": "INVALID_REQUEST",
+    "message": "Invalid request parameters"
+  }
+}
+\`\`\`
+
+### Error Codes
+
+| Code | Description | HTTP Status |
+|--------|------|-------------|
+| UNAUTHORIZED | Authentication failed | 401 |
+| FORBIDDEN | Insufficient permissions | 403 |
+| NOT_FOUND | Resource not found | 404 |
+| INVALID_REQUEST | Invalid parameters | 400 |
+| RATE_LIMITED | Rate limit exceeded | 429 |
+| INTERNAL_ERROR | Server error | 500 |
+
+---
+
+## Rate Limits
+
+| Endpoint | Limit | Window |
+|------|------|------|
+| /messages | 60 requests | 1 minute |
+| /skills/invoke | 30 requests | 1 minute |
+| /files | 20 requests | 1 minute |
+
+---
+
+## SDK Usage
+
+### Node.js
+
+\`\`\`javascript
+import { OpenClaw } from '@openclaw/sdk';
+
+const client = new OpenClaw({
+  apiKey: 'YOUR_API_KEY'
+});
+
+const conversation = await client.conversations.create();
+const response = await client.messages.send({
+  conversationId: conversation.id,
+  content: 'Hello!'
+});
+\`\`\`
+
+### Python
+
+\`\`\`python
+from openclaw import OpenClaw
+
+client = OpenClaw(api_key="YOUR_API_KEY")
+conversation = client.conversations.create()
+response = client.messages.send(
+    conversation_id=conversation.id,
+    content="Hello!"
+)
+\`\`\`
+
+---
+
+*Last updated: 2026-03-29*`,
+    author: "OpenClaw 101",
+    date: "2026-03-29",
+    category: "技术深度",
+    categoryEn: "Technical Deep Dive",
+    tags: ["API", "开发者", "SDK", "集成"],
+    readingTime: 15,
+    image: "/images/blog/api-reference.jpg"
+  },
+  {
+    id: 15,
+    slug: "openclaw-configuration-guide",
+    title: "OpenClaw 配置文件参数详解：从入门到精通",
+    titleEn: "OpenClaw Configuration Guide: From Beginner to Expert",
+    excerpt: "OpenClaw 的配置文件是定制化 AI 助手的核心。本文详细讲解所有配置参数，包括模型选择、平台对接、技能启用、安全设置等，助你打造专属 AI 助手。",
+    excerptEn: "OpenClaw configuration files are the core of customizing your AI assistant. This guide covers all configuration parameters, including model selection, platform integration, skill enablement, and security settings.",
+    content: `OpenClaw 的强大之处在于其高度可配置性。
+
+通过配置文件，你可以：
+- 选择不同的 AI 模型
+- 接入多个消息平台
+- 启用/禁用技能
+- 调整安全策略
+- 自定义行为
+
+本文将详细讲解所有配置参数。
+
+---
+
+## 配置文件位置
+
+OpenClaw 的主配置文件位于：
+
+\`\`\`
+~/.openclaw/openclaw.json
+\`\`\`
+
+首次运行时会自动创建。
+
+---
+
+## 核心配置结构
+
+\`\`\`json
+{
+  "version": "4.2",
+  "providers": { ... },
+  "channels": { ... },
+  "skills": { ... },
+  "security": { ... },
+  "memory": { ... }
+}
+\`\`\`
+
+---
+
+## Provider 配置
+
+Provider 定义了 AI 模型来源。
+
+### Anthropic Claude
+
+\`\`\`json
+{
+  "providers": {
+    "anthropic": {
+      "type": "anthropic",
+      "apiKey": "${ANTHROPIC_API_KEY}",
+      "models": {
+        "default": "claude-sonnet-4-6",
+        "fast": "claude-haiku-3-5",
+        "smart": "claude-opus-4"
+      }
+    }
+  }
+}
+\`\`\`
+
+**参数说明**：
+
+| 参数 | 类型 | 说明 |
+|------|------|------|
+| type | string | 提供商类型 |
+| apiKey | string | API 密钥，支持环境变量 |
+| models.default | string | 默认模型 |
+| models.fast | string | 快速模型（简单任务） |
+| models.smart | string | 智能模型（复杂任务） |
+
+### OpenAI
+
+\`\`\`json
+{
+  "providers": {
+    "openai": {
+      "type": "openai",
+      "apiKey": "${OPENAI_API_KEY}",
+      "baseUrl": "https://api.openai.com/v1",
+      "models": {
+        "default": "gpt-4-turbo"
+      }
+    }
+  }
+}
+\`\`\`
+
+### LocalAI（本地模型）
+
+\`\`\`json
+{
+  "providers": {
+    "localai": {
+      "type": "openai-compatible",
+      "baseUrl": "http://localhost:8080/v1",
+      "apiKey": "not-needed",
+      "models": {
+        "default": "llama-3-8b"
+      }
+    }
+  }
+}
+\`\`\`
+
+### 多 Provider 配置
+
+\`\`\`json
+{
+  "providers": {
+    "anthropic": { ... },
+    "openai": { ... },
+    "localai": { ... }
+  },
+  "defaultProvider": "anthropic"
+}
+\`\`\`
+
+---
+
+## Channel 配置
+
+Channel 定义了消息平台连接。
+
+### Telegram
+
+\`\`\`json
+{
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "botToken": "${TELEGRAM_BOT_TOKEN}",
+      "dmPolicy": "open",
+      "groupPolicy": "allowlist",
+      "groups": {
+        "-1001234567890": {
+          "enabled": true,
+          "requireMention": true
+        }
+      }
+    }
+  }
+}
+\`\`\`
+
+**参数说明**：
+
+| 参数 | 类型 | 说明 |
+|------|------|------|
+| enabled | boolean | 是否启用 |
+| botToken | string | Bot Token |
+| dmPolicy | string | 私聊策略: open/pairing/deny |
+| groupPolicy | string | 群组策略: open/allowlist/deny |
+| requireMention | boolean | 群组是否需要 @ 提及 |
+
+### Discord
+
+\`\`\`json
+{
+  "channels": {
+    "discord": {
+      "enabled": true,
+      "botToken": "${DISCORD_BOT_TOKEN}",
+      "applicationId": "${DISCORD_APP_ID}",
+      "intents": ["Guilds", "GuildMessages", "DirectMessages"],
+      "dmPolicy": "open"
+    }
+  }
+}
+\`\`\`
+
+### 飞书
+
+\`\`\`json
+{
+  "channels": {
+    "feishu": {
+      "enabled": true,
+      "appId": "${FEISHU_APP_ID}",
+      "appSecret": "${FEISHU_APP_SECRET}",
+      "encryptKey": "${FEISHU_ENCRYPT_KEY}",
+      "verificationToken": "${FEISHU_VERIFY_TOKEN}"
+    }
+  }
+}
+\`\`\`
+
+### 钉钉
+
+\`\`\`json
+{
+  "channels": {
+    "dingtalk": {
+      "enabled": true,
+      "client_id": "${DINGTALK_CLIENT_ID}",
+      "client_secret": "${DINGTALK_CLIENT_SECRET}"
+    }
+  }
+}
+\`\`\`
+
+### WhatsApp
+
+\`\`\`json
+{
+  "channels": {
+    "whatsapp": {
+      "enabled": true,
+      "phoneNumberId": "${WA_PHONE_ID}",
+      "businessAccountId": "${WA_BUSINESS_ID}",
+      "accessToken": "${WA_ACCESS_TOKEN}"
+    }
+  }
+}
+\`\`\`
+
+---
+
+## Skills 配置
+
+### 启用/禁用技能
+
+\`\`\`json
+{
+  "skills": {
+    "enabled": ["weather", "github", "coding-agent"],
+    "disabled": ["browser"]
+  }
+}
+\`\`\`
+
+### 技能配置
+
+\`\`\`json
+{
+  "skills": {
+    "configs": {
+      "weather": {
+        "defaultCity": "北京",
+        "units": "metric"
+      },
+      "github": {
+        "defaultRepo": "openclaw/openclaw"
+      }
+    }
+  }
+}
+\`\`\`
+
+### ClawHub 自动同步
+
+\`\`\`json
+{
+  "skills": {
+    "clawhub": {
+      "enabled": true,
+      "autoUpdate": true,
+      "updateInterval": "daily"
+    }
+  }
+}
+\`\`\`
+
+---
+
+## Security 配置
+
+### 基本安全设置
+
+\`\`\`json
+{
+  "security": {
+    "allowedHosts": ["api.anthropic.com", "api.openai.com"],
+    "blockedCommands": ["rm -rf", "sudo"],
+    "maxCommandTimeout": 60000,
+    "requireConfirmation": ["file:delete", "exec:elevated"]
+  }
+}
+\`\`\`
+
+**参数说明**：
+
+| 参数 | 类型 | 说明 |
+|------|------|------|
+| allowedHosts | string[] | 允许访问的域名 |
+| blockedCommands | string[] | 禁止执行的命令模式 |
+| maxCommandTimeout | number | 命令最大超时时间(ms) |
+| requireConfirmation | string[] | 需要确认的操作 |
+
+### 沙箱模式
+
+\`\`\`json
+{
+  "security": {
+    "sandbox": {
+      "enabled": true,
+      "mode": "docker",
+      "memoryLimit": "2GB",
+      "cpuLimit": "1",
+      "networkIsolation": true
+    }
+  }
+}
+\`\`\`
+
+---
+
+## Memory 配置
+
+### 对话记忆
+
+\`\`\`json
+{
+  "memory": {
+    "conversation": {
+      "enabled": true,
+      "maxMessages": 100,
+      "summarizeThreshold": 50
+    }
+  }
+}
+\`\`\`
+
+### 长期记忆
+
+\`\`\`json
+{
+  "memory": {
+    "longTerm": {
+      "enabled": true,
+      "storage": "sqlite",
+      "path": "~/.openclaw/memory.db"
+    }
+  }
+}
+\`\`\`
+
+### RAG 配置
+
+\`\`\`json
+{
+  "memory": {
+    "rag": {
+      "enabled": true,
+      "embeddingModel": "text-embedding-3-small",
+      "chunkSize": 1000,
+      "chunkOverlap": 200
+    }
+  }
+}
+\`\`\`
+
+---
+
+## Logging 配置
+
+\`\`\`json
+{
+  "logging": {
+    "level": "info",
+    "format": "json",
+    "outputs": ["console", "file"],
+    "filePath": "~/.openclaw/logs/openclaw.log",
+    "maxFileSize": "10MB",
+    "maxFiles": 5
+  }
+}
+\`\`\`
+
+---
+
+## 环境变量
+
+推荐使用环境变量存储敏感信息：
+
+\`\`\`bash
+# ~/.bashrc 或 ~/.zshrc
+export ANTHROPIC_API_KEY="sk-ant-..."
+export TELEGRAM_BOT_TOKEN="123456:ABC..."
+export DISCORD_BOT_TOKEN="MTk4NjIy..."
+\`\`\`
+
+在配置文件中引用：
+
+\`\`\`json
+{
+  "providers": {
+    "anthropic": {
+      "apiKey": "${ANTHROPIC_API_KEY}"
+    }
+  }
+}
+\`\`\`
+
+---
+
+## 配置示例
+
+### 最小配置
+
+\`\`\`json
+{
+  "providers": {
+    "anthropic": {
+      "apiKey": "${ANTHROPIC_API_KEY}"
+    }
+  },
+  "channels": {
+    "telegram": {
+      "botToken": "${TELEGRAM_BOT_TOKEN}"
+    }
+  }
+}
+\`\`\`
+
+### 生产配置
+
+\`\`\`json
+{
+  "version": "4.2",
+  "providers": {
+    "anthropic": {
+      "apiKey": "${ANTHROPIC_API_KEY}",
+      "models": {
+        "default": "claude-sonnet-4-6",
+        "fast": "claude-haiku-3-5"
+      }
+    }
+  },
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "botToken": "${TELEGRAM_BOT_TOKEN}",
+      "dmPolicy": "pairing",
+      "groupPolicy": "allowlist"
+    },
+    "discord": {
+      "enabled": true,
+      "botToken": "${DISCORD_BOT_TOKEN}"
+    }
+  },
+  "security": {
+    "sandbox": {
+      "enabled": true,
+      "mode": "docker"
+    },
+    "requireConfirmation": ["file:delete"]
+  },
+  "memory": {
+    "conversation": {
+      "enabled": true,
+      "maxMessages": 50
+    }
+  }
+}
+\`\`\`
+
+---
+
+## 配置验证
+
+运行验证命令检查配置：
+
+\`\`\`bash
+openclaw config validate
+\`\`\`
+
+---
+
+*最后更新: 2026-03-29*`,
+    contentEn: `OpenClaw's power lies in its high configurability.
+
+Through configuration files, you can:
+- Choose different AI models
+- Connect to multiple messaging platforms
+- Enable/disable skills
+- Adjust security policies
+- Customize behavior
+
+---
+
+## Configuration File Location
+
+\`\`\`
+~/.openclaw/openclaw.json
+\`\`\`
+
+Created automatically on first run.
+
+---
+
+## Core Configuration Structure
+
+\`\`\`json
+{
+  "version": "4.2",
+  "providers": { ... },
+  "channels": { ... },
+  "skills": { ... },
+  "security": { ... },
+  "memory": { ... }
+}
+\`\`\`
+
+---
+
+## Provider Configuration
+
+### Anthropic Claude
+
+\`\`\`json
+{
+  "providers": {
+    "anthropic": {
+      "type": "anthropic",
+      "apiKey": "${ANTHROPIC_API_KEY}",
+      "models": {
+        "default": "claude-sonnet-4-6"
+      }
+    }
+  }
+}
+\`\`\`
+
+### OpenAI
+
+\`\`\`json
+{
+  "providers": {
+    "openai": {
+      "type": "openai",
+      "apiKey": "${OPENAI_API_KEY}",
+      "models": {
+        "default": "gpt-4-turbo"
+      }
+    }
+  }
+}
+\`\`\`
+
+### LocalAI
+
+\`\`\`json
+{
+  "providers": {
+    "localai": {
+      "type": "openai-compatible",
+      "baseUrl": "http://localhost:8080/v1",
+      "apiKey": "not-needed"
+    }
+  }
+}
+\`\`\`
+
+---
+
+## Channel Configuration
+
+### Telegram
+
+\`\`\`json
+{
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "botToken": "${TELEGRAM_BOT_TOKEN}",
+      "dmPolicy": "open"
+    }
+  }
+}
+\`\`\`
+
+### Discord
+
+\`\`\`json
+{
+  "channels": {
+    "discord": {
+      "enabled": true,
+      "botToken": "${DISCORD_BOT_TOKEN}"
+    }
+  }
+}
+\`\`\`
+
+---
+
+## Skills Configuration
+
+\`\`\`json
+{
+  "skills": {
+    "enabled": ["weather", "github"],
+    "disabled": ["browser"]
+  }
+}
+\`\`\`
+
+---
+
+## Security Configuration
+
+\`\`\`json
+{
+  "security": {
+    "allowedHosts": ["api.anthropic.com"],
+    "requireConfirmation": ["file:delete"]
+  }
+}
+\`\`\`
+
+---
+
+## Environment Variables
+
+\`\`\`bash
+export ANTHROPIC_API_KEY="sk-ant-..."
+export TELEGRAM_BOT_TOKEN="123456:ABC..."
+\`\`\`
+
+---
+
+*Last updated: 2026-03-29*`,
+    author: "OpenClaw 101",
+    date: "2026-03-29",
+    category: "技术教程",
+    categoryEn: "Tutorial",
+    tags: ["配置", "参数", "入门", "定制化"],
+    readingTime: 12,
+    image: "/images/blog/configuration.jpg"
+  },
+  {
+    id: 14,
+    slug: "openclaw-error-troubleshooting",
+    title: "OpenClaw 常见错误及解决方案：完整排查手册",
+    titleEn: "OpenClaw Common Errors and Solutions: Complete Troubleshooting Guide",
+    excerpt: "使用 OpenClaw 时遇到问题？本文汇总了最常见的错误类型、错误信息和解决方案，包括 API 错误、配置错误、连接错误、权限错误等，帮你快速定位并解决问题。",
+    excerptEn: "Having issues with OpenClaw? This guide covers the most common error types, messages, and solutions, including API errors, configuration errors, connection errors, and permission errors.",
+    content: `在使用 OpenClaw 的过程中，难免会遇到各种错误。
+
+本文整理了最常见的错误类型及其解决方案，帮你快速排查问题。
+
+---
+
+## 错误分类
+
+| 类型 | 说明 | 排查难度 |
+|------|------|----------|
+| API 错误 | 模型 API 调用失败 | ⭐ |
+| 配置错误 | 配置文件参数错误 | ⭐⭐ |
+| 连接错误 | 网络或平台连接问题 | ⭐⭐ |
+| 权限错误 | 权限不足或认证失败 | ⭐ |
+| 资源错误 | 内存、磁盘等资源问题 | ⭐⭐⭐ |
+| 技能错误 | 技能执行失败 | ⭐⭐ |
+
+---
+
+## API 错误
+
+### 1. API Key 无效
+
+**错误信息**：
+\`\`\`
+Error: Invalid API Key
+Authentication failed for provider: anthropic
+\`\`\`
+
+**原因**：
+- API Key 格式错误
+- API Key 已过期
+- 环境变量未设置
+
+**解决方案**：
+
+\`\`\`bash
+# 检查环境变量
+echo $ANTHROPIC_API_KEY
+
+# 设置环境变量
+export ANTHROPIC_API_KEY="sk-ant-api03-..."
+
+# 或在配置文件中直接设置
+\`\`\`
+
+---
+
+### 2. API 请求超时
+
+**错误信息**：
+\`\`\`
+Error: Request timeout after 60000ms
+\`\`\`
+
+**原因**：
+- 网络不稳定
+- API 服务器响应慢
+- 请求内容过大
+
+**解决方案**：
+
+\`\`\`json
+// 增加超时时间
+{
+  "providers": {
+    "anthropic": {
+      "timeout": 120000
+    }
+  }
+}
+\`\`\`
+
+---
+
+### 3. 速率限制
+
+**错误信息**：
+\`\`\`
+Error: Rate limit exceeded
+429 Too Many Requests
+\`\`\`
+
+**原因**：
+- 请求频率过高
+- 超出 API 配额
+
+**解决方案**：
+
+1. 降低请求频率
+2. 升级 API 套餐
+3. 启用请求队列
+
+\`\`\`json
+{
+  "providers": {
+    "anthropic": {
+      "rateLimit": {
+        "enabled": true,
+        "requestsPerMinute": 50
+      }
+    }
+  }
+}
+\`\`\`
+
+---
+
+### 4. 模型不可用
+
+**错误信息**：
+\`\`\`
+Error: Model not found: claude-opus-5
+\`\`\`
+
+**原因**：
+- 模型名称拼写错误
+- 模型已被弃用
+- 账户无权限访问
+
+**解决方案**：
+
+\`\`\`bash
+# 查看可用模型
+openclaw models list
+
+# 使用正确的模型名称
+\`\`\`
+
+---
+
+## 配置错误
+
+### 5. 配置文件不存在
+
+**错误信息**：
+\`\`\`
+Error: Configuration file not found
+\`\`\`
+
+**解决方案**：
+
+\`\`\`bash
+# 初始化配置
+openclaw init
+
+# 或创建默认配置
+openclaw config create
+\`\`\`
+
+---
+
+### 6. 配置文件格式错误
+
+**错误信息**：
+\`\`\`
+Error: Failed to parse configuration
+JSON parse error: Unexpected token
+\`\`\`
+
+**原因**：
+- JSON 语法错误
+- 缺少引号或逗号
+- 使用了不支持的字符
+
+**解决方案**：
+
+\`\`\`bash
+# 验证配置文件
+openclaw config validate
+
+# 或使用 JSON 验证工具
+cat ~/.openclaw/openclaw.json | jq '.'
+\`\`\`
+
+---
+
+### 7. 环境变量未设置
+
+**错误信息**：
+\`\`\`
+Error: Environment variable not found: ANTHROPIC_API_KEY
+\`\`\`
+
+**解决方案**：
+
+\`\`\`bash
+# 临时设置
+export ANTHROPIC_API_KEY="sk-ant-..."
+
+# 永久设置（添加到 ~/.bashrc）
+echo 'export ANTHROPIC_API_KEY="sk-ant-..."' >> ~/.bashrc
+source ~/.bashrc
+\`\`\`
+
+---
+
+## 连接错误
+
+### 8. Telegram Bot 连接失败
+
+**错误信息**：
+\`\`\`
+Error: Failed to connect to Telegram
+404 Not Found
+\`\`\`
+
+**原因**：
+- Bot Token 错误
+- Bot 已被封禁
+- 网络问题
+
+**解决方案**：
+
+1. 检查 Bot Token 是否正确
+2. 在 @BotFather 重新生成 Token
+3. 检查网络连接
+
+\`\`\`bash
+# 测试 Bot Token
+curl "https://api.telegram.org/bot<YOUR_TOKEN>/getMe"
+\`\`\`
+
+---
+
+### 9. Discord 连接失败
+
+**错误信息**：
+\`\`\`
+Error: Discord connection failed
+DISALLOWED_INTENTS
+\`\`\`
+
+**原因**：
+- 未启用必要的 Intents
+- Bot 权限不足
+
+**解决方案**：
+
+1. 进入 Discord Developer Portal
+2. 选择你的应用 → Bot
+3. 启用以下 Intents：
+   - PRESENCE INTENT
+   - SERVER MEMBERS INTENT
+   - MESSAGE CONTENT INTENT
+
+---
+
+### 10. 飞书连接失败
+
+**错误信息**：
+\`\`\`
+Error: Feishu authentication failed
+Invalid app_id or app_secret
+\`\`\`
+
+**解决方案**：
+
+1. 检查飞书开放平台的应用配置
+2. 确认 App ID 和 App Secret 正确
+3. 检查应用权限配置
+
+---
+
+## 权限错误
+
+### 11. 文件权限不足
+
+**错误信息**：
+\`\`\`
+Error: Permission denied: /root/.openclaw/openclaw.json
+\`\`\`
+
+**解决方案**：
+
+\`\`\`bash
+# 修改文件权限
+chmod 600 ~/.openclaw/openclaw.json
+
+# 或修改所有者
+chown -R $USER:$USER ~/.openclaw
+\`\`\`
+
+---
+
+### 12. 命令执行权限不足
+
+**错误信息**：
+\`\`\`
+Error: Command requires elevated permissions
+\`\`\`
+
+**原因**：
+- 尝试执行需要 sudo 的命令
+- 安全策略阻止了该命令
+
+**解决方案**：
+
+1. 手动执行命令并授权
+2. 或修改安全策略
+
+\`\`\`json
+{
+  "security": {
+    "allowElevated": true,
+    "requireConfirmation": ["exec:elevated"]
+  }
+}
+\`\`\`
+
+---
+
+## 资源错误
+
+### 13. 内存不足
+
+**错误信息**：
+\`\`\`
+Error: JavaScript heap out of memory
+\`\`\`
+
+**解决方案**：
+
+\`\`\`bash
+# 增加 Node.js 内存限制
+export NODE_OPTIONS="--max-old-space-size=4096"
+
+# 或在启动时指定
+node --max-old-space-size=4096 /path/to/openclaw
+\`\`\`
+
+---
+
+### 14. 磁盘空间不足
+
+**错误信息**：
+\`\`\`
+Error: No space left on device
+\`\`\`
+
+**解决方案**：
+
+\`\`\`bash
+# 检查磁盘空间
+df -h
+
+# 清理日志和缓存
+rm -rf ~/.openclaw/logs/*.log
+rm -rf ~/.openclaw/cache/*
+
+# 清理 npm 缓存
+npm cache clean --force
+\`\`\`
+
+---
+
+## 技能错误
+
+### 15. 技能加载失败
+
+**错误信息**：
+\`\`\`
+Error: Failed to load skill: weather
+Cannot find module 'weather-skill'
+\`\`\`
+
+**解决方案**：
+
+\`\`\`bash
+# 重新安装技能
+npx clawhub install weather
+
+# 或手动安装
+cd ~/.openclaw/skills
+git clone https://github.com/xxx/weather-skill.git
+\`\`\`
+
+---
+
+### 16. 技能执行失败
+
+**错误信息**：
+\`\`\`
+Error: Skill execution failed
+TypeError: Cannot read property 'data' of undefined
+\`\`\`
+
+**解决方案**：
+
+1. 检查技能配置
+2. 查看技能日志
+3. 更新技能到最新版本
+
+\`\`\`bash
+# 查看技能日志
+openclaw logs --skill weather
+
+# 更新技能
+npx clawhub update weather
+\`\`\`
+
+---
+
+## 调试技巧
+
+### 启用详细日志
+
+\`\`\`json
+{
+  "logging": {
+    "level": "debug"
+  }
+}
+\`\`\`
+
+### 查看实时日志
+
+\`\`\`bash
+# 查看所有日志
+openclaw logs -f
+
+# 查看特定类型日志
+openclaw logs --type api
+
+# 查看最近 100 行
+openclaw logs --tail 100
+\`\`\`
+
+### 检查服务状态
+
+\`\`\`bash
+# 检查 OpenClaw 状态
+openclaw status
+
+# 检查版本
+openclaw --version
+
+# 检查配置
+openclaw config show
+\`\`\`
+
+---
+
+## 获取帮助
+
+如果以上方案都无法解决问题：
+
+1. **查看官方文档**: https://docs.openclaw.ai
+2. **搜索 Issues**: https://github.com/openclaw/openclaw/issues
+3. **社区求助**: https://discord.gg/clawd
+4. **提交 Bug**: https://github.com/openclaw/openclaw/issues/new
+
+---
+
+## 常用命令速查
+
+| 命令 | 说明 |
+|------|------|
+| \`openclaw status\` | 检查状态 |
+| \`openclaw config validate\` | 验证配置 |
+| \`openclaw logs -f\` | 实时日志 |
+| \`openclaw restart\` | 重启服务 |
+| \`openclaw update\` | 更新版本 |
+
+---
+
+*最后更新: 2026-03-29*`,
+    contentEn: `Errors are inevitable when using OpenClaw.
+
+This guide covers the most common errors and their solutions.
+
+---
+
+## Error Categories
+
+| Type | Description | Difficulty |
+|------|------|----------|
+| API Errors | Model API call failures | ⭐ |
+| Config Errors | Configuration parameter errors | ⭐⭐ |
+| Connection Errors | Network or platform issues | ⭐⭐ |
+| Permission Errors | Insufficient permissions | ⭐ |
+| Resource Errors | Memory, disk issues | ⭐⭐⭐ |
+| Skill Errors | Skill execution failures | ⭐⭐ |
+
+---
+
+## API Errors
+
+### 1. Invalid API Key
+
+\`\`\`
+Error: Invalid API Key
+Authentication failed for provider: anthropic
+\`\`\`
+
+**Solution**:
+
+\`\`\`bash
+# Check environment variable
+echo $ANTHROPIC_API_KEY
+
+# Set environment variable
+export ANTHROPIC_API_KEY="sk-ant-api03-..."
+\`\`\`
+
+---
+
+### 2. Request Timeout
+
+\`\`\`
+Error: Request timeout after 60000ms
+\`\`\`
+
+**Solution**:
+
+\`\`\`json
+{
+  "providers": {
+    "anthropic": {
+      "timeout": 120000
+    }
+  }
+}
+\`\`\`
+
+---
+
+### 3. Rate Limit
+
+\`\`\`
+Error: Rate limit exceeded
+\`\`\`
+
+**Solution**: Reduce request frequency or upgrade API plan.
+
+---
+
+## Configuration Errors
+
+### 4. Config File Not Found
+
+\`\`\`bash
+# Initialize configuration
+openclaw init
+\`\`\`
+
+---
+
+### 5. Invalid JSON
+
+\`\`\`bash
+# Validate configuration
+openclaw config validate
+\`\`\`
+
+---
+
+## Connection Errors
+
+### 6. Telegram Connection Failed
+
+\`\`\`bash
+# Test Bot Token
+curl "https://api.telegram.org/bot<TOKEN>/getMe"
+\`\`\`
+
+---
+
+### 7. Discord Intents Error
+
+Enable required Intents in Discord Developer Portal.
+
+---
+
+## Debug Tips
+
+### Enable Debug Logging
+
+\`\`\`json
+{
+  "logging": {
+    "level": "debug"
+  }
+}
+\`\`\`
+
+### View Real-time Logs
+
+\`\`\`bash
+openclaw logs -f
+\`\`\`
+
+---
+
+## Quick Reference
+
+| Command | Description |
+|------|------|
+| \`openclaw status\` | Check status |
+| \`openclaw config validate\` | Validate config |
+| \`openclaw logs -f\` | Real-time logs |
+| \`openclaw restart\` | Restart service |
+
+---
+
+*Last updated: 2026-03-29*`,
+    author: "OpenClaw 101",
+    date: "2026-03-29",
+    category: "技术教程",
+    categoryEn: "Tutorial",
+    tags: ["错误", "排查", "调试", "故障"],
+    readingTime: 10,
+    image: "/images/blog/troubleshooting.jpg"
+  },
+  {
     id: 13,
     slug: "openclaw-vs-claude-code",
     title: "OpenClaw vs Claude Code：谁才是最好的 AI 编程助手？",
