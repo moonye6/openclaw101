@@ -169,7 +169,7 @@ export default async function Home({
   };
 
   return (
-    <main>
+    <div>
       <JsonLd data={websiteJsonLd} />
       <JsonLd data={orgJsonLd} />
       <JsonLd data={courseJsonLd} />
@@ -184,6 +184,6 @@ export default async function Home({
       <NewsUpdates />
       <SecurityWarning />
       <FAQSection />
-    </main>
+    </div>
   );
 }

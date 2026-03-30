@@ -68,7 +68,12 @@
     "skills": {
       "title": "Skill Categories",
       "subtitle": "Browse {count} skills across {categories} categories",
-      "viewAll": "View All Skills"
+      "viewAll": "View All Skills",
+      "skillCount": "{count} skills",
+      "totalSkillsLabel": "Total Skills",
+      "categoriesLabel": "Categories",
+      "aiLlmLabel": "AI & LLM",
+      "researchLabel": "Research"
     },
     "tutorials": {
       "title": "Best Tutorials & Guides",
@@ -237,5 +242,8 @@
       "tencentCloud": "Tencent Cloud"
     },
     "copyright": "© {year} OpenClaw 101. All rights reserved."
+  },
+  "faq": {
+    "title": "Frequently Asked Questions"
   }
 }

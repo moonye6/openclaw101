@@ -68,7 +68,12 @@
     "skills": {
       "title": "技能分类",
       "subtitle": "浏览 {categories} 个分类中的 {count} 个技能",
-      "viewAll": "查看所有技能"
+      "viewAll": "查看所有技能",
+      "skillCount": "{count} 个技能",
+      "totalSkillsLabel": "技能总数",
+      "categoriesLabel": "分类",
+      "aiLlmLabel": "AI & LLM",
+      "researchLabel": "研究"
     },
     "tutorials": {
       "title": "精选教程与指南",
@@ -237,5 +242,8 @@
       "tencentCloud": "腾讯云"
     },
     "copyright": "© {year} OpenClaw 101. 保留所有权利。"
+  },
+  "faq": {
+    "title": "常见问题"
   }
 }

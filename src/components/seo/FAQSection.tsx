@@ -3,6 +3,7 @@
 import { FAQSchema } from './FAQSchema';
 import { faqData } from '@/data/faq';
 import { useParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { HelpCircle, ChevronDown } from 'lucide-react';
 
@@ -12,6 +13,7 @@ export function FAQSection() {
   const isZh = locale === 'zh';
   const items = isZh ? faqData.zh : faqData.en;
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const t = useTranslations('faq');
 
   return (
     <>
@@ -21,7 +23,7 @@ export function FAQSection() {
           <div className="flex items-center gap-3 mb-8">
             <HelpCircle className="w-8 h-8 text-blue-600" />
             <h2 className="text-3xl font-bold text-gray-900">
-              {isZh ? '常见问题' : 'Frequently Asked Questions'}
+              {t('title')}
             </h2>
           </div>
 
