@@ -55,7 +55,9 @@
       "errors_learned": [
         "永远不要 sudo git",
         "ESLint CJS 规则文件在 ESM config 中直接 import 会失败",
-        "Harness 文件与 ESLint 配置修改应分开提交"
+        "Harness 文件与 ESLint 配置修改应分开提交",
+        "工作区文件属于 root 时 IDE 编辑工具报成功但磁盘不变 — 需用 shell 验证",
+        "git rebase 前必须检查所有目录权限，否则中途失败导致工作区不一致"
       ]
     }
   ],

@@ -108,6 +108,8 @@ chore: 构建/工具    i18n: 国际化内容
 | 4 | Harness 文件 (AGENTS.md/eslint-rules 等) 全部丢失 | 提交后因 ESLint 加载失败被 revert (cb2c604) | 先验证 ESLint 能正常运行再提交；或拆分提交 — Harness 文件与 ESLint 配置分开 | 2026-03-30 |
 | 5 | `<main>` 标签嵌套 | layout.tsx 和 page.tsx 都包裹了 `<main>` | layout 使用 `<main>`，page 使用 `<div>` 或 `<section>` | 发现于分析 |
 | 6 | Cache-Control 过于激进 | `/:path*` 通配符设置了 1年缓存含 immutable | 仅对 `/_next/static/*` 设置 immutable，其他路径去掉 | 发现于分析 |
+| 7 | 工作区文件属于 root，IDE 编辑静默失败 | 之前以 root 身份运行导致 src/ tests/ 等文件属于 root | `sudo chown -R moonye:users /data/github/openclaw101/`。replace_in_file 报成功但磁盘没变时检查文件权限 | 2026-03-30 |
+| 8 | git rebase 后工作区文件丢失 | .codebuddy/ 和 test-results/ 属于 root 导致 rebase 中途失败 | 修复权限后用 `git show HEAD:file > file` 恢复 | 2026-03-30 |
 
 ### 4.2 已知限制
 
