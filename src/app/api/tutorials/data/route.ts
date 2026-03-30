@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 // 对标网站教程数据
 const REFERENCE_TUTORIALS = [
@@ -60,9 +60,7 @@ const REFERENCE_TUTORIALS = [
   { title: 'OpenClaw 7天入门指南 — 飞书知识库', url: 'https://my.feishu.cn/wiki/YkWgwqSchi9xW3kEuZscAm0lnFf', source: '飞书', category: 'getting-started', language: 'zh' },
 ];
 
-export async function GET(request: NextRequest) {
-  const isManual = request.nextUrl.searchParams.get('manual') === 'true';
-  
+export async function GET() {
   // 统计数据
   const stats = {
     total: REFERENCE_TUTORIALS.length,
@@ -78,7 +76,7 @@ export async function GET(request: NextRequest) {
   return NextResponse.json({
     success: true,
     timestamp: new Date().toISOString(),
-    message: isManual ? 'Manual sync triggered' : 'Tutorial data ready',
+    message: 'Tutorial data ready',
     stats,
     tutorials: REFERENCE_TUTORIALS,
   });

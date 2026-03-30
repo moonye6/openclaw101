@@ -14,7 +14,7 @@
 | **技术栈** | Next.js 16 + React 19 + TypeScript 5 (strict) |
 | **样式方案** | Tailwind CSS v4 + Framer Motion 12 |
 | **国际化** | next-intl 4 (en/zh 双语) |
-| **数据库** | Turso (LibSQL) + Drizzle ORM (已配置未使用) |
+| **数据库** | 无（纯静态数据架构，数据文件位于 src/data/） |
 | **测试框架** | Playwright (E2E, 9 个文件, ~95 个用例) |
 | **部署平台** | Vercel |
 | **域名** | openclaw101.vip |
@@ -39,7 +39,7 @@ src/
 │   └── ui/                 # 通用 UI 组件 (Button/Card/Badge/Input)
 ├── data/                   # 静态数据文件 (blog/faq/learning-path/skills/tutorials)
 ├── i18n/                   # 国际化 (en.json/zh.json/routing.ts/request.ts)
-├── lib/                    # 工具函数 (utils.ts/rss.ts) + 数据库 (db/)
+├── lib/                    # 工具函数 (utils.ts/rss.ts)
 └── types/                  # TypeScript 类型定义
 ```
 
@@ -49,7 +49,7 @@ src/
 2. **类型安全**: 所有组件 props 和函数参数 **必须** 有 TypeScript 类型定义
 3. **路径别名**: 使用 `@/` 别名引用 `src/` 下的模块，禁止使用相对路径 `../../`
 4. **组件导出**: UI 组件必须通过 `components/ui/index.ts` 统一导出
-5. **数据文件**: 静态数据放在 `src/data/`，数据库 schema 放在 `src/lib/db/schema.ts`
+5. **数据文件**: 静态数据放在 `src/data/`
 6. **样式**: 使用 Tailwind CSS 类，禁止内联 `style` 属性，使用 `cn()` 合并类名
 7. **动画**: 使用 Framer Motion，禁止使用 CSS `@keyframes` 自定义动画
 8. **SEO**: 每个页面必须有 `metadata` 导出或 `generateMetadata` 函数
@@ -114,10 +114,7 @@ chore: 构建/工具    i18n: 国际化内容
 ### 4.2 已知限制
 
 - Playwright 测试 baseURL 是生产站点，新功能测试需要先部署
-- Turso 数据库连接需要环境变量 `TURSO_DATABASE_URL` 和 `TURSO_AUTH_TOKEN`
 - next-intl 要求所有翻译 key 在 `en.json` 和 `zh.json` 中同时存在
-- 数据库 schema 已定义 (tutorials/skills) 但组件直接使用 `src/data/` 静态数据
-- `api/cron/sync` 的 `manual=true` 参数可绕过鉴权，需要修复
 
 ## 5. 上下文分层管理
 
@@ -157,14 +154,14 @@ chore: 构建/工具    i18n: 国际化内容
 
 ## 7. 已知 i18n 问题 (待修复)
 
-| 组件 | 问题 | 严重程度 |
-|------|------|---------|
-| `RecommendedSection` | 推荐教程 title/description 硬编码中文 | 高 |
-| `SkillsStats` | category names、"skills"、stats bar 英文硬编码 | 高 |
-| `TutorialsSection` | 教程 title/description 中英混合硬编码 | 高 |
-| `FAQSection` | 标题使用 `isZh ?` 三元运算而非 `useTranslations` | 中 |
-| `Footer` | 部分链接文本硬编码 | 低 |
-| `page.tsx generateMetadata` | metadata 中文本硬编码 (Server Component 限制) | 低 |
+| 组件 | 问题 | 严重程度 | 状态 |
+|------|------|---------|------|
+| `RecommendedSection` | 推荐教程 title/description 硬编码中文 | 高 | ✅ 已修复 |
+| `SkillsStats` | category names、"skills"、stats bar 英文硬编码 | 高 | ✅ 已修复 |
+| `TutorialsSection` | 教程 title/description 中英混合硬编码 | 高 | ✅ 已修复 |
+| `FAQSection` | 标题使用 `isZh ?` 三元运算而非 `useTranslations` | 中 | — FAQ 数据本身按语言分离，结构合理 |
+| `Footer` | 部分链接文本硬编码 | 低 | ✅ 已修复 |
+| `page.tsx generateMetadata` | metadata 中文本硬编码 (Server Component 限制) | 低 | — Server Component 无法使用 hook |
 
 ## 8. 变更日志
 
@@ -172,3 +169,4 @@ chore: 构建/工具    i18n: 国际化内容
 |------|---------|------|
 | 2026-03-29 | 初始创建 AGENTS.md 和 Harness 体系 | Agent |
 | 2026-03-30 | 修复 git 权限问题；ESLint 规则被 revert 后重建；全面分析并补充错误模式 | Agent |
+| 2026-03-30 | GStack 优化：移除 DB 死代码、修复 Cron 鉴权、修复 i18n 硬编码(4组件)、SEO 组件改 SC、GA 环境变量化、创建 .env.example、重写 README | Agent |

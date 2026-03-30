@@ -1,5 +1,3 @@
-'use client';
-
 interface CourseItem {
   name: string;
   description: string;

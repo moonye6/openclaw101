@@ -14,9 +14,8 @@
     "test:ui": "playwright test --ui"
   },
   "dependencies": {
-    "@libsql/client": "^0.17.0",
+    "@tailwindcss/oxide-linux-x64-gnu": "^4.2.2",
     "clsx": "^2.1.1",
-    "drizzle-orm": "^0.45.1",
     "framer-motion": "^12.36.0",
     "lucide-react": "^0.577.0",
     "next": "16.1.6",

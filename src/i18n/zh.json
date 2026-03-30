@@ -73,12 +73,46 @@
       "totalSkillsLabel": "技能总数",
       "categoriesLabel": "分类",
       "aiLlmLabel": "AI & LLM",
-      "researchLabel": "研究"
+      "researchLabel": "研究",
+      "categoryNames": {
+        "ai-llm": "AI & 大模型",
+        "research": "搜索与研究",
+        "devops": "DevOps & 云服务",
+        "marketing": "营销与销售",
+        "coding": "编程代理",
+        "communication": "通讯",
+        "notes": "笔记与知识管理",
+        "web": "Web & 前端"
+      }
     },
     "tutorials": {
       "title": "精选教程与指南",
       "subtitle": "414+ 篇精选教程，来自官方文档、云平台和社区贡献者",
-      "viewAll": "查看所有教程"
+      "viewAll": "查看所有教程",
+      "featured1": {
+        "title": "OpenClaw 官方文档",
+        "description": "完整的 API 参考、配置指南和架构说明"
+      },
+      "featured2": {
+        "title": "阿里云 — 部署 OpenClaw 构建钉钉 AI 助理",
+        "description": "轻量应用服务器一键部署，可视化配置面板接入钉钉"
+      },
+      "featured3": {
+        "title": "freeCodeCamp — OpenClaw 完整入门教程",
+        "description": "从被动聊天到主动 Agent 的转变，freeCodeCamp 出品的全面入门教程"
+      },
+      "featured4": {
+        "title": "OpenClaw 海量全玩法攻略",
+        "description": "B站详细视频教程，涵盖所有主要功能和配置"
+      },
+      "featured5": {
+        "title": "IBM Think — OpenClaw: 病毒式传播的「太空龙虾」Agent",
+        "description": "IBM 深度分析 OpenClaw 的架构创新和垂直集成策略"
+      },
+      "featured6": {
+        "title": "ClawHub 技能开发文档",
+        "description": "如何创建、发布和管理自定义技能"
+      }
     },
     "warning": {
       "title": "安全提示",
@@ -90,7 +124,31 @@
       "title": "为你推荐",
       "subtitle": "从这些热门教程和必备技能开始你的学习之旅",
       "tutorials": "热门教程",
-      "skills": "热门技能"
+      "skills": "热门技能",
+      "tutorial1": {
+        "title": "OpenClaw 官方文档",
+        "description": "完整的 API 参考、配置指南和架构说明"
+      },
+      "tutorial2": {
+        "title": "freeCodeCamp — OpenClaw 完整教程",
+        "description": "从被动聊天到主动 Agent 的全面入门教程"
+      },
+      "tutorial3": {
+        "title": "IBM Think — 病毒式传播的「太空龙虾」Agent",
+        "description": "IBM 深度分析 OpenClaw 的架构创新"
+      },
+      "badgeOfficial": "官方",
+      "badgePopular": "热门",
+      "badgeDeepDive": "深度",
+      "skill1": {
+        "description": "通过 gh CLI 操作 GitHub"
+      },
+      "skill2": {
+        "description": "将编码任务委托给 AI 代理"
+      },
+      "skill3": {
+        "description": "获取天气和预报信息"
+      }
     },
     "community": {
       "badge": "社区",
@@ -239,7 +297,13 @@
       "featuredSkills": "精选技能",
       "feishuWiki": "飞书知识库",
       "alibabaCloud": "阿里云",
-      "tencentCloud": "腾讯云"
+      "tencentCloud": "腾讯云",
+      "openclawWebsite": "OpenClaw 官网",
+      "clawhubSkills": "ClawHub 技能市场",
+      "reddit": "Reddit",
+      "ocCompass": "OC Compass",
+      "digitalocean": "DigitalOcean",
+      "githubStars": "GitHub ({stars}+ ⭐)"
     },
     "copyright": "© {year} OpenClaw 101. 保留所有权利。"
   },

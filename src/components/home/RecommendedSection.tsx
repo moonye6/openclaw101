@@ -7,62 +7,62 @@ import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Link } from '@/i18n/routing';
 
-const recommendedTutorials = [
-  {
-    id: 'r1',
-    title: 'OpenClaw 官方文档',
-    description: '完整的 API 参考、配置指南和架构说明',
-    url: 'https://docs.openclaw.ai',
-    source: 'OpenClaw',
-    badge: 'Official',
-    badgeColor: 'bg-blue-500',
-  },
-  {
-    id: 'r2',
-    title: 'freeCodeCamp — OpenClaw Full Tutorial',
-    description: '从被动聊天到主动 Agent 的全面入门教程',
-    url: 'https://www.freecodecamp.org/news/openclaw-full-tutorial-for-beginners/',
-    source: 'freeCodeCamp',
-    badge: 'Popular',
-    badgeColor: 'bg-orange-500',
-  },
-  {
-    id: 'r3',
-    title: 'IBM Think — The Viral "Space Lobster" Agent',
-    description: 'IBM 深度分析 OpenClaw 的架构创新',
-    url: 'https://www.ibm.com/think/news/clawdbot-ai-agent-testing-limits-vertical-integration',
-    source: 'IBM',
-    badge: 'Deep Dive',
-    badgeColor: 'bg-purple-500',
-  },
-];
-
-const recommendedSkills = [
-  {
-    id: 's1',
-    name: 'github',
-    description: 'GitHub operations via gh CLI',
-    stars: 1250,
-    category: 'Coding',
-  },
-  {
-    id: 's2',
-    name: 'coding-agent',
-    description: 'Delegate coding tasks to AI agents',
-    stars: 1102,
-    category: 'Coding',
-  },
-  {
-    id: 's3',
-    name: 'weather',
-    description: 'Get weather and forecasts',
-    stars: 890,
-    category: 'Research',
-  },
-];
-
 export function RecommendedSection() {
   const t = useTranslations('home.recommended');
+
+  const recommendedTutorials = [
+    {
+      id: 'r1',
+      title: t('tutorial1.title'),
+      description: t('tutorial1.description'),
+      url: 'https://docs.openclaw.ai',
+      source: 'OpenClaw',
+      badge: t('badgeOfficial'),
+      badgeColor: 'bg-blue-500',
+    },
+    {
+      id: 'r2',
+      title: t('tutorial2.title'),
+      description: t('tutorial2.description'),
+      url: 'https://www.freecodecamp.org/news/openclaw-full-tutorial-for-beginners/',
+      source: 'freeCodeCamp',
+      badge: t('badgePopular'),
+      badgeColor: 'bg-orange-500',
+    },
+    {
+      id: 'r3',
+      title: t('tutorial3.title'),
+      description: t('tutorial3.description'),
+      url: 'https://www.ibm.com/think/news/clawdbot-ai-agent-testing-limits-vertical-integration',
+      source: 'IBM',
+      badge: t('badgeDeepDive'),
+      badgeColor: 'bg-purple-500',
+    },
+  ];
+
+  const recommendedSkills = [
+    {
+      id: 's1',
+      name: 'github',
+      description: t('skill1.description'),
+      stars: 1250,
+      category: 'Coding',
+    },
+    {
+      id: 's2',
+      name: 'coding-agent',
+      description: t('skill2.description'),
+      stars: 1102,
+      category: 'Coding',
+    },
+    {
+      id: 's3',
+      name: 'weather',
+      description: t('skill3.description'),
+      stars: 890,
+      category: 'Research',
+    },
+  ];
 
   return (
     <section className="py-20 bg-gradient-to-b from-gray-50 to-white">

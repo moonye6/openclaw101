@@ -49,12 +49,11 @@ function verifyCronSignature(request: NextRequest): boolean {
 }
 
 export async function GET(request: NextRequest) {
-  // 验证请求来源
+  // 验证请求来源 — 仅允许本地开发或通过 CRON_SECRET 鉴权
   const isLocalDev = process.env.NODE_ENV === 'development';
   const isVercelCron = verifyCronSignature(request);
-  const isManual = request.nextUrl.searchParams.get('manual') === 'true';
   
-  if (!isLocalDev && !isVercelCron && !isManual) {
+  if (!isLocalDev && !isVercelCron) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
   
