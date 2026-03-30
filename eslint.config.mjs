@@ -7,12 +7,25 @@ const eslintConfig = defineConfig([
   ...nextTs,
   // Override default ignores of eslint-config-next.
   globalIgnores([
-    // Default ignores of eslint-config-next:
     ".next/**",
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "scripts/**",
   ]),
+  // OpenClaw101 自定义规则 (Agent Harness)
+  // 使用 inline rules 避免 ESM/CJS 兼容性问题 (参见 AGENTS.md §4.1 #3)
+  {
+    rules: {
+      // 强制 @/ 路径别名，禁止超过2层的相对路径
+      "no-restricted-imports": ["warn", {
+        patterns: [{
+          group: ["../../*"],
+          message: "❌ 禁止深层相对路径 → 修复: 改为 '@/...' 路径别名。参见 AGENTS.md §2.2 规则 3。",
+        }],
+      }],
+    },
+  },
 ]);
 
 export default eslintConfig;
