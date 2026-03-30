@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { learningPath } from '@/data/learning-path';
 import { LearningDayClient } from './LearningDayClient';
 
-const SITE_URL = 'https://openclaw101.vip';
+const SITE_URL = 'https://openclaw101.com';
 
 // Enable ISR - revalidate every hour
 export const revalidate = 3600;

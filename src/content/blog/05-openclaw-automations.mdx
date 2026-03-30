@@ -1,0 +1,590 @@
+---
+title: "OpenClaw Automations: Build Your AI Workflow in Minutes"
+description: "Learn how to use OpenClaw's automation features to create powerful AI workflows. Compare with Cursor Automations and see real examples."
+publishDate: "2026-03-23"
+tags: ["automation", "workflow", "productivity"]
+---
+
+# OpenClaw Automations: Build Your AI Workflow in Minutes
+
+Automation is the key to productivity. Instead of manually asking AI for help with repetitive tasks, what if AI could automatically handle them on a schedule or trigger?
+
+OpenClaw Automations makes this possible. In this article, we'll show you how to build AI-powered workflows that run automatically, compare with Cursor's automation features, and share practical examples you can implement today.
+
+---
+
+## What Are OpenClaw Automations?
+
+OpenClaw Automations are automated workflows that:
+
+- **Run on schedules** (e.g., every morning at 9 AM)
+- **Respond to triggers** (e.g., new file in a folder)
+- **Execute multi-step tasks** (e.g., fetch data, process, send result)
+- **Integrate with external services** (e.g., GitHub, Slack, Email)
+
+Think of it as: **cron jobs with AI superpowers**.
+
+---
+
+## Quick Start
+
+### Create Your First Automation
+
+Create a file in your OpenClaw automations directory:
+
+```bash
+mkdir -p ~/.openclaw/automations
+cat > ~/.openclaw/automations/daily-summary.yaml << 'EOF'
+name: "Daily Summary"
+description: "Generate a daily summary of my tasks"
+trigger:
+  schedule: "0 9 * * *"  # Every day at 9 AM
+steps:
+  - name: "Fetch calendar"
+    action: http
+    method: GET
+    url: "https://api.google.com/calendar/events"
+    headers:
+      Authorization: "Bearer ${GOOGLE_TOKEN}"
+  
+  - name: "Generate summary"
+    action: ai
+    model: claude-sonnet-4.6
+    prompt: |
+      Summarize today's calendar events:
+      ${calendar_data}
+      
+      Format as a brief morning briefing.
+  
+  - name: "Send to Telegram"
+    action: message
+    channel: telegram
+    to: "@me"
+    content: "${ai_response}"
+EOF
+```
+
+### Enable the Automation
+
+```bash
+openclaw automations enable daily-summary
+```
+
+That's it! Your automation is now active.
+
+---
+
+## Automation Components
+
+### Triggers
+
+Triggers determine when an automation runs:
+
+#### Schedule Trigger
+
+```yaml
+trigger:
+  schedule: "0 9 * * *"  # Cron format
+```
+
+Common patterns:
+
+| Schedule | Cron Expression |
+|----------|-----------------|
+| Every hour | `0 * * * *` |
+| Every day at 9 AM | `0 9 * * *` |
+| Every Monday at 9 AM | `0 9 * * 1` |
+| Every 6 hours | `0 */6 * * *` |
+| Every 15 minutes | `*/15 * * * *` |
+
+#### File Trigger
+
+```yaml
+trigger:
+  file:
+    path: "/data/inbox/"
+    event: "create"  # create, modify, delete
+```
+
+#### Webhook Trigger
+
+```yaml
+trigger:
+  webhook:
+    path: "/webhook/deploy-complete"
+    method: POST
+```
+
+#### Message Trigger
+
+```yaml
+trigger:
+  message:
+    channel: telegram
+    pattern: "^!status"
+```
+
+### Actions
+
+Actions are the steps an automation executes:
+
+#### AI Action
+
+```yaml
+- action: ai
+  model: claude-sonnet-4.6
+  prompt: |
+    Analyze this code and suggest improvements:
+    ${file_content}
+  context:
+    files:
+      - "src/**/*.ts"
+```
+
+#### HTTP Action
+
+```yaml
+- action: http
+  method: GET
+  url: "https://api.github.com/repos/${repo}/issues"
+  headers:
+    Authorization: "token ${GITHUB_TOKEN}"
+```
+
+#### File Action
+
+```yaml
+- action: file
+  operation: write
+  path: "/data/output/report.md"
+  content: "${ai_response}"
+```
+
+#### Terminal Action
+
+```yaml
+- action: terminal
+  command: "npm test"
+  cwd: "/projects/myapp"
+```
+
+#### Message Action
+
+```yaml
+- action: message
+  channel: telegram
+  to: "@team-updates"
+  content: |
+    🚀 Deploy complete!
+    
+    Changes: ${changes}
+```
+
+### Variables and Context
+
+Automations can use variables:
+
+#### Built-in Variables
+
+| Variable | Description |
+|----------|-------------|
+| `${date}` | Current date (YYYY-MM-DD) |
+| `${time}` | Current time (HH:mm:ss) |
+| `${timestamp}` | Unix timestamp |
+| `${workspace}` | OpenClaw workspace path |
+
+#### Step Outputs
+
+Reference outputs from previous steps:
+
+```yaml
+steps:
+  - name: "fetch-data"
+    action: http
+    # ... returns JSON
+  
+  - name: "process"
+    action: ai
+    prompt: "Process this data: ${fetch-data.response}"
+```
+
+#### Environment Variables
+
+Use secrets from your environment:
+
+```yaml
+steps:
+  - action: http
+    headers:
+      Authorization: "Bearer ${OPENAI_API_KEY}"
+```
+
+---
+
+## 5 Practical Automation Examples
+
+### 1. Morning News Briefing
+
+```yaml
+name: "Morning News Briefing"
+description: "Get a daily summary of AI news"
+trigger:
+  schedule: "0 8 * * *"
+
+steps:
+  - name: "Fetch Hacker News"
+    action: http
+    method: GET
+    url: "https://hacker-news.firebaseio.com/v0/topstories.json"
+  
+  - name: "Get story details"
+    action: http
+    method: GET
+    url: "https://hacker-news.firebaseio.com/v0/item/${story_id}.json"
+    iterate: "${hn_stories[:5]}"  # Top 5 stories
+  
+  - name: "Summarize with AI"
+    action: ai
+    model: claude-sonnet-4.6
+    prompt: |
+      Summarize these top AI-related stories from Hacker News:
+      ${stories}
+      
+      Focus on AI/ML topics. Create a brief, engaging summary.
+  
+  - name: "Send briefing"
+    action: message
+    channel: telegram
+    to: "@me"
+    content: |
+      📰 Morning AI News Briefing
+      ${date}
+      
+      ${ai_response}
+```
+
+### 2. Code Review on Pull Request
+
+```yaml
+name: "PR Code Review"
+description: "Automatically review pull requests"
+trigger:
+  webhook:
+    path: "/webhook/github-pr"
+    method: POST
+
+steps:
+  - name: "Get PR diff"
+    action: http
+    method: GET
+    url: "${github_api_url}/pulls/${pr_number}"
+    headers:
+      Authorization: "token ${GITHUB_TOKEN}"
+  
+  - name: "AI Code Review"
+    action: ai
+    model: claude-sonnet-4.6
+    prompt: |
+      Review this pull request diff:
+      
+      ```
+      ${pr_diff}
+      ```
+      
+      Check for:
+      - Bugs and logic errors
+      - Security issues
+      - Performance concerns
+      - Code style issues
+      
+      Provide constructive feedback.
+  
+  - name: "Post review comment"
+    action: http
+    method: POST
+    url: "${github_api_url}/issues/${pr_number}/comments"
+    headers:
+      Authorization: "token ${GITHUB_TOKEN}"
+    body:
+      body: "## 🤖 AI Code Review\n\n${ai_response}"
+```
+
+### 3. Weekly Report Generator
+
+```yaml
+name: "Weekly Report"
+description: "Generate weekly progress report"
+trigger:
+  schedule: "0 17 * * 5"  # Friday at 5 PM
+
+steps:
+  - name: "Get Git commits"
+    action: terminal
+    command: "git log --since='1 week ago' --oneline"
+  
+  - name: "Get GitHub issues closed"
+    action: http
+    method: GET
+    url: "https://api.github.com/repos/${repo}/issues"
+    params:
+      state: closed
+      since: "1 week ago"
+  
+  - name: "Generate report"
+    action: ai
+    model: claude-sonnet-4.6
+    prompt: |
+      Generate a weekly progress report based on:
+      
+      Commits:
+      ${git_commits}
+      
+      Closed issues:
+      ${closed_issues}
+      
+      Format as a clear, professional report.
+  
+  - name: "Save report"
+    action: file
+    operation: write
+    path: "/reports/weekly-${date}.md"
+    content: "${ai_response}"
+  
+  - name: "Send to Slack"
+    action: message
+    channel: slack
+    to: "#team-updates"
+    content: |
+      📊 Weekly Report - ${date}
+      
+      ${ai_response}
+```
+
+### 4. Content Idea Generator
+
+```yaml
+name: "Content Ideas"
+description: "Generate content ideas for blog/social"
+trigger:
+  schedule: "0 10 * * 1"  # Monday at 10 AM
+
+steps:
+  - name: "Fetch trending topics"
+    action: http
+    method: GET
+    url: "https://api.twitter.com/2/trends"
+  
+  - name: "Generate ideas"
+    action: ai
+    model: claude-sonnet-4.6
+    prompt: |
+      Based on these trending topics:
+      ${trends}
+      
+      Generate 5 content ideas for a tech blog about AI.
+      Each idea should have:
+      - Title
+      - Brief description
+      - Target audience
+      - Key points to cover
+  
+  - name: "Save ideas"
+    action: file
+    operation: append
+    path: "/content/ideas.md"
+    content: |
+      ## Content Ideas - ${date}
+      
+      ${ai_response}
+      
+      ---
+```
+
+### 5. Automated Testing and Deployment
+
+```yaml
+name: "Auto Deploy"
+description: "Test and deploy on main branch push"
+trigger:
+  webhook:
+    path: "/webhook/github-push"
+    method: POST
+
+condition:
+  branch: "main"
+
+steps:
+  - name: "Run tests"
+    action: terminal
+    command: "npm test"
+    cwd: "/app"
+  
+  - name: "Check test results"
+    action: condition
+    if: "${test_result.exit_code} == 0"
+    then:
+      - name: "Build"
+        action: terminal
+        command: "npm run build"
+      
+      - name: "Deploy"
+        action: terminal
+        command: "npm run deploy"
+      
+      - name: "Notify success"
+        action: message
+        channel: telegram
+        to: "@dev-team"
+        content: "✅ Deploy successful! ${commit_message}"
+    else:
+      - name: "Notify failure"
+        action: message
+        channel: telegram
+        to: "@dev-team"
+        content: "❌ Tests failed! Check ${commit_sha}"
+```
+
+---
+
+## OpenClaw vs Cursor Automations
+
+| Feature | OpenClaw | Cursor |
+|---------|----------|--------|
+| **Self-hosted** | ✅ Yes | ❌ No |
+| **Schedule triggers** | ✅ Yes | ✅ Yes |
+| **Webhook triggers** | ✅ Yes | ❌ No |
+| **File triggers** | ✅ Yes | ❌ No |
+| **Message triggers** | ✅ Yes | ❌ No |
+| **Multi-channel** | ✅ Yes (Telegram, Slack, etc.) | ❌ No |
+| **External integrations** | ✅ Yes (MCP, HTTP) | ⚠️ Limited |
+| **Custom actions** | ✅ Yes | ⚠️ Limited |
+| **Privacy** | ✅ Full control | ❌ Cloud-based |
+| **Cost** | ✅ Free (self-hosted) | ⚠️ Subscription |
+
+---
+
+## Best Practices
+
+### 1. Start Simple
+
+Begin with basic automations:
+
+```yaml
+# Simple: Send a daily reminder
+name: "Daily Standup Reminder"
+trigger:
+  schedule: "0 9 * * 1-5"  # Weekdays at 9 AM
+steps:
+  - action: message
+    channel: telegram
+    to: "@me"
+    content: "Time for standup! 📋"
+```
+
+Then add complexity gradually.
+
+### 2. Use Descriptive Names
+
+```yaml
+# ❌ Bad
+name: "automation1"
+
+# ✅ Good
+name: "Daily GitHub Issues Summary"
+```
+
+### 3. Handle Errors Gracefully
+
+```yaml
+steps:
+  - name: "Fetch data"
+    action: http
+    url: "https://api.example.com/data"
+    on_error:
+      retry: 3
+      delay: "1m"
+      fallback:
+        action: message
+        content: "⚠️ Failed to fetch data after 3 retries"
+```
+
+### 4. Log Everything
+
+```yaml
+steps:
+  - name: "Process data"
+    action: ai
+    prompt: "..."
+    log: true
+    log_level: debug
+```
+
+### 5. Use Secrets for Sensitive Data
+
+```bash
+# Set secrets
+openclaw secret set GITHUB_TOKEN
+openclaw secret set OPENAI_API_KEY
+```
+
+```yaml
+# Use in automation
+steps:
+  - action: http
+    headers:
+      Authorization: "Bearer ${GITHUB_TOKEN}"
+```
+
+---
+
+## Debugging Automations
+
+### View Automation Logs
+
+```bash
+openclaw automations logs daily-summary
+```
+
+### Test an Automation
+
+```bash
+openclaw automations test daily-summary
+```
+
+### List All Automations
+
+```bash
+openclaw automations list
+```
+
+### Disable an Automation
+
+```bash
+openclaw automations disable daily-summary
+```
+
+---
+
+## Conclusion
+
+OpenClaw Automations bring the power of AI to your workflows:
+
+- **Set it and forget it**: Automations run automatically
+- **AI-powered**: Use any model for intelligent processing
+- **Multi-channel**: Send results to Telegram, Slack, email, etc.
+- **Self-hosted**: Keep your data private
+
+Whether you need daily summaries, code reviews, or deployment pipelines, OpenClaw Automations can handle it—all while keeping you in control.
+
+---
+
+## Related Resources
+
+- [OpenClaw Automations Documentation](https://docs.openclaw.ai/features/automations)
+- [Trigger Reference](https://docs.openclaw.ai/reference/triggers)
+- [Action Reference](https://docs.openclaw.ai/reference/actions)
+- [Example Automations](https://github.com/openclaw/openclaw/tree/main/examples/automations)
+
+---
+
+*Ready to automate your AI workflows? [Get started with OpenClaw](https://openclaw.ai) today.*

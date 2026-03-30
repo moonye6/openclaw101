@@ -6,10 +6,16 @@ import { RecommendedSection } from '@/components/home/RecommendedSection';
 import { SkillsStats } from '@/components/home/SkillsStats';
 import { TutorialsSection } from '@/components/home/TutorialsSection';
 import { SecurityWarning } from '@/components/home/SecurityWarning';
+import { UseCases } from '@/components/home/UseCases';
+import { CommunityShowcase } from '@/components/home/CommunityShowcase';
+import { NewsUpdates } from '@/components/home/NewsUpdates';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { FAQSection } from '@/components/seo/FAQSection';
 
-const SITE_URL = 'https://openclaw101.vip';
+const SITE_URL = 'https://openclaw101.com';
+
+// Enable ISR - revalidate every hour for better caching
+export const revalidate = 3600;
 
 export async function generateMetadata({
   params,
@@ -172,10 +178,13 @@ export default async function Home({
       <JsonLd data={courseJsonLd} />
       <HeroSection />
       <FeaturesSection />
+      <UseCases />
       <LearningPath />
       <RecommendedSection />
       <SkillsStats />
       <TutorialsSection />
+      <CommunityShowcase />
+      <NewsUpdates />
       <SecurityWarning />
       <FAQSection />
     </main>

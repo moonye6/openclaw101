@@ -1,0 +1,304 @@
+---
+title: "How to Use OpenClaw with JetBrains IDEs (IntelliJ, PyCharm, WebStorm)"
+description: "Complete guide to integrating OpenClaw AI assistant with JetBrains IDEs. Learn how to set up ACP protocol and boost your coding productivity."
+publishDate: "2026-03-23"
+tags: ["jetbrains", "intellij", "ai-assistant", "tutorial"]
+---
+
+# How to Use OpenClaw with JetBrains IDEs (IntelliJ, PyCharm, WebStorm)
+
+JetBrains IDEs are the go-to choice for professional developers worldwide. IntelliJ IDEA, PyCharm, WebStorm, and other JetBrains tools power millions of development workflows. Now, with the Agent Client Protocol (ACP), you can bring AI assistance directly into these IDEs.
+
+In this guide, we'll show you how to integrate OpenClaw with JetBrains IDEs, compare it with Cursor's recent JetBrains support, and help you get the most out of AI-assisted development.
+
+---
+
+## What is JetBrains ACP?
+
+**Agent Client Protocol (ACP)** is an open protocol that allows AI agents to communicate with IDEs. Think of it as a universal language that enables AI assistants to:
+
+- Read and understand your codebase
+- Make edits directly in your editor
+- Run commands and tests
+- Provide contextual suggestions
+
+JetBrains announced ACP support in early 2026, opening the door for AI assistants to integrate deeply with their IDEs.
+
+### Why ACP Matters
+
+Before ACP, AI assistants could only work through:
+
+- Browser interfaces (copy-paste workflow)
+- Command-line tools (limited context)
+- Proprietary plugins (vendor lock-in)
+
+ACP standardizes AI-IDE communication, making it possible for any AI agent to work with any ACP-compatible IDE.
+
+---
+
+## OpenClaw + JetBrains: The Setup
+
+OpenClaw supports JetBrains IDEs through ACP. Here's how to set it up.
+
+### Prerequisites
+
+- JetBrains IDE (IntelliJ IDEA, PyCharm, WebStorm, etc.) 2025.1 or later
+- Node.js 22+ (Node 24 recommended)
+- OpenClaw installed on your machine
+
+### Step 1: Install OpenClaw
+
+If you haven't installed OpenClaw yet:
+
+```bash
+npm install -g openclaw
+openclaw init
+```
+
+This creates the OpenClaw configuration directory at `~/.openclaw/`.
+
+### Step 2: Enable ACP in Your JetBrains IDE
+
+1. Open your JetBrains IDE
+2. Go to **Settings** (Preferences on macOS)
+3. Navigate to **Languages & Frameworks** → **Agent Client Protocol**
+4. Enable **ACP Server**
+5. Note the port number (default: 6789)
+
+### Step 3: Configure OpenClaw for JetBrains
+
+Create or edit the ACP configuration file:
+
+```bash
+mkdir -p ~/.openclaw/channels
+cat > ~/.openclaw/channels/jetbrains.json << 'EOF'
+{
+  "id": "jetbrains-acp",
+  "type": "acp",
+  "config": {
+    "host": "localhost",
+    "port": 6789,
+    "ide": "intellij"
+  }
+}
+EOF
+```
+
+Replace `"intellij"` with your IDE type:
+- `intellij` for IntelliJ IDEA
+- `pycharm` for PyCharm
+- `webstorm` for WebStorm
+- `goland` for GoLand
+- `clion` for CLion
+
+### Step 4: Start the OpenClaw Gateway
+
+```bash
+openclaw gateway start
+```
+
+OpenClaw will automatically detect the JetBrains ACP configuration and connect to your IDE.
+
+### Step 5: Verify the Connection
+
+In your IDE, open a project and look for the AI assistant indicator in the status bar. You should see OpenClaw connected.
+
+Try a simple command:
+
+```
+Explain this function
+```
+
+OpenClaw will read the current file context and provide an explanation.
+
+---
+
+## Using OpenClaw in JetBrains IDEs
+
+Once connected, you can interact with OpenClaw in several ways:
+
+### Chat Panel
+
+OpenClaw provides a chat panel within the IDE. You can:
+
+- Ask questions about your code
+- Request refactoring suggestions
+- Generate documentation
+- Debug issues
+
+### Inline Suggestions
+
+OpenClaw can make inline suggestions as you type. This works similar to GitHub Copilot but with more context awareness.
+
+### Code Actions
+
+Right-click on any code element to see OpenClaw actions:
+
+- **Explain**: Get a detailed explanation
+- **Refactor**: Suggest improvements
+- **Test**: Generate unit tests
+- **Document**: Create documentation
+
+### Command Palette
+
+Access OpenClaw through the command palette (Ctrl+Shift+A / Cmd+Shift+A):
+
+```
+OpenClaw: Explain Selection
+OpenClaw: Refactor
+OpenClaw: Generate Tests
+OpenClaw: Ask Question
+```
+
+---
+
+## OpenClaw vs Cursor JetBrains Support
+
+Cursor, the AI-first code editor, recently announced JetBrains support (March 4, 2026). Here's how OpenClaw compares:
+
+| Feature | OpenClaw | Cursor JetBrains |
+|---------|----------|------------------|
+| **Self-hosted** | ✅ Yes | ❌ No (cloud-based) |
+| **Data privacy** | ✅ Full control | ⚠️ Data sent to Cursor |
+| **Model choice** | ✅ Any model | ⚠️ Limited to Cursor's models |
+| **Customization** | ✅ Full control | ❌ Limited |
+| **Multi-channel** | ✅ Yes (Telegram, Discord, etc.) | ❌ IDE only |
+| **Agent capabilities** | ✅ Advanced | ⚠️ Basic |
+| **Cost** | ✅ Free (self-hosted) | ⚠️ Subscription required |
+| **Setup complexity** | ⚠️ Requires setup | ✅ One-click install |
+
+### When to Choose OpenClaw
+
+- You need data privacy and control
+- You want to use multiple AI models
+- You need multi-channel access (chat apps + IDE)
+- You're building custom AI workflows
+
+### When to Choose Cursor
+
+- You want the simplest setup
+- You're okay with cloud-based processing
+- You prefer an all-in-one solution
+
+---
+
+## Common Issues and Solutions
+
+### Issue: Connection Failed
+
+**Symptoms**: OpenClaw cannot connect to the IDE
+
+**Solutions**:
+1. Verify ACP is enabled in IDE settings
+2. Check the port number matches
+3. Ensure no firewall blocking localhost connections
+4. Restart both OpenClaw and the IDE
+
+### Issue: Context Not Loading
+
+**Symptoms**: AI doesn't understand your code context
+
+**Solutions**:
+1. Make sure the project is properly indexed
+2. Check if the file is saved
+3. Verify ACP has read permissions for your project
+
+### Issue: Slow Response Times
+
+**Symptoms**: AI takes too long to respond
+
+**Solutions**:
+1. Use a faster model (e.g., Claude Haiku)
+2. Reduce the context window size
+3. Check your network connection
+4. Consider local models for faster inference
+
+---
+
+## Advanced Configuration
+
+### Custom Keybindings
+
+Add custom keybindings in your IDE:
+
+```xml
+<!-- ~/.config/JetBrains/IntelliJIdea2026/keymaps/$keymap.xml -->
+<keymap version="1" name="OpenClaw">
+  <action id="OpenClaw.Explain">
+    <keyboard-shortcut first-keystroke="ctrl shift E" />
+  </action>
+  <action id="OpenClaw.Refactor">
+    <keyboard-shortcut first-keystroke="ctrl shift R" />
+  </action>
+</keymap>
+```
+
+### Project-Specific Settings
+
+Create a `.openclaw.yaml` in your project root:
+
+```yaml
+model: claude-sonnet-4.6
+context:
+  include:
+    - "src/**/*.ts"
+    - "src/**/*.tsx"
+  exclude:
+    - "node_modules/**"
+    - "*.test.ts"
+instructions: |
+  Focus on TypeScript best practices.
+  Use functional programming patterns when possible.
+  Avoid any type.
+```
+
+### Multiple IDEs
+
+If you use multiple JetBrains IDEs, configure each separately:
+
+```bash
+# IntelliJ
+cat > ~/.openclaw/channels/jetbrains-intellij.json << 'EOF'
+{"id": "jetbrains-intellij", "type": "acp", "config": {"port": 6789, "ide": "intellij"}}
+EOF
+
+# PyCharm
+cat > ~/.openclaw/channels/jetbrains-pycharm.json << 'EOF'
+{"id": "jetbrains-pycharm", "type": "acp", "config": {"port": 6790, "ide": "pycharm"}}
+EOF
+```
+
+---
+
+## Best Practices
+
+1. **Start with clear prompts**: The more specific your question, the better the answer
+2. **Use context wisely**: Include relevant files but avoid overwhelming context
+3. **Review suggestions**: Always review AI-generated code before accepting
+4. **Iterate**: If the first answer isn't perfect, ask follow-up questions
+5. **Learn the patterns**: AI assistants have patterns they follow; learn them to get better results
+
+---
+
+## Conclusion
+
+Integrating OpenClaw with JetBrains IDEs brings powerful AI assistance directly into your development workflow. With ACP support, you get:
+
+- Deep code understanding
+- Context-aware suggestions
+- Privacy and control over your data
+- Flexibility to use any AI model
+
+Whether you're using IntelliJ IDEA for Java, PyCharm for Python, or WebStorm for JavaScript, OpenClaw enhances your productivity while keeping your data under your control.
+
+---
+
+## Related Resources
+
+- [OpenClaw Documentation](https://docs.openclaw.ai)
+- [JetBrains ACP Guide](https://www.jetbrains.com/help/acp)
+- [OpenClaw GitHub](https://github.com/openclaw/openclaw)
+
+---
+
+*Have questions? Join the [OpenClaw Discord community](https://discord.com/invite/clawd) for support and discussions.*

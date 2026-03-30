@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const SITE_URL = "https://openclaw101.vip";
+const SITE_URL = "https://openclaw101.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -98,7 +98,14 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#2563eb" />
-        <link rel="alternate" type="application/rss+xml" title="OpenClaw 101 Tutorials" href="https://openclaw101.vip/feed.xml" />
+        <link rel="alternate" type="application/rss+xml" title="OpenClaw 101 Tutorials" href="https://openclaw101.com/feed.xml" />
+
+        {/* Google AdSense */}
+        <Script
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1509155490380091"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -116,6 +123,7 @@ export default function RootLayout({
             gtag('config', '${GA_ID}');
           `}
         </Script>
+
         {children}
       </body>
     </html>
