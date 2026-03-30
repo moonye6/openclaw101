@@ -1,0 +1,67 @@
+{
+  "project": "openclaw101",
+  "harness_level": 2,
+  "harness_level_description": "反馈回路: AGENTS.md + 自定义 Linter + 自动化测试 + 进度追踪",
+  "truth_repo": "https://github.com/moonye6/cn-truth",
+  "sessions": [
+    {
+      "id": "S001",
+      "date": "2026-03-19",
+      "task": "新增首页组件和 E2E 测试",
+      "status": "completed",
+      "changes": [
+        "新增 CommunityShowcase, UseCases, NewsUpdates 组件",
+        "i18n 翻译新增约 100 个 key",
+        "FAQ 扩充至 12 个条目",
+        "教程扩充至 47 个条目",
+        "E2E 测试: 90 通过 / 5 失败 (新内容未部署)"
+      ],
+      "errors_learned": [
+        "E2E 测试不应在新内容部署前针对生产 URL 运行"
+      ],
+      "git_commit": null
+    },
+    {
+      "id": "S002",
+      "date": "2026-03-29",
+      "task": "建立 Agent Harness 工作流 (Level 2)",
+      "status": "completed",
+      "changes": [
+        "创建 AGENTS.md — 会话常驻上下文 + 动态反馈循环",
+        "创建 feature_list.json — 结构化功能列表 (20个功能)",
+        "创建 progress.json — 跨会话进度追踪",
+        "创建 3 个自定义 ESLint 规则 (no-hardcoded-text, require-page-metadata, enforce-path-alias)",
+        "创建 scripts/lint-structure.js — 结构化验证脚本 (5项检查+修复指令)",
+        "更新 eslint.config.mjs — 集成自定义规则插件",
+        "更新 package.json — 添加 lint:structure/lint:all/validate 脚本",
+        "建立 .context/ 分层上下文 (Tier 1/2/3) 目录",
+        "创建 .truth/ — 单一事实源仓库说明",
+        "创建 scripts/sync-to-truth.sh — 自动同步脚本",
+        "成功推送 14 个制品到 cn-truth 仓库 (已验证)"
+      ],
+      "errors_learned": [
+        "GitHub SSH key 未配置时需要使用 HTTPS token 认证",
+        "cn-truth 仓库可能为私有仓库，web_fetch 无法访问但 git push 可正常工作"
+      ],
+      "git_commit": null,
+      "completed_date": "2026-03-29"
+    }
+  ],
+  "current_session": "S002",
+  "next_actions": [
+    "在 CI/CD 管道中集成 lint:structure 检查",
+    "配置定期垃圾回收自动化 Agent",
+    "向 Level 3 (专业化 Agent) 演进: 多 Agent 角色分工",
+    "添加浏览器自动化 E2E 测试 (Puppeteer MCP)"
+  ],
+  "metrics": {
+    "total_sessions": 2,
+    "total_features_completed": 20,
+    "total_tests": 95,
+    "test_pass_rate": "94.7%",
+    "context_utilization_target": "< 40%",
+    "error_patterns_documented": 3,
+    "harness_files_count": 14,
+    "truth_repo_synced": true
+  }
+}

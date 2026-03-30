@@ -1,0 +1,214 @@
+{
+  "project": "openclaw101",
+  "version": "0.1.0",
+  "last_updated": "2026-03-29",
+  "truth_repo": "https://github.com/moonye6/cn-truth",
+  "features": [
+    {
+      "id": "F001",
+      "name": "首页 Hero 区域",
+      "status": "done",
+      "component": "src/components/home/HeroSection.tsx",
+      "tests": ["tests/e2e/homepage.spec.ts"],
+      "i18n_keys": ["home.hero.*"],
+      "priority": "P0",
+      "completed_date": "2026-03-19"
+    },
+    {
+      "id": "F002",
+      "name": "特性板块",
+      "status": "done",
+      "component": "src/components/home/FeaturesSection.tsx",
+      "tests": ["tests/e2e/homepage.spec.ts"],
+      "i18n_keys": ["home.features.*"],
+      "priority": "P0",
+      "completed_date": "2026-03-19"
+    },
+    {
+      "id": "F003",
+      "name": "学习路径",
+      "status": "done",
+      "component": "src/components/home/LearningPath.tsx",
+      "tests": ["tests/e2e/homepage.spec.ts"],
+      "i18n_keys": ["home.learningPath.*"],
+      "priority": "P0",
+      "completed_date": "2026-03-19"
+    },
+    {
+      "id": "F004",
+      "name": "社区展示",
+      "status": "done",
+      "component": "src/components/home/CommunityShowcase.tsx",
+      "tests": ["tests/e2e/homepage.spec.ts"],
+      "i18n_keys": ["home.community.*"],
+      "priority": "P1",
+      "completed_date": "2026-03-19"
+    },
+    {
+      "id": "F005",
+      "name": "使用案例",
+      "status": "done",
+      "component": "src/components/home/UseCases.tsx",
+      "tests": ["tests/e2e/homepage.spec.ts"],
+      "i18n_keys": ["home.useCases.*"],
+      "priority": "P1",
+      "completed_date": "2026-03-19"
+    },
+    {
+      "id": "F006",
+      "name": "新闻动态",
+      "status": "done",
+      "component": "src/components/home/NewsUpdates.tsx",
+      "tests": ["tests/e2e/homepage.spec.ts"],
+      "i18n_keys": ["home.news.*"],
+      "priority": "P1",
+      "completed_date": "2026-03-19"
+    },
+    {
+      "id": "F007",
+      "name": "推荐内容",
+      "status": "done",
+      "component": "src/components/home/RecommendedSection.tsx",
+      "tests": ["tests/e2e/homepage.spec.ts"],
+      "i18n_keys": ["home.recommended.*"],
+      "priority": "P1",
+      "completed_date": "2026-03-19"
+    },
+    {
+      "id": "F008",
+      "name": "技能统计",
+      "status": "done",
+      "component": "src/components/home/SkillsStats.tsx",
+      "tests": ["tests/e2e/homepage.spec.ts"],
+      "i18n_keys": ["home.skills.*"],
+      "priority": "P1",
+      "completed_date": "2026-03-19"
+    },
+    {
+      "id": "F009",
+      "name": "教程板块",
+      "status": "done",
+      "component": "src/components/home/TutorialsSection.tsx",
+      "tests": ["tests/e2e/homepage.spec.ts"],
+      "i18n_keys": ["home.tutorials.*"],
+      "priority": "P1",
+      "completed_date": "2026-03-19"
+    },
+    {
+      "id": "F010",
+      "name": "安全警告",
+      "status": "done",
+      "component": "src/components/home/SecurityWarning.tsx",
+      "tests": ["tests/e2e/homepage.spec.ts"],
+      "i18n_keys": ["home.security.*"],
+      "priority": "P0",
+      "completed_date": "2026-03-19"
+    },
+    {
+      "id": "F011",
+      "name": "FAQ 板块",
+      "status": "done",
+      "component": "src/components/seo/FAQSection.tsx",
+      "tests": ["tests/e2e/homepage.spec.ts"],
+      "i18n_keys": ["faq.*"],
+      "priority": "P1",
+      "completed_date": "2026-03-19"
+    },
+    {
+      "id": "F012",
+      "name": "博客系统",
+      "status": "done",
+      "component": "src/app/[locale]/blog/",
+      "tests": ["tests/e2e/blog.spec.ts"],
+      "i18n_keys": ["blog.*"],
+      "priority": "P0",
+      "completed_date": "2026-03-19"
+    },
+    {
+      "id": "F013",
+      "name": "学习日系统",
+      "status": "done",
+      "component": "src/app/[locale]/learn/",
+      "tests": [],
+      "i18n_keys": ["learn.*"],
+      "priority": "P0",
+      "completed_date": "2026-03-19"
+    },
+    {
+      "id": "F014",
+      "name": "技能浏览器",
+      "status": "done",
+      "component": "src/app/[locale]/skills/",
+      "tests": ["tests/e2e/skills.spec.ts"],
+      "i18n_keys": ["skills.*"],
+      "priority": "P0",
+      "completed_date": "2026-03-19"
+    },
+    {
+      "id": "F015",
+      "name": "教程系统",
+      "status": "done",
+      "component": "src/app/[locale]/tutorials/",
+      "tests": ["tests/e2e/tutorials.spec.ts"],
+      "i18n_keys": ["tutorials.*"],
+      "priority": "P0",
+      "completed_date": "2026-03-19"
+    },
+    {
+      "id": "F016",
+      "name": "SEO 优化 (sitemap/robots/RSS/JSON-LD)",
+      "status": "done",
+      "component": "src/app/sitemap.ts, src/app/robots.ts, src/app/feed.xml/route.ts",
+      "tests": ["tests/e2e/seo.spec.ts"],
+      "i18n_keys": [],
+      "priority": "P0",
+      "completed_date": "2026-03-19"
+    },
+    {
+      "id": "F017",
+      "name": "响应式布局",
+      "status": "done",
+      "component": "全局",
+      "tests": ["tests/e2e/responsive.spec.ts"],
+      "i18n_keys": [],
+      "priority": "P0",
+      "completed_date": "2026-03-19"
+    },
+    {
+      "id": "F018",
+      "name": "无障碍 (A11y)",
+      "status": "done",
+      "component": "全局",
+      "tests": ["tests/e2e/accessibility.spec.ts"],
+      "i18n_keys": [],
+      "priority": "P0",
+      "completed_date": "2026-03-19"
+    },
+    {
+      "id": "F019",
+      "name": "导航系统 (Header/Footer)",
+      "status": "done",
+      "component": "src/components/layout/Header.tsx, src/components/layout/Footer.tsx",
+      "tests": ["tests/e2e/navigation.spec.ts"],
+      "i18n_keys": ["nav.*", "footer.*"],
+      "priority": "P0",
+      "completed_date": "2026-03-19"
+    },
+    {
+      "id": "F020",
+      "name": "Agent Harness 工作流",
+      "status": "in_progress",
+      "component": "AGENTS.md, feature_list.json, progress.json",
+      "tests": [],
+      "i18n_keys": [],
+      "priority": "P0",
+      "started_date": "2026-03-29"
+    }
+  ],
+  "stats": {
+    "total": 20,
+    "done": 19,
+    "in_progress": 1,
+    "pending": 0
+  }
+}
