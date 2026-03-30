@@ -1,0 +1,83 @@
+{
+  "project": "openclaw101",
+  "harness_level": 2,
+  "harness_level_description": "反馈回路: AGENTS.md + 自定义 Linter + 自动化测试 + 进度追踪",
+  "truth_repo": "https://github.com/moonye6/cn-truth",
+  "sessions": [
+    {
+      "id": "S001",
+      "date": "2026-03-19",
+      "task": "新增首页组件和 E2E 测试",
+      "status": "completed",
+      "changes": [
+        "新增 CommunityShowcase, UseCases, NewsUpdates 组件",
+        "i18n 翻译新增约 100 个 key",
+        "FAQ 扩充至 12 个条目",
+        "教程扩充至 47 个条目",
+        "E2E 测试: 90 通过 / 5 失败 (新内容未部署)"
+      ],
+      "errors_learned": [
+        "E2E 测试不应在新内容部署前针对生产 URL 运行"
+      ]
+    },
+    {
+      "id": "S002",
+      "date": "2026-03-29",
+      "task": "建立 Agent Harness 工作流 (Level 2)",
+      "status": "completed",
+      "changes": [
+        "创建 AGENTS.md, feature_list.json, progress.json",
+        "创建 3 个自定义 ESLint 规则 + lint-structure.js",
+        "建立 .context/ 分层上下文 + .truth/ 说明",
+        "推送 14 个制品到 cn-truth 仓库"
+      ],
+      "errors_learned": [
+        "GitHub SSH key 未配置时需使用 HTTPS token 认证"
+      ]
+    },
+    {
+      "id": "S003",
+      "date": "2026-03-30",
+      "task": "修复 git 权限 + ESLint revert + 全面分析优化",
+      "status": "in_progress",
+      "changes": [
+        "修复 .git/objects 权限 (root → moonye)",
+        "发现 cb2c604 revert 了所有 Harness 文件",
+        "全面分析发现 21 个问题 (5严重/10中等/6低)",
+        "重建 AGENTS.md (含6条新错误模式)",
+        "重建 progress.json (数据一致性修复)",
+        "重建 feature_list.json",
+        "安全方式重建 ESLint 自定义规则 (inline)",
+        "修复 <main> 嵌套问题",
+        "修复 Cache-Control 策略",
+        "修复 i18n 硬编码 (SkillsStats/FAQSection)"
+      ],
+      "errors_learned": [
+        "永远不要 sudo git",
+        "ESLint CJS 规则文件在 ESM config 中直接 import 会失败",
+        "Harness 文件与 ESLint 配置修改应分开提交",
+        "工作区文件属于 root 时 IDE 编辑工具报成功但磁盘不变 — 需用 shell 验证",
+        "git rebase 前必须检查所有目录权限，否则中途失败导致工作区不一致"
+      ]
+    }
+  ],
+  "current_session": "S003",
+  "next_actions": [
+    "修复 RecommendedSection/TutorialsSection 的 i18n 硬编码",
+    "补充学习路径 E2E 测试 (F013)",
+    "修复 api/cron/sync 鉴权绕过",
+    "统一数据层 (静态数据 vs 数据库)",
+    "同步到 cn-truth 仓库"
+  ],
+  "metrics": {
+    "total_sessions": 3,
+    "total_features_completed": 19,
+    "features_in_progress": 1,
+    "total_tests": 95,
+    "test_pass_rate": "94.7%",
+    "known_issues": 21,
+    "issues_fixed_this_session": 0,
+    "error_patterns_documented": 6,
+    "context_utilization_target": "< 40%"
+  }
+}

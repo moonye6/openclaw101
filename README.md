@@ -1,36 +1,120 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OpenClaw 101
 
-## Getting Started
+> Your comprehensive guide to OpenClaw AI agent skills — 你的 OpenClaw AI 助手学习资源中心
 
-First, run the development server:
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/moonye6/openclaw101)
+
+## 🌟 About
+
+OpenClaw 101 is a curated learning resource hub for [OpenClaw](https://openclaw.ai), the open-source AI assistant platform. It features 414+ tutorials, 5490+ skill listings, and a structured 7-day learning path — available in both English and Chinese.
+
+**Live site**: [https://openclaw101.vip](https://openclaw101.vip)
+
+## ✨ Features
+
+- 📚 **414+ Curated Tutorials** — from official docs, cloud platforms, and community contributors
+- 🧩 **5490+ Skill Listings** — browse and discover AI agent skills across 31 categories
+- 🗓️ **7-Day Learning Path** — beginner to advanced, one topic per day
+- 🌍 **Bilingual (EN/ZH)** — full i18n support via next-intl
+- 📰 **SEO Optimized** — sitemap, robots.txt, RSS feed, JSON-LD, hreflang, Open Graph
+- ⚡ **ISR Caching** — Incremental Static Regeneration for blazing-fast page loads
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 16 (App Router) |
+| UI | React 19 + Tailwind CSS v4 + Framer Motion 12 |
+| Language | TypeScript 5 (strict mode) |
+| i18n | next-intl 4 |
+| Testing | Playwright (E2E) |
+| Deploy | Vercel |
+| Package Manager | pnpm |
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js >= 20
+- pnpm >= 9
+
+### Setup
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# Clone the repository
+git clone https://github.com/moonye6/openclaw101.git
+cd openclaw101
+
+# Install dependencies
+pnpm install
+
+# Copy environment variables
+cp .env.example .env.local
+# Edit .env.local and fill in required values
+
+# Start development server
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build & Preview
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm build
+pnpm start
+```
 
-## Learn More
+### Lint & Validate
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm lint              # ESLint
+pnpm lint:structure    # Custom structural checks (i18n keys, exports, etc.)
+pnpm validate          # Both
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### E2E Tests
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+pnpm test:e2e          # Run Playwright tests
+pnpm test:ui           # Run with Playwright UI
+```
 
-## Deploy on Vercel
+## 📁 Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── [locale]/           # i18n routes (en|zh)
+│   ├── api/                # API routes
+│   └── feed.xml/           # RSS feed
+├── components/             # React components
+│   ├── home/               # Homepage sections
+│   ├── layout/             # Header & Footer
+│   ├── seo/                # JSON-LD, FAQ, Breadcrumbs
+│   ├── skills/             # Skills page components
+│   ├── tutorials/          # Tutorials page components
+│   └── ui/                 # Reusable UI primitives
+├── data/                   # Static data files
+├── i18n/                   # en.json / zh.json / routing
+├── lib/                    # Utility functions
+└── types/                  # TypeScript type definitions
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🌐 Environment Variables
+
+See [`.env.example`](.env.example) for the full list.
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `CRON_SECRET` | Yes | Auth token for Vercel Cron jobs |
+| `NEXT_PUBLIC_GA_ID` | No | Google Analytics tracking ID |
+| `BASE_URL` | No | Site base URL for RSS/links |
+
+## 📄 License
+
+MIT
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read [AGENTS.md](AGENTS.md) for development conventions and workflow guidelines.

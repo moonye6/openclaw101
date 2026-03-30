@@ -27,7 +27,12 @@ const nextConfig: NextConfig = {
             key: 'X-DNS-Prefetch-Control',
             value: 'on',
           },
-          // Cache static assets
+        ],
+      },
+      {
+        // 静态资源缓存 — 仅 _next/static (JS/CSS/fonts)
+        source: '/_next/static/:path*',
+        headers: [
           {
             key: 'Cache-Control',
             value: 'public, max-age=31536000, immutable',
@@ -35,6 +40,7 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        // 国际化页面缓存 — ISR 策略
         source: '/:locale(en|zh)',
         headers: [
           {

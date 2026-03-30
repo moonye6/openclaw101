@@ -83,7 +83,7 @@ export const metadata: Metadata = {
   },
 };
 
-const GA_ID = "G-JSHGKV6LDM";
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "G-JSHGKV6LDM";
 
 export default function RootLayout({
   children,

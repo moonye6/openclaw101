@@ -68,12 +68,51 @@
     "skills": {
       "title": "Skill Categories",
       "subtitle": "Browse {count} skills across {categories} categories",
-      "viewAll": "View All Skills"
+      "viewAll": "View All Skills",
+      "skillCount": "{count} skills",
+      "totalSkillsLabel": "Total Skills",
+      "categoriesLabel": "Categories",
+      "aiLlmLabel": "AI & LLM",
+      "researchLabel": "Research",
+      "categoryNames": {
+        "ai-llm": "AI & LLMs",
+        "research": "Search & Research",
+        "devops": "DevOps & Cloud",
+        "marketing": "Marketing & Sales",
+        "coding": "Coding Agents",
+        "communication": "Communication",
+        "notes": "Notes & PKM",
+        "web": "Web & Frontend"
+      }
     },
     "tutorials": {
       "title": "Best Tutorials & Guides",
       "subtitle": "414+ curated tutorials from official docs, cloud platforms, and community contributors",
-      "viewAll": "View All Tutorials"
+      "viewAll": "View All Tutorials",
+      "featured1": {
+        "title": "OpenClaw Official Docs",
+        "description": "Complete API reference, configuration guide and architecture documentation"
+      },
+      "featured2": {
+        "title": "Alibaba Cloud — Deploy OpenClaw for DingTalk AI Assistant",
+        "description": "One-click deploy on lightweight server with visual configuration panel for DingTalk integration"
+      },
+      "featured3": {
+        "title": "freeCodeCamp — OpenClaw Full Tutorial for Beginners",
+        "description": "From passive chat to proactive Agent, comprehensive beginner tutorial by freeCodeCamp"
+      },
+      "featured4": {
+        "title": "OpenClaw Complete Guide — All Features Walkthrough",
+        "description": "Detailed video tutorial on Bilibili covering all major features and configurations"
+      },
+      "featured5": {
+        "title": "IBM Think — OpenClaw: The Viral \"Space Lobster\" Agent",
+        "description": "IBM deep analysis of OpenClaw's architecture innovation and vertical integration strategy"
+      },
+      "featured6": {
+        "title": "ClawHub Skill Development Docs",
+        "description": "How to create, publish and manage custom skills"
+      }
     },
     "warning": {
       "title": "Security Notice",
@@ -85,7 +124,31 @@
       "title": "Recommended for You",
       "subtitle": "Start with these popular tutorials and essential skills",
       "tutorials": "Top Tutorials",
-      "skills": "Popular Skills"
+      "skills": "Popular Skills",
+      "tutorial1": {
+        "title": "OpenClaw Official Docs",
+        "description": "Complete API reference, configuration guide and architecture documentation"
+      },
+      "tutorial2": {
+        "title": "freeCodeCamp — OpenClaw Full Tutorial",
+        "description": "Comprehensive beginner tutorial: from passive chat to proactive AI agent"
+      },
+      "tutorial3": {
+        "title": "IBM Think — The Viral \"Space Lobster\" Agent",
+        "description": "IBM deep analysis of OpenClaw's architecture innovation"
+      },
+      "badgeOfficial": "Official",
+      "badgePopular": "Popular",
+      "badgeDeepDive": "Deep Dive",
+      "skill1": {
+        "description": "GitHub operations via gh CLI"
+      },
+      "skill2": {
+        "description": "Delegate coding tasks to AI agents"
+      },
+      "skill3": {
+        "description": "Get weather and forecasts"
+      }
     },
     "community": {
       "badge": "Community",
@@ -235,8 +298,17 @@
       "featuredSkills": "Featured Skills",
       "feishuWiki": "Feishu Wiki",
       "alibabaCloud": "Alibaba Cloud",
-      "tencentCloud": "Tencent Cloud"
+      "tencentCloud": "Tencent Cloud",
+      "openclawWebsite": "OpenClaw Website",
+      "clawhubSkills": "ClawHub Skills",
+      "reddit": "Reddit",
+      "ocCompass": "OC Compass",
+      "digitalocean": "DigitalOcean",
+      "githubStars": "GitHub ({stars}+ ⭐)"
     },
     "copyright": "© {year} OpenClaw 101. All rights reserved."
+  },
+  "faq": {
+    "title": "Frequently Asked Questions"
   }
 }

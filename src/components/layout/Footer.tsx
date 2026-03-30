@@ -67,10 +67,10 @@ export function Footer() {
               {t('sections.official')}
             </h4>
             <ul className="space-y-2">
-              <li><ExtLink href="https://openclaw.ai" follow>OpenClaw Website</ExtLink></li>
+              <li><ExtLink href="https://openclaw.ai" follow>{t('links.openclawWebsite')}</ExtLink></li>
               <li><ExtLink href="https://docs.openclaw.ai" follow>{t('links.docs')}</ExtLink></li>
-              <li><ExtLink href="https://github.com/openclaw/openclaw" follow>{t('links.github')} (314k+ ⭐)</ExtLink></li>
-              <li><ExtLink href="https://clawhub.com" follow>ClawHub Skills</ExtLink></li>
+              <li><ExtLink href="https://github.com/openclaw/openclaw" follow>{t('links.githubStars', { stars: '314k' })}</ExtLink></li>
+              <li><ExtLink href="https://clawhub.com" follow>{t('links.clawhubSkills')}</ExtLink></li>
             </ul>
           </div>
 
@@ -100,9 +100,9 @@ export function Footer() {
               {t('sections.community')}
             </h4>
             <ul className="space-y-2">
-              <li><ExtLink href="https://discord.com/invite/clawd">Discord</ExtLink></li>
-              <li><ExtLink href="https://reddit.com/r/openclaw">Reddit</ExtLink></li>
-              <li><ExtLink href="https://oc-role.com">OC Compass</ExtLink></li>
+              <li><ExtLink href="https://discord.com/invite/clawd">{t('links.discord')}</ExtLink></li>
+              <li><ExtLink href="https://reddit.com/r/openclaw">{t('links.reddit')}</ExtLink></li>
+              <li><ExtLink href="https://oc-role.com">{t('links.ocCompass')}</ExtLink></li>
             </ul>
           </div>
 
@@ -114,7 +114,7 @@ export function Footer() {
             <ul className="space-y-2">
               <li><ExtLink href="https://help.aliyun.com/zh/simple-application-server/use-cases/quickly-deploy-and-use-openclaw">{t('links.alibabaCloud')}</ExtLink></li>
               <li><ExtLink href="https://cloud.tencent.com/developer/article/2625073">{t('links.tencentCloud')}</ExtLink></li>
-              <li><ExtLink href="https://www.digitalocean.com/community/tutorials/how-to-run-openclaw">DigitalOcean</ExtLink></li>
+              <li><ExtLink href="https://www.digitalocean.com/community/tutorials/how-to-run-openclaw">{t('links.digitalocean')}</ExtLink></li>
             </ul>
           </div>
         </div>

@@ -8,14 +8,14 @@ import { Link } from '@/i18n/routing';
 
 // Skill categories data
 const skillCategories = [
-  { id: 'ai-llm', name: 'AI & LLMs', icon: Brain, count: 159 },
-  { id: 'research', name: 'Search & Research', icon: Search, count: 148 },
-  { id: 'devops', name: 'DevOps & Cloud', icon: Zap, count: 144 },
-  { id: 'marketing', name: 'Marketing & Sales', icon: LineChart, count: 94 },
-  { id: 'coding', name: 'Coding Agents', icon: Code, count: 55 },
-  { id: 'communication', name: 'Communication', icon: MessageSquare, count: 58 },
-  { id: 'notes', name: 'Notes & PKM', icon: MessageSquare, count: 61 },
-  { id: 'web', name: 'Web & Frontend', icon: Globe, count: 46 },
+  { id: 'ai-llm', icon: Brain, count: 159 },
+  { id: 'research', icon: Search, count: 148 },
+  { id: 'devops', icon: Zap, count: 144 },
+  { id: 'marketing', icon: LineChart, count: 94 },
+  { id: 'coding', icon: Code, count: 55 },
+  { id: 'communication', icon: MessageSquare, count: 58 },
+  { id: 'notes', icon: MessageSquare, count: 61 },
+  { id: 'web', icon: Globe, count: 46 },
 ];
 
 const totalSkills = 5490;
@@ -68,10 +68,10 @@ export function SkillsStats() {
                       </div>
                       <div className="flex-1">
                         <h3 className="font-semibold text-gray-900">
-                          {category.name}
+                          {t(`categoryNames.${category.id}`)}
                         </h3>
                         <p className="text-sm text-gray-600">
-                          {category.count} skills
+                          {t('skillCount', { count: category.count })}
                         </p>
                       </div>
                     </CardContent>
@@ -86,19 +86,19 @@ export function SkillsStats() {
         <div className="mt-12 flex justify-center gap-8">
           <div className="text-center">
             <div className="text-3xl font-bold text-blue-600">{totalSkills.toLocaleString()}+</div>
-            <div className="text-sm text-gray-600">Total Skills</div>
+            <div className="text-sm text-gray-600">{t('totalSkillsLabel')}</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold text-purple-600">31</div>
-            <div className="text-sm text-gray-600">Categories</div>
+            <div className="text-sm text-gray-600">{t('categoriesLabel')}</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold text-green-600">159</div>
-            <div className="text-sm text-gray-600">AI & LLM</div>
+            <div className="text-sm text-gray-600">{t('aiLlmLabel')}</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold text-orange-600">148</div>
-            <div className="text-sm text-gray-600">Research</div>
+            <div className="text-sm text-gray-600">{t('researchLabel')}</div>
           </div>
         </div>
       </div>
