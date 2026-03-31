@@ -711,7 +711,7 @@ Provider 定义了 AI 模型来源。
   "providers": {
     "anthropic": {
       "type": "anthropic",
-      "apiKey": "${ANTHROPIC_API_KEY}",
+      "apiKey": "\${ANTHROPIC_API_KEY}",
       "models": {
         "default": "claude-sonnet-4-6",
         "fast": "claude-haiku-3-5",
@@ -739,7 +739,7 @@ Provider 定义了 AI 模型来源。
   "providers": {
     "openai": {
       "type": "openai",
-      "apiKey": "${OPENAI_API_KEY}",
+      "apiKey": "\${OPENAI_API_KEY}",
       "baseUrl": "https://api.openai.com/v1",
       "models": {
         "default": "gpt-4-turbo"
@@ -792,7 +792,7 @@ Channel 定义了消息平台连接。
   "channels": {
     "telegram": {
       "enabled": true,
-      "botToken": "${TELEGRAM_BOT_TOKEN}",
+      "botToken": "\${TELEGRAM_BOT_TOKEN}",
       "dmPolicy": "open",
       "groupPolicy": "allowlist",
       "groups": {
@@ -823,8 +823,8 @@ Channel 定义了消息平台连接。
   "channels": {
     "discord": {
       "enabled": true,
-      "botToken": "${DISCORD_BOT_TOKEN}",
-      "applicationId": "${DISCORD_APP_ID}",
+      "botToken": "\${DISCORD_BOT_TOKEN}",
+      "applicationId": "\${DISCORD_APP_ID}",
       "intents": ["Guilds", "GuildMessages", "DirectMessages"],
       "dmPolicy": "open"
     }
@@ -839,10 +839,10 @@ Channel 定义了消息平台连接。
   "channels": {
     "feishu": {
       "enabled": true,
-      "appId": "${FEISHU_APP_ID}",
-      "appSecret": "${FEISHU_APP_SECRET}",
-      "encryptKey": "${FEISHU_ENCRYPT_KEY}",
-      "verificationToken": "${FEISHU_VERIFY_TOKEN}"
+      "appId": "\${FEISHU_APP_ID}",
+      "appSecret": "\${FEISHU_APP_SECRET}",
+      "encryptKey": "\${FEISHU_ENCRYPT_KEY}",
+      "verificationToken": "\${FEISHU_VERIFY_TOKEN}"
     }
   }
 }
@@ -855,8 +855,8 @@ Channel 定义了消息平台连接。
   "channels": {
     "dingtalk": {
       "enabled": true,
-      "client_id": "${DINGTALK_CLIENT_ID}",
-      "client_secret": "${DINGTALK_CLIENT_SECRET}"
+      "client_id": "\${DINGTALK_CLIENT_ID}",
+      "client_secret": "\${DINGTALK_CLIENT_SECRET}"
     }
   }
 }
@@ -869,9 +869,9 @@ Channel 定义了消息平台连接。
   "channels": {
     "whatsapp": {
       "enabled": true,
-      "phoneNumberId": "${WA_PHONE_ID}",
-      "businessAccountId": "${WA_BUSINESS_ID}",
-      "accessToken": "${WA_ACCESS_TOKEN}"
+      "phoneNumberId": "\${WA_PHONE_ID}",
+      "businessAccountId": "\${WA_BUSINESS_ID}",
+      "accessToken": "\${WA_ACCESS_TOKEN}"
     }
   }
 }
@@ -1049,7 +1049,7 @@ export DISCORD_BOT_TOKEN="MTk4NjIy..."
 {
   "providers": {
     "anthropic": {
-      "apiKey": "${ANTHROPIC_API_KEY}"
+      "apiKey": "\${ANTHROPIC_API_KEY}"
     }
   }
 }
@@ -1065,12 +1065,12 @@ export DISCORD_BOT_TOKEN="MTk4NjIy..."
 {
   "providers": {
     "anthropic": {
-      "apiKey": "${ANTHROPIC_API_KEY}"
+      "apiKey": "\${ANTHROPIC_API_KEY}"
     }
   },
   "channels": {
     "telegram": {
-      "botToken": "${TELEGRAM_BOT_TOKEN}"
+      "botToken": "\${TELEGRAM_BOT_TOKEN}"
     }
   }
 }
@@ -1083,7 +1083,7 @@ export DISCORD_BOT_TOKEN="MTk4NjIy..."
   "version": "4.2",
   "providers": {
     "anthropic": {
-      "apiKey": "${ANTHROPIC_API_KEY}",
+      "apiKey": "\${ANTHROPIC_API_KEY}",
       "models": {
         "default": "claude-sonnet-4-6",
         "fast": "claude-haiku-3-5"
@@ -1093,13 +1093,13 @@ export DISCORD_BOT_TOKEN="MTk4NjIy..."
   "channels": {
     "telegram": {
       "enabled": true,
-      "botToken": "${TELEGRAM_BOT_TOKEN}",
+      "botToken": "\${TELEGRAM_BOT_TOKEN}",
       "dmPolicy": "pairing",
       "groupPolicy": "allowlist"
     },
     "discord": {
       "enabled": true,
-      "botToken": "${DISCORD_BOT_TOKEN}"
+      "botToken": "\${DISCORD_BOT_TOKEN}"
     }
   },
   "security": {
@@ -1176,7 +1176,7 @@ Created automatically on first run.
   "providers": {
     "anthropic": {
       "type": "anthropic",
-      "apiKey": "${ANTHROPIC_API_KEY}",
+      "apiKey": "\${ANTHROPIC_API_KEY}",
       "models": {
         "default": "claude-sonnet-4-6"
       }
@@ -1192,7 +1192,7 @@ Created automatically on first run.
   "providers": {
     "openai": {
       "type": "openai",
-      "apiKey": "${OPENAI_API_KEY}",
+      "apiKey": "\${OPENAI_API_KEY}",
       "models": {
         "default": "gpt-4-turbo"
       }
@@ -1226,7 +1226,7 @@ Created automatically on first run.
   "channels": {
     "telegram": {
       "enabled": true,
-      "botToken": "${TELEGRAM_BOT_TOKEN}",
+      "botToken": "\${TELEGRAM_BOT_TOKEN}",
       "dmPolicy": "open"
     }
   }
@@ -1240,7 +1240,7 @@ Created automatically on first run.
   "channels": {
     "discord": {
       "enabled": true,
-      "botToken": "${DISCORD_BOT_TOKEN}"
+      "botToken": "\${DISCORD_BOT_TOKEN}"
     }
   }
 }
@@ -4667,7 +4667,7 @@ if (freeRemaining > 0) {
 const order = await fetch('https://api-m.sandbox.paypal.com/v2/checkout/orders', {
   method: 'POST',
   headers: {
-    'Authorization': \`Basic \${credentials}\`,
+    'Authorization': \`Basic \\\${credentials}\`,
     'Content-Type': 'application/json',
   },
   body: JSON.stringify({
@@ -4681,7 +4681,7 @@ const order = await fetch('https://api-m.sandbox.paypal.com/v2/checkout/orders',
 
 // 2. 前端批准后 capture
 const capture = await fetch(
-  \`https://api-m.sandbox.paypal.com/v2/checkout/orders/\${orderId}/capture\`,
+  \`https://api-m.sandbox.paypal.com/v2/checkout/orders/\\\${orderId}/capture\`,
   { method: 'POST', ... }
 );
 
@@ -4840,7 +4840,7 @@ const order = await fetch('https://api-m.sandbox.paypal.com/v2/checkout/orders',
 
 // 2. Capture after user approval
 const capture = await fetch(
-  \`https://api-m.sandbox.paypal.com/v2/checkout/orders/\${orderId}/capture\`,
+  \`https://api-m.sandbox.paypal.com/v2/checkout/orders/\\\${orderId}/capture\`,
   { method: 'POST', ... }
 );
 
