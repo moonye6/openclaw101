@@ -49,7 +49,7 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <div className="min-h-screen flex flex-col" lang={locale} data-locale={locale}>
+      <div className="min-h-screen flex flex-col bg-[#0B0F19]" lang={locale} data-locale={locale}>
         <script
           dangerouslySetInnerHTML={{
             __html: `document.documentElement.lang="${locale}";`,

@@ -90,13 +90,14 @@ export default async function BlogPostPage({
     headline: title,
     description: isZh ? post.excerpt : post.excerptEn,
     author: {
-      '@type': 'Organization',
+      '@type': 'Person',
       name: post.author,
       url: SITE_URL,
     },
     publisher: {
       '@type': 'Organization',
       name: 'OpenClaw 101',
+      url: SITE_URL,
       logo: {
         '@type': 'ImageObject',
         url: `${SITE_URL}/og-image.png`,
@@ -105,6 +106,7 @@ export default async function BlogPostPage({
     datePublished: post.date,
     dateModified: post.date,
     image: `${SITE_URL}${post.image}`,
+    wordCount: (isZh ? post.content : post.contentEn).length,
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': `${SITE_URL}/${locale}/blog/${slug}`,

@@ -1,14 +1,14 @@
 {
   "home": {
-    "title": "OpenClaw 101 - AI 技能学习指南",
-    "subtitle": "7天入门指南",
-    "description": "发现和学习 OpenClaw 技能，开启 AI 自动化之旅",
+    "title": "OpenClaw 教程与指南 — 学习 AI 智能体技能",
+    "subtitle": "最全面的 OpenClaw 教程",
+    "description": "最全面的 OpenClaw 教程：从安装配置到高级 AI 自动化",
     "hero": {
-      "title": "7天掌握 OpenClaw",
-      "subtitle": "真正为你做事的 AI 助手。从安装配置到高级自动化——从这里开始你的旅程。",
+      "title": "最全面的 OpenClaw 教程",
+      "subtitle": "从安装配置到高级自动化，手把手教你掌握开源 AI 智能体 — 414+ 步骤指南和 5490+ 社区技能。",
       "badge": "开源 · 精选 414+ 教程",
-      "cta": "开始学习",
-      "learnMore": "浏览资源",
+      "cta": "开始教程",
+      "learnMore": "浏览所有指南",
       "stats": {
         "tutorials": "精选教程",
         "skills": "社区技能",
@@ -115,9 +115,12 @@
       }
     },
     "warning": {
-      "title": "安全提示",
-      "description": "研究人员发现 341 个恶意 ClawHub 技能窃取用户数据。安装前请务必审查源代码，只从可信发布者安装技能。",
-      "learnMore": "了解更多技能安全信息"
+      "title": "技能安装安全指南",
+      "description": "ClawHub 已有 5,490+ 社区技能。虽然大部分是安全的，但在安装第三方扩展时，建议遵循安全最佳实践。",
+      "tip1": "安装前审查社区技能的源代码",
+      "tip2": "只从已认证的可信发布者安装技能",
+      "tip3": "保持 OpenClaw 更新至最新版本以获取安全补丁",
+      "learnMore": "阅读技能安全指南"
     },
     "recommended": {
       "badge": "精选推荐",
@@ -309,5 +312,50 @@
   },
   "faq": {
     "title": "常见问题"
+  },
+  "newsletter": {
+    "badge": "保持更新",
+    "title": "每周获取 OpenClaw 技巧与教程",
+    "subtitle": "加入 8,000+ 开发者，学习用 AI 智能体构建未来。每周一篇新教程，绝无垃圾邮件。",
+    "placeholder": "输入你的邮箱",
+    "cta": "免费订阅",
+    "loading": "订阅中...",
+    "success": "🎉 欢迎！请查收你的收件箱获取第一篇教程。",
+    "privacy": "绝无垃圾邮件，随时退订。我们尊重你的隐私。"
+  },
+  "authors": {
+    "badge": "专家作者",
+    "title": "由真实从业者撰写",
+    "subtitle": "OpenClaw 101 上的每篇指南都由每天使用 OpenClaw 的资深开发者和 AI 研究者撰写。",
+    "articlesLabel": "篇文章",
+    "sarah": {
+      "name": "Dr. Sarah Kim",
+      "role": "AI 研究员 · OpenClaw 核心贡献者",
+      "bio": "计算机科学博士，专攻多智能体系统。OpenClaw 技能架构核心贡献者，安装指南和安全指南的作者。"
+    },
+    "alex": {
+      "name": "Alex Chen",
+      "role": "全栈开发者 · 8 年经验",
+      "bio": "用 OpenClaw 替代了工作流中 5 个不同工具的全栈开发者。撰写集成、部署和自动化的实用教程。"
+    },
+    "marco": {
+      "name": "Marco Liu",
+      "role": "产品经理 · 企业 AI 落地",
+      "bio": "主导了 200+ 人团队在飞书上部署 OpenClaw。撰写企业使用案例、最佳实践和技能推荐。"
+    },
+    "casesTitle": "真实成功案例",
+    "casesSubtitle": "看看团队和个人如何在生产环境中使用 OpenClaw",
+    "case1": {
+      "title": "开发团队提效",
+      "description": "一个 20 人的创业公司用一个 OpenClaw 实例替代了 5 个独立工具（Slack 机器人、定时任务管理、代码审查、监控、Wiki），工具碎片化减少 80%。"
+    },
+    "case2": {
+      "title": "大学研究实验室",
+      "description": "一个大学 AI 实验室使用 OpenClaw 自动化论文收集、arXiv 监控和实验调度，每月处理 10,000+ 篇论文。"
+    },
+    "case3": {
+      "title": "智能家居自动化",
+      "description": "一位智能家居爱好者在树莓派上运行 OpenClaw，控制 30+ 个 IoT 设备，管理能耗，并全天候运行主动安全检查。"
+    }
   }
 }

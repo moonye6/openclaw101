@@ -2,23 +2,26 @@
 
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
-import { Bot, Layers, Rocket, Globe, Zap, Shield } from 'lucide-react';
+import { Globe, Layers, Shield } from 'lucide-react';
 
 const features = [
   {
     icon: Globe,
     key: 'multiplatform',
-    color: 'from-blue-500 to-cyan-500',
+    gradient: 'from-blue-500 to-cyan-500',
+    glow: 'group-hover:shadow-blue-500/20',
   },
   {
     icon: Layers,
     key: 'skills',
-    color: 'from-purple-500 to-pink-500',
+    gradient: 'from-purple-500 to-pink-500',
+    glow: 'group-hover:shadow-purple-500/20',
   },
   {
     icon: Shield,
     key: 'selfhosted',
-    color: 'from-green-500 to-emerald-500',
+    gradient: 'from-emerald-500 to-teal-500',
+    glow: 'group-hover:shadow-emerald-500/20',
   },
 ];
 
@@ -26,7 +29,7 @@ export function FeaturesSection() {
   const t = useTranslations('home.features');
 
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-[#0B0F19]">
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center"
@@ -35,37 +38,34 @@ export function FeaturesSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+          <h2 className="text-3xl font-bold text-white sm:text-4xl">
             {t('title')}
           </h2>
-          <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-4 text-lg text-text-secondary max-w-2xl mx-auto">
             {t('subtitle')}
           </p>
         </motion.div>
 
-        <div className="mt-16 grid gap-8 md:grid-cols-3">
+        <div className="mt-16 grid gap-6 md:grid-cols-3">
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
               <motion.div
                 key={feature.key}
-                className="relative group"
+                className="group relative"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-r opacity-0 group-hover:opacity-5 transition-opacity rounded-2xl"
-                  style={{ backgroundImage: `linear-gradient(to right, var(--tw-gradient-stops))` }}
-                />
-                <div className="relative rounded-2xl border border-gray-200 bg-white p-8 hover:border-gray-300 hover:shadow-xl transition-all duration-300">
-                  <div className={`inline-flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-r ${feature.color} shadow-lg`}>
+                <div className={`relative rounded-xl border border-white/[0.08] bg-surface p-8 transition-all duration-300 hover:-translate-y-1 hover:border-white/[0.15] hover:shadow-xl ${feature.glow}`}>
+                  <div className={`inline-flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br ${feature.gradient} shadow-lg`}>
                     <Icon className="h-7 w-7 text-white" />
                   </div>
-                  <h3 className="mt-6 text-xl font-semibold text-gray-900">
+                  <h3 className="mt-6 text-xl font-semibold text-white">
                     {t(`${feature.key}.title`)}
                   </h3>
-                  <p className="mt-3 text-gray-600 leading-relaxed">
+                  <p className="mt-3 text-text-secondary leading-relaxed">
                     {t(`${feature.key}.description`)}
                   </p>
                 </div>
