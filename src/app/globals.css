@@ -195,3 +195,25 @@ code, pre, .font-mono {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* Force dark text on light backgrounds - override Tailwind defaults */
+section.bg-white,
+section.bg-white * {
+  color: #111827 !important;
+}
+
+section.bg-white a,
+section.bg-white a * {
+  color: inherit !important;
+}
+
+section.bg-white .text-blue-600,
+section.bg-white .text-gray-500,
+section.bg-white .text-gray-400 {
+  color: #2563eb !important;
+}
+
+section.bg-white .text-gray-500,
+section.bg-white .text-gray-400 {
+  color: #6b7280 !important;
+}
