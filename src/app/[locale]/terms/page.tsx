@@ -134,7 +134,6 @@ export default function TermsPage() {
             If you have any questions about these Terms of Service, please contact us:
           </p>
           <ul className="list-none pl-0 space-y-2 text-gray-700 mt-4">
-            <li>Email: legal@openclaw101.com</li>
             <li>GitHub: <a 
               href="https://github.com/moonye6/openclaw101" 
               target="_blank" 

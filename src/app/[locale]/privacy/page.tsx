@@ -181,7 +181,6 @@ export default function PrivacyPage() {
             If you have questions about this privacy policy, please contact us:
           </p>
           <ul className="list-none pl-0 space-y-2 text-gray-700 mt-4">
-            <li>Email: privacy@openclaw101.com</li>
             <li>GitHub: <a 
               href="https://github.com/moonye6/openclaw101" 
               target="_blank" 
