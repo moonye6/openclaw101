@@ -2,21 +2,21 @@
 
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
-import { ArrowRight, ExternalLink } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui';
 import { Link } from '@/i18n/routing';
 
 const categoryColors: Record<string, string> = {
-  'official': 'bg-blue-500',
-  'cloud-deploy': 'bg-cyan-500',
-  'getting-started': 'bg-green-500',
+  'official': 'bg-brand',
+  'cloud-deploy': 'bg-accent',
+  'getting-started': 'bg-success',
   'channels': 'bg-purple-500',
-  'skills': 'bg-orange-500',
+  'skills': 'bg-warning',
   'videos': 'bg-red-500',
   'deep-dives': 'bg-indigo-500',
-  'tools': 'bg-yellow-500',
+  'tools': 'bg-amber-500',
 };
 
 export function TutorialsSection() {
@@ -80,11 +80,11 @@ export function TutorialsSection() {
   ];
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-24 bg-surface/50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900">{t('title')}</h2>
-          <p className="mt-4 text-lg text-gray-600">{t('subtitle')}</p>
+          <h2 className="text-3xl font-bold text-white">{t('title')}</h2>
+          <p className="mt-4 text-lg text-text-secondary">{t('subtitle')}</p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -96,24 +96,24 @@ export function TutorialsSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
             >
-              <Card className="h-full hover:shadow-lg transition-shadow">
+              <Card className="h-full">
                 <a
                   href={tutorial.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block p-5"
                 >
-                  <div className="flex items-center gap-2 mb-2">
+                  <div className="flex items-center gap-2 mb-3">
                     <span className={`w-2 h-2 rounded-full ${categoryColors[tutorial.category]}`} />
-                    <span className="text-xs text-gray-600">{tutorial.source}</span>
+                    <span className="text-xs text-text-muted">{tutorial.source}</span>
                     <Badge variant="outline" className="text-xs ml-auto">
                       {tutorial.language === 'en' ? 'EN' : '中文'}
                     </Badge>
                   </div>
-                  <h3 className="font-semibold text-gray-900 line-clamp-2 hover:text-blue-600 transition-colors">
+                  <h3 className="font-semibold text-white line-clamp-2 group-hover:text-brand-light transition-colors">
                     {tutorial.title}
                   </h3>
-                  <p className="mt-2 text-sm text-gray-700 line-clamp-2">
+                  <p className="mt-2 text-sm text-text-secondary line-clamp-2">
                     {tutorial.description}
                   </p>
                 </a>
@@ -122,11 +122,11 @@ export function TutorialsSection() {
           ))}
         </div>
 
-        <div className="mt-8 text-center">
+        <div className="mt-10 text-center">
           <Link href="/tutorials">
             <Button 
               size="lg" 
-              className="bg-gray-900 text-white hover:bg-gray-800 px-6"
+              className="bg-brand text-white hover:bg-brand-light px-8"
             >
               {t('viewAll')}
               <ArrowRight className="ml-2 h-4 w-4" />

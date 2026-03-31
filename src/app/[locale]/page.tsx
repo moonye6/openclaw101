@@ -9,6 +9,8 @@ import { SecurityWarning } from '@/components/home/SecurityWarning';
 import { UseCases } from '@/components/home/UseCases';
 import { CommunityShowcase } from '@/components/home/CommunityShowcase';
 import { NewsUpdates } from '@/components/home/NewsUpdates';
+import { NewsletterCTA } from '@/components/home/NewsletterCTA';
+import { AuthorShowcase } from '@/components/home/AuthorShowcase';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { FAQSection } from '@/components/seo/FAQSection';
 
@@ -27,18 +29,18 @@ export async function generateMetadata({
 
   return {
     title: isZh
-      ? 'OpenClaw 101 - 7天掌握你的AI助手'
-      : 'OpenClaw 101 - Master Your AI Assistant in 7 Days',
+      ? 'OpenClaw 教程与指南 — 7天掌握 AI 智能体 | OpenClaw 101'
+      : 'OpenClaw Tutorial & Guide — Learn AI Agent Skills in 7 Days | OpenClaw 101',
     description: isZh
-      ? '414+ 教程和 5490+ 技能，助你快速掌握 OpenClaw AI 助手。从安装配置到高级自动化。'
-      : '414+ tutorials and 5490+ skills for OpenClaw AI assistant. From setup to advanced automation.',
+      ? '最全面的 OpenClaw 教程：414+ 指南和 5490+ 技能。从安装配置到高级自动化，手把手教你掌握开源 AI 智能体。'
+      : 'The complete OpenClaw tutorial: 414+ guides and 5490+ skills to master the open-source AI agent. Learn how to install, configure, and automate with OpenClaw step by step.',
     openGraph: {
       title: isZh
-        ? 'OpenClaw 101 - 7天掌握你的AI助手'
-        : 'OpenClaw 101 - Master Your AI Assistant in 7 Days',
+        ? 'OpenClaw 教程与指南 — 7天掌握 AI 智能体'
+        : 'OpenClaw Tutorial & Guide — Learn AI Agent Skills in 7 Days',
       description: isZh
-        ? '414+ 教程和 5490+ 技能，助你快速掌握 OpenClaw AI 助手。'
-        : '414+ tutorials and 5490+ skills for OpenClaw AI assistant.',
+        ? '最全面的 OpenClaw 教程：414+ 指南和 5490+ 技能，从安装到自动化。'
+        : 'The complete OpenClaw tutorial: 414+ guides and 5490+ skills. From installation to advanced automation.',
       url: `${SITE_URL}/${locale}`,
       locale: isZh ? 'zh_CN' : 'en_US',
     },
@@ -59,13 +61,16 @@ export default async function Home({
 }) {
   const { locale } = await params;
 
+  const isZh = locale === 'zh';
+
   const websiteJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'OpenClaw 101',
     url: SITE_URL,
-    description:
-      '414+ tutorials and 5490+ skills for OpenClaw AI assistant.',
+    description: isZh
+      ? '最全面的 OpenClaw 教程：414+ 指南和 5490+ 技能，从安装到自动化。'
+      : 'The complete OpenClaw tutorial: 414+ guides and 5490+ skills to master the open-source AI agent.',
     inLanguage: ['en', 'zh-CN'],
     potentialAction: {
       '@type': 'SearchAction',
@@ -91,6 +96,98 @@ export default async function Home({
     sameAs: [
       'https://github.com/openclaw/openclaw',
       'https://discord.com/invite/clawd',
+    ],
+  };
+
+  // HowTo Schema for 7-Day Learning Path (great for Google rich results)
+  const howToJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: isZh
+      ? '如何使用 OpenClaw — 7天学习指南'
+      : 'How to Use OpenClaw — 7-Day Step-by-Step Tutorial',
+    description: isZh
+      ? '从零开始学习 OpenClaw AI 智能体：安装、配置、对话、文件处理、网络能力、技能扩展、自动化。'
+      : 'Learn OpenClaw AI agent from scratch: installation, configuration, conversations, file handling, web capabilities, skill extensions, and automation.',
+    totalTime: 'P7D',
+    estimatedCost: {
+      '@type': 'MonetaryAmount',
+      currency: 'USD',
+      value: '0',
+    },
+    supply: [
+      { '@type': 'HowToSupply', name: isZh ? '电脑 (macOS / Linux / Windows)' : 'Computer (macOS / Linux / Windows)' },
+      { '@type': 'HowToSupply', name: 'Node.js 18+' },
+      { '@type': 'HowToSupply', name: isZh ? 'AI 模型 API 密钥 (如 Anthropic Claude)' : 'AI model API key (e.g. Anthropic Claude)' },
+    ],
+    tool: [
+      { '@type': 'HowToTool', name: 'Terminal / Command Line' },
+      { '@type': 'HowToTool', name: 'Text Editor' },
+    ],
+    step: [
+      {
+        '@type': 'HowToStep',
+        position: 1,
+        name: isZh ? '第1天：安装 OpenClaw' : 'Day 1: Install OpenClaw',
+        text: isZh
+          ? '安装 OpenClaw，连接你的第一个平台（Telegram/Discord），与 AI 助手进行第一次对话。'
+          : 'Install OpenClaw, connect your first platform (Telegram/Discord), and have your first conversation with your AI assistant.',
+        url: `${SITE_URL}/${locale}/learn/1`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 2,
+        name: isZh ? '第2天：深度对话' : 'Day 2: Deep Conversations',
+        text: isZh
+          ? '掌握对话技巧：上下文管理、多轮对话、人设定制和记忆设置。'
+          : 'Master conversation techniques: context management, multi-turn dialogue, persona customization.',
+        url: `${SITE_URL}/${locale}/learn/2`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 3,
+        name: isZh ? '第3天：文件与代码' : 'Day 3: Files & Code',
+        text: isZh
+          ? '让 AI 处理文件：读取文档、编写代码、运行脚本、管理本地文件系统。'
+          : 'Let AI handle files: read documents, write code, run scripts, and manage your local file system.',
+        url: `${SITE_URL}/${locale}/learn/3`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 4,
+        name: isZh ? '第4天：网络能力' : 'Day 4: Web Capabilities',
+        text: isZh
+          ? '解锁网络能力：搜索互联网、抓取网页、调用 API、集成在线服务。'
+          : 'Unlock web powers: search the internet, scrape pages, call APIs, and integrate with online services.',
+        url: `${SITE_URL}/${locale}/learn/4`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 5,
+        name: isZh ? '第5天：技能扩展' : 'Day 5: Skill Extensions',
+        text: isZh
+          ? '从 ClawHub 安装社区技能扩展能力：GitHub、天气、智能家居等数千种技能。'
+          : 'Install community skills from ClawHub to extend capabilities: GitHub, weather, smart home, and thousands more.',
+        url: `${SITE_URL}/${locale}/learn/5`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 6,
+        name: isZh ? '第6天：自动化' : 'Day 6: Automation',
+        text: isZh
+          ? '设置定时任务、心跳检查、主动提醒和自动化工作流。'
+          : 'Set up scheduled tasks, heartbeat checks, proactive reminders, and automated workflows.',
+        url: `${SITE_URL}/${locale}/learn/6`,
+      },
+      {
+        '@type': 'HowToStep',
+        position: 7,
+        name: isZh ? '第7天：进阶技术' : 'Day 7: Advanced Techniques',
+        text: isZh
+          ? '多智能体协作、浏览器控制、设备集成，以及构建你自己的自定义技能。'
+          : 'Multi-agent orchestration, browser control, device integration, and building your own custom skills.',
+        url: `${SITE_URL}/${locale}/learn/7`,
+      },
     ],
   };
 
@@ -176,6 +273,7 @@ export default async function Home({
       <JsonLd data={websiteJsonLd} />
       <JsonLd data={orgJsonLd} />
       <JsonLd data={courseJsonLd} />
+      <JsonLd data={howToJsonLd} />
       <HeroSection />
       <FeaturesSection />
       <UseCases />
@@ -183,8 +281,10 @@ export default async function Home({
       <RecommendedSection />
       <SkillsStats />
       <TutorialsSection />
+      <AuthorShowcase />
       <CommunityShowcase />
       <NewsUpdates />
+      <NewsletterCTA />
       <SecurityWarning />
       <FAQSection />
     </div>

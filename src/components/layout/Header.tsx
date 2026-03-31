@@ -26,18 +26,18 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
+    <header className="sticky top-0 z-50 bg-[#0B0F19]/80 backdrop-blur-xl border-b border-white/[0.06]">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+            <span className="text-xl font-bold text-gradient-brand">
               OpenClaw 101
             </span>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden md:flex items-center gap-1">
             {navItems.map((item) => {
               const isActive = pathname === item.href || 
                 (item.href !== '/' && pathname.startsWith(item.href));
@@ -46,10 +46,10 @@ export function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`text-sm font-medium transition-colors ${
+                  className={`px-3 py-2 text-sm font-medium rounded-lg transition-all ${
                     isActive
-                      ? 'text-blue-600 border-b-2 border-blue-600 pb-1'
-                      : 'text-gray-600 hover:text-gray-900'
+                      ? 'text-white bg-white/10'
+                      : 'text-text-secondary hover:text-white hover:bg-white/5'
                   }`}
                 >
                   {item.label}
@@ -63,11 +63,11 @@ export function Header() {
             <a
               href="https://github.com/moonye6/openclaw101"
               target="_blank"
-              rel="noopener noreferrer"
-              className="hidden md:inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+              rel="noopener noreferrer nofollow"
+              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-text-secondary hover:text-white rounded-lg hover:bg-white/5 transition-all"
             >
               <Star className="h-4 w-4" />
-              GitHub
+              <span>314k</span>
             </a>
             <Button
               variant="ghost"
@@ -81,7 +81,7 @@ export function Header() {
 
             {/* Mobile menu button */}
             <button
-              className="md:hidden p-2"
+              className="md:hidden p-2 text-text-secondary hover:text-white transition-colors"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -91,8 +91,8 @@ export function Header() {
 
         {/* Mobile Nav */}
         {isMenuOpen && (
-          <nav className="md:hidden py-4 border-t border-gray-100">
-            <div className="flex flex-col gap-2">
+          <nav className="md:hidden py-4 border-t border-white/[0.06]">
+            <div className="flex flex-col gap-1">
               {navItems.map((item) => {
                 const isActive = pathname === item.href || 
                   (item.href !== '/' && pathname.startsWith(item.href));
@@ -101,10 +101,10 @@ export function Header() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`px-4 py-2 text-sm font-medium rounded-lg ${
+                    className={`px-4 py-2.5 text-sm font-medium rounded-lg transition-all ${
                       isActive
-                        ? 'text-blue-600 bg-blue-50'
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                        ? 'text-white bg-white/10'
+                        : 'text-text-secondary hover:text-white hover:bg-white/5'
                     }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -115,15 +115,15 @@ export function Header() {
               <a
                 href="https://github.com/moonye6/openclaw101"
                 target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg flex items-center gap-2"
+                rel="noopener noreferrer nofollow"
+                className="px-4 py-2.5 text-sm font-medium text-text-secondary hover:text-white hover:bg-white/5 rounded-lg flex items-center gap-2 transition-all"
               >
                 <Star className="h-4 w-4" />
                 GitHub
               </a>
               <button
                 onClick={toggleLanguage}
-                className="px-4 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg text-left flex items-center gap-2"
+                className="px-4 py-2.5 text-sm font-medium text-text-secondary hover:text-white hover:bg-white/5 rounded-lg text-left flex items-center gap-2 transition-all"
               >
                 <Globe className="h-4 w-4" />
                 {pathname.split('/')[1] === 'zh' ? 'Switch to English' : '切换到中文'}

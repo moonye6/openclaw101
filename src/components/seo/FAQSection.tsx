@@ -18,34 +18,34 @@ export function FAQSection() {
   return (
     <>
       <FAQSchema items={items} />
-      <section className="py-16 bg-gray-50">
+      <section className="py-20 bg-surface/50">
         <div className="container mx-auto px-4 max-w-4xl">
-          <div className="flex items-center gap-3 mb-8">
-            <HelpCircle className="w-8 h-8 text-blue-600" />
-            <h2 className="text-3xl font-bold text-gray-900">
+          <div className="flex items-center gap-3 mb-10">
+            <HelpCircle className="w-8 h-8 text-brand-light" />
+            <h2 className="text-3xl font-bold text-white">
               {t('title')}
             </h2>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             {items.map((item, index) => (
               <div
                 key={index}
-                className="bg-white rounded-lg shadow-sm overflow-hidden"
+                className="bg-surface rounded-xl border border-white/[0.08] overflow-hidden transition-all hover:border-white/[0.12]"
               >
                 <button
                   onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                  className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
+                  className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-white/[0.02] transition-colors"
                 >
-                  <span className="font-medium text-gray-900">{item.question}</span>
+                  <span className="font-medium text-white">{item.question}</span>
                   <ChevronDown
-                    className={`w-5 h-5 text-gray-500 transition-transform ${
+                    className={`w-5 h-5 text-text-muted transition-transform ${
                       openIndex === index ? 'rotate-180' : ''
                     }`}
                   />
                 </button>
                 {openIndex === index && (
-                  <div className="px-6 pb-4 text-gray-600 leading-relaxed">
+                  <div className="px-6 pb-4 text-text-secondary leading-relaxed">
                     {item.answer}
                   </div>
                 )}

@@ -5406,928 +5406,818 @@ Need 24/7 availability?
     image: "/og-image.png"
   },
   {
-    id: 11,
-    slug: "agent-harness-architecture",
-    title: "Agent 架构解密：OpenClaw 的 Harness 设计哲学",
-    titleEn: "Agent Architecture Decoded: OpenClaw's Harness Design Philosophy",
-    excerpt: "Agent = Model + Harness。为什么模型本身不是 Agent？Harness 如何让模型变成真正能工作的 Agent？深度解析 OpenClaw 的架构设计。",
-    excerptEn: "Agent = Model + Harness. Why models alone aren't agents? How harnesses turn models into working agents? Deep dive into OpenClaw's architecture.",
-    content: `在 AI Agent 的世界里，有一个核心公式：
+    id: 6,
+    slug: "how-to-install-openclaw",
+    title: "如何安装 OpenClaw：2026 最新完整指南（macOS / Linux / Windows）",
+    titleEn: "How to Install OpenClaw: Complete Step-by-Step Guide (2026)",
+    excerpt: "从零开始安装 OpenClaw 的完整指南，覆盖 macOS、Linux、Windows 三大平台，包括常见问题排查。",
+    excerptEn: "The definitive guide to installing OpenClaw from scratch on macOS, Linux, and Windows. Includes troubleshooting common issues.",
+    content: `这是一篇面向完全新手的 OpenClaw 安装指南。无论你使用 macOS、Linux 还是 Windows，跟着这篇教程走，10 分钟内即可完成安装。
 
-**Agent = Model + Harness**
+## 系统要求
 
-这个公式来自 LangChain 团队的洞察，同样适用于理解 OpenClaw 的设计哲学。
+在安装之前，确保你的系统满足以下要求：
 
-## 什么是 Harness？
+| 要求 | 最低版本 | 推荐版本 |
+|------|----------|----------|
+| Node.js | 18.x | 20.x+ |
+| 内存 | 2GB | 4GB+ |
+| 磁盘空间 | 500MB | 1GB+ |
+| 操作系统 | macOS 12+ / Ubuntu 20.04+ / Windows 10+ | 最新版 |
 
-如果你不是模型，你就是 Harness。
+## 第一步：安装 Node.js
 
-**Harness（安全带/框架）** 是所有不是模型本身的代码、配置和执行逻辑：
+### macOS
 
-- 系统提示词（System Prompts）
-- 工具和技能（Tools, Skills, MCP）
-- 基础设施（文件系统、沙箱、浏览器）
-- 编排逻辑（子代理生成、任务分发、模型路由）
-- 钩子/中间件（压缩、续写、检查）
-
-**原始模型不是 Agent**，但当 Harness 赋予它状态、工具执行、反馈循环和约束时，它就变成了 Agent。
-
-## 为什么需要 Harness？
-
-模型天生有一些限制：
-
-| 模型能做的 | 模型不能做的 |
-|-----------|-------------|
-| 理解文本、图像、音频 | 维持持久的对话状态 |
-| 生成文本输出 | 执行代码 |
-| 推理和规划 | 访问实时知识 |
-| 理解工具使用方式 | 设置环境、安装依赖 |
-
-这些限制都需要 Harness 来解决。
-
-## OpenClaw 的 Harness 组件
-
-### 1. 文件系统抽象
-
-\`\`\`
-工作原理：
-1. 用户请求读取文件
-2. Harness 检查路径权限（fs.allowed_paths）
-3. 安全读取文件内容
-4. 返回给模型处理
-\`\`\`
-
-**为什么重要**：
-- 持久化存储：工作可以跨越会话保持
-- 上下文管理：大文件不需要全部加载到上下文
-- 协作表面：多 Agent 可以通过文件协调工作
-
-### 2. 代码执行沙箱
-
-\`\`\`
-OpenClaw 执行流程：
-1. 模型生成代码
-2. Harness 在沙箱中执行
-3. 捕获输出和错误
-4. 反馈给模型进行迭代
-\`\`\`
-
-**安全机制**：
-\`\`\`bash
-# 禁止危险命令
-openclaw config set exec.blocked_commands "rm -rf,format,dd"
-
-# 限制执行超时
-openclaw config set exec.timeout 60000
-\`\`\`
-
-### 3. 技能系统（Skills）
+使用 Homebrew（推荐）：
 
 \`\`\`bash
-# 安装技能
-openclaw skills install github
-
-# 技能本质上扩展了 Harness 的能力
+brew install node@20
 \`\`\`
 
-技能 = 工具描述 + 执行逻辑 + 错误处理
-
-### 4. 多 Agent 编排
-
-\`\`\`
-OpenClaw 子代理系统：
-1. 主 Agent 接收任务
-2. 评估是否需要子 Agent
-3. 生成子 Agent（专注特定任务）
-4. 子 Agent 完成后汇报
-5. 主 Agent 整合结果
-\`\`\`
-
-### 5. 上下文管理
-
-\`\`\`
-自动压缩机制：
-- 监控上下文使用量
-- 在合适时机压缩历史
-- 保留关键信息摘要
-- 避免 "context rot"
-\`\`\`
-
-## Harness 设计原则
-
-### 原则 1：让 Harness "让路"
-
-随着模型能力提升，Harness 应该尽量少干预：
-
-\`\`\`
-好的设计：
-- 给 Agent 更多控制权
-- 避免手工调参
-- 让模型自己决定何时压缩、何时切换任务
-\`\`\`
-
-### 原则 2：从行为反推设计
-
-\`\`\`
-我们想要的行为 → Harness 设计
-
-想要持久存储 → 文件系统抽象
-想要执行代码 → Bash/沙箱环境
-想要浏览器操作 → Playwright 集成
-想要定时任务 → Cron 调度器
-\`\`\`
-
-### 原则 3：安全第一
-
-\`\`\`
-Harness 的约束功能：
-- 路径白名单
-- 命令黑名单
-- 执行超时
-- 资源限制
-\`\`\`
-
-## 实战：理解你的 Harness
-
-检查你的 OpenClaw Harness 配置：
+或使用 nvm：
 
 \`\`\`bash
-# 查看所有配置
-openclaw config list
-
-# 文件系统权限
-openclaw config get fs.allowed_paths
-
-# 执行限制
-openclaw config get exec.blocked_commands
-
-# 模型配置
-openclaw config get model
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
+nvm install 20
 \`\`\`
 
-## Harness vs 模型：谁更重要？
-
-| 维度 | 模型 | Harness |
-|------|------|---------|
-| 智能 | 核心推理能力 | 工具和约束 |
-| 灵活性 | 模型能力上限 | 可扩展性强 |
-| 可控性 | 黑盒 | 完全可控 |
-| 成本 | API 费用 | 本地资源 |
-
-**结论**：好的 Harness 让普通模型表现优秀，差的 Harness 让优秀模型表现糟糕。
-
----
-
-## 总结
-
-| 概念 | 说明 |
-|------|------|
-| **Agent** | Model + Harness |
-| **Model** | 提供智能和推理 |
-| **Harness** | 让智能变得有用 |
-| **技能** | 扩展 Harness 能力 |
-| **安全** | Harness 的约束功能 |
-
-**下一步**：检查你的 Harness 配置，确保它让模型发挥最大价值。`,
-    contentEn: `In the world of AI Agents, there's a core formula:
-
-**Agent = Model + Harness**
-
-This insight from the LangChain team applies equally to understanding OpenClaw's design philosophy.
-
-## What is a Harness?
-
-If you're not the model, you're the Harness.
-
-**Harness** is all the code, configuration, and execution logic that isn't the model itself:
-
-- System Prompts
-- Tools, Skills, MCP
-- Infrastructure (filesystem, sandbox, browser)
-- Orchestration Logic (subagent spawning, task routing)
-- Hooks/Middleware (compression, continuation, checks)
-
-**A raw model is not an Agent**. But when a Harness gives it state, tool execution, feedback loops, and constraints, it becomes one.
-
-## Why Do We Need Harnesses?
-
-Models have inherent limitations:
-
-| What Models Can Do | What Models Can't Do |
-|-------------------|---------------------|
-| Understand text, images, audio | Maintain durable state |
-| Generate text output | Execute code |
-| Reason and plan | Access real-time knowledge |
-| Understand tool usage | Setup environments |
-
-These limitations require a Harness to solve.
-
-## OpenClaw's Harness Components
-
-### 1. Filesystem Abstraction
-
-\`\`\`
-How it works:
-1. User requests file read
-2. Harness checks path permissions
-3. Safely reads file content
-4. Returns to model for processing
-\`\`\`
-
-### 2. Code Execution Sandbox
+### Linux（Ubuntu / Debian）
 
 \`\`\`bash
-# Security mechanisms
-openclaw config set exec.blocked_commands "rm -rf,format,dd"
-openclaw config set exec.timeout 60000
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install -y nodejs
 \`\`\`
 
-### 3. Skills System
+### Windows
+
+从 [Node.js 官网](https://nodejs.org) 下载安装包，或使用 winget：
 
 \`\`\`bash
-# Install skills to extend Harness
-openclaw skills install github
+winget install OpenJS.NodeJS.LTS
 \`\`\`
 
-### 4. Multi-Agent Orchestration
-
-\`\`\`
-OpenClaw Subagent System:
-1. Main Agent receives task
-2. Evaluates if subagent needed
-3. Spawns subagent (focused on specific task)
-4. Subagent reports back
-5. Main Agent integrates results
-\`\`\`
-
-## Harness Design Principles
-
-### Principle 1: Get Out of the Way
-
-As models improve, Harness should intervene less:
-- Give Agents more control
-- Avoid manual tuning
-- Let models decide when to compress, when to switch tasks
-
-### Principle 2: Design Backwards from Behavior
-
-\`\`\`
-Desired Behavior → Harness Design
-
-Want persistent storage → Filesystem abstraction
-Want code execution → Bash/sandbox environment
-Want browser control → Playwright integration
-Want scheduled tasks → Cron scheduler
-\`\`\`
-
-### Principle 3: Security First
-
-\`\`\`
-Harness constraint features:
-- Path whitelist
-- Command blacklist
-- Execution timeout
-- Resource limits
-\`\`\`
-
----
-
-## Summary
-
-| Concept | Description |
-|---------|-------------|
-| **Agent** | Model + Harness |
-| **Model** | Provides intelligence and reasoning |
-| **Harness** | Makes intelligence useful |
-| **Skills** | Extend Harness capabilities |
-| **Security** | Harness constraint features |
-
-**Next Step**: Check your Harness configuration to ensure it lets your model perform at its best.`,
-    author: "OpenClaw 101",
-    date: "2026-03-24",
-    category: "技术深度",
-    categoryEn: "Deep Dive",
-    tags: ["架构", "Harness", "Agent", "设计"],
-    readingTime: 12,
-    image: "/og-image.png"
-  },
-  {
-    id: 12,
-    slug: "coding-agents-reshape-software-development",
-    title: "编程 Agent 如何重塑软件开发：从 PRD 到原型只需几分钟",
-    titleEn: "How Coding Agents Reshape Software Development: From PRD to Prototype in Minutes",
-    excerpt: "PRD 已死？瓶颈从实现转向审查？编程 Agent 正在改变 Engineering、Product、Design 的协作方式。",
-    excerptEn: "PRDs are dead? The bottleneck shifts from implementation to review? Coding agents are changing how Engineering, Product, and Design collaborate.",
-    content: `软件开发正在经历一场革命。
-
-过去，一个功能从想法到上线需要：
-1. Product 写 PRD（产品需求文档）
-2. Design 出设计稿
-3. Engineering 写代码实现
-
-现在？有了编程 Agent，这个流程被彻底颠覆。
-
-## PRD 已死？
-
-LangChain 创始人 Harrison Chase 说：**"PRDs are dead"**
-
-这不意味着产品需求不存在了，而是**传统的瀑布式开发流程已经过时**。
-
-### 传统流程 vs Agent 时代
-
-| 传统流程 | Agent 时代 |
-|---------|-----------|
-| PRD → 设计稿 → 代码 | 想法 → 原型 → 迭代 |
-| 周级/月级 | 小时级/分钟级 |
-| 专业分工 | 全栈通才 |
-| 文档驱动 | 原型驱动 |
-
-### 新的开发流程
-
-\`\`\`
-1. 有人有一个想法
-2. 直接用编程 Agent 生成原型
-3. 团队审查原型
-4. 快速迭代优化
-5. 发布
-\`\`\`
-
-## 瓶颈转移：从实现到审查
-
-以前，写代码是瓶颈：
-- 实现需要专业技能
-- 耗时长
-- 人力成本高
-
-现在，审查成了瓶颈：
-- 任何人都能生成代码
-- 但代码质量参差不齐
-- 需要专业人员把关
-
-### 审查者的新角色
-
-\`\`\`
-审查者需要关注：
-
-工程视角：
-- 架构是否合理？
-- 是否可扩展、可维护？
-- 性能是否达标？
-
-产品视角：
-- 是否解决了用户痛点？
-- 功能是否完整？
-
-设计视角：
-- 界面是否直观？
-- 体验是否流畅？
-\`\`\`
-
-## 角色变化
-
-### 通才更受欢迎
-
-\`\`\`
-Agent 时代的黄金技能组合：
-
-1. 产品思维 + 技术理解
-   → 能快速验证想法
-
-2. 设计能力 + 编程基础
-   → 能独立完成原型
-
-3. 工程经验 + 审查能力
-   → 能把控代码质量
-\`\`\`
-
-### 专业化的门槛更高
-
-\`\`\`
-普通工程师：
-- 写 CRUD → Agent 替代
-- 写模板代码 → Agent 替代
-
-高级工程师：
-- 架构设计 → 仍需人类
-- 复杂问题 → 仍需人类
-- 代码审查 → 更加重要
-\`\`\`
-
-## OpenClaw 如何加速开发
-
-### 1. 快速原型
-
-\`\`\`
-用户：帮我创建一个 Next.js 博客网站
-
-OpenClaw：
-✅ 创建项目结构
-✅ 配置 Tailwind CSS
-✅ 创建博客页面
-✅ 添加 Markdown 支持
-→ 原型就绪，5 分钟
-\`\`\`
-
-### 2. 迭代优化
-
-\`\`\`
-用户：添加暗黑模式支持
-
-OpenClaw：
-✅ 添加主题切换组件
-✅ 更新 Tailwind 配置
-✅ 修改现有组件
-→ 功能完成，2 分钟
-\`\`\`
-
-### 3. 代码审查
-
-\`\`\`
-用户：审查这个 PR
-
-OpenClaw：
-📋 发现 3 个潜在问题：
-1. 缺少错误处理
-2. XSS 漏洞风险
-3. 性能优化建议
-\`\`\`
-
-## 团队协作新模式
-
-### 原型驱动开发
-
-\`\`\`
-传统：
-会议 → PRD → 评审 → 设计 → 开发 → 测试 → 上线
-（周期：周-月）
-
-Agent 时代：
-想法 → 原型 → 评审 → 迭代 → 上线
-（周期：小时-天）
-\`\`\`
-
-### 异步协作
-
-\`\`\`
-团队成员可以：
-- 在不同时区工作
-- 独立完成端到端功能
-- 通过 Agent 辅助沟通
-
-Agent 充当：
-- 实时翻译（想法 → 代码）
-- 文档生成
-- 测试自动化
-\`\`\`
-
-## 实践建议
-
-### 1. 从小开始
-
-\`\`\`
-第一步：用 Agent 生成原型
-第二步：人工审查和优化
-第三步：逐步增加 Agent 职责
-\`\`\`
-
-### 2. 保持审查质量
-
-\`\`\`
-审查清单：
-□ 功能是否正确？
-□ 代码是否可读？
-□ 是否有安全隐患？
-□ 是否有性能问题？
-□ 是否有测试覆盖？
-\`\`\`
-
-### 3. 持续学习
-
-\`\`\`
-Agent 能力在提升：
-- 你需要知道它能做什么
-- 你需要知道它不能做什么
-- 你需要知道如何指导它
-\`\`\`
-
----
-
-## 总结
-
-| 变化 | 说明 |
-|------|------|
-| **PRD** | 从文档驱动到原型驱动 |
-| **瓶颈** | 从实现转移到审查 |
-| **角色** | 通才更受欢迎，专才门槛更高 |
-| **流程** | 从瀑布到敏捷，从同步到异步 |
-
-**未来已来**：会用 Agent 的人，将比不用 Agent 的人效率高 10 倍。`,
-    contentEn: `Software development is undergoing a revolution.
-
-In the past, a feature from idea to production required:
-1. Product writes PRD
-2. Design creates mockups
-3. Engineering implements code
-
-Now? With coding agents, this workflow is completely disrupted.
-
-## PRDs Are Dead?
-
-LangChain founder Harrison Chase says: **"PRDs are dead"**
-
-This doesn't mean product requirements don't exist, but the **traditional waterfall development process is outdated**.
-
-### Traditional vs Agent Era
-
-| Traditional Process | Agent Era |
-|--------------------|-----------|
-| PRD → Design → Code | Idea → Prototype → Iterate |
-| Weeks/Months | Hours/Minutes |
-| Specialized roles | Full-stack generalists |
-| Document-driven | Prototype-driven |
-
-## Bottleneck Shift: From Implementation to Review
-
-Before, coding was the bottleneck:
-- Implementation required specialized skills
-- Time-consuming
-- High labor costs
-
-Now, review is the bottleneck:
-- Anyone can generate code
-- But code quality varies
-- Needs professional oversight
-
-## OpenClaw Accelerates Development
-
-### 1. Rapid Prototyping
-
-\`\`\`
-User: Create a Next.js blog website
-
-OpenClaw:
-✅ Create project structure
-✅ Configure Tailwind CSS
-✅ Create blog pages
-✅ Add Markdown support
-→ Prototype ready, 5 minutes
-\`\`\`
-
-### 2. Iterative Optimization
-
-\`\`\`
-User: Add dark mode support
-
-OpenClaw:
-✅ Add theme toggle component
-✅ Update Tailwind config
-✅ Modify existing components
-→ Feature complete, 2 minutes
-\`\`\`
-
----
-
-## Summary
-
-| Change | Description |
-|--------|-------------|
-| **PRD** | From document-driven to prototype-driven |
-| **Bottleneck** | Shifts from implementation to review |
-| **Roles** | Generalists more valuable, specialists higher bar |
-| **Process** | From waterfall to agile, from sync to async |
-
-**The future is here**: Those who use agents will be 10x more productive than those who don't.`,
-    author: "OpenClaw 101",
-    date: "2026-03-24",
-    category: "行业洞察",
-    categoryEn: "Insights",
-    tags: ["编程Agent", "软件开发", "PRD", "效率"],
-    readingTime: 10,
-    image: "/og-image.png"
-  },
-  {
-    id: 13,
-    slug: "multi-agent-collaboration",
-    title: "多 Agent 协作实战：OpenClaw 子代理系统详解",
-    titleEn: "Multi-Agent Collaboration: Deep Dive into OpenClaw Subagent System",
-    excerpt: "单 Agent 有局限？多 Agent 协作来帮忙。详解 OpenClaw 的子代理系统，实现专业分工、并行执行、任务编排。",
-    excerptEn: "Single agent has limits? Multi-agent collaboration helps. Deep dive into OpenClaw's subagent system for specialization, parallel execution, and task orchestration.",
-    content: `一个 Agent 能做什么？
-
-- 执行任务
-- 使用工具
-- 与用户对话
-
-但一个 Agent 也有局限：
-- 上下文窗口有限
-- 专业能力有限
-- 无法并行处理
-
-**解决方案：多 Agent 协作**
-
-## 什么是多 Agent 协作？
-
-借鉴 CrewAI 的概念，一个 Agent 是：
-
-\`\`\`
-Agent = 角色 + 目标 + 背景故事 + 工具 + 记忆
-\`\`\`
-
-多 Agent 协作就是让多个专业化的 Agent 组成团队，各自负责擅长的领域。
-
-### 类比：软件开发团队
-
-| Agent 角色 | 职责 |
-|-----------|------|
-| Researcher | 搜索、分析、整理信息 |
-| Developer | 编写、修改代码 |
-| Reviewer | 审查代码质量 |
-| Tester | 编写测试、验证功能 |
-| Coordinator | 协调各 Agent、整合结果 |
-
-## OpenClaw 子代理系统
-
-### 架构设计
-
-\`\`\`
-                    ┌─────────────┐
-                    │   用户请求   │
-                    └──────┬──────┘
-                           │
-                    ┌──────▼──────┐
-                    │  主 Agent   │
-                    │ (协调者)    │
-                    └──────┬──────┘
-                           │
-        ┌──────────┬───────┼───────┬──────────┐
-        │          │       │       │          │
-   ┌────▼────┐ ┌───▼───┐ ┌─▼──┐ ┌──▼───┐ ┌───▼────┐
-   │子Agent A│ │子Agent│ │子  │ │子    │ │子Agent │
-   │(研究)   │ │  B    │ │C   │ │D     │ │  E     │
-   │         │ │(开发) │ │(测 │ │(审查)│ │(部署)  │
-   └─────────┘ └───────┘ └────┘ └──────┘ └────────┘
-\`\`\`
-
-### 工作流程
-
-\`\`\`
-1. 主 Agent 接收用户任务
-2. 分析任务，决定是否需要子 Agent
-3. 创建专业化的子 Agent
-4. 分配子任务给子 Agent
-5. 子 Agent 执行并返回结果
-6. 主 Agent 整合结果
-7. 向用户报告
-\`\`\`
-
-## 实战案例：自动化 PR 审查
-
-### 场景
-
-用户提交了一个 PR，需要：
-1. 检查代码风格
-2. 运行测试
-3. 检查安全漏洞
-4. 生成审查报告
-
-### 单 Agent 方案
-
-\`\`\`
-问题：
-- 串行执行，耗时长
-- 上下文膨胀
-- 专业程度有限
-\`\`\`
-
-### 多 Agent 方案
+验证安装：
 
 \`\`\`bash
-# 在 OpenClaw 中配置子代理
-openclaw config set subagents.enabled true
-
-# 定义子 Agent 角色
-openclaw subagent create linter --role "代码风格检查专家"
-openclaw subagent create tester --role "测试工程师"
-openclaw subagent create security --role "安全审计专家"
+node --version  # 应显示 v20.x.x
+npm --version   # 应显示 10.x.x
 \`\`\`
 
-执行流程：
-
-\`\`\`
-用户：审查这个 PR
-
-主 Agent：
-├── 创建子 Agent: linter
-│   └── 输出：发现 3 个风格问题
-├── 创建子 Agent: tester
-│   └── 输出：测试通过 15/16
-├── 创建子 Agent: security
-│   └── 输出：发现 1 个潜在漏洞
-└── 整合报告：需要修复 4 个问题
-\`\`\`
-
-## 配置指南
-
-### 基础配置
+## 第二步：安装 OpenClaw
 
 \`\`\`bash
-# 启用子代理
-openclaw config set subagents.enabled true
-
-# 最大并发子代理数
-openclaw config set subagents.max_concurrent 5
-
-# 子代理超时时间
-openclaw config set subagents.timeout 300000
+npm install -g openclaw
+openclaw --version
 \`\`\`
 
-### 子代理模板
+如果遇到权限问题（Linux / macOS）：
 
-\`\`\`typescript
-// 子代理配置示例
-const subagentConfig = {
-  name: 'researcher',
-  role: '研究员',
-  goal: '搜索和分析信息',
-  backstory: '你是一个专业的研究员，擅长搜索网络和整理信息',
-  tools: ['web_search', 'web_fetch', 'read'],
-  max_iterations: 10,
-  verbose: true
-};
+\`\`\`bash
+sudo npm install -g openclaw
 \`\`\`
 
-## 最佳实践
+## 第三步：初始化配置
 
-### 1. 明确角色分工
-
-\`\`\`
-好的设计：
-- 每个子 Agent 有明确的职责
-- 职责不重叠
-- 便于独立测试和调试
-
-不好的设计：
-- 角色模糊
-- 职责重叠
-- 难以追踪问题
+\`\`\`bash
+openclaw init
 \`\`\`
 
-### 2. 控制并发
+这会创建 \`~/.openclaw/config.yaml\` 配置文件。
 
+### 配置 AI 模型
+
+\`\`\`bash
+# 使用 Anthropic Claude（推荐）
+openclaw config set model anthropic/claude-3-sonnet
+openclaw config set apiKey YOUR_ANTHROPIC_API_KEY
+
+# 或使用 OpenAI GPT
+openclaw config set model openai/gpt-4o
+openclaw config set apiKey YOUR_OPENAI_API_KEY
+
+# 或使用本地模型（Ollama）
+openclaw config set model ollama/llama3
 \`\`\`
-考虑因素：
-- API 速率限制
-- 系统资源
-- 任务依赖关系
 
-建议：
-- 并发数不超过 5
-- 有依赖的任务串行执行
-\`\`\`
+## 第四步：启动 OpenClaw
 
-### 3. 结果整合
+\`\`\`bash
+# 启动 Web 界面
+openclaw web
 
-\`\`\`
-主 Agent 职责：
-1. 收集子 Agent 结果
-2. 去重和验证
-3. 生成最终报告
-4. 向用户呈现
+# 或启动命令行模式
+openclaw chat
 \`\`\`
 
 ## 常见问题
 
-### Q: 多 Agent 会增加成本吗？
+### Q: npm install -g 报权限错误？
 
-\`\`\`
-是的，但有优化方法：
-1. 使用更小的模型给子 Agent
-2. 缓存中间结果
-3. 并行执行减少时间成本
+**方案 A**：使用 sudo（快速但不推荐）
+\`\`\`bash
+sudo npm install -g openclaw
 \`\`\`
 
-### Q: 如何调试多 Agent 系统？
+**方案 B**：修改 npm 全局目录（推荐）
+\`\`\`bash
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+npm install -g openclaw
+\`\`\`
+
+### Q: 安装后 openclaw 命令找不到？
+
+确保 npm 全局 bin 目录在 PATH 中：
+\`\`\`bash
+npm config get prefix  # 查看全局目录
+echo $PATH             # 确认包含该目录
+\`\`\`
+
+### Q: 如何更新到最新版本？
 
 \`\`\`bash
-# 启用详细日志
-openclaw config set logging.level debug
-
-# 查看子代理日志
-openclaw logs --subagent researcher
+npm update -g openclaw
 \`\`\`
 
----
+## 下一步
 
-## 总结
+安装完成后，推荐跟着我们的 [7天学习路径](/en/learn/1) 继续学习！`,
+    contentEn: `This is a complete OpenClaw installation guide for absolute beginners. Whether you're on macOS, Linux, or Windows, follow this tutorial and you'll be up and running in 10 minutes.
 
-| 概念 | 说明 |
-|------|------|
-| **单 Agent** | 适合简单任务 |
-| **多 Agent** | 适合复杂、多步骤任务 |
-| **角色分工** | 每个 Agent 有明确职责 |
-| **协调者** | 主 Agent 负责整合 |
-| **并发控制** | 平衡效率和成本 |
+## System Requirements
 
-**下一步**：尝试配置你的第一个子代理，体验多 Agent 协作的力量。`,
-    contentEn: `What can a single Agent do?
+Before installing, make sure your system meets these requirements:
 
-- Execute tasks
-- Use tools
-- Chat with users
+| Requirement | Minimum | Recommended |
+|-------------|---------|-------------|
+| Node.js | 18.x | 20.x+ |
+| RAM | 2GB | 4GB+ |
+| Disk Space | 500MB | 1GB+ |
+| OS | macOS 12+ / Ubuntu 20.04+ / Windows 10+ | Latest |
 
-But a single Agent also has limitations:
-- Limited context window
-- Limited specialized capabilities
-- Cannot process in parallel
+## Step 1: Install Node.js
 
-**Solution: Multi-Agent Collaboration**
+### macOS
 
-## What is Multi-Agent Collaboration?
-
-Borrowing from CrewAI's concept, an Agent is:
-
-\`\`\`
-Agent = Role + Goal + Backstory + Tools + Memory
-\`\`\`
-
-Multi-agent collaboration means multiple specialized agents form a team, each responsible for their area of expertise.
-
-### Analogy: Software Development Team
-
-| Agent Role | Responsibility |
-|------------|----------------|
-| Researcher | Search, analyze, organize information |
-| Developer | Write, modify code |
-| Reviewer | Review code quality |
-| Tester | Write tests, verify functionality |
-| Coordinator | Coordinate agents, integrate results |
-
-## OpenClaw Subagent System
-
-### Architecture
-
-\`\`\`
-                    ┌─────────────┐
-                    │ User Request│
-                    └──────┬──────┘
-                           │
-                    ┌──────▼──────┐
-                    │ Main Agent  │
-                    │(Coordinator)│
-                    └──────┬──────┘
-                           │
-        ┌──────────┬───────┼───────┬──────────┐
-        │          │       │       │          │
-   ┌────▼────┐ ┌───▼───┐ ┌─▼──┐ ┌──▼───┐ ┌───▼────┐
-   │SubAgent │ │SubAgnt│ │Sub │ │Sub   │ │SubAgent│
-   │    A    │ │   B   │ │ C  │ │  D   │ │   E    │
-   └─────────┘ └───────┘ └────┘ └──────┘ └────────┘
-\`\`\`
-
-### Workflow
-
-\`\`\`
-1. Main Agent receives user task
-2. Analyzes task, decides if subagents needed
-3. Creates specialized subagents
-4. Assigns subtasks to subagents
-5. Subagents execute and return results
-6. Main Agent integrates results
-7. Reports to user
-\`\`\`
-
-## Configuration Guide
+Using Homebrew (recommended):
 
 \`\`\`bash
-# Enable subagents
-openclaw config set subagents.enabled true
-
-# Max concurrent subagents
-openclaw config set subagents.max_concurrent 5
-
-# Subagent timeout
-openclaw config set subagents.timeout 300000
+brew install node@20
 \`\`\`
 
----
+Or using nvm:
 
-## Summary
+\`\`\`bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
+nvm install 20
+\`\`\`
 
-| Concept | Description |
-|---------|-------------|
-| **Single Agent** | Good for simple tasks |
-| **Multi-Agent** | Good for complex, multi-step tasks |
-| **Role Division** | Each Agent has clear responsibility |
-| **Coordinator** | Main Agent integrates results |
-| **Concurrency Control** | Balance efficiency and cost |
+### Linux (Ubuntu / Debian)
 
-**Next Step**: Try configuring your first subagent to experience multi-agent collaboration.`,
-    author: "OpenClaw 101",
-    date: "2026-03-24",
-    category: "技术深度",
-    categoryEn: "Deep Dive",
-    tags: ["多Agent", "协作", "子代理", "架构"],
+\`\`\`bash
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install -y nodejs
+\`\`\`
+
+### Windows
+
+Download from [Node.js website](https://nodejs.org), or use winget:
+
+\`\`\`bash
+winget install OpenJS.NodeJS.LTS
+\`\`\`
+
+Verify installation:
+
+\`\`\`bash
+node --version  # Should show v20.x.x
+npm --version   # Should show 10.x.x
+\`\`\`
+
+## Step 2: Install OpenClaw
+
+\`\`\`bash
+npm install -g openclaw
+openclaw --version
+\`\`\`
+
+If you encounter permission issues (Linux / macOS):
+
+\`\`\`bash
+sudo npm install -g openclaw
+\`\`\`
+
+## Step 3: Initialize Configuration
+
+\`\`\`bash
+openclaw init
+\`\`\`
+
+This creates the \`~/.openclaw/config.yaml\` configuration file.
+
+### Configure AI Model
+
+\`\`\`bash
+# Use Anthropic Claude (recommended)
+openclaw config set model anthropic/claude-3-sonnet
+openclaw config set apiKey YOUR_ANTHROPIC_API_KEY
+
+# Or use OpenAI GPT
+openclaw config set model openai/gpt-4o
+openclaw config set apiKey YOUR_OPENAI_API_KEY
+
+# Or use local model (Ollama)
+openclaw config set model ollama/llama3
+\`\`\`
+
+## Step 4: Start OpenClaw
+
+\`\`\`bash
+# Start Web UI
+openclaw web
+
+# Or start CLI mode
+openclaw chat
+\`\`\`
+
+## Troubleshooting
+
+### Q: npm install -g gives permission error?
+
+**Option A**: Use sudo (quick but not recommended)
+\`\`\`bash
+sudo npm install -g openclaw
+\`\`\`
+
+**Option B**: Change npm global directory (recommended)
+\`\`\`bash
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+npm install -g openclaw
+\`\`\`
+
+### Q: openclaw command not found after install?
+
+Make sure the npm global bin directory is in your PATH:
+\`\`\`bash
+npm config get prefix  # Check global directory
+echo $PATH             # Verify it's included
+\`\`\`
+
+### Q: How to update to the latest version?
+
+\`\`\`bash
+npm update -g openclaw
+\`\`\`
+
+## Next Steps
+
+After installation, follow our [7-Day Learning Path](/en/learn/1) to continue learning!`,
+    author: "Dr. Sarah Kim",
+    date: "2026-03-25",
+    category: "安装教程",
+    categoryEn: "Installation",
+    tags: ["install", "安装", "Node.js", "setup", "getting started"],
+    readingTime: 8,
+    image: "/og-image.png"
+  },
+  {
+    id: 7,
+    slug: "openclaw-vs-langchain",
+    title: "OpenClaw vs LangChain：AI Agent 框架深度对比 (2026)",
+    titleEn: "OpenClaw vs LangChain: AI Agent Framework Comparison (2026)",
+    excerpt: "从架构设计、上手难度、社区生态、实际性能四个维度深度对比两大 AI Agent 框架。",
+    excerptEn: "An in-depth comparison of two major AI agent frameworks across architecture, learning curve, ecosystem, and real-world performance.",
+    content: `OpenClaw 和 LangChain 是 2026 年最热门的两个 AI Agent 框架，但它们的设计理念截然不同。
+
+## 核心定位对比
+
+| 维度 | OpenClaw | LangChain |
+|------|----------|-----------|
+| **定位** | 端到端 AI 助手（面向终端用户） | AI 应用开发框架（面向开发者） |
+| **核心理念** | "让 AI 为你做事" | "让开发者构建 AI 应用" |
+| **使用门槛** | 零代码，自然语言交互 | 需要 Python/JS 编程能力 |
+| **部署方式** | npm install -g 一键安装 | pip install + 自行编写应用代码 |
+| **多平台** | Telegram/Discord/飞书/钉钉等 | 需自行集成 |
+| **技能生态** | ClawHub 5490+ 社区技能 | LangChain Hub + LangSmith |
+
+## 架构设计
+
+### OpenClaw 架构
+
+OpenClaw 采用 **网关 → 核心 → 技能** 三层架构：
+
+- **网关层**：统一接入 Telegram、Discord、WhatsApp 等多平台
+- **核心层**：AI 推理、对话管理、任务调度
+- **技能层**：可插拔的功能扩展（ClawHub 社区市场）
+
+### LangChain 架构
+
+LangChain 采用 **组件化** 架构：
+
+- **Models**：LLM / Chat Model 抽象层
+- **Chains**：任务链式编排
+- **Agents**：自主决策 + 工具调用
+- **Memory**：对话历史管理
+- **Tools**：外部工具集成
+
+## 适用场景
+
+### 选 OpenClaw 如果你：
+
+- 想要一个**即装即用的 AI 助手**
+- 不想写代码，用自然语言交互
+- 需要接入 Telegram / Discord / 飞书等平台
+- 关注数据隐私（自托管）
+- 喜欢丰富的社区技能生态
+
+### 选 LangChain 如果你：
+
+- 要**构建自定义 AI 应用**
+- 有 Python/JS 开发经验
+- 需要精细控制 AI 推理流程
+- 要构建 RAG（检索增强生成）应用
+- 需要 LangSmith 可观测性
+
+## 社区生态数据
+
+| 指标 | OpenClaw | LangChain |
+|------|----------|-----------|
+| GitHub Stars | 314k+ | 98k+ |
+| 插件/技能数 | 5,490+ | 700+ 集成 |
+| Discord 成员 | 45,000+ | 30,000+ |
+| 活跃贡献者 | 2,800+ | 3,200+ |
+
+## 结论
+
+**OpenClaw 和 LangChain 不是竞品，而是互补。**
+
+- OpenClaw 是成品——适合想要 AI 助手的终端用户
+- LangChain 是工具箱——适合想要构建 AI 应用的开发者
+
+如果你只是想让 AI 帮你做事（文件管理、自动化、聊天），选 OpenClaw。
+如果你想构建一个 AI 产品（SaaS、RAG 应用、AI 工作流），选 LangChain。`,
+    contentEn: `OpenClaw and LangChain are the two hottest AI agent frameworks in 2026, but their design philosophies are fundamentally different.
+
+## Core Positioning
+
+| Dimension | OpenClaw | LangChain |
+|-----------|----------|-----------|
+| **Focus** | End-to-end AI assistant (for end users) | AI app development framework (for developers) |
+| **Philosophy** | "Let AI do things for you" | "Let developers build AI apps" |
+| **Barrier** | Zero-code, natural language | Requires Python/JS coding |
+| **Deployment** | npm install -g one-click | pip install + write app code |
+| **Multi-platform** | Telegram/Discord/Feishu/DingTalk | DIY integration |
+| **Ecosystem** | ClawHub 5490+ skills | LangChain Hub + LangSmith |
+
+## Architecture
+
+### OpenClaw Architecture
+
+OpenClaw uses a **Gateway → Core → Skills** three-layer architecture:
+
+- **Gateway Layer**: Unified access to Telegram, Discord, WhatsApp, etc.
+- **Core Layer**: AI reasoning, conversation management, task scheduling
+- **Skill Layer**: Pluggable extensions (ClawHub marketplace)
+
+### LangChain Architecture
+
+LangChain uses a **component-based** architecture:
+
+- **Models**: LLM / Chat Model abstraction
+- **Chains**: Task chain orchestration
+- **Agents**: Autonomous decision-making + tool calling
+- **Memory**: Conversation history management
+- **Tools**: External tool integration
+
+## When to Choose
+
+### Choose OpenClaw if you:
+
+- Want a **ready-to-use AI assistant**
+- Don't want to write code — use natural language
+- Need Telegram / Discord / Feishu integration
+- Care about data privacy (self-hosted)
+- Like a rich community skill ecosystem
+
+### Choose LangChain if you:
+
+- Want to **build custom AI applications**
+- Have Python/JS development experience
+- Need fine-grained control over AI reasoning
+- Building RAG (Retrieval-Augmented Generation) apps
+- Need LangSmith observability
+
+## Community Ecosystem
+
+| Metric | OpenClaw | LangChain |
+|--------|----------|-----------|
+| GitHub Stars | 314k+ | 98k+ |
+| Plugins/Skills | 5,490+ | 700+ integrations |
+| Discord Members | 45,000+ | 30,000+ |
+| Active Contributors | 2,800+ | 3,200+ |
+
+## Conclusion
+
+**OpenClaw and LangChain are not competitors — they're complementary.**
+
+- OpenClaw is a finished product — ideal for users who want an AI assistant
+- LangChain is a toolbox — ideal for developers who want to build AI apps
+
+If you just want AI to do things for you (file management, automation, chat), choose OpenClaw.
+If you want to build an AI product (SaaS, RAG app, AI workflow), choose LangChain.`,
+    author: "Alex Chen",
+    date: "2026-03-27",
+    category: "对比评测",
+    categoryEn: "Comparison",
+    tags: ["LangChain", "comparison", "AI agent", "framework", "对比"],
     readingTime: 12,
+    image: "/og-image.png"
+  },
+  {
+    id: 8,
+    slug: "best-openclaw-skills-2026",
+    title: "2026 最佳 OpenClaw 技能推荐 — 25 个必装 ClawHub 技能",
+    titleEn: "Best OpenClaw Skills 2026 — 25 Must-Install ClawHub Skills",
+    excerpt: "精选 25 个最实用的 OpenClaw ClawHub 技能，按编程、研究、自动化、内容创作等分类推荐。",
+    excerptEn: "Curated list of the 25 most useful OpenClaw ClawHub skills, organized by category: coding, research, automation, content creation, and more.",
+    content: `ClawHub 社区市场已有 5,490+ 技能，但哪些真正值得安装？
+
+经过深度测试，我们精选了 25 个最实用的技能，按场景分类推荐。
+
+## 🤖 编程与开发（Top 5）
+
+### 1. codebase-agent
+**一句话**：让 AI 理解整个代码库
+\`\`\`bash
+openclaw skills install codebase-agent
+\`\`\`
+支持代码搜索、重构建议、bug 分析。适合大型项目维护。
+
+### 2. github-skill
+**一句话**：通过自然语言操作 GitHub
+\`\`\`bash
+openclaw skills install github-skill
+\`\`\`
+创建 PR、审查代码、管理 Issue，全部用自然语言完成。
+
+### 3. docker-manager
+**一句话**：容器管理助手
+\`\`\`bash
+openclaw skills install docker-manager
+\`\`\`
+
+### 4. sql-assistant
+**一句话**：自然语言转 SQL 查询
+\`\`\`bash
+openclaw skills install sql-assistant
+\`\`\`
+
+### 5. api-tester
+**一句话**：API 测试与文档生成
+\`\`\`bash
+openclaw skills install api-tester
+\`\`\`
+
+## 🔍 研究与信息（Top 5）
+
+### 6. web-search-pro
+**一句话**：增强型网络搜索
+\`\`\`bash
+openclaw skills install web-search-pro
+\`\`\`
+
+### 7. arxiv-reader
+**一句话**：AI 论文阅读助手
+\`\`\`bash
+openclaw skills install arxiv-reader
+\`\`\`
+
+### 8. youtube-summary
+**一句话**：YouTube 视频总结
+\`\`\`bash
+openclaw skills install youtube-summary
+\`\`\`
+
+### 9. news-aggregator
+**一句话**：多源新闻聚合
+\`\`\`bash
+openclaw skills install news-aggregator
+\`\`\`
+
+### 10. wikipedia-lookup
+**一句话**：维基百科快速查询
+\`\`\`bash
+openclaw skills install wikipedia-lookup
+\`\`\`
+
+## ⚡ 自动化与效率（Top 5）
+
+### 11. cron-scheduler
+**一句话**：自然语言设置定时任务
+\`\`\`bash
+openclaw skills install cron-scheduler
+\`\`\`
+
+### 12. email-assistant
+**一句话**：邮件管理助手
+\`\`\`bash
+openclaw skills install email-assistant
+\`\`\`
+
+### 13. file-organizer
+**一句话**：智能文件整理
+\`\`\`bash
+openclaw skills install file-organizer
+\`\`\`
+
+### 14. backup-manager
+**一句话**：自动备份管理
+\`\`\`bash
+openclaw skills install backup-manager
+\`\`\`
+
+### 15. system-monitor
+**一句话**：系统监控与告警
+\`\`\`bash
+openclaw skills install system-monitor
+\`\`\`
+
+## ✍️ 内容创作（Top 5）
+
+### 16. nano-banana-pro
+**一句话**：AI 图像生成
+\`\`\`bash
+openclaw skills install nano-banana-pro
+\`\`\`
+
+### 17. markdown-editor
+**一句话**：Markdown 文档助手
+\`\`\`bash
+openclaw skills install markdown-editor
+\`\`\`
+
+### 18. translator-pro
+**一句话**：专业翻译（支持 50+ 语言）
+\`\`\`bash
+openclaw skills install translator-pro
+\`\`\`
+
+### 19. social-media-kit
+**一句话**：社交媒体内容生成
+\`\`\`bash
+openclaw skills install social-media-kit
+\`\`\`
+
+### 20. podcast-transcriber
+**一句话**：播客/音频转文字
+\`\`\`bash
+openclaw skills install podcast-transcriber
+\`\`\`
+
+## 🏠 智能家居与 IoT（Top 5）
+
+### 21. home-assistant
+**一句话**：Home Assistant 集成
+\`\`\`bash
+openclaw skills install home-assistant
+\`\`\`
+
+### 22. mqtt-bridge
+**一句话**：MQTT 物联网桥接
+\`\`\`bash
+openclaw skills install mqtt-bridge
+\`\`\`
+
+### 23. camera-watcher
+**一句话**：摄像头监控分析
+\`\`\`bash
+openclaw skills install camera-watcher
+\`\`\`
+
+### 24. voice-control
+**一句话**：语音控制接口
+\`\`\`bash
+openclaw skills install voice-control
+\`\`\`
+
+### 25. energy-tracker
+**一句话**：家庭能耗追踪
+\`\`\`bash
+openclaw skills install energy-tracker
+\`\`\`
+
+## 安装技巧
+
+批量安装多个技能：
+
+\`\`\`bash
+openclaw skills install github-skill web-search-pro cron-scheduler
+\`\`\`
+
+查看已安装技能：
+
+\`\`\`bash
+openclaw skills list
+\`\`\`
+
+## 安全提醒
+
+安装前务必检查技能来源，优先选择带 ✅ 认证标记的发布者。`,
+    contentEn: `ClawHub marketplace has over 5,490+ skills, but which ones are actually worth installing?
+
+After extensive testing, we've curated the 25 most useful skills, organized by category.
+
+## 🤖 Coding & Development (Top 5)
+
+### 1. codebase-agent
+**One-liner**: Let AI understand your entire codebase
+\`\`\`bash
+openclaw skills install codebase-agent
+\`\`\`
+Supports code search, refactoring suggestions, bug analysis. Perfect for large project maintenance.
+
+### 2. github-skill
+**One-liner**: Operate GitHub with natural language
+\`\`\`bash
+openclaw skills install github-skill
+\`\`\`
+Create PRs, review code, manage Issues — all with natural language.
+
+### 3. docker-manager
+**One-liner**: Container management assistant
+\`\`\`bash
+openclaw skills install docker-manager
+\`\`\`
+
+### 4. sql-assistant
+**One-liner**: Natural language to SQL queries
+\`\`\`bash
+openclaw skills install sql-assistant
+\`\`\`
+
+### 5. api-tester
+**One-liner**: API testing & documentation generator
+\`\`\`bash
+openclaw skills install api-tester
+\`\`\`
+
+## 🔍 Research & Information (Top 5)
+
+### 6. web-search-pro
+**One-liner**: Enhanced web search
+\`\`\`bash
+openclaw skills install web-search-pro
+\`\`\`
+
+### 7. arxiv-reader
+**One-liner**: AI paper reading assistant
+\`\`\`bash
+openclaw skills install arxiv-reader
+\`\`\`
+
+### 8. youtube-summary
+**One-liner**: YouTube video summarizer
+\`\`\`bash
+openclaw skills install youtube-summary
+\`\`\`
+
+### 9. news-aggregator
+**One-liner**: Multi-source news aggregation
+\`\`\`bash
+openclaw skills install news-aggregator
+\`\`\`
+
+### 10. wikipedia-lookup
+**One-liner**: Quick Wikipedia lookup
+\`\`\`bash
+openclaw skills install wikipedia-lookup
+\`\`\`
+
+## ⚡ Automation & Productivity (Top 5)
+
+### 11. cron-scheduler
+**One-liner**: Set up cron jobs with natural language
+\`\`\`bash
+openclaw skills install cron-scheduler
+\`\`\`
+
+### 12. email-assistant
+**One-liner**: Email management assistant
+\`\`\`bash
+openclaw skills install email-assistant
+\`\`\`
+
+### 13. file-organizer
+**One-liner**: Smart file organization
+\`\`\`bash
+openclaw skills install file-organizer
+\`\`\`
+
+### 14. backup-manager
+**One-liner**: Automated backup management
+\`\`\`bash
+openclaw skills install backup-manager
+\`\`\`
+
+### 15. system-monitor
+**One-liner**: System monitoring & alerts
+\`\`\`bash
+openclaw skills install system-monitor
+\`\`\`
+
+## ✍️ Content Creation (Top 5)
+
+### 16. nano-banana-pro
+**One-liner**: AI image generation
+\`\`\`bash
+openclaw skills install nano-banana-pro
+\`\`\`
+
+### 17. markdown-editor
+**One-liner**: Markdown document assistant
+\`\`\`bash
+openclaw skills install markdown-editor
+\`\`\`
+
+### 18. translator-pro
+**One-liner**: Professional translation (50+ languages)
+\`\`\`bash
+openclaw skills install translator-pro
+\`\`\`
+
+### 19. social-media-kit
+**One-liner**: Social media content generation
+\`\`\`bash
+openclaw skills install social-media-kit
+\`\`\`
+
+### 20. podcast-transcriber
+**One-liner**: Podcast/audio transcription
+\`\`\`bash
+openclaw skills install podcast-transcriber
+\`\`\`
+
+## 🏠 Smart Home & IoT (Top 5)
+
+### 21. home-assistant
+**One-liner**: Home Assistant integration
+\`\`\`bash
+openclaw skills install home-assistant
+\`\`\`
+
+### 22. mqtt-bridge
+**One-liner**: MQTT IoT bridge
+\`\`\`bash
+openclaw skills install mqtt-bridge
+\`\`\`
+
+### 23. camera-watcher
+**One-liner**: Camera monitoring & analysis
+\`\`\`bash
+openclaw skills install camera-watcher
+\`\`\`
+
+### 24. voice-control
+**One-liner**: Voice control interface
+\`\`\`bash
+openclaw skills install voice-control
+\`\`\`
+
+### 25. energy-tracker
+**One-liner**: Home energy tracking
+\`\`\`bash
+openclaw skills install energy-tracker
+\`\`\`
+
+## Installation Tips
+
+Install multiple skills at once:
+
+\`\`\`bash
+openclaw skills install github-skill web-search-pro cron-scheduler
+\`\`\`
+
+List installed skills:
+
+\`\`\`bash
+openclaw skills list
+\`\`\`
+
+## Security Reminder
+
+Always check skill source before installing. Prefer publishers with the ✅ verified badge.`,
+    author: "Marco Liu",
+    date: "2026-03-29",
+    category: "技能推荐",
+    categoryEn: "Skills",
+    tags: ["best skills", "ClawHub", "2026", "must-install", "推荐"],
+    readingTime: 15,
     image: "/og-image.png"
   }
 ];

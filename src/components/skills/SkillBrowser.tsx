@@ -3,11 +3,8 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
-import { Search, Terminal, Star, ExternalLink } from 'lucide-react';
+import { Search, Star, ExternalLink, Copy, Check } from 'lucide-react';
 import { Input } from '@/components/ui/Input';
-import { Badge } from '@/components/ui/Badge';
-import { Card } from '@/components/ui/Card';
-import { Link } from '@/i18n/routing';
 import { skillCategories, sampleSkills } from '@/data/skills';
 
 export function SkillBrowser() {
@@ -32,73 +29,75 @@ export function SkillBrowser() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Card className="p-4 text-center">
-          <div className="text-3xl font-bold text-blue-600">{totalSkills.toLocaleString()}+</div>
-          <div className="text-sm text-gray-500">{t('totalSkills')}</div>
-        </Card>
-        <Card className="p-4 text-center">
-          <div className="text-3xl font-bold text-purple-600">{skillCategories.length}</div>
-          <div className="text-sm text-gray-500">{t('categories')}</div>
-        </Card>
-        <Card className="p-4 text-center">
+        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 text-center">
+          <div className="text-3xl font-bold text-indigo-600">{totalSkills.toLocaleString()}+</div>
+          <div className="text-sm text-gray-500 mt-1">{t('totalSkills')}</div>
+        </div>
+        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 text-center">
+          <div className="text-3xl font-bold text-cyan-600">{skillCategories.length}</div>
+          <div className="text-sm text-gray-500 mt-1">{t('categories')}</div>
+        </div>
+        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 text-center">
           <div className="text-3xl font-bold text-green-600">{skillCategories[0].count}</div>
-          <div className="text-sm text-gray-500">{t('aiLlm')}</div>
-        </Card>
-        <Card className="p-4 text-center">
-          <div className="text-3xl font-bold text-orange-600">{skillCategories[1].count}</div>
-          <div className="text-sm text-gray-500">{t('research')}</div>
-        </Card>
+          <div className="text-sm text-gray-500 mt-1">{t('aiLlm')}</div>
+        </div>
+        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 text-center">
+          <div className="text-3xl font-bold text-amber-600">{skillCategories[1].count}</div>
+          <div className="text-sm text-gray-500 mt-1">{t('research')}</div>
+        </div>
       </div>
 
-      {/* Search */}
-      <div className="relative max-w-md">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-        <Input
-          type="text"
-          placeholder={t('searchPlaceholder')}
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="pl-10"
-        />
+      {/* Search — BIG, centered */}
+      <div className="max-w-2xl mx-auto">
+        <div className="relative">
+          <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+          <Input
+            type="text"
+            placeholder={t('searchPlaceholder')}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-12 h-14 text-base rounded-2xl bg-white border-gray-200 text-gray-900 focus:border-indigo-500 focus:ring-indigo-300"
+          />
+        </div>
       </div>
 
-      {/* Category Grid */}
+      {/* Filter Bar */}
       <div>
-        <h2 className="text-xl font-semibold mb-4">{t('browseByCategory')}</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-          <Card
-            className={`p-4 text-center cursor-pointer transition-all hover:shadow-md ${
-              selectedCategory === null ? 'ring-2 ring-blue-500 bg-blue-50' : ''
-            }`}
+        <div className="flex flex-wrap items-center gap-2">
+          <button
             onClick={() => setSelectedCategory(null)}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+              selectedCategory === null
+                ? 'bg-indigo-600 text-white shadow-sm'
+                : 'bg-white border border-gray-200 text-gray-700 hover:text-gray-900 hover:border-gray-300 hover:shadow-sm'
+            }`}
           >
-            <div className="text-2xl mb-1">📦</div>
-            <div className="font-medium text-sm">{t('all')}</div>
-            <div className="text-xs text-gray-500">{totalSkills.toLocaleString()}</div>
-          </Card>
+            {t('all')}
+          </button>
           {skillCategories.map((category) => (
-            <Link key={category.id} href={`/skills/${category.id}`}>
-              <Card
-                className={`p-4 text-center cursor-pointer transition-all hover:shadow-md ${
-                  selectedCategory === category.id ? 'ring-2 ring-blue-500 bg-blue-50' : ''
-                }`}
-                onClick={(e: React.MouseEvent) => { e.preventDefault(); setSelectedCategory(category.id); }}
-              >
-                <div className="text-2xl mb-1">{category.icon}</div>
-                <div className="font-medium text-sm">{category.name}</div>
-                <div className="text-xs text-gray-500">{category.count}</div>
-              </Card>
-            </Link>
+            <button
+              key={category.id}
+              onClick={() => setSelectedCategory(
+                selectedCategory === category.id ? null : category.id
+              )}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                selectedCategory === category.id
+                  ? 'bg-indigo-600 text-white shadow-sm'
+                  : 'bg-white border border-gray-200 text-gray-700 hover:text-gray-900 hover:border-gray-300 hover:shadow-sm'
+              }`}
+            >
+              {category.icon} {category.name}
+            </button>
           ))}
         </div>
       </div>
 
-      {/* Skills List */}
+      {/* Skills Grid */}
       <div>
-        <h2 className="text-xl font-semibold mb-4">
+        <h2 className="text-xl font-semibold text-gray-900 mb-6">
           {selectedCategory 
             ? skillCategories.find(c => c.id === selectedCategory)?.name 
             : t('featuredSkills')}
@@ -111,51 +110,62 @@ export function SkillBrowser() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: index * 0.05 }}
             >
-              <Card className="p-5 hover:shadow-lg transition-shadow">
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <h3 className="font-semibold text-lg">{skill.name}</h3>
-                    <Badge variant="outline" className="mt-1">
-                      {skillCategories.find(c => c.id === skill.categoryId)?.name}
-                    </Badge>
+              <div className="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all overflow-hidden">
+                <div className="p-5">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-semibold text-lg text-gray-900">{skill.name}</h3>
+                        <span className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold border border-gray-200 text-gray-600">
+                          {skillCategories.find(c => c.id === skill.categoryId)?.name}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1 text-yellow-500">
+                      <Star className="h-4 w-4 fill-current" />
+                      <span className="text-sm">{skill.stars}</span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1 text-yellow-500">
-                    <Star className="h-4 w-4 fill-current" />
-                    <span className="text-sm">{skill.stars}</span>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-600 mb-4">{skill.description}</p>
-                <div className="flex items-center gap-2">
-                  <code className="flex-1 bg-gray-100 px-3 py-2 rounded text-sm font-mono text-gray-800 overflow-x-auto">
-                    {skill.installCommand}
-                  </code>
-                  <button
-                    onClick={() => copyCommand(skill.installCommand)}
-                    className="p-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-colors"
-                    title="Copy command"
-                  >
-                    <Terminal className="h-4 w-4" />
-                  </button>
-                  {skill.githubUrl && (
-                    <a
-                      href={skill.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors"
+                  <p className="text-sm text-gray-600 mb-4">{skill.description}</p>
+                  
+                  {/* Install command area */}
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 bg-gray-50 border border-gray-200 px-4 py-2.5 rounded-lg font-mono text-sm text-gray-700 overflow-x-auto">
+                      <span className="text-green-600 mr-2">$</span>
+                      {skill.installCommand}
+                    </div>
+                    <button
+                      onClick={() => copyCommand(skill.installCommand)}
+                      className="flex-shrink-0 p-2.5 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-all hover:-translate-y-0.5"
+                      title={t('copyCommand')}
                     >
-                      <ExternalLink className="h-4 w-4" />
-                    </a>
-                  )}
+                      {copiedCommand === skill.installCommand ? (
+                        <Check className="h-4 w-4" />
+                      ) : (
+                        <Copy className="h-4 w-4" />
+                      )}
+                    </button>
+                    {skill.githubUrl && (
+                      <a
+                        href={skill.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-shrink-0 p-2.5 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition-all hover:-translate-y-0.5 border border-gray-200"
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </Card>
+              </div>
             </motion.div>
           ))}
         </div>
       </div>
 
       {filteredSkills.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-gray-500">{t('noResults')}</p>
+        <div className="text-center py-16">
+          <p className="text-gray-500 text-lg">{t('noResults')}</p>
         </div>
       )}
     </div>

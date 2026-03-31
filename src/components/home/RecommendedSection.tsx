@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Star, TrendingUp, Award, ExternalLink } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
-import { Link } from '@/i18n/routing';
+
 
 export function RecommendedSection() {
   const t = useTranslations('home.recommended');
@@ -18,7 +18,7 @@ export function RecommendedSection() {
       url: 'https://docs.openclaw.ai',
       source: 'OpenClaw',
       badge: t('badgeOfficial'),
-      badgeColor: 'bg-blue-500',
+      badgeColor: 'bg-brand',
     },
     {
       id: 'r2',
@@ -27,7 +27,7 @@ export function RecommendedSection() {
       url: 'https://www.freecodecamp.org/news/openclaw-full-tutorial-for-beginners/',
       source: 'freeCodeCamp',
       badge: t('badgePopular'),
-      badgeColor: 'bg-orange-500',
+      badgeColor: 'bg-warning',
     },
     {
       id: 'r3',
@@ -36,7 +36,7 @@ export function RecommendedSection() {
       url: 'https://www.ibm.com/think/news/clawdbot-ai-agent-testing-limits-vertical-integration',
       source: 'IBM',
       badge: t('badgeDeepDive'),
-      badgeColor: 'bg-purple-500',
+      badgeColor: 'bg-accent',
     },
   ];
 
@@ -65,7 +65,7 @@ export function RecommendedSection() {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+    <section className="py-24 bg-surface/50">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <motion.div
@@ -74,16 +74,16 @@ export function RecommendedSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <div className="inline-flex items-center gap-2 text-blue-600 mb-4">
+          <div className="inline-flex items-center gap-2 text-brand-light mb-4">
             <Award className="w-5 h-5" />
             <span className="text-sm font-medium uppercase tracking-wider">
               {t('badge')}
             </span>
           </div>
-          <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+          <h2 className="text-3xl font-bold text-white sm:text-4xl">
             {t('title')}
           </h2>
-          <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="mt-4 text-lg text-text-secondary max-w-2xl mx-auto">
             {t('subtitle')}
           </p>
         </motion.div>
@@ -92,8 +92,8 @@ export function RecommendedSection() {
           {/* Recommended Tutorials */}
           <div>
             <div className="flex items-center gap-2 mb-6">
-              <TrendingUp className="w-5 h-5 text-blue-600" />
-              <h3 className="text-xl font-semibold text-gray-900">
+              <TrendingUp className="w-5 h-5 text-brand-light" />
+              <h3 className="text-xl font-semibold text-white">
                 {t('tutorials')}
               </h3>
             </div>
@@ -106,7 +106,7 @@ export function RecommendedSection() {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Card className="hover:shadow-lg transition-shadow">
+                  <Card>
                     <a
                       href={tutorial.url}
                       target="_blank"
@@ -119,16 +119,16 @@ export function RecommendedSection() {
                             <span className={`text-xs px-2 py-0.5 rounded text-white ${tutorial.badgeColor}`}>
                               {tutorial.badge}
                             </span>
-                            <span className="text-xs text-gray-600">{tutorial.source}</span>
+                            <span className="text-xs text-text-muted">{tutorial.source}</span>
                           </div>
-                          <h4 className="font-semibold text-gray-900 hover:text-blue-600 transition-colors">
+                          <h4 className="font-semibold text-white hover:text-brand-light transition-colors">
                             {tutorial.title}
                           </h4>
-                          <p className="mt-1 text-sm text-gray-700 line-clamp-1">
+                          <p className="mt-1 text-sm text-text-secondary line-clamp-1">
                             {tutorial.description}
                           </p>
                         </div>
-                        <ExternalLink className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                        <ExternalLink className="w-4 h-4 text-text-muted flex-shrink-0" />
                       </div>
                     </a>
                   </Card>
@@ -140,8 +140,8 @@ export function RecommendedSection() {
           {/* Recommended Skills */}
           <div>
             <div className="flex items-center gap-2 mb-6">
-              <Star className="w-5 h-5 text-yellow-500" />
-              <h3 className="text-xl font-semibold text-gray-900">
+              <Star className="w-5 h-5 text-warning" />
+              <h3 className="text-xl font-semibold text-white">
                 {t('skills')}
               </h3>
             </div>
@@ -154,25 +154,25 @@ export function RecommendedSection() {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Card className="hover:shadow-lg transition-shadow">
+                  <Card>
                     <div className="p-4">
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-1">
                             <Badge variant="outline">{skill.category}</Badge>
-                            <div className="flex items-center gap-1 text-yellow-500">
+                            <div className="flex items-center gap-1 text-warning">
                               <Star className="w-3 h-3 fill-current" />
                               <span className="text-xs">{skill.stars}</span>
                             </div>
                           </div>
-                          <h4 className="font-semibold text-gray-900">
+                          <h4 className="font-semibold text-white">
                             {skill.name}
                           </h4>
-                          <p className="mt-1 text-sm text-gray-700">
+                          <p className="mt-1 text-sm text-text-secondary">
                             {skill.description}
                           </p>
                         </div>
-                        <code className="text-xs bg-gray-100 px-2 py-1 rounded text-gray-600 flex-shrink-0">
+                        <code className="text-xs bg-white/[0.03] border border-white/[0.06] px-3 py-1.5 rounded-lg text-text-muted font-mono flex-shrink-0">
                           npx clawhub install {skill.name}
                         </code>
                       </div>
