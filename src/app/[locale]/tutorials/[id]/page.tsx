@@ -148,7 +148,7 @@ export default async function TutorialDetailPage({
                   {tutorial.language === 'en' ? 'EN' : '中文'}
                 </span>
               </div>
-              <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight">
+              <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight drop-shadow-sm">
                 {tutorial.title}
               </h1>
               <p className="mt-4 text-lg text-white/80 leading-relaxed">
@@ -180,7 +180,7 @@ export default async function TutorialDetailPage({
               {isZh ? '前往阅读' : 'Go to Tutorial'}
               <ExternalLink className="w-5 h-5" />
             </a>
-            <p className="mt-3 text-sm text-gray-400">
+            <p className="mt-3 text-sm text-gray-500">
               {tutorial.url}
             </p>
           </div>

@@ -72,7 +72,7 @@ export function BlogPostClient({ post, locale, content }: BlogPostClientProps) {
             </span>
           </div>
 
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 drop-shadow-sm">
             {title}
           </h1>
 

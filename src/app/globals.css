@@ -127,6 +127,27 @@ code, pre, .font-mono {
 }
 
 /* ========================================
+   Light Background Areas - Force Dark Text
+   ======================================== */
+
+.bg-white {
+  color: #111827;
+}
+
+.bg-white h1,
+.bg-white h2,
+.bg-white h3,
+.bg-white h4,
+.bg-white h5,
+.bg-white h6 {
+  color: #111827;
+}
+
+.bg-white p {
+  color: #374151;
+}
+
+/* ========================================
    Horizontal scroll container (for Learning Path etc)
    ======================================== */
 
