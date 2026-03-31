@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/'],
     },
-    sitemap: 'https://openclaw101.com/sitemap.xml',
+    sitemap: 'https://openclaw101.vip/sitemap.xml',
   }
 }

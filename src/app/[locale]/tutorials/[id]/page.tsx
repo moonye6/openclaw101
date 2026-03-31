@@ -5,7 +5,7 @@ import { getTutorialById, tutorials, getTutorialsByCategory, getCategoryInfo } f
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Link } from '@/i18n/routing';
 
-const SITE_URL = 'https://openclaw101.com';
+const SITE_URL = 'https://openclaw101.vip';
 
 const categoryIcons: Record<string, React.ReactNode> = {
   'official': <Book className="w-6 h-6" />,

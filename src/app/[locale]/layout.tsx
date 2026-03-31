@@ -18,7 +18,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const SITE_URL = 'https://openclaw101.com';
+  const SITE_URL = 'https://openclaw101.vip';
 
   return {
     alternates: {

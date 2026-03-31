@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const SITE_URL = "https://openclaw101.com";
+const SITE_URL = "https://openclaw101.vip";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

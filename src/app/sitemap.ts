@@ -6,7 +6,7 @@ import { blogPosts } from '@/data/blog'
 const BUILD_DATE = new Date('2026-03-17')
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://openclaw101.com'
+  const baseUrl = 'https://openclaw101.vip'
 
   const pages = [
     { path: '', changeFrequency: 'weekly' as const, priority: 1 },

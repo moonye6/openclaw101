@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { TutorialList } from '@/components/tutorials/TutorialList';
 import { JsonLd } from '@/components/seo/JsonLd';
 
-const SITE_URL = 'https://openclaw101.com';
+const SITE_URL = 'https://openclaw101.vip';
 
 // Enable ISR - revalidate every hour
 export const revalidate = 3600;

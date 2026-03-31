@@ -14,7 +14,7 @@ import { AuthorShowcase } from '@/components/home/AuthorShowcase';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { FAQSection } from '@/components/seo/FAQSection';
 
-const SITE_URL = 'https://openclaw101.com';
+const SITE_URL = 'https://openclaw101.vip';
 
 // Enable ISR - revalidate every hour for better caching
 export const revalidate = 3600;

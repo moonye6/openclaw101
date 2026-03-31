@@ -5,7 +5,7 @@ import { skillCategories, getCategoryById, getSkillsByCategory } from '@/data/sk
 import { JsonLd } from '@/components/seo/JsonLd';
 import { Link } from '@/i18n/routing';
 
-const SITE_URL = 'https://openclaw101.com';
+const SITE_URL = 'https://openclaw101.vip';
 
 export async function generateStaticParams() {
   return skillCategories.map((c) => ({ categoryId: c.id }));
