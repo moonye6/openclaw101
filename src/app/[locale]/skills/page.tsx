@@ -83,18 +83,17 @@ export default async function SkillsPage({
     : ['github', 'automation', 'browser', 'coding', 'ai-llm', 'research'];
 
   return (
-    <div className="min-h-screen bg-[#0B0F19]">
+    <div className="min-h-screen bg-gray-50">
       <JsonLd data={breadcrumbJsonLd} />
       <JsonLd data={collectionJsonLd} />
       
       {/* Hero Header */}
-      <section className="relative overflow-hidden py-20 bg-[#0B0F19]">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-brand/15 via-transparent to-transparent" />
+      <section className="relative overflow-hidden py-20 bg-gradient-to-br from-purple-600 to-indigo-700">
         <div className="container relative mx-auto px-4 text-center">
           <h1 className="text-4xl sm:text-5xl font-bold text-white">
             {isZh ? 'OpenClaw 技能市场' : 'OpenClaw Skills Marketplace'}
           </h1>
-          <p className="mt-4 text-lg text-text-secondary max-w-2xl mx-auto">
+          <p className="mt-4 text-lg text-purple-100 max-w-2xl mx-auto">
             {isZh
               ? '5490+ 个来自 awesome-openclaw-skills 的技能，覆盖 31 个分类。一键安装。'
               : '5490+ skills from awesome-openclaw-skills across 31 categories. Install with one command.'}
@@ -102,7 +101,7 @@ export default async function SkillsPage({
           
           {/* Install command */}
           <div className="mt-8 flex justify-center">
-            <code className="bg-surface/80 backdrop-blur-sm border border-white/[0.08] px-6 py-3 rounded-xl text-white font-mono text-sm">
+            <code className="bg-white/10 backdrop-blur-sm px-6 py-3 rounded-xl text-white font-mono text-sm">
               npx clawhub@latest install &lt;skill-name&gt;
             </code>
           </div>
@@ -112,7 +111,7 @@ export default async function SkillsPage({
             {hotTags.map((tag) => (
               <span
                 key={tag}
-                className="inline-flex items-center px-3 py-1.5 rounded-full bg-brand/10 border border-brand/20 text-xs font-medium text-brand-light hover:bg-brand/20 transition-colors cursor-pointer"
+                className="inline-flex items-center px-3 py-1.5 rounded-full bg-white/15 border border-white/20 text-xs font-medium text-white hover:bg-white/25 transition-colors cursor-pointer"
               >
                 {tag}
               </span>
