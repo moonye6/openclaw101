@@ -162,11 +162,11 @@ export default async function TutorialDetailPage({
       {/* CTA */}
       <section className="py-12">
         <div className="container mx-auto px-4 max-w-4xl">
-          <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-3">
+          <div className="bg-white rounded-2xl shadow-lg p-8 text-center" style={{ color: '#111827' }}>
+            <h2 className="text-2xl font-bold mb-3" style={{ color: '#111827' }}>
               {isZh ? '阅读完整教程' : 'Read Full Tutorial'}
             </h2>
-            <p className="text-gray-600 mb-6 max-w-lg mx-auto">
+            <p className="mb-6 max-w-lg mx-auto" style={{ color: '#374151' }}>
               {isZh
                 ? `本教程由 ${tutorial.source} 发布，点击下方按钮跳转阅读完整内容。`
                 : `This tutorial is published by ${tutorial.source}. Click below to read the full content.`}
@@ -180,7 +180,7 @@ export default async function TutorialDetailPage({
               {isZh ? '前往阅读' : 'Go to Tutorial'}
               <ExternalLink className="w-5 h-5" />
             </a>
-            <p className="mt-3 text-sm text-gray-500">
+            <p className="mt-3 text-sm" style={{ color: '#6b7280' }}>
               {tutorial.url}
             </p>
           </div>

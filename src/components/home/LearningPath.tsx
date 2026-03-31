@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
-import { Wrench, MessageSquare, Code, Globe, Puzzle, Zap, Rocket, ArrowRight } from 'lucide-react';
+import { BookOpen, MessageSquare, FileCode, Globe, Puzzle, Clock, Rocket, ArrowRight } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 
 const days = [
