@@ -1,0 +1,5 @@
+{
+  "browser": "chromium",
+  "executablePath": "/root/.cache/ms-playwright/chromium-1208/chrome-linux64/chrome",
+  "outputMode": "stdout"
+}
