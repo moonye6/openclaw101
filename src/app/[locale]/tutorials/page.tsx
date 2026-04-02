@@ -82,36 +82,37 @@ export default async function TutorialsPage({
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#0B0F19]">
       <JsonLd data={breadcrumbJsonLd} />
       <JsonLd data={collectionJsonLd} />
       {/* Header */}
-      <section className="bg-gradient-to-br from-blue-600 to-indigo-700 py-16">
-        <div className="container mx-auto px-4">
+      <section className="relative overflow-hidden py-16 bg-[#0B0F19] border-b border-white/[0.08]">
+        <div className="absolute inset-0 bg-gradient-to-br from-brand/10 via-transparent to-accent/5 pointer-events-none" />
+        <div className="container relative mx-auto px-4">
           <h1 className="text-4xl font-bold text-white text-center">
             {isZh ? 'OpenClaw 教程' : 'OpenClaw Tutorials'}
           </h1>
-          <p className="mt-4 text-lg text-blue-100 text-center max-w-2xl mx-auto">
+          <p className="mt-4 text-lg text-[#9CA3AF] text-center max-w-2xl mx-auto">
             {isZh
               ? '414+ 篇精选教程，来自官方文档、云平台和社区贡献者'
               : '414+ curated tutorials from official docs, cloud platforms, and community contributors'}
           </p>
-          <div className="mt-8 flex justify-center gap-8 text-white">
+          <div className="mt-8 flex justify-center gap-8">
             <div className="text-center">
-              <div className="text-3xl font-bold">414+</div>
-              <div className="text-sm text-blue-200">{isZh ? '教程' : 'Tutorials'}</div>
+              <div className="text-3xl font-bold text-white">414+</div>
+              <div className="text-sm text-[#9CA3AF]">{isZh ? '教程' : 'Tutorials'}</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold">61</div>
-              <div className="text-sm text-blue-200">{isZh ? '中文' : 'Chinese'}</div>
+              <div className="text-3xl font-bold text-white">61</div>
+              <div className="text-sm text-[#9CA3AF]">{isZh ? '中文' : 'Chinese'}</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold">353</div>
-              <div className="text-sm text-blue-200">{isZh ? '英文' : 'English'}</div>
+              <div className="text-3xl font-bold text-white">353</div>
+              <div className="text-sm text-[#9CA3AF]">{isZh ? '英文' : 'English'}</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold">9</div>
-              <div className="text-sm text-blue-200">{isZh ? '分类' : 'Categories'}</div>
+              <div className="text-3xl font-bold text-white">9</div>
+              <div className="text-sm text-[#9CA3AF]">{isZh ? '分类' : 'Categories'}</div>
             </div>
           </div>
         </div>

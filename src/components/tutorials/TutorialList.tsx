@@ -28,7 +28,7 @@ const categoryColors: Record<string, string> = {
   'channels': 'bg-purple-500',
   'skills': 'bg-orange-500',
   'videos': 'bg-red-500',
-  'deep-dives': 'bg-indigo-500',
+  'deep-dives': 'bg-brand',
   'tools': 'bg-yellow-500',
 };
 
@@ -64,21 +64,21 @@ export function TutorialList() {
       {/* Search and Filters */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#9CA3AF]" />
           <Input
             type="text"
             placeholder={t('searchPlaceholder')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10"
+            className="pl-10 bg-[#111827] border-white/[0.08] text-white placeholder:text-[#9CA3AF]"
           />
         </div>
         <div className="flex gap-2">
           <button
             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
               selectedLanguage === null 
-                ? 'bg-gray-900 text-white' 
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300'
+                ? 'bg-brand text-white' 
+                : 'bg-[#111827] text-[#9CA3AF] hover:text-white border border-white/[0.08]'
             }`}
             onClick={() => setSelectedLanguage(null)}
           >
@@ -87,8 +87,8 @@ export function TutorialList() {
           <button
             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
               selectedLanguage === 'en' 
-                ? 'bg-blue-600 text-white' 
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300'
+                ? 'bg-brand text-white' 
+                : 'bg-[#111827] text-[#9CA3AF] hover:text-white border border-white/[0.08]'
             }`}
             onClick={() => setSelectedLanguage('en')}
           >
@@ -97,8 +97,8 @@ export function TutorialList() {
           <button
             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
               selectedLanguage === 'zh' 
-                ? 'bg-blue-600 text-white' 
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-300'
+                ? 'bg-brand text-white' 
+                : 'bg-[#111827] text-[#9CA3AF] hover:text-white border border-white/[0.08]'
             }`}
             onClick={() => setSelectedLanguage('zh')}
           >
@@ -129,7 +129,7 @@ export function TutorialList() {
       </div>
 
       {/* Results count */}
-      <p className="text-sm text-gray-600">
+      <p className="text-sm text-[#9CA3AF]">
         {t('resultsCount', { count: filteredTutorials.length })}
       </p>
 
@@ -142,30 +142,30 @@ export function TutorialList() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: index * 0.05 }}
           >
-            <Card className="h-full hover:shadow-lg transition-shadow cursor-pointer group">
+            <Card className="h-full hover:border-brand/30 transition-colors cursor-pointer group bg-[#111827] border-white/[0.08]">
               <Link
                 href={`/tutorials/${tutorial.id}`}
                 className="block p-5"
               >
-                    <div className="flex items-start gap-3">
+                <div className="flex items-start gap-3">
                   <div className={`flex-shrink-0 p-2 rounded-lg text-white ${categoryColors[tutorial.category]}`}>
                     {categoryIcons[tutorial.category]}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs text-gray-600">{tutorial.source}</span>
-                      <Badge variant="outline" className="text-xs">
+                      <span className="text-xs text-[#9CA3AF]">{tutorial.source}</span>
+                      <Badge variant="outline" className="text-xs border-white/[0.08] text-[#9CA3AF]">
                         {tutorial.language === 'en' ? 'EN' : '中文'}
                       </Badge>
                     </div>
-                    <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors line-clamp-2">
+                    <h3 className="font-semibold text-white group-hover:text-brand-light transition-colors line-clamp-2">
                       {tutorial.title}
                     </h3>
-                    <p className="mt-2 text-sm text-gray-700 line-clamp-2">
+                    <p className="mt-2 text-sm text-[#9CA3AF] line-clamp-2">
                       {tutorial.description}
                     </p>
                   </div>
-                  <ExternalLink className="flex-shrink-0 h-4 w-4 text-gray-400 group-hover:text-blue-500 transition-colors" />
+                  <ExternalLink className="flex-shrink-0 h-4 w-4 text-[#9CA3AF] group-hover:text-brand-light transition-colors" />
                 </div>
               </Link>
             </Card>
@@ -175,7 +175,7 @@ export function TutorialList() {
 
       {filteredTutorials.length === 0 && (
         <div className="text-center py-12">
-          <p className="text-gray-500">{t('noResults')}</p>
+          <p className="text-[#9CA3AF]">{t('noResults')}</p>
         </div>
       )}
     </div>
