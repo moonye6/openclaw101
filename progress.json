@@ -78,9 +78,7 @@
     }
   ],
   "current_session": "S004",
-  "next_actions": [
-    "同步到 cn-truth 仓库"
-  ],
+  "next_actions": [],
   "metrics": {
     "total_sessions": 4,
     "total_features_completed": 20,
