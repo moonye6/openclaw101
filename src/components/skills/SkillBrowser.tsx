@@ -32,34 +32,34 @@ export function SkillBrowser() {
     <div className="space-y-10">
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 text-center">
-          <div className="text-3xl font-bold text-indigo-600">{totalSkills.toLocaleString()}+</div>
-          <div className="text-sm text-gray-500 mt-1">{t('totalSkills')}</div>
+        <div className="bg-[#111827] rounded-xl border border-white/[0.08] p-5 text-center">
+          <div className="text-3xl font-bold text-brand-light">{totalSkills.toLocaleString()}+</div>
+          <div className="text-sm text-[#9CA3AF] mt-1">{t('totalSkills')}</div>
         </div>
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 text-center">
-          <div className="text-3xl font-bold text-cyan-600">{skillCategories.length}</div>
-          <div className="text-sm text-gray-500 mt-1">{t('categories')}</div>
+        <div className="bg-[#111827] rounded-xl border border-white/[0.08] p-5 text-center">
+          <div className="text-3xl font-bold text-cyan-400">{skillCategories.length}</div>
+          <div className="text-sm text-[#9CA3AF] mt-1">{t('categories')}</div>
         </div>
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 text-center">
-          <div className="text-3xl font-bold text-green-600">{skillCategories[0].count}</div>
-          <div className="text-sm text-gray-500 mt-1">{t('aiLlm')}</div>
+        <div className="bg-[#111827] rounded-xl border border-white/[0.08] p-5 text-center">
+          <div className="text-3xl font-bold text-green-400">{skillCategories[0].count}</div>
+          <div className="text-sm text-[#9CA3AF] mt-1">{t('aiLlm')}</div>
         </div>
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 text-center">
-          <div className="text-3xl font-bold text-amber-600">{skillCategories[1].count}</div>
-          <div className="text-sm text-gray-500 mt-1">{t('research')}</div>
+        <div className="bg-[#111827] rounded-xl border border-white/[0.08] p-5 text-center">
+          <div className="text-3xl font-bold text-amber-400">{skillCategories[1].count}</div>
+          <div className="text-sm text-[#9CA3AF] mt-1">{t('research')}</div>
         </div>
       </div>
 
-      {/* Search — BIG, centered */}
+      {/* Search */}
       <div className="max-w-2xl mx-auto">
         <div className="relative">
-          <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+          <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#9CA3AF]" />
           <Input
             type="text"
             placeholder={t('searchPlaceholder')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-12 h-14 text-base rounded-2xl bg-white border-gray-200 text-gray-900 focus:border-indigo-500 focus:ring-indigo-300"
+            className="pl-12 h-14 text-base rounded-2xl bg-[#111827] border-white/[0.08] text-white placeholder:text-[#9CA3AF] focus:border-brand/50"
           />
         </div>
       </div>
@@ -71,8 +71,8 @@ export function SkillBrowser() {
             onClick={() => setSelectedCategory(null)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
               selectedCategory === null
-                ? 'bg-indigo-600 text-white shadow-sm'
-                : 'bg-white border border-gray-200 text-gray-700 hover:text-gray-900 hover:border-gray-300 hover:shadow-sm'
+                ? 'bg-brand text-white'
+                : 'bg-[#111827] border border-white/[0.08] text-[#9CA3AF] hover:text-white hover:border-brand/30'
             }`}
           >
             {t('all')}
@@ -85,8 +85,8 @@ export function SkillBrowser() {
               )}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                 selectedCategory === category.id
-                  ? 'bg-indigo-600 text-white shadow-sm'
-                  : 'bg-white border border-gray-200 text-gray-700 hover:text-gray-900 hover:border-gray-300 hover:shadow-sm'
+                  ? 'bg-brand text-white'
+                  : 'bg-[#111827] border border-white/[0.08] text-[#9CA3AF] hover:text-white hover:border-brand/30'
               }`}
             >
               {category.icon} {category.name}
@@ -97,7 +97,7 @@ export function SkillBrowser() {
 
       {/* Skills Grid */}
       <div>
-        <h2 className="text-xl font-semibold text-gray-900 mb-6">
+        <h2 className="text-xl font-semibold text-white mb-6">
           {selectedCategory 
             ? skillCategories.find(c => c.id === selectedCategory)?.name 
             : t('featuredSkills')}
@@ -110,33 +110,33 @@ export function SkillBrowser() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: index * 0.05 }}
             >
-              <div className="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all overflow-hidden">
+              <div className="bg-[#111827] rounded-xl border border-white/[0.08] hover:border-brand/30 transition-all overflow-hidden">
                 <div className="p-5">
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
-                        <h3 className="font-semibold text-lg text-gray-900">{skill.name}</h3>
-                        <span className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold border border-gray-200 text-gray-600">
+                        <h3 className="font-semibold text-lg text-white">{skill.name}</h3>
+                        <span className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold border border-white/[0.08] text-[#9CA3AF]">
                           {skillCategories.find(c => c.id === skill.categoryId)?.name}
                         </span>
                       </div>
                     </div>
-                    <div className="flex items-center gap-1 text-yellow-500">
+                    <div className="flex items-center gap-1 text-yellow-400">
                       <Star className="h-4 w-4 fill-current" />
                       <span className="text-sm">{skill.stars}</span>
                     </div>
                   </div>
-                  <p className="text-sm text-gray-600 mb-4">{skill.description}</p>
+                  <p className="text-sm text-[#9CA3AF] mb-4">{skill.description}</p>
                   
                   {/* Install command area */}
                   <div className="flex items-center gap-2">
-                    <div className="flex-1 bg-gray-50 border border-gray-200 px-4 py-2.5 rounded-lg font-mono text-sm text-gray-700 overflow-x-auto">
-                      <span className="text-green-600 mr-2">$</span>
+                    <div className="flex-1 bg-[#0B0F19] border border-white/[0.08] px-4 py-2.5 rounded-lg font-mono text-sm text-[#9CA3AF] overflow-x-auto">
+                      <span className="text-green-400 mr-2">$</span>
                       {skill.installCommand}
                     </div>
                     <button
                       onClick={() => copyCommand(skill.installCommand)}
-                      className="flex-shrink-0 p-2.5 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-all hover:-translate-y-0.5"
+                      className="flex-shrink-0 p-2.5 rounded-lg bg-brand text-white hover:bg-brand/80 transition-all hover:-translate-y-0.5"
                       title={t('copyCommand')}
                     >
                       {copiedCommand === skill.installCommand ? (
@@ -150,7 +150,7 @@ export function SkillBrowser() {
                         href={skill.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-shrink-0 p-2.5 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition-all hover:-translate-y-0.5 border border-gray-200"
+                        className="flex-shrink-0 p-2.5 rounded-lg bg-[#0B0F19] text-[#9CA3AF] hover:text-white transition-all hover:-translate-y-0.5 border border-white/[0.08]"
                       >
                         <ExternalLink className="h-4 w-4" />
                       </a>
@@ -165,7 +165,7 @@ export function SkillBrowser() {
 
       {filteredSkills.length === 0 && (
         <div className="text-center py-16">
-          <p className="text-gray-500 text-lg">{t('noResults')}</p>
+          <p className="text-[#9CA3AF] text-lg">{t('noResults')}</p>
         </div>
       )}
     </div>

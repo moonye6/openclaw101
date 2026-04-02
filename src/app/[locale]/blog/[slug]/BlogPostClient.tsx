@@ -1,7 +1,5 @@
 'use client';
 
-'use client';
-
 import { useParams } from 'next/navigation';
 import { ArrowLeft, Calendar, Clock, Tag } from 'lucide-react';
 import type { BlogPost } from '@/data/blog';
@@ -30,43 +28,44 @@ export function BlogPostClient({ post, locale, content }: BlogPostClientProps) {
   // Simple markdown to HTML conversion
   const markdownToHtml = (text: string) => {
     return text
-      .replace(/```(\w*)\n([\s\S]*?)```/g, '<pre class="bg-gray-900 text-gray-100 rounded-lg p-4 overflow-x-auto my-4 text-sm"><code>$2</code></pre>')
-      .replace(/`([^`]+)`/g, '<code class="bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-sm font-mono">$1</code>')
-      .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-gray-900">$1</strong>')
-      .replace(/^## (.+)$/gm, '<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4 first:mt-0">$1</h2>')
-      .replace(/^### (.+)$/gm, '<h3 class="text-xl font-semibold text-gray-900 mt-6 mb-3">$1</h3>')
-      .replace(/^- (.+)$/gm, '<li class="text-gray-900 ml-6 list-disc mb-2">$1</li>')
-      .replace(/^(\d+)\. (.+)$/gm, '<li class="text-gray-900 ml-6 list-decimal mb-2">$2</li>')
-      .replace(/\n\n/g, '</p><p class="text-gray-900 leading-relaxed mb-4 text-base">');
+      .replace(/```(\w*)\n([\s\S]*?)```/g, '<pre class="bg-[#0B0F19] text-gray-100 rounded-lg p-4 overflow-x-auto my-4 text-sm border border-white/[0.08]"><code>$2</code></pre>')
+      .replace(/`([^`]+)`/g, '<code class="bg-white/10 text-[#9CA3AF] px-1.5 py-0.5 rounded text-sm font-mono">$1</code>')
+      .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-white">$1</strong>')
+      .replace(/^## (.+)$/gm, '<h2 class="text-2xl font-bold text-white mt-8 mb-4 first:mt-0">$1</h2>')
+      .replace(/^### (.+)$/gm, '<h3 class="text-xl font-semibold text-white mt-6 mb-3">$1</h3>')
+      .replace(/^- (.+)$/gm, '<li class="text-[#9CA3AF] ml-6 list-disc mb-2">$1</li>')
+      .replace(/^(\d+)\. (.+)$/gm, '<li class="text-[#9CA3AF] ml-6 list-decimal">$2</li>')
+      .replace(/^---$/gm, '<hr class="my-8 border-white/[0.08]" />')
+      .replace(/\n\n/g, '</p><p class="text-[#9CA3AF] leading-relaxed mb-4">');
   };
 
   const htmlContent = markdownToHtml(content);
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-[#0B0F19]">
       {/* Breadcrumbs */}
-      <div className="bg-gray-50 border-b py-3">
+      <div className="bg-[#111827] border-b border-white/[0.08] py-3">
         <div className="container mx-auto px-4 max-w-4xl">
           <Breadcrumbs items={breadcrumbItems} />
         </div>
       </div>
 
       {/* Hero */}
-      <section className="py-12 bg-gradient-to-br from-blue-600 to-blue-700">
+      <section className="py-11 bg-[#0B0F19] border-b border-white/[0.08]">
         <div className="container mx-auto px-4 max-w-4xl">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-1.5 text-sm text-white/80 hover:text-white transition-colors mb-6"
+            className="inline-flex items-center gap-1.5 text-sm text-[#9CA3AF] hover:text-white transition-colors mb-6"
           >
             <ArrowLeft className="w-4 h-4" />
             {isZh ? '返回博客列表' : 'Back to Blog'}
           </Link>
 
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-sm font-medium text-white/90 bg-white/10 px-3 py-0.5 rounded-full">
+            <span className="text-sm font-medium text-brand-light bg-brand/10 px-3 py-0.5 rounded-full">
               {isZh ? post.category : post.categoryEn}
             </span>
-            <span className="text-sm text-white/80 flex items-center gap-1">
+            <span className="text-sm text-[#9CA3AF] flex items-center gap-1">
               <Clock className="w-4 h-4" />
               {post.readingTime} {isZh ? '分钟阅读' : 'min read'}
             </span>
@@ -76,7 +75,7 @@ export function BlogPostClient({ post, locale, content }: BlogPostClientProps) {
             {title}
           </h1>
 
-          <div className="flex items-center gap-4 text-sm text-white/80">
+          <div className="flex items-center gap-4 text-sm text-[#9CA3AF]">
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4" />
               {post.date}
@@ -90,54 +89,54 @@ export function BlogPostClient({ post, locale, content }: BlogPostClientProps) {
       </section>
 
       {/* Content */}
-      <article className="py-12">
+      <article className="py-12 bg-[#0B0F19]">
         <div className="container mx-auto px-4 max-w-4xl">
           <div
-            className="prose prose-lg max-w-none text-gray-900"
+            className="prose prose-lg prose-invert max-w-none"
             dangerouslySetInnerHTML={{
-              __html: `<p class="text-gray-900 leading-relaxed mb-4 text-base">${htmlContent}</p>`,
+              __html: `<p class="text-[#9CA3AF] leading-relaxed mb-4">${htmlContent}</p>`,
             }}
           />
         </div>
       </article>
 
       {/* Related Links */}
-      <section className="py-8 bg-gray-50 border-t">
+      <section className="py-8 bg-[#111827] border-t border-white/[0.08]">
         <div className="container mx-auto px-4 max-w-4xl">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">
+          <h2 className="text-xl font-bold text-white mb-4">
             {isZh ? '相关资源' : 'Related Resources'}
           </h2>
           <div className="grid md:grid-cols-3 gap-4">
             <Link
               href="/learn/1"
-              className="p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"
+              className="p-4 bg-[#0B0F19] border border-white/[0.08] rounded-lg hover:border-brand/30 transition-all duration-300"
             >
-              <h3 className="font-semibold text-gray-900 mb-1">
+              <h3 className="font-semibold text-white mb-1">
                 {isZh ? '7 天学习路径' : '7-Day Learning Path'}
               </h3>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-[#9CA3AF]">
                 {isZh ? '从入门到精通' : 'From beginner to master'}
               </p>
             </Link>
             <Link
               href="/skills"
-              className="p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"
+              className="p-4 bg-[#0B0F19] border border-white/[0.08] rounded-lg hover:border-brand/30 transition-all duration-300"
             >
-              <h3 className="font-semibold text-gray-900 mb-1">
+              <h3 className="font-semibold text-white mb-1">
                 {isZh ? '精选技能' : 'Featured Skills'}
               </h3>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-[#9CA3AF]">
                 {isZh ? '扩展 AI 能力' : 'Extend AI capabilities'}
               </p>
             </Link>
             <Link
               href="/tutorials"
-              className="p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"
+              className="p-4 bg-[#0B0F19] border border-white/[0.08] rounded-lg hover:border-brand/30 transition-all duration-300"
             >
-              <h3 className="font-semibold text-gray-900 mb-1">
+              <h3 className="font-semibold text-white mb-1">
                 {isZh ? '全部教程' : 'All Tutorials'}
               </h3>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-[#9CA3AF]">
                 {isZh ? '深入学习' : 'Deep dive'}
               </p>
             </Link>
