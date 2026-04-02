@@ -57,7 +57,7 @@ export default async function BlogPage({
       <section className="py-12">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="grid gap-6">
-            {blogPosts.map((post) => (
+            {[...blogPosts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map((post) => (
               <article
                 key={post.id}
                 className="bg-[#111827] rounded-xl border border-white/[0.08] overflow-hidden hover:border-brand/30 hover:shadow-lg hover:shadow-brand/5 transition-all duration-300"
