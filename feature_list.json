@@ -44,22 +44,19 @@
       "id": "F007", "name": "推荐内容", "status": "done",
       "component": "src/components/home/RecommendedSection.tsx",
       "tests": ["tests/e2e/homepage.spec.ts"],
-      "i18n_keys": ["home.recommended.*"], "priority": "P1",
-      "known_issues": ["推荐教程 title/description 硬编码中文，英文页面也显示中文"]
+      "i18n_keys": ["home.recommended.*"], "priority": "P1"
     },
     {
       "id": "F008", "name": "技能统计", "status": "done",
       "component": "src/components/home/SkillsStats.tsx",
       "tests": ["tests/e2e/homepage.spec.ts"],
-      "i18n_keys": ["home.skills.*"], "priority": "P1",
-      "known_issues": ["category names 和 stats bar 文本英文硬编码"]
+      "i18n_keys": ["home.skills.*"], "priority": "P1"
     },
     {
       "id": "F009", "name": "教程板块", "status": "done",
       "component": "src/components/home/TutorialsSection.tsx",
       "tests": ["tests/e2e/homepage.spec.ts"],
-      "i18n_keys": ["home.tutorials.*"], "priority": "P1",
-      "known_issues": ["教程 title/description 中英混合硬编码"]
+      "i18n_keys": ["home.tutorials.*"], "priority": "P1"
     },
     {
       "id": "F010", "name": "安全警告", "status": "done",
@@ -83,9 +80,8 @@
     {
       "id": "F013", "name": "学习日系统", "status": "done",
       "component": "src/app/[locale]/learn/",
-      "tests": [],
-      "i18n_keys": ["learn.*"], "priority": "P0",
-      "known_issues": ["缺少 E2E 测试"]
+      "tests": ["tests/e2e/learning-path.spec.ts"],
+      "i18n_keys": ["learn.*"], "priority": "P0"
     },
     {
       "id": "F014", "name": "技能浏览器", "status": "done",
@@ -124,17 +120,18 @@
       "i18n_keys": ["nav.*", "footer.*"], "priority": "P0"
     },
     {
-      "id": "F020", "name": "Agent Harness 工作流", "status": "in_progress",
+      "id": "F020", "name": "Agent Harness 工作流", "status": "done",
       "component": "AGENTS.md, feature_list.json, progress.json",
       "tests": [],
       "i18n_keys": [], "priority": "P0",
-      "started_date": "2026-03-29"
+      "started_date": "2026-03-29",
+      "completed_date": "2026-04-02"
     }
   ],
   "stats": {
     "total": 20,
-    "done": 19,
-    "in_progress": 1,
-    "with_known_issues": 5
+    "done": 20,
+    "in_progress": 0,
+    "with_known_issues": 1
   }
 }
