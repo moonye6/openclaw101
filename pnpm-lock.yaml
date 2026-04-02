@@ -8,15 +8,9 @@ importers:
 
   .:
     dependencies:
-      '@libsql/client':
-        specifier: ^0.17.0
-        version: 0.17.0
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      drizzle-orm:
-        specifier: ^0.45.1
-        version: 0.45.1(@libsql/client@0.17.0)
       framer-motion:
         specifier: ^12.36.0
         version: 12.36.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
