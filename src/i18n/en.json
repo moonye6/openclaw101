@@ -5,8 +5,8 @@
     "description": "The complete tutorial to learn OpenClaw: from installation to advanced AI automation",
     "hero": {
       "title": "The Complete OpenClaw Tutorial",
-      "subtitle": "Learn how to install, configure, and automate with the open-source AI agent — 414+ step-by-step guides and 5490+ community skills.",
-      "badge": "Open Source · 414+ Tutorials Curated",
+      "subtitle": "Learn how to install, configure, and automate with the open-source AI agent — 12 categories and 72 curated community skills.",
+      "badge": "Open Source · Tutorials Curated",
       "cta": "Start the Tutorial",
       "learnMore": "Browse All Guides",
       "stats": {
@@ -25,7 +25,7 @@
       },
       "skills": {
         "title": "Extensible Skills",
-        "description": "5490+ community skills from weather queries to code generation. One-click install to extend your AI capabilities."
+        "description": "72 curated community skills from weather queries to code generation. One-click install to extend your AI capabilities."
       },
       "selfhosted": {
         "title": "Self-Hosted",
@@ -116,7 +116,7 @@
     },
     "warning": {
       "title": "Skill Security Best Practices",
-      "description": "ClawHub hosts 5,490+ community skills. While most are safe, it's important to follow security best practices when installing third-party extensions.",
+      "description": "ClawHub hosts a growing collection of community skills. While most are safe, it's important to follow security best practices when installing third-party extensions.",
       "tip1": "Always review source code before installing community skills",
       "tip2": "Only install skills from verified and trusted publishers",
       "tip3": "Keep your OpenClaw installation up to date for the latest security patches",
@@ -186,7 +186,7 @@
       "title": "What Can OpenClaw Do?",
       "subtitle": "From coding assistance to smart home control — discover real-world use cases powered by OpenClaw.",
       "exampleCommands": "Example Commands",
-      "exploreCta": "Explore 5490+ Skills for More Use Cases",
+      "exploreCta": "Explore 72 Curated Skills for More Use Cases",
       "coding": {
         "title": "Coding Assistant",
         "description": "Write, debug, and refactor code in any language. Generate unit tests, create scripts, and automate your dev workflow."

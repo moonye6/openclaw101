@@ -5067,7 +5067,7 @@ openclaw start
 
 这些专业能力通过技能（Skills）实现。
 
-ClawHub 是 OpenClaw 的技能市场，目前已有 5490+ 技能可供安装。
+ClawHub 是 OpenClaw 的技能市场，拥有丰富的社区技能可供安装。
 
 ## Top Skills
 
@@ -5100,7 +5100,7 @@ openclaw skills list
 
 These specialized capabilities are implemented through Skills.
 
-ClawHub is OpenClaw's skill marketplace, currently with 5490+ skills available.
+ClawHub is OpenClaw's skill marketplace, with a growing collection of community skills available.
 
 ## Top Skills
 
@@ -5704,7 +5704,7 @@ After installation, follow our [7-Day Learning Path](/en/learn/1) to continue le
 | **使用门槛** | 零代码，自然语言交互 | 需要 Python/JS 编程能力 |
 | **部署方式** | npm install -g 一键安装 | pip install + 自行编写应用代码 |
 | **多平台** | Telegram/Discord/飞书/钉钉等 | 需自行集成 |
-| **技能生态** | ClawHub 5490+ 社区技能 | LangChain Hub + LangSmith |
+| **技能生态** | ClawHub 社区技能 | LangChain Hub + LangSmith |
 
 ## 架构设计
 
@@ -5749,7 +5749,7 @@ LangChain 采用 **组件化** 架构：
 | 指标 | OpenClaw | LangChain |
 |------|----------|-----------|
 | GitHub Stars | 314k+ | 98k+ |
-| 插件/技能数 | 5,490+ | 700+ 集成 |
+| 插件/技能数 | 丰富社区技能 | 700+ 集成 |
 | Discord 成员 | 45,000+ | 30,000+ |
 | 活跃贡献者 | 2,800+ | 3,200+ |
 
@@ -5773,7 +5773,7 @@ LangChain 采用 **组件化** 架构：
 | **Barrier** | Zero-code, natural language | Requires Python/JS coding |
 | **Deployment** | npm install -g one-click | pip install + write app code |
 | **Multi-platform** | Telegram/Discord/Feishu/DingTalk | DIY integration |
-| **Ecosystem** | ClawHub 5490+ skills | LangChain Hub + LangSmith |
+| **Ecosystem** | ClawHub community skills | LangChain Hub + LangSmith |
 
 ## Architecture
 
@@ -5818,7 +5818,7 @@ LangChain uses a **component-based** architecture:
 | Metric | OpenClaw | LangChain |
 |--------|----------|-----------|
 | GitHub Stars | 314k+ | 98k+ |
-| Plugins/Skills | 5,490+ | 700+ integrations |
+| Plugins/Skills | Rich community skills | 700+ integrations |
 | Discord Members | 45,000+ | 30,000+ |
 | Active Contributors | 2,800+ | 3,200+ |
 
@@ -5846,7 +5846,7 @@ If you want to build an AI product (SaaS, RAG app, AI workflow), choose LangChai
     titleEn: "Best OpenClaw Skills 2026 — 25 Must-Install ClawHub Skills",
     excerpt: "精选 25 个最实用的 OpenClaw ClawHub 技能，按编程、研究、自动化、内容创作等分类推荐。",
     excerptEn: "Curated list of the 25 most useful OpenClaw ClawHub skills, organized by category: coding, research, automation, content creation, and more.",
-    content: `ClawHub 社区市场已有 5,490+ 技能，但哪些真正值得安装？
+    content: `ClawHub 社区市场有丰富的技能可供选择，但哪些真正值得安装？
 
 经过深度测试，我们精选了 25 个最实用的技能，按场景分类推荐。
 
@@ -6029,7 +6029,7 @@ openclaw skills list
 ## 安全提醒
 
 安装前务必检查技能来源，优先选择带 ✅ 认证标记的发布者。`,
-    contentEn: `ClawHub marketplace has over 5,490+ skills, but which ones are actually worth installing?
+    contentEn: `ClawHub marketplace has a rich collection of community skills, but which ones are actually worth installing?
 
 After extensive testing, we've curated the 25 most useful skills, organized by category.
 

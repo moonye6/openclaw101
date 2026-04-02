@@ -18,7 +18,7 @@ const skillCategories = [
   { id: 'web', icon: Globe, count: 46 },
 ];
 
-const totalSkills = 5490;
+const totalSkills = 72;
 
 // Featured skill tabs
 const featuredTabs = [

@@ -153,7 +153,7 @@ export function HeroSection() {
             >
               <span className="flex items-center gap-1.5 text-text-secondary">
                 <Sparkles className="w-4 h-4 text-warning" />
-                5490+ Skills
+                72 Skills
               </span>
               <span className="w-1 h-1 rounded-full bg-text-muted" />
               <span className="text-text-secondary">414 Tutorials</span>

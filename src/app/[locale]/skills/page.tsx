@@ -16,15 +16,15 @@ export async function generateMetadata({
   const isZh = locale === 'zh';
 
   return {
-    title: isZh ? 'OpenClaw 技能市场 - 5490+ 社区技能' : 'OpenClaw Skills Marketplace - 5490+ Community Skills',
+    title: isZh ? 'OpenClaw 技能市场 - 72 个精选社区技能' : 'OpenClaw Skills Marketplace - 72 Curated Community Skills',
     description: isZh
-      ? '浏览 5490+ 个 OpenClaw AI 助手社区技能，覆盖 31 个分类。一键安装扩展你的 AI 能力。'
-      : 'Browse 5490+ community skills for OpenClaw AI assistant across 31 categories. Install with one command to extend your AI capabilities.',
+      ? '浏览 72 个 OpenClaw AI 助手精选社区技能，覆盖 12 个分类。一键安装扩展你的 AI 能力。'
+      : 'Browse 72 curated community skills for OpenClaw AI assistant across 12 categories. Install with one command to extend your AI capabilities.',
     openGraph: {
-      title: isZh ? 'OpenClaw 技能市场 - 5490+ 社区技能' : 'OpenClaw Skills Marketplace - 5490+ Community Skills',
+      title: isZh ? 'OpenClaw 技能市场 - 72 个精选社区技能' : 'OpenClaw Skills Marketplace - 72 Curated Community Skills',
       description: isZh
-        ? '浏览 5490+ 个社区技能，一键安装扩展你的 AI 能力。'
-        : 'Browse 5490+ community skills. Install with one command.',
+        ? '浏览 72 个精选社区技能，一键安装扩展你的 AI 能力。'
+        : 'Browse 72 curated community skills. Install with one command.',
       url: `${SITE_URL}/${locale}/skills`,
       locale: isZh ? 'zh_CN' : 'en_US',
     },
@@ -70,10 +70,10 @@ export default async function SkillsPage({
     '@type': 'CollectionPage',
     name: isZh ? 'OpenClaw 社区技能' : 'OpenClaw Community Skills',
     description: isZh
-      ? '5490+ 个 OpenClaw AI 助手社区技能'
-      : '5490+ community skills for OpenClaw AI assistant',
+      ? '72 个 OpenClaw AI 助手精选社区技能'
+      : '72 curated community skills for OpenClaw AI assistant',
     url: `${SITE_URL}/${locale}/skills`,
-    numberOfItems: 5490,
+    numberOfItems: 72,
     isPartOf: {
       '@type': 'WebSite',
       name: 'OpenClaw 101',
@@ -99,8 +99,8 @@ export default async function SkillsPage({
           </h1>
           <p className="mt-4 text-lg text-[#9CA3AF] max-w-2xl mx-auto">
             {isZh
-              ? '5490+ 个来自 awesome-openclaw-skills 的技能，覆盖 31 个分类。一键安装。'
-              : '5490+ skills from awesome-openclaw-skills across 31 categories. Install with one command.'}
+              ? '72 个精选社区技能，覆盖 12 个分类。一键安装扩展你的 AI 能力。'
+              : '72 curated community skills across 12 categories. Install with one command.'}
           </p>
           
           {/* Install command */}

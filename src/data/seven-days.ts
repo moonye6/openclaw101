@@ -332,7 +332,7 @@ export const sevenDays: DayContent[] = [
     sectionsEn: [
       {
         title: 'What Are Skills & ClawHub?',
-        content: 'Skills are **plugins** that give your AI new abilities beyond conversation. ClawHub is the official marketplace with 5,490+ community-built skills.\n\n**Skills let your AI:**\n- Search the web in real time\n- Manage GitHub issues and PRs\n- Query databases\n- Control smart home devices\n- Generate images\n- Send emails\n- And thousands more...\n\nWithout skills, your AI can only chat. With skills, it becomes an **agent** that takes action.\n\nBrowse available skills at **Settings → Skills → Browse ClawHub** or on the [Skills page](/skills) of this site.',
+        content: 'Skills are **plugins** that give your AI new abilities beyond conversation. ClawHub is the official marketplace with dozens of community-built skills.\n\n**Skills let your AI:**\n- Search the web in real time\n- Manage GitHub issues and PRs\n- Query databases\n- Control smart home devices\n- Generate images\n- Send emails\n- And many more...\n\nWithout skills, your AI can only chat. With skills, it becomes an **agent** that takes action.\n\nBrowse available skills at **Settings → Skills → Browse ClawHub** or on the [Skills page](/skills) of this site.',
       },
       {
         title: 'Install Your First 3 Skills',
@@ -352,7 +352,7 @@ export const sevenDays: DayContent[] = [
     sectionsZh: [
       {
         title: '什么是技能和 ClawHub？',
-        content: '技能是赋予 AI 超越对话之外新能力的**插件**。ClawHub 是官方技能市场，有 5,490+ 社区构建的技能。\n\n**技能让你的 AI 能够：**\n- 实时搜索网络\n- 管理 GitHub Issue 和 PR\n- 查询数据库\n- 控制智能家居设备\n- 生成图片\n- 发送邮件\n- 还有数千种更多能力...\n\n没有技能，你的 AI 只能聊天。有了技能，它就变成了能**执行操作的智能体**。\n\n在 **设置 → 技能 → 浏览 ClawHub** 或本站的[技能页面](/skills)浏览可用技能。',
+        content: '技能是赋予 AI 超越对话之外新能力的**插件**。ClawHub 是官方技能市场，拥有丰富的社区构建的技能。\n\n**技能让你的 AI 能够：**\n- 实时搜索网络\n- 管理 GitHub Issue 和 PR\n- 查询数据库\n- 控制智能家居设备\n- 生成图片\n- 发送邮件\n- 还有更多能力...\n\n没有技能，你的 AI 只能聊天。有了技能，它就变成了能**执行操作的智能体**。\n\n在 **设置 → 技能 → 浏览 ClawHub** 或本站的[技能页面](/skills)浏览可用技能。',
       },
       {
         title: '安装你的前 3 个技能',
@@ -484,7 +484,7 @@ export const sevenDays: DayContent[] = [
       },
       {
         title: 'Publish & Next Steps',
-        content: '**Publish to ClawHub:**\n```bash\nnpm install -g clawhub-cli\nclawhub login\nclawhub publish ~/my-skills/random-quote\n```\n\nYour skill is now available for the entire OpenClaw community!\n\n**What to build next:**\n- A skill that integrates with your company\'s internal API\n- A Notion/Feishu doc summarizer\n- A price tracker for products you want\n- A translation helper for your specific domain\n\n---\n\n🎉 **Congratulations!** You\'ve completed the 7-Day OpenClaw Learning Path.\n\nYou now know how to:\n- ✅ Install and configure OpenClaw\n- ✅ Connect messaging platforms (Telegram, Feishu, WeChat)\n- ✅ Use AI for code generation and file operations\n- ✅ Install and combine skills for powerful workflows\n- ✅ Automate daily tasks and monitoring\n- ✅ Build and publish custom skills\n\n**Keep exploring:**\n- Browse 5,490+ skills on the [Skills page](/skills)\n- Read 414+ tutorials on the [Tutorials page](/tutorials)\n- Join the OpenClaw Discord community\n- Contribute to the open-source project on GitHub',
+        content: '**Publish to ClawHub:**\n```bash\nnpm install -g clawhub-cli\nclawhub login\nclawhub publish ~/my-skills/random-quote\n```\n\nYour skill is now available for the entire OpenClaw community!\n\n**What to build next:**\n- A skill that integrates with your company\'s internal API\n- A Notion/Feishu doc summarizer\n- A price tracker for products you want\n- A translation helper for your specific domain\n\n---\n\n🎉 **Congratulations!** You\'ve completed the 7-Day OpenClaw Learning Path.\n\nYou now know how to:\n- ✅ Install and configure OpenClaw\n- ✅ Connect messaging platforms (Telegram, Feishu, WeChat)\n- ✅ Use AI for code generation and file operations\n- ✅ Install and combine skills for powerful workflows\n- ✅ Automate daily tasks and monitoring\n- ✅ Build and publish custom skills\n\n**Keep exploring:**\n- Browse skills on the [Skills page](/skills)\n- Read tutorials on the [Tutorials page](/tutorials)\n- Join the OpenClaw Discord community\n- Contribute to the open-source project on GitHub',
       },
     ],
     sectionsZh: [
@@ -504,7 +504,7 @@ export const sevenDays: DayContent[] = [
       },
       {
         title: '发布与下一步',
-        content: '**发布到 ClawHub：**\n```bash\nnpm install -g clawhub-cli\nclawhub login\nclawhub publish ~/my-skills/random-quote\n```\n\n你的技能现在对整个 OpenClaw 社区可用了！\n\n**接下来可以构建：**\n- 一个与你公司内部 API 集成的技能\n- 一个 Notion/飞书文档总结器\n- 一个你想买的商品价格追踪器\n- 一个你专业领域的翻译助手\n\n---\n\n🎉 **恭喜！** 你已经完成了 7 天 OpenClaw 学习路径。\n\n你现在知道如何：\n- ✅ 安装和配置 OpenClaw\n- ✅ 连接消息平台（Telegram、飞书、微信）\n- ✅ 用 AI 生成代码和操作文件\n- ✅ 安装和组合技能构建强大的工作流\n- ✅ 自动化日常任务和监控\n- ✅ 构建和发布自定义技能\n\n**继续探索：**\n- 在[技能页面](/skills)浏览 5,490+ 技能\n- 在[教程页面](/tutorials)阅读 414+ 教程\n- 加入 OpenClaw Discord 社区\n- 在 GitHub 上为开源项目做贡献',
+        content: '**发布到 ClawHub：**\n```bash\nnpm install -g clawhub-cli\nclawhub login\nclawhub publish ~/my-skills/random-quote\n```\n\n你的技能现在对整个 OpenClaw 社区可用了！\n\n**接下来可以构建：**\n- 一个与你公司内部 API 集成的技能\n- 一个 Notion/飞书文档总结器\n- 一个你想买的商品价格追踪器\n- 一个你专业领域的翻译助手\n\n---\n\n🎉 **恭喜！** 你已经完成了 7 天 OpenClaw 学习路径。\n\n你现在知道如何：\n- ✅ 安装和配置 OpenClaw\n- ✅ 连接消息平台（Telegram、飞书、微信）\n- ✅ 用 AI 生成代码和操作文件\n- ✅ 安装和组合技能构建强大的工作流\n- ✅ 自动化日常任务和监控\n- ✅ 构建和发布自定义技能\n\n**继续探索：**\n- 在[技能页面](/skills)浏览精选技能\n- 在[教程页面](/tutorials)阅读教程\n- 加入 OpenClaw Discord 社区\n- 在 GitHub 上为开源项目做贡献',
       },
     ],
     relatedTutorialIds: ['22', '23', '33', '34', '29'],
