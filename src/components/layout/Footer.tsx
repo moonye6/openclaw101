@@ -30,7 +30,7 @@ export function Footer() {
             {t('openSourceBanner')}
           </p>
           <a
-            href="https://github.com/openclaw/openclaw"
+            href="https://github.com/moonye6/openclaw101"
             target="_blank"
             rel="noopener noreferrer"
             className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-brand-light hover:text-brand transition-colors"
