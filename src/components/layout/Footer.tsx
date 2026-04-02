@@ -77,7 +77,6 @@ export function Footer() {
                   {t('links.featuredSkills')}
                 </Link>
               </li>
-              <li><ExtLink href="https://my.feishu.cn/wiki/YkWgwqSchi9xW3kEuZscAm0lnFf">{t('links.feishuWiki')}</ExtLink></li>
             </ul>
           </div>
 
