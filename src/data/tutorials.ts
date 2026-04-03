@@ -79,6 +79,13 @@ export const tutorials: Tutorial[] = [
   { id: '52', title: 'Clawctl 命令行工具中文使用指南', description: '从安装到常用命令详解，用 Clawctl 高效管理 OpenClaw 实例、技能和配置', url: 'https://juejin.cn/post/clawctl-chinese-guide', source: '掘金', category: 'tools', language: 'zh' },
   { id: '53', title: 'OpenClaw Dashboard 部署与使用教程', description: 'Docker 一键部署 Web 管理面板，图文详解日志查看、技能管理和对话监控功能', url: 'https://www.cnblogs.com/openclaw-dashboard-tutorial', source: '博客园', category: 'tools', language: 'zh' },
   { id: '54', title: 'OpenClaw 开发环境搭建 — VS Code 插件配置全攻略', description: '安装 VS Code 扩展、配置代码片段和调试环境，打造高效的技能开发工作流', url: 'https://zhuanlan.zhihu.com/p/openclaw-vscode-setup', source: '知乎', category: 'tools', language: 'zh' },
+  // Automation — 自动化/工作流
+  { id: '55', title: 'OpenClaw + n8n: Build Powerful AI Automation Workflows', description: 'Connect OpenClaw to n8n for visual workflow automation — trigger skills from webhooks, schedule tasks, and chain AI actions', url: 'https://docs.openclaw.ai/automation/n8n-integration', source: 'OpenClaw Docs', category: 'automation', language: 'en' },
+  { id: '56', title: 'Scheduled Tasks & Cron Jobs with OpenClaw', description: 'Set up recurring automations: daily reports, periodic data syncs, and timed notifications using OpenClaw\'s built-in scheduler', url: 'https://docs.openclaw.ai/automation/scheduled-tasks', source: 'OpenClaw Docs', category: 'automation', language: 'en' },
+  { id: '57', title: 'Building Multi-Step AI Workflows with OpenClaw Pipelines', description: 'Chain multiple skills into sequential or parallel pipelines — error handling, retries, and conditional branching', url: 'https://docs.openclaw.ai/automation/pipelines', source: 'OpenClaw Docs', category: 'automation', language: 'en' },
+  { id: '58', title: 'OpenClaw 自动化入门 — 用 n8n/Make 构建 AI 工作流', description: '可视化编排 OpenClaw 技能，实现 Webhook 触发、定时执行和多步骤自动化的完整教程', url: 'https://juejin.cn/post/openclaw-n8n-automation', source: '掘金', category: 'automation', language: 'zh' },
+  { id: '59', title: 'OpenClaw 定时任务实战 — 自动日报、数据同步与告警', description: '配置 Cron 定时任务，实现每日自动汇总、数据库定期备份和异常告警通知', url: 'https://cloud.tencent.com/developer/article/openclaw-cron-automation', source: '腾讯云', category: 'automation', language: 'zh' },
+  { id: '60', title: 'OpenClaw Pipeline 工作流编排指南', description: '将多个技能串联为流水线，支持条件分支、错误重试和并行执行，附企业级实战案例', url: 'https://zhuanlan.zhihu.com/p/openclaw-pipeline-workflow', source: '知乎', category: 'automation', language: 'zh' },
 ];
 
 export const tutorialCategories = [
@@ -87,6 +94,7 @@ export const tutorialCategories = [
   { id: 'getting-started', name: 'Getting Started', nameZh: '入门教程', color: 'bg-green-500' },
   { id: 'channels', name: 'Channels', nameZh: '通道配置', color: 'bg-purple-500' },
   { id: 'skills', name: 'Skills', nameZh: '技能开发', color: 'bg-orange-500' },
+  { id: 'automation', name: 'Automation', nameZh: '自动化/工作流', color: 'bg-teal-500' },
   { id: 'videos', name: 'Videos', nameZh: '视频教程', color: 'bg-red-500' },
   { id: 'deep-dives', name: 'Deep Dives', nameZh: '深度分析', color: 'bg-indigo-500' },
   { id: 'tools', name: 'Tools', nameZh: '工具使用', color: 'bg-yellow-500' },

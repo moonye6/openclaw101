@@ -90,17 +90,41 @@
         "feature_list.json: 新增 F021 内容补充功能条目"
       ],
       "errors_learned": []
+    },
+    {
+      "id": "S006",
+      "date": "2026-04-03",
+      "task": "T1 — 补充教程中文内容 (Skills + Tools)",
+      "status": "completed",
+      "changes": [
+        "tutorials.ts: Skills 分类新增 4 篇中文教程 (id 48-51)",
+        "tutorials.ts: Tools 分类新增 3 篇中文教程 (id 52-54)",
+        "教程总数: 47 → 54, Skills 中文: 0 → 4, Tools 中文: 1 → 4"
+      ],
+      "errors_learned": []
+    },
+    {
+      "id": "S007",
+      "date": "2026-04-03",
+      "task": "T2 — 新增自动化/工作流教程分类",
+      "status": "completed",
+      "changes": [
+        "tutorials.ts: 新增 automation 分类 (bg-teal-500)",
+        "tutorials.ts: 新增 6 篇自动化/工作流教程 (id 55-60, 3英+3中)",
+        "教程总数: 54 → 60, 分类总数: 8 → 9"
+      ],
+      "errors_learned": []
     }
   ],
-  "current_session": "S006",
+  "current_session": "S007",
   "next_actions": [
-    "新增自动化/工作流教程分类 (CONTENT_ROADMAP T2)",
     "新增安全加固教程分类 (CONTENT_ROADMAP T3)",
+    "新增 API/开发者教程 (CONTENT_ROADMAP T4)",
     "新增新手快速上手博客 (CONTENT_ROADMAP B1)"
   ],
   "metrics": {
-    "total_sessions": 6,
-    "total_features_completed": 22,
+    "total_sessions": 7,
+    "total_features_completed": 23,
     "features_in_progress": 0,
     "total_tests": 114,
     "test_pass_rate": "TBD",

@@ -134,11 +134,27 @@
       "i18n_keys": [], "priority": "P1",
       "started_date": "2026-04-03",
       "completed_date": "2026-04-03"
+    },
+    {
+      "id": "F022", "name": "内容补充 — 教程中文内容 (T1)", "status": "done",
+      "component": "src/data/tutorials.ts",
+      "tests": [],
+      "i18n_keys": [], "priority": "P0",
+      "started_date": "2026-04-03",
+      "completed_date": "2026-04-03"
+    },
+    {
+      "id": "F023", "name": "内容补充 — 自动化/工作流教程分类 (T2)", "status": "done",
+      "component": "src/data/tutorials.ts",
+      "tests": [],
+      "i18n_keys": [], "priority": "P0",
+      "started_date": "2026-04-03",
+      "completed_date": "2026-04-03"
     }
   ],
   "stats": {
-    "total": 22,
-    "done": 22,
+    "total": 23,
+    "done": 23,
     "in_progress": 0,
     "with_known_issues": 1
   }
