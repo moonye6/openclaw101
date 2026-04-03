@@ -2003,7 +2003,7 @@ Claude Code 只能在 **终端** 中使用：
 
 OpenClaw 拥有庞大的技能生态：
 
-- **ClawHub**：官方技能市场，8000+ 技能
+- **ClawHub**：官方技能市场，社区技能持续增长
 - **awesome-openclaw-skills**：社区精选技能，42,027 stars
 - **Skills API**：自定义技能开发
 
@@ -2183,7 +2183,7 @@ Claude Code only works in **terminal**:
 
 OpenClaw has a massive skills ecosystem:
 
-- **ClawHub**: Official marketplace, 8000+ skills
+- **ClawHub**: Official marketplace, growing community skills
 - **awesome-openclaw-skills**: Community curated, 42,027 stars
 - **Skills API**: Custom skill development
 
@@ -4100,7 +4100,7 @@ Regular checks, regular updates, regular audits.`,
 ### 2. 最新数据
 
 - 📊 **GitHub Stars**: 314k+
-- 📊 **ClawHub 技能数**: 8000+
+- 📊 **ClawHub 技能数**: 持续增长
 - 📊 **社区成员**: 数十万
 
 ### 3. 路线图预告
@@ -4177,7 +4177,7 @@ ClawHub 技能创作者分享了热门技能的开发经验：
 
 1. **真正解决问题**：不是玩具，而是生产力工具
 2. **开源透明**：代码可审计，社区可贡献
-3. **技能生态**：8000+ 技能，覆盖各种场景
+3. **技能生态**：社区技能持续增长，覆盖各种场景
 4. **社区驱动**：像 ClawCon 这样的活动，增强归属感
 
 ### 行业趋势
@@ -4240,7 +4240,7 @@ November 2025, Peter released OpenClaw (initially Clawdbot/Moltbot), quickly gai
 ### 2. Latest Numbers
 
 - 📊 **GitHub Stars**: 314k+
-- 📊 **ClawHub Skills**: 8000+
+- 📊 **ClawHub Skills**: Growing
 - 📊 **Community Members**: Hundreds of thousands
 
 ### 3. Roadmap Preview
@@ -4274,7 +4274,7 @@ Multiple companies shared OpenClaw applications:
 
 1. **Actually Solves Problems**: Not a toy, but a productivity tool
 2. **Open Source**: Code is auditable, community can contribute
-3. **Skill Ecosystem**: 8000+ skills covering various scenarios
+3. **Skill Ecosystem**: Growing community skills covering various scenarios
 4. **Community Driven**: Events like ClawCon build belonging
 
 ## How to Join the Community?
@@ -4349,7 +4349,7 @@ AI Agent 则能**执行任务**：
 | **浏览器控制** | ✅ Playwright | ❌ | ✅ 核心能力 | ⚠️ 有限 |
 | **代码执行** | ✅ 本地执行 | ✅ 本地执行 | ❌ | ✅ |
 | **多智能体** | ✅ 支持 | ❌ | ❌ | ✅ |
-| **技能扩展** | ✅ ClawHub 8000+ | ❌ | ❌ | ⚠️ 插件 |
+| **技能扩展** | ✅ ClawHub ✅ | ❌ | ❌ | ⚠️ 插件 |
 | **定价** | 免费（需 API 费用） | $20/月 | $15/月 | 免费（需 API 费用） |
 | **最佳场景** | 日常自动化、多平台对接 | 编程开发 | 网页操作、表单填写 | 自主研究、实验 |
 
@@ -4360,7 +4360,7 @@ AI Agent 则能**执行任务**：
 **优势**：
 - ✅ 真正的开源，代码完全透明
 - ✅ 多平台支持，一个助手到处用
-- ✅ 技能生态丰富（ClawHub 8000+ 技能）
+- ✅ 技能生态丰富（ClawHub 社区技能持续增长）
 - ✅ 本地运行，数据隐私可控
 - ✅ 支持多智能体协作
 
@@ -4547,7 +4547,7 @@ AI Agents can **execute tasks**:
 | **Browser Control** | ✅ Playwright | ❌ | ✅ Core | ⚠️ Limited |
 | **Code Execution** | ✅ Local | ✅ Local | ❌ | ✅ |
 | **Multi-Agent** | ✅ Yes | ❌ | ❌ | ✅ |
-| **Skills** | ✅ ClawHub 8000+ | ❌ | ❌ | ⚠️ Plugins |
+| **Skills** | ✅ ClawHub ✅ | ❌ | ❌ | ⚠️ Plugins |
 | **Pricing** | Free (API fees) | $20/mo | $15/mo | Free (API fees) |
 
 ## Recommendations

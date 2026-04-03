@@ -45,7 +45,7 @@ export function SkillsStats() {
               {t('title')}
             </h2>
             <p className="mt-2 text-text-secondary">
-              {t('subtitle', { count: totalSkills, categories: 31 })}
+              {t('subtitle', { count: totalSkills, categories: 12 })}
             </p>
           </div>
           <Link href="/skills">
@@ -105,19 +105,19 @@ export function SkillsStats() {
         {/* Stats bar */}
         <div className="mt-12 flex flex-wrap justify-center gap-10">
           <div className="text-center">
-            <div className="text-3xl font-bold text-brand-light">{totalSkills.toLocaleString()}+</div>
+            <div className="text-3xl font-bold text-brand-light">{totalSkills}</div>
             <div className="text-sm text-text-muted mt-1">{t('totalSkillsLabel')}</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-accent">31</div>
+            <div className="text-3xl font-bold text-accent">12</div>
             <div className="text-sm text-text-muted mt-1">{t('categoriesLabel')}</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-success">159</div>
+            <div className="text-3xl font-bold text-success">8</div>
             <div className="text-sm text-text-muted mt-1">{t('aiLlmLabel')}</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-warning">148</div>
+            <div className="text-3xl font-bold text-warning">7</div>
             <div className="text-sm text-text-muted mt-1">{t('researchLabel')}</div>
           </div>
         </div>

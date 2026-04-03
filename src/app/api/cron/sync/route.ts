@@ -21,10 +21,10 @@ async function fetchReferenceData() {
     // 提取关键数据
     const stats = {
       totalSkills: extractNumber(html, /(\d[\d,]+)\s*\+?\s*Total Skills/i) || 72,
-      totalTutorials: extractNumber(html, /(\d[\d,]+)\s*\+?\s*Tutorials/i) || 409,
-      categories: extractNumber(html, /(\d+)\s*Categories/i) || 31,
-      chineseTutorials: extractNumber(html, /(\d+)\s*Chinese/i) || 58,
-      englishTutorials: extractNumber(html, /(\d+)\s*English/i) || 351,
+      totalTutorials: extractNumber(html, /(\d[\d,]+)\s*\+?\s*Tutorials/i) || 47,
+      categories: extractNumber(html, /(\d+)\s*Categories/i) || 12,
+      chineseTutorials: extractNumber(html, /(\d+)\s*Chinese/i) || 17,
+      englishTutorials: extractNumber(html, /(\d+)\s*English/i) || 30,
     };
     
     return stats;
@@ -79,7 +79,7 @@ export async function GET(request: NextRequest) {
       reference: referenceData,
       current: {
         totalSkills: 72,
-        totalTutorials: 409,
+        totalTutorials: 47,
         categories: 12,
       },
       needsUpdate: false, // 可以添加对比逻辑

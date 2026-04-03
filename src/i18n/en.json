@@ -87,7 +87,7 @@
     },
     "tutorials": {
       "title": "Best Tutorials & Guides",
-      "subtitle": "414+ curated tutorials from official docs, cloud platforms, and community contributors",
+      "subtitle": "47 curated tutorials from official docs, cloud platforms, and community contributors",
       "viewAll": "View All Tutorials",
       "featured1": {
         "title": "OpenClaw Official Docs",
@@ -228,7 +228,7 @@
         "description": "The latest release brings improved multi-agent orchestration, faster skill loading, and support for Gemini 2.5 Pro. Upgrade now for up to 40% performance improvement."
       },
       "news2": {
-        "title": "ClawHub Reaches 5,500+ Community Skills",
+        "title": "ClawHub Community Skills Continue to Grow",
         "description": "The community skill marketplace continues to grow rapidly with new categories including Voice Assistants, Health & Fitness, and Gaming integrations."
       },
       "news3": {
@@ -317,7 +317,7 @@
   "newsletter": {
     "badge": "Stay Updated",
     "title": "Get Weekly OpenClaw Tips & Tutorials",
-    "subtitle": "Join 8,000+ developers learning to build with AI agents. New tutorial every week, no spam.",
+    "subtitle": "Join developers learning to build with AI agents. New tutorial every week, no spam.",
     "placeholder": "Enter your email",
     "cta": "Subscribe Free",
     "loading": "Subscribing...",

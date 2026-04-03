@@ -156,7 +156,7 @@ export function HeroSection() {
                 72 Skills
               </span>
               <span className="w-1 h-1 rounded-full bg-text-muted" />
-              <span className="text-text-secondary">414 Tutorials</span>
+              <span className="text-text-secondary">47 Tutorials</span>
               <span className="w-1 h-1 rounded-full bg-text-muted" />
               <span className="text-text-secondary">314k Stars</span>
             </motion.div>

@@ -16,15 +16,15 @@ export async function generateMetadata({
   const isZh = locale === 'zh';
 
   return {
-    title: isZh ? '教程 - 414+ 精选教程' : 'Tutorials - 414+ Curated Guides',
+    title: isZh ? '教程 - 47 篇精选教程' : 'Tutorials - 47 Curated Guides',
     description: isZh
-      ? '浏览 414+ 篇 OpenClaw AI 助手教程，包含官方文档、云部署指南、入门教程和深度分析。'
-      : 'Browse 414+ tutorials for OpenClaw AI assistant. Official docs, cloud deployment guides, getting started tutorials, and deep dives.',
+      ? '浏览 47 篇 OpenClaw AI 助手教程，包含官方文档、云部署指南、入门教程和深度分析。'
+      : 'Browse 47 tutorials for OpenClaw AI assistant. Official docs, cloud deployment guides, getting started tutorials, and deep dives.',
     openGraph: {
-      title: isZh ? 'OpenClaw 教程 - 414+ 精选教程' : 'OpenClaw Tutorials - 414+ Curated Guides',
+      title: isZh ? 'OpenClaw 教程 - 47 篇精选教程' : 'OpenClaw Tutorials - 47 Curated Guides',
       description: isZh
-        ? '浏览 414+ 篇精选教程，从入门到高级自动化。'
-        : 'Browse 414+ curated tutorials. From setup to advanced automation.',
+        ? '浏览 47 篇精选教程，从入门到高级自动化。'
+        : 'Browse 47 curated tutorials. From setup to advanced automation.',
       url: `${SITE_URL}/${locale}/tutorials`,
       locale: isZh ? 'zh_CN' : 'en_US',
     },
@@ -70,10 +70,10 @@ export default async function TutorialsPage({
     '@type': 'CollectionPage',
     name: isZh ? 'OpenClaw 教程' : 'OpenClaw Tutorials',
     description: isZh
-      ? '414+ 篇 OpenClaw AI 助手教程'
-      : '414+ tutorials for OpenClaw AI assistant',
+      ? '47 篇 OpenClaw AI 助手教程'
+      : '47 tutorials for OpenClaw AI assistant',
     url: `${SITE_URL}/${locale}/tutorials`,
-    numberOfItems: 414,
+    numberOfItems: 47,
     isPartOf: {
       '@type': 'WebSite',
       name: 'OpenClaw 101',
@@ -94,24 +94,24 @@ export default async function TutorialsPage({
           </h1>
           <p className="mt-4 text-lg text-[#9CA3AF] text-center max-w-2xl mx-auto">
             {isZh
-              ? '414+ 篇精选教程，来自官方文档、云平台和社区贡献者'
-              : '414+ curated tutorials from official docs, cloud platforms, and community contributors'}
+              ? '47 篇精选教程，来自官方文档、云平台和社区贡献者'
+              : '47 curated tutorials from official docs, cloud platforms, and community contributors'}
           </p>
           <div className="mt-8 flex justify-center gap-8">
             <div className="text-center">
-              <div className="text-3xl font-bold text-white">414+</div>
+              <div className="text-3xl font-bold text-white">47</div>
               <div className="text-sm text-[#9CA3AF]">{isZh ? '教程' : 'Tutorials'}</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-white">61</div>
+              <div className="text-3xl font-bold text-white">17</div>
               <div className="text-sm text-[#9CA3AF]">{isZh ? '中文' : 'Chinese'}</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-white">353</div>
+              <div className="text-3xl font-bold text-white">30</div>
               <div className="text-sm text-[#9CA3AF]">{isZh ? '英文' : 'English'}</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-white">9</div>
+              <div className="text-3xl font-bold text-white">8</div>
               <div className="text-sm text-[#9CA3AF]">{isZh ? '分类' : 'Categories'}</div>
             </div>
           </div>
