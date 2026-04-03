@@ -637,7 +637,7 @@ response = client.messages.send(
     tags: ["API", "开发者", "SDK", "集成"],
     readingTime: 15,
     image: "/images/blog/api-reference.jpg"
-  },,
+  },
   {
     id: 15,
     slug: "openclaw-configuration-guide",
@@ -1276,7 +1276,7 @@ export TELEGRAM_BOT_TOKEN="123456:ABC..."
     tags: ["配置", "参数", "入门", "定制化"],
     readingTime: 12,
     image: "/images/blog/configuration.jpg"
-  },,
+  },
   {
     id: 14,
     slug: "openclaw-error-troubleshooting",
@@ -1897,7 +1897,7 @@ openclaw logs -f
     tags: ["错误", "排查", "调试", "故障"],
     readingTime: 10,
     image: "/images/blog/troubleshooting.jpg"
-  },,
+  },
   {
     id: 13,
     slug: "openclaw-vs-claude-code",
@@ -2241,7 +2241,7 @@ For most users, OpenClaw's comprehensive advantages are more compelling.`,
     tags: ["对比", "Claude Code", "竞品", "编程助手"],
     readingTime: 12,
     image: "/images/blog/comparison.jpg"
-  },,
+  },
   {
     id: 12,
     slug: "openclaw-self-hosting-guide",
@@ -2674,7 +2674,7 @@ Clawith is OpenClaw's enterprise edition:
     tags: ["自托管", "部署", "企业", "安全"],
     readingTime: 15,
     image: "/images/blog/deployment.jpg"
-  },,
+  },
   {
     id: 11,
     slug: "openclaw-localai-integration",
@@ -3104,7 +3104,7 @@ docker exec localai local-ai download \\
     tags: ["LocalAI", "自托管", "本地部署", "成本优化"],
     readingTime: 10,
     image: "/images/blog/localai.jpg"
-  },,
+  },
   {
     id: 10,
     slug: "openclaw-enterprise-use-cases",
@@ -3586,7 +3586,7 @@ OpenClaw Enterprise Use Cases:
     tags: ["企业", "案例", "自动化", "效率"],
     readingTime: 15,
     image: "/og-image.png"
-  },,
+  },
   {
     id: 9,
     slug: "openclaw-security-guide",
@@ -4037,7 +4037,7 @@ Regular checks, regular updates, regular audits.`,
     tags: ["安全", "配置", "API Key", "最佳实践"],
     readingTime: 12,
     image: "/og-image.png"
-  },,
+  },
   {
     id: 8,
     slug: "clawcon-2026-recap",
@@ -4288,7 +4288,7 @@ Multiple companies shared OpenClaw applications:
     tags: ["ClawCon", "社区", "OpenClaw", "活动"],
     readingTime: 10,
     image: "/og-image.png"
-  },,
+  },
   {
     id: 7,
     slug: "openclaw-vs-cursor-vs-manus",
@@ -4557,7 +4557,7 @@ Recommend trying **OpenClaw** first (free & open source), then consider Cursor f
     tags: ["Cursor", "Manus", "AutoGPT", "对比", "AI Agent"],
     readingTime: 15,
     image: "/og-image.png"
-  },,
+  },
   {
     id: 6,
     slug: "build-ai-product-in-3-days",
@@ -4855,7 +4855,7 @@ await prisma.pointsAccount.update({
     tags: ["Next.js", "PayPal", "AI产品", "实战"],
     readingTime: 12,
     image: "/og-image.png"
-  },,
+  },
   {
     id: 1,
     slug: "openclaw-vs-chatgpt",
@@ -4947,5 +4947,5 @@ OpenClaw is an executor:
     tags: ["ChatGPT", "对比", "AI助手", "自动化"],
     readingTime: 8,
     image: "/og-image.png"
-  },,
+  },
 ];

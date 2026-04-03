@@ -94,7 +94,7 @@ openclaw start
     tags: ["Telegram", "配置", "机器人", "入门"],
     readingTime: 6,
     image: "/og-image.png"
-  },,
+  },
   {
     id: 3,
     slug: "openclaw-best-skills",
@@ -169,7 +169,7 @@ openclaw skills list
     tags: ["技能", "ClawHub", "插件", "效率"],
     readingTime: 10,
     image: "/og-image.png"
-  },,
+  },
   {
     id: 4,
     slug: "openclaw-feishu-tutorial",
@@ -246,7 +246,7 @@ openclaw start
     tags: ["飞书", "配置", "企业", "机器人"],
     readingTime: 12,
     image: "/og-image.png"
-  },,
+  },
   {
     id: 5,
     slug: "openclaw-deployment-guide",
@@ -443,7 +443,7 @@ Need 24/7 availability?
     tags: ["部署", "VPS", "云服务器", "教程"],
     readingTime: 15,
     image: "/og-image.png"
-  },,
+  },
   {
     id: 6,
     slug: "how-to-install-openclaw",
@@ -724,7 +724,7 @@ After installation, follow our [7-Day Learning Path](/en/learn/1) to continue le
     tags: ["install", "安装", "Node.js", "setup", "getting started"],
     readingTime: 8,
     image: "/og-image.png"
-  },,
+  },
   {
     id: 7,
     slug: "openclaw-vs-langchain",
@@ -877,7 +877,7 @@ If you want to build an AI product (SaaS, RAG app, AI workflow), choose LangChai
     tags: ["LangChain", "comparison", "AI agent", "framework", "对比"],
     readingTime: 12,
     image: "/og-image.png"
-  },,
+  },
   {
     id: 8,
     slug: "best-openclaw-skills-2026",
@@ -1258,5 +1258,5 @@ Always check skill source before installing. Prefer publishers with the ✅ veri
     tags: ["best skills", "ClawHub", "2026", "must-install", "推荐"],
     readingTime: 15,
     image: "/og-image.png"
-  },,
+  },
 ];

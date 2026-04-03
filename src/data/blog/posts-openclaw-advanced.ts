@@ -397,7 +397,7 @@ Browser Use + OpenClaw = **The Most Powerful Browser Automation Solution**
     tags: ["browser-use", "automation", "playwright", "web-scraping", "浏览器自动化"],
     readingTime: 12,
     image: "/og-image.png"
-  },,
+  },
   {
     id: 18,
     slug: "openclaw-n8n-automation",
@@ -534,7 +534,7 @@ https://your-n8n-instance.com/webhook/openclaw-trigger
     tags: ["n8n", "automation", "workflow", "integration", "自动化工作流"],
     readingTime: 15,
     image: "/og-image.png"
-  },,
+  },
   {
     id: 19,
     slug: "openclaw-qq-bot-native-integration",
@@ -679,7 +679,7 @@ Ready to chat with your AI assistant in QQ? Upgrade to the latest version now!`,
     tags: ["QQ Bot", "v2026.3.31", "腾讯", "社交平台", "原生集成", "Tencent"],
     readingTime: 8,
     image: "/og-image.png"
-  },,
+  },
   {
     id: 20,
     slug: "openclaw-security-patent-risk-warning",
@@ -864,5 +864,5 @@ In IP fields involving core business interests, OpenClaw can boost efficiency bu
     tags: ["安全", "知识产权", "专利", "风险提示", "合规", "security", "patent"],
     readingTime: 10,
     image: "/og-image.png"
-  },,
+  },
 ];
