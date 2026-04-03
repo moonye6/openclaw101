@@ -19,7 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const entries: MetadataRoute.Sitemap = [
     {
-      url: baseUrl,
+      url: `${baseUrl}/en`,
       lastModified: BUILD_DATE,
       changeFrequency: 'weekly',
       priority: 1,
@@ -68,22 +68,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
-  // Blog post pages
+  // Blog post pages — English primary
   for (const post of blogPosts) {
-    for (const locale of ['en', 'zh']) {
-      entries.push({
-        url: `${baseUrl}/${locale}/blog/${post.slug}`,
-        lastModified: new Date(post.date),
-        changeFrequency: 'monthly' as const,
-        priority: 0.7,
-        alternates: {
-          languages: {
-            en: `${baseUrl}/en/blog/${post.slug}`,
-            zh: `${baseUrl}/zh/blog/${post.slug}`,
-          },
+    entries.push({
+      url: `${baseUrl}/en/blog/${post.slug}`,
+      lastModified: new Date(post.date),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+      alternates: {
+        languages: {
+          en: `${baseUrl}/en/blog/${post.slug}`,
+          zh: `${baseUrl}/zh/blog/${post.slug}`,
         },
-      })
-    }
+      },
+    })
+    entries.push({
+      url: `${baseUrl}/zh/blog/${post.slug}`,
+      lastModified: new Date(post.date),
+      changeFrequency: 'monthly' as const,
+      priority: 0.5,
+    })
   }
 
   // Tutorial detail pages
