@@ -302,7 +302,7 @@ Once your bot is running, you can expand it into a powerful automation system.
     tags: ["Telegram", "Bot", "教程", "Tutorial", "自动化", "Automation", "AI", "No-Code", "Beginner"],
     readingTime: 8,
     image: "/og-image.png"
-  },,
+  },
   {
     id: 22,
     slug: "telegram-bot-examples",
@@ -627,7 +627,7 @@ Absolutely. Connect your bot to AI models like GPT and create a smart assistant.
     tags: ["Telegram", "Bot", "Examples", "案例", "AI", "Automation", "自动化", "No-Code", "Beginner"],
     readingTime: 6,
     image: "/og-image.png"
-  },,
+  },
   {
     id: 23,
     slug: "telegram-automation-guide",
