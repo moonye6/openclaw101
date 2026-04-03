@@ -18,7 +18,7 @@ const skillCategories = [
   { id: 'web', icon: Globe, count: 46 },
 ];
 
-const totalSkills = 72;
+const totalSkills = 97;
 
 // Featured skill tabs
 const featuredTabs = [
@@ -45,7 +45,7 @@ export function SkillsStats() {
               {t('title')}
             </h2>
             <p className="mt-2 text-text-secondary">
-              {t('subtitle', { count: totalSkills, categories: 12 })}
+              {t('subtitle', { count: totalSkills, categories: 17 })}
             </p>
           </div>
           <Link href="/skills">
@@ -109,7 +109,7 @@ export function SkillsStats() {
             <div className="text-sm text-text-muted mt-1">{t('totalSkillsLabel')}</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-accent">12</div>
+            <div className="text-3xl font-bold text-accent">17</div>
             <div className="text-sm text-text-muted mt-1">{t('categoriesLabel')}</div>
           </div>
           <div className="text-center">

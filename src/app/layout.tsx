@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "OpenClaw Tutorial & Guide — Learn AI Agent Skills in 7 Days",
     description:
-      "The complete OpenClaw tutorial with 72 curated skills. From installation to advanced automation.",
+      "The complete OpenClaw tutorial with 97 curated skills. From installation to advanced automation.",
     url: SITE_URL,
     siteName: "OpenClaw 101",
     locale: "en_US",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "OpenClaw 101 Tutorial — Curated Guides & 72 Skills for AI Agent",
+        alt: "OpenClaw 101 Tutorial — Curated Guides & 97 Skills for AI Agent",
       },
     ],
   },
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "OpenClaw Tutorial & Guide — Learn AI Agent Skills in 7 Days",
     description:
-      "The complete OpenClaw tutorial with 72 curated skills. From installation to advanced automation.",
+      "The complete OpenClaw tutorial with 97 curated skills. From installation to advanced automation.",
     images: ["/og-image.png"],
   },
   robots: {

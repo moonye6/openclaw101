@@ -32,6 +32,11 @@ export const skillCategories: SkillCategory[] = [
   { id: 'speech', name: 'Speech & Audio', nameZh: '语音与音频', icon: '🗣️', count: 5, description: 'Text-to-speech, speech recognition, audio processing, podcast management, and voice assistant skills.', descriptionZh: '文本转语音、语音识别、音频处理、播客管理和语音助手技能。' },
   { id: 'health', name: 'Health & Fitness', nameZh: '健康与健身', icon: '🏋️', count: 5, description: 'Health tracking, workout planning, nutrition analysis, meditation guides, and wellness automation.', descriptionZh: '健康追踪、锻炼计划、营养分析、冥想指导和健康自动化。' },
   { id: 'gaming', name: 'Gaming', nameZh: '游戏', icon: '🎮', count: 4, description: 'Game server management, game data queries, achievement tracking, and gaming community integration.', descriptionZh: '游戏服务器管理、游戏数据查询、成就追踪和游戏社区集成。' },
+  { id: 'data', name: 'Data & Database', nameZh: '数据与数据库', icon: '🗄️', count: 5, description: 'Database management, data transformation, caching, spreadsheet processing, and ETL pipeline skills.', descriptionZh: '数据库管理、数据转换、缓存、电子表格处理和 ETL 管道技能。' },
+  { id: 'docs', name: 'Files & Documents', nameZh: '文件与文档', icon: '📄', count: 5, description: 'PDF processing, document conversion, OCR, file management, and template generation skills.', descriptionZh: 'PDF 处理、文档转换、OCR、文件管理和模板生成技能。' },
+  { id: 'media', name: 'Video & Media', nameZh: '视频与媒体', icon: '🎬', count: 5, description: 'Video editing, subtitle generation, media downloading, screen recording, and format conversion skills.', descriptionZh: '视频编辑、字幕生成、媒体下载、屏幕录制和格式转换技能。' },
+  { id: 'productivity', name: 'Productivity', nameZh: '效率与日程', icon: '📅', count: 5, description: 'Calendar management, task tracking, time management, habit building, and workflow automation skills.', descriptionZh: '日历管理、任务追踪、时间管理、习惯养成和工作流自动化技能。' },
+  { id: 'finance', name: 'Finance & Crypto', nameZh: '金融与加密', icon: '💰', count: 5, description: 'Cryptocurrency tracking, DeFi monitoring, budgeting, portfolio management, and financial analysis skills.', descriptionZh: '加密货币追踪、DeFi 监控、预算管理、投资组合管理和财务分析技能。' },
 ];
 
 // 技能数据 — 每个分类均有实际条目
@@ -131,6 +136,41 @@ export const sampleSkills: Skill[] = [
   { id: '70', name: 'steam', description: 'Query Steam game library, achievements, and store deals', categoryId: 'gaming', installCommand: 'npx clawhub@latest install steam', stars: 280 },
   { id: '71', name: 'game-wiki', description: 'Search game wikis and guides for walkthroughs and tips', categoryId: 'gaming', installCommand: 'npx clawhub@latest install game-wiki', stars: 190 },
   { id: '72', name: 'dice-roller', description: 'Dice roller and character sheet manager for TTRPG sessions', categoryId: 'gaming', installCommand: 'npx clawhub@latest install dice-roller', stars: 150 },
+
+  // ── Data & Database (5) ──
+  { id: '73', name: 'redis', description: 'Redis cache operations — get, set, pub/sub, and key management', categoryId: 'data', installCommand: 'npx clawhub@latest install redis', stars: 520 },
+  { id: '74', name: 'mongodb', description: 'MongoDB CRUD operations, aggregation pipelines, and collection management', categoryId: 'data', installCommand: 'npx clawhub@latest install mongodb', stars: 480 },
+  { id: '75', name: 'mysql', description: 'MySQL/MariaDB query execution, schema inspection, and backup automation', categoryId: 'data', installCommand: 'npx clawhub@latest install mysql', stars: 410 },
+  { id: '76', name: 'excel-parser', description: 'Read, write, and transform Excel/CSV spreadsheets with formula support', categoryId: 'data', installCommand: 'npx clawhub@latest install excel-parser', stars: 350 },
+  { id: '77', name: 'etl-pipeline', description: 'Build lightweight ETL pipelines — extract, transform, and load data between sources', categoryId: 'data', installCommand: 'npx clawhub@latest install etl-pipeline', stars: 290 },
+
+  // ── Files & Documents (5) ──
+  { id: '78', name: 'pdf-reader', description: 'Extract text, tables, and images from PDF documents', categoryId: 'docs', installCommand: 'npx clawhub@latest install pdf-reader', stars: 460 },
+  { id: '79', name: 'ocr', description: 'Optical character recognition for images and scanned documents via Tesseract', categoryId: 'docs', installCommand: 'npx clawhub@latest install ocr', stars: 380 },
+  { id: '80', name: 'office-converter', description: 'Convert between DOCX, PDF, PPTX, and Markdown formats', categoryId: 'docs', installCommand: 'npx clawhub@latest install office-converter', stars: 340 },
+  { id: '81', name: 'markdown-tools', description: 'Markdown linting, TOC generation, link checking, and format conversion', categoryId: 'docs', installCommand: 'npx clawhub@latest install markdown-tools', stars: 270 },
+  { id: '82', name: 'file-manager', description: 'Batch file operations — rename, organize, compress, and sync across directories', categoryId: 'docs', installCommand: 'npx clawhub@latest install file-manager', stars: 230 },
+
+  // ── Video & Media (5) ──
+  { id: '83', name: 'video-editor', description: 'Trim, merge, and transcode video clips via FFmpeg automation', categoryId: 'media', installCommand: 'npx clawhub@latest install video-editor', stars: 410 },
+  { id: '84', name: 'subtitle-gen', description: 'Auto-generate and translate subtitles using Whisper + LLM', categoryId: 'media', installCommand: 'npx clawhub@latest install subtitle-gen', stars: 380 },
+  { id: '85', name: 'youtube-dl', description: 'Download videos and audio from YouTube, Bilibili, and 1000+ sites', categoryId: 'media', installCommand: 'npx clawhub@latest install youtube-dl', stars: 560 },
+  { id: '86', name: 'screen-recorder', description: 'Record screen sessions with webcam overlay and auto-upload', categoryId: 'media', installCommand: 'npx clawhub@latest install screen-recorder', stars: 250 },
+  { id: '87', name: 'gif-maker', description: 'Create optimized GIFs from video clips or screen recordings', categoryId: 'media', installCommand: 'npx clawhub@latest install gif-maker', stars: 190 },
+
+  // ── Productivity (5) ──
+  { id: '88', name: 'google-calendar', description: 'Create, update, and query Google Calendar events and reminders', categoryId: 'productivity', installCommand: 'npx clawhub@latest install google-calendar', stars: 490 },
+  { id: '89', name: 'todoist', description: 'Manage Todoist tasks, projects, and labels with natural language', categoryId: 'productivity', installCommand: 'npx clawhub@latest install todoist', stars: 380 },
+  { id: '90', name: 'trello', description: 'Trello board automation — cards, lists, checklists, and due dates', categoryId: 'productivity', installCommand: 'npx clawhub@latest install trello', stars: 310 },
+  { id: '91', name: 'time-tracker', description: 'Track time spent on tasks with Toggl, Clockify, or local timer', categoryId: 'productivity', installCommand: 'npx clawhub@latest install time-tracker', stars: 260 },
+  { id: '92', name: 'habit-tracker', description: 'Build and track daily habits with streaks and analytics', categoryId: 'productivity', installCommand: 'npx clawhub@latest install habit-tracker', stars: 220 },
+
+  // ── Finance & Crypto (5) ──
+  { id: '93', name: 'crypto-tracker', description: 'Real-time cryptocurrency prices, portfolio tracking, and alerts', categoryId: 'finance', installCommand: 'npx clawhub@latest install crypto-tracker', stars: 430 },
+  { id: '94', name: 'defi-monitor', description: 'Monitor DeFi protocols — TVL, yield farming, and liquidity pools', categoryId: 'finance', installCommand: 'npx clawhub@latest install defi-monitor', stars: 320 },
+  { id: '95', name: 'budget', description: 'Personal budget tracking with expense categorization and reports', categoryId: 'finance', installCommand: 'npx clawhub@latest install budget', stars: 270 },
+  { id: '96', name: 'tax-calc', description: 'Tax estimation for crypto trades, freelance income, and capital gains', categoryId: 'finance', installCommand: 'npx clawhub@latest install tax-calc', stars: 210 },
+  { id: '97', name: 'portfolio', description: 'Investment portfolio analysis with diversification and risk metrics', categoryId: 'finance', installCommand: 'npx clawhub@latest install portfolio', stars: 250 },
 ];
 
 export function getCategoryById(id: string): SkillCategory | undefined {

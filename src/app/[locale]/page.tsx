@@ -32,15 +32,15 @@ export async function generateMetadata({
       ? 'OpenClaw 教程与指南 — 7天掌握 AI 智能体 | OpenClaw 101'
       : 'OpenClaw Tutorial & Guide — Learn AI Agent Skills in 7 Days | OpenClaw 101',
     description: isZh
-      ? '最全面的 OpenClaw 教程：从安装配置到高级自动化，手把手教你掌握开源 AI 智能体。72 个精选社区技能。'
-      : 'The complete OpenClaw tutorial with 72 curated skills. Learn how to install, configure, and automate with OpenClaw step by step.',
+      ? '最全面的 OpenClaw 教程：从安装配置到高级自动化，手把手教你掌握开源 AI 智能体。97 个精选社区技能。'
+      : 'The complete OpenClaw tutorial with 97 curated skills. Learn how to install, configure, and automate with OpenClaw step by step.',
     openGraph: {
       title: isZh
         ? 'OpenClaw 教程与指南 — 7天掌握 AI 智能体'
         : 'OpenClaw Tutorial & Guide — Learn AI Agent Skills in 7 Days',
       description: isZh
-        ? '最全面的 OpenClaw 教程：从安装到自动化，72 个精选社区技能。'
-        : 'The complete OpenClaw tutorial with 72 curated skills. From installation to advanced automation.',
+        ? '最全面的 OpenClaw 教程：从安装到自动化，97 个精选社区技能。'
+        : 'The complete OpenClaw tutorial with 97 curated skills. From installation to advanced automation.',
       url: `${SITE_URL}/${locale}`,
       locale: isZh ? 'zh_CN' : 'en_US',
     },
@@ -69,8 +69,8 @@ export default async function Home({
     name: 'OpenClaw 101',
     url: SITE_URL,
     description: isZh
-      ? '最全面的 OpenClaw 教程：从安装到自动化，72 个精选社区技能。'
-      : 'The complete OpenClaw tutorial with 72 curated skills to master the open-source AI agent.',
+      ? '最全面的 OpenClaw 教程：从安装到自动化，97 个精选社区技能。'
+      : 'The complete OpenClaw tutorial with 97 curated skills to master the open-source AI agent.',
     inLanguage: ['en', 'zh-CN'],
     potentialAction: {
       '@type': 'SearchAction',

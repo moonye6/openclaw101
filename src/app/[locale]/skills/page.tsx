@@ -99,8 +99,8 @@ export default async function SkillsPage({
           </h1>
           <p className="mt-4 text-lg text-[#9CA3AF] max-w-2xl mx-auto">
             {isZh
-              ? '72 个精选社区技能，覆盖 12 个分类。一键安装扩展你的 AI 能力。'
-              : '72 curated community skills across 12 categories. Install with one command.'}
+              ? '97 个精选社区技能，覆盖 17 个分类。一键安装扩展你的 AI 能力。'
+              : '97 curated community skills across 17 categories. Install with one command.'}
           </p>
           
           {/* Install command */}

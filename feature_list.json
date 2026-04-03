@@ -126,11 +126,19 @@
       "i18n_keys": [], "priority": "P0",
       "started_date": "2026-03-29",
       "completed_date": "2026-04-02"
+    },
+    {
+      "id": "F021", "name": "内容补充 — 技能板块扩充", "status": "done",
+      "component": "src/data/skills.ts, CONTENT_ROADMAP.md",
+      "tests": [],
+      "i18n_keys": [], "priority": "P1",
+      "started_date": "2026-04-03",
+      "completed_date": "2026-04-03"
     }
   ],
   "stats": {
-    "total": 20,
-    "done": 20,
+    "total": 21,
+    "done": 21,
     "in_progress": 0,
     "with_known_issues": 1
   }
