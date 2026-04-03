@@ -159,6 +159,33 @@ export function UseCases() {
           })}
         </div>
 
+        {/* Popular Guides Quick Links */}
+        <motion.div
+          className="mt-10 grid md:grid-cols-3 gap-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+        >
+          {[
+            { href: '/blog/how-to-create-telegram-bot', label: '🤖 How to Create a Telegram Bot', badge: 'Guide' },
+            { href: '/blog/telegram-bot-examples', label: '💡 10 Telegram Bot Examples', badge: 'Examples' },
+            { href: '/blog/telegram-automation-guide', label: '⚡ Telegram Automation Guide', badge: 'Automation' },
+          ].map((link) => (
+            <Link
+              key={link.href}
+              href={link.href as Parameters<typeof Link>[0]['href']}
+              className="group flex items-center justify-between gap-3 rounded-xl border border-white/[0.08] bg-surface px-5 py-4 transition-all duration-200 hover:border-brand/30 hover:bg-brand/5"
+            >
+              <div>
+                <span className="text-xs text-brand-light font-medium">{link.badge}</span>
+                <p className="text-sm font-medium text-white mt-0.5">{link.label}</p>
+              </div>
+              <ArrowRight className="w-4 h-4 text-text-muted group-hover:text-brand-light transition-colors flex-shrink-0" />
+            </Link>
+          ))}
+        </motion.div>
+
         {/* Bottom CTA */}
         <motion.div
           className="text-center mt-12"

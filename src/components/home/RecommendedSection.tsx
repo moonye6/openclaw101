@@ -2,9 +2,10 @@
 
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
-import { Star, TrendingUp, Award, ExternalLink } from 'lucide-react';
+import { Star, TrendingUp, Award, ExternalLink, ArrowRight } from 'lucide-react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
+import { Link } from '@/i18n/routing';
 
 
 export function RecommendedSection() {
@@ -15,28 +16,31 @@ export function RecommendedSection() {
       id: 'r1',
       title: t('tutorial1.title'),
       description: t('tutorial1.description'),
-      url: 'https://docs.openclaw.ai',
-      source: 'OpenClaw',
+      href: '/blog/how-to-create-telegram-bot',
+      source: 'OpenClaw 101',
       badge: t('badgeOfficial'),
       badgeColor: 'bg-brand',
+      internal: true,
     },
     {
       id: 'r2',
       title: t('tutorial2.title'),
       description: t('tutorial2.description'),
-      url: 'https://www.freecodecamp.org/news/openclaw-full-tutorial-for-beginners/',
-      source: 'freeCodeCamp',
+      href: '/blog/telegram-bot-examples',
+      source: 'OpenClaw 101',
       badge: t('badgePopular'),
       badgeColor: 'bg-warning',
+      internal: true,
     },
     {
       id: 'r3',
       title: t('tutorial3.title'),
       description: t('tutorial3.description'),
-      url: 'https://www.ibm.com/think/news/clawdbot-ai-agent-testing-limits-vertical-integration',
-      source: 'IBM',
+      href: '/blog/telegram-automation-guide',
+      source: 'OpenClaw 101',
       badge: t('badgeDeepDive'),
-      badgeColor: 'bg-accent',
+      badgeColor: 'bg-teal-500',
+      internal: true,
     },
   ];
 
@@ -89,7 +93,7 @@ export function RecommendedSection() {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-8">
-          {/* Recommended Tutorials */}
+          {/* Recommended Tutorials — Internal Blog Links */}
           <div>
             <div className="flex items-center gap-2 mb-6">
               <TrendingUp className="w-5 h-5 text-brand-light" />
@@ -107,10 +111,8 @@ export function RecommendedSection() {
                   transition={{ delay: index * 0.1 }}
                 >
                   <Card>
-                    <a
-                      href={tutorial.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      href={tutorial.href as Parameters<typeof Link>[0]['href']}
                       className="block p-4"
                     >
                       <div className="flex items-start justify-between gap-4">
@@ -128,9 +130,9 @@ export function RecommendedSection() {
                             {tutorial.description}
                           </p>
                         </div>
-                        <ExternalLink className="w-4 h-4 text-text-muted flex-shrink-0" />
+                        <ArrowRight className="w-4 h-4 text-text-muted flex-shrink-0" />
                       </div>
-                    </a>
+                    </Link>
                   </Card>
                 </motion.div>
               ))}
@@ -180,6 +182,31 @@ export function RecommendedSection() {
                   </Card>
                 </motion.div>
               ))}
+            </div>
+
+            {/* External Resources — moved to bottom */}
+            <div className="mt-6 pt-6 border-t border-white/[0.06]">
+              <p className="text-xs text-text-muted mb-3 uppercase tracking-wider">External Resources</p>
+              <div className="space-y-2">
+                <a
+                  href="https://docs.openclaw.ai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-text-secondary hover:text-brand-light transition-colors"
+                >
+                  <ExternalLink className="w-3 h-3 flex-shrink-0" />
+                  OpenClaw Official Docs
+                </a>
+                <a
+                  href="https://www.freecodecamp.org/news/openclaw-full-tutorial-for-beginners/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-text-secondary hover:text-brand-light transition-colors"
+                >
+                  <ExternalLink className="w-3 h-3 flex-shrink-0" />
+                  freeCodeCamp AI Agent Tutorial
+                </a>
+              </div>
             </div>
           </div>
         </div>

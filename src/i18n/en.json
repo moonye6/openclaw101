@@ -1,14 +1,14 @@
 {
   "home": {
-    "title": "OpenClaw Tutorial & Guide — Learn AI Agent Skills",
-    "subtitle": "The Complete OpenClaw Tutorial",
-    "description": "The complete tutorial to learn OpenClaw: from installation to advanced AI automation",
+    "title": "Learn AI Agents & Automation — Step-by-Step Guides",
+    "subtitle": "Learn AI Agents & Automation (Step-by-Step Guides)",
+    "description": "Build Telegram Bots, AI Assistants, and Automation Workflows — Even Without Coding. Beginner-friendly tutorials, real examples, and practical guides.",
     "hero": {
-      "title": "The Complete OpenClaw Tutorial",
-      "subtitle": "Learn how to install, configure, and automate with the open-source AI agent — 12 categories and 72 curated community skills.",
-      "badge": "Open Source · Tutorials Curated",
-      "cta": "Start the Tutorial",
-      "learnMore": "Browse All Guides",
+      "title": "Learn AI Agents & Automation",
+      "subtitle": "Build Telegram Bots, AI Assistants, and Automation Workflows — Even Without Coding. Beginner-friendly tutorials, real examples, and practical guides to help you go from zero to your first AI agent.",
+      "badge": "Free Guides · Beginner Friendly",
+      "cta": "Start Learning →",
+      "learnMore": "Explore Tutorials →",
       "stats": {
         "tutorials": "Tutorials",
         "skills": "Skills",
@@ -17,38 +17,38 @@
       }
     },
     "features": {
-      "title": "What is OpenClaw?",
-      "subtitle": "The open-source AI assistant platform that gives you a 24/7 personal AI that understands, assists, and acts on your behalf",
+      "title": "What Can You Build?",
+      "subtitle": "Explore real-world AI automation use cases — Telegram bots, AI assistants, automation workflows, and more",
       "multiplatform": {
-        "title": "Multi-Platform",
-        "description": "Connect via Telegram, Discord, WhatsApp, Signal and more. Chat with your AI anywhere."
+        "title": "AI Telegram Bot",
+        "description": "Build your own AI assistant on Telegram. Connect via Telegram, Discord, WhatsApp, Signal and more — chat with your AI anywhere."
       },
       "skills": {
-        "title": "Extensible Skills",
-        "description": "72 curated community skills from weather queries to code generation. One-click install to extend your AI capabilities."
+        "title": "Automation Workflows",
+        "description": "97 curated community skills for automation workflows — from notifications and scheduling to AI-powered data pipelines. One-click install."
       },
       "selfhosted": {
-        "title": "Self-Hosted",
-        "description": "Full data sovereignty. Your data stays on your server. Privacy and security in your hands."
+        "title": "No-Code Friendly",
+        "description": "Many tutorials are beginner-friendly and support no-code tools. Full data sovereignty — your data stays on your server."
       }
     },
     "learningPath": {
-      "title": "7-Day Hands-On Path",
-      "subtitle": "One project per day, zero to productive. Follow along, and in 7 days you'll have a fully automated personal AI assistant.",
+      "title": "7-Day AI Agent Bootcamp",
+      "subtitle": "Start from zero and build your own AI agent in 7 days. Perfect for beginners — one hands-on project per day.",
       "day1": {
-        "title": "Install & First Reply",
+        "title": "Install & First Response",
         "description": "One Docker command to install OpenClaw. Connect an LLM and get your first AI reply."
       },
       "day2": {
-        "title": "Connect Telegram",
+        "title": "Connect Telegram Bot",
         "description": "Create a Telegram bot, connect to OpenClaw, customize AI persona, and master context & memory."
       },
       "day3": {
-        "title": "Code & File Operations",
+        "title": "File & Code Automation",
         "description": "Enable file access, let AI read code, generate scripts, and execute them. Build a real utility tool."
       },
       "day4": {
-        "title": "Feishu / WeChat / DingTalk",
+        "title": "Multi-Platform Integration",
         "description": "Connect Chinese platforms. Deploy to Alibaba or Tencent Cloud. Configure Chinese-friendly LLMs."
       },
       "day5": {
@@ -56,19 +56,19 @@
         "description": "Install web search, GitHub, weather skills from ClawHub. Build a morning briefing workflow."
       },
       "day6": {
-        "title": "Automation",
+        "title": "Task Automation",
         "description": "Set up scheduled briefings, proactive alerts, conditional monitoring. Let AI work 24/7 for you."
       },
       "day7": {
-        "title": "Advanced: Multi-Agent & Custom Skills",
+        "title": "Advanced AI Agents",
         "description": "Orchestrate multiple AIs, browser automation, build and publish your own custom skill from scratch."
       },
-      "viewTutorial": "Start Learning →"
+      "viewTutorial": "Start Day 1 →"
     },
     "skills": {
-      "title": "Skill Categories",
+      "title": "Explore AI Agent Capabilities",
       "subtitle": "Browse {count} skills across {categories} categories",
-      "viewAll": "View All Skills",
+      "viewAll": "Explore Skills →",
       "skillCount": "{count} skills",
       "totalSkillsLabel": "Total Skills",
       "categoriesLabel": "Categories",
@@ -87,7 +87,7 @@
     },
     "tutorials": {
       "title": "Best Tutorials & Guides",
-      "subtitle": "47 curated tutorials from official docs, cloud platforms, and community contributors",
+      "subtitle": "60 curated tutorials — Telegram bots, AI agents, automation workflows, and more",
       "viewAll": "View All Tutorials",
       "featured1": {
         "title": "OpenClaw Official Docs",
@@ -123,26 +123,26 @@
       "learnMore": "Read our skill security guide"
     },
     "recommended": {
-      "badge": "Hand-Picked",
-      "title": "Recommended for You",
-      "subtitle": "Start with these popular tutorials and essential skills",
-      "tutorials": "Top Tutorials",
+      "badge": "🔥 Start Here",
+      "title": "Popular Guides",
+      "subtitle": "The most popular guides to help you get started quickly",
+      "tutorials": "Top Guides",
       "skills": "Popular Skills",
       "tutorial1": {
-        "title": "OpenClaw Official Docs",
-        "description": "Complete API reference, configuration guide and architecture documentation"
+        "title": "How to Create a Telegram Bot (Step-by-Step Guide 2026)",
+        "description": "Build a fully working Telegram bot step by step — even if you're a complete beginner."
       },
       "tutorial2": {
-        "title": "freeCodeCamp — OpenClaw Full Tutorial",
-        "description": "Comprehensive beginner tutorial: from passive chat to proactive AI agent"
+        "title": "10 Telegram Bot Examples You Can Build Today",
+        "description": "Discover 10 practical Telegram bot examples — from simple automation to AI-powered assistants."
       },
       "tutorial3": {
-        "title": "IBM Think — The Viral \"Space Lobster\" Agent",
-        "description": "IBM deep analysis of OpenClaw's architecture innovation"
+        "title": "Telegram Automation Guide (Build Powerful Bots Without Coding)",
+        "description": "Turn simple bots into powerful 24/7 automation systems with AI capabilities."
       },
-      "badgeOfficial": "Official",
+      "badgeOfficial": "Guide",
       "badgePopular": "Popular",
-      "badgeDeepDive": "Deep Dive",
+      "badgeDeepDive": "Automation",
       "skill1": {
         "description": "GitHub operations via gh CLI"
       },
@@ -183,10 +183,10 @@
     },
     "useCases": {
       "badge": "Use Cases",
-      "title": "What Can OpenClaw Do?",
-      "subtitle": "From coding assistance to smart home control — discover real-world use cases powered by OpenClaw.",
+      "title": "Real Use Cases",
+      "subtitle": "See how people use AI agents in real life — automation, coding, research, and more.",
       "exampleCommands": "Example Commands",
-      "exploreCta": "Explore 97 Curated Skills for More Use Cases",
+      "exploreCta": "Browse 97+ AI Agent Skills →",
       "coding": {
         "title": "Coding Assistant",
         "description": "Write, debug, and refactor code in any language. Generate unit tests, create scripts, and automate your dev workflow."

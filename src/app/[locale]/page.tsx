@@ -29,18 +29,18 @@ export async function generateMetadata({
 
   return {
     title: isZh
-      ? 'OpenClaw 教程与指南 — 7天掌握 AI 智能体 | OpenClaw 101'
-      : 'OpenClaw Tutorial & Guide — Learn AI Agent Skills in 7 Days | OpenClaw 101',
+      ? '学习 AI 智能体与自动化 — 分步教程指南 | OpenClaw 101'
+      : 'Learn AI Agents & Automation — Step-by-Step Guides | OpenClaw 101',
     description: isZh
-      ? '最全面的 OpenClaw 教程：从安装配置到高级自动化，手把手教你掌握开源 AI 智能体。97 个精选社区技能。'
-      : 'The complete OpenClaw tutorial with 97 curated skills. Learn how to install, configure, and automate with OpenClaw step by step.',
+      ? '搭建 Telegram Bot、AI 助手和自动化工作流——无需编程。新手友好教程、真实案例和实用指南，帮你从零到第一个 AI 智能体。'
+      : 'Build Telegram Bots, AI Assistants, and Automation Workflows — Even Without Coding. Beginner-friendly tutorials, real examples, and practical guides.',
     openGraph: {
       title: isZh
-        ? 'OpenClaw 教程与指南 — 7天掌握 AI 智能体'
-        : 'OpenClaw Tutorial & Guide — Learn AI Agent Skills in 7 Days',
+        ? '学习 AI 智能体与自动化 — 分步教程指南'
+        : 'Learn AI Agents & Automation — Step-by-Step Guides',
       description: isZh
-        ? '最全面的 OpenClaw 教程：从安装到自动化，97 个精选社区技能。'
-        : 'The complete OpenClaw tutorial with 97 curated skills. From installation to advanced automation.',
+        ? '搭建 Telegram Bot、AI 助手和自动化工作流——无需编程。新手友好教程、真实案例和实用指南。'
+        : 'Build Telegram Bots, AI Assistants, and Automation Workflows — Even Without Coding. Beginner-friendly guides.',
       url: `${SITE_URL}/${locale}`,
       locale: isZh ? 'zh_CN' : 'en_US',
     },

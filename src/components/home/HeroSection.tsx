@@ -129,9 +129,9 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              <span className="text-white">OpenClaw Tutorial</span>
+              <span className="text-white">Learn AI Agents</span>
               <br />
-              <span className="text-gradient-brand">&amp; AI Agent Hub</span>
+              <span className="text-gradient-brand">&amp; Automation</span>
             </motion.h1>
 
             {/* Subtitle */}
@@ -156,7 +156,7 @@ export function HeroSection() {
                 97 Skills
               </span>
               <span className="w-1 h-1 rounded-full bg-text-muted" />
-              <span className="text-text-secondary">47 Tutorials</span>
+              <span className="text-text-secondary">60 Tutorials</span>
               <span className="w-1 h-1 rounded-full bg-text-muted" />
               <span className="text-text-secondary">314k Stars</span>
             </motion.div>
@@ -168,7 +168,7 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
-              <Link href="/tutorials">
+              <Link href="/blog">
                 <Button 
                   size="lg" 
                   className="bg-brand text-white hover:bg-brand-light shadow-lg shadow-brand/25 px-8"
@@ -177,7 +177,7 @@ export function HeroSection() {
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
-              <Link href="/skills">
+              <Link href="/tutorials">
                 <Button 
                   size="lg" 
                   variant="outline" 

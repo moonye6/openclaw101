@@ -1,14 +1,14 @@
 {
   "home": {
-    "title": "OpenClaw 教程与指南 — 学习 AI 智能体技能",
-    "subtitle": "最全面的 OpenClaw 教程",
-    "description": "最全面的 OpenClaw 教程：从安装配置到高级 AI 自动化",
+    "title": "学习 AI 智能体与自动化 — 分步教程指南",
+    "subtitle": "学习 AI 智能体与自动化（分步教程指南）",
+    "description": "搭建 Telegram Bot、AI 助手和自动化工作流 — 无需编程。新手友好的教程、真实案例和实用指南。",
     "hero": {
-      "title": "最全面的 OpenClaw 教程",
-      "subtitle": "从安装配置到高级自动化，手把手教你掌握开源 AI 智能体 — 12 个分类、72 个精选社区技能。",
-      "badge": "开源 · 精选教程",
-      "cta": "开始教程",
-      "learnMore": "浏览所有指南",
+      "title": "学习 AI 智能体与自动化",
+      "subtitle": "搭建 Telegram Bot、AI 助手和自动化工作流——无需编程基础。新手友好的分步教程、真实案例和实用指南，帮你从零开始构建第一个 AI 智能体。",
+      "badge": "免费指南 · 新手友好",
+      "cta": "开始学习 →",
+      "learnMore": "浏览所有教程 →",
       "stats": {
         "tutorials": "精选教程",
         "skills": "社区技能",
@@ -17,38 +17,38 @@
       }
     },
     "features": {
-      "title": "什么是 OpenClaw？",
-      "subtitle": "开源 AI 助手平台，为你提供 24/7 的个人 AI，理解你、帮助你、代表你执行任务",
+      "title": "你能构建什么？",
+      "subtitle": "探索真实的 AI 自动化使用场景——Telegram Bot、AI 助手、自动化工作流等",
       "multiplatform": {
-        "title": "全平台接入",
-        "description": "支持 Telegram、Discord、WhatsApp、Signal、飞书等平台，随时随地与你的 AI 对话。"
+        "title": "AI Telegram Bot",
+        "description": "在 Telegram 上构建你自己的 AI 助手。支持 Telegram、Discord、WhatsApp、Signal 等平台，随时随地对话。"
       },
       "skills": {
-        "title": "可扩展技能",
-        "description": "72 个精选社区技能，从天气查询到代码生成，一键安装即可扩展你的 AI 能力。"
+        "title": "自动化工作流",
+        "description": "97 个精选社区技能，覆盖通知推送、定时任务到 AI 数据管道。一键安装，即可扩展。"
       },
       "selfhosted": {
-        "title": "数据自主",
-        "description": "完全数据主权，数据保存在你的服务器上，隐私和安全尽在掌握。"
+        "title": "无需编程基础",
+        "description": "大多数教程新手友好，支持无代码工具。数据完全自主，保存在你的服务器上。"
       }
     },
     "learningPath": {
-      "title": "7天实战入门",
-      "subtitle": "每天一个动手项目，从零到上手。跟着做，7 天后你会拥有一个全自动的个人 AI 助手。",
+      "title": "7 天 AI 智能体训练营",
+      "subtitle": "从零开始，7 天构建你自己的 AI 智能体。每天一个实战项目，专为新手设计。",
       "day1": {
         "title": "安装与第一句回复",
         "description": "一条 Docker 命令安装 OpenClaw，接入 LLM，在终端拿到 AI 的第一句回复。"
       },
       "day2": {
-        "title": "接入 Telegram",
+        "title": "接入 Telegram Bot",
         "description": "创建 Telegram 机器人，接入 OpenClaw，定制 AI 人设，掌握上下文和记忆。"
       },
       "day3": {
-        "title": "代码与文件操作",
+        "title": "文件与代码自动化",
         "description": "启用文件权限，让 AI 阅读代码、生成脚本并执行。构建一个实用小工具。"
       },
       "day4": {
-        "title": "飞书/微信/钉钉",
+        "title": "多平台集成",
         "description": "接入飞书、微信或钉钉。部署到阿里云/腾讯云。配置中文友好的 LLM。"
       },
       "day5": {
@@ -56,19 +56,19 @@
         "description": "从 ClawHub 安装网络搜索、GitHub、天气等技能。构建一个早间简报工作流。"
       },
       "day6": {
-        "title": "自动化任务",
+        "title": "任务自动化",
         "description": "设置定时简报、主动提醒、条件告警和网站监控。让 AI 24 小时替你干活。"
       },
       "day7": {
-        "title": "进阶：多智能体与自定义技能",
+        "title": "进阶 AI 智能体",
         "description": "编排多个 AI 协作、浏览器自动化、从零构建并发布你自己的技能。"
       },
-      "viewTutorial": "开始学习 →"
+      "viewTutorial": "从第 1 天开始 →"
     },
     "skills": {
-      "title": "技能分类",
+      "title": "探索 AI 智能体能力",
       "subtitle": "浏览 {categories} 个分类中的 {count} 个技能",
-      "viewAll": "查看所有技能",
+      "viewAll": "浏览所有技能 →",
       "skillCount": "{count} 个技能",
       "totalSkillsLabel": "技能总数",
       "categoriesLabel": "分类",
@@ -87,7 +87,7 @@
     },
     "tutorials": {
       "title": "精选教程与指南",
-      "subtitle": "47 篇精选教程，来自官方文档、云平台和社区贡献者",
+      "subtitle": "60 篇精选教程——Telegram Bot、AI 智能体、自动化工作流等",
       "viewAll": "查看所有教程",
       "featured1": {
         "title": "OpenClaw 官方文档",
@@ -123,26 +123,26 @@
       "learnMore": "阅读技能安全指南"
     },
     "recommended": {
-      "badge": "精选推荐",
-      "title": "为你推荐",
-      "subtitle": "从这些热门教程和必备技能开始你的学习之旅",
-      "tutorials": "热门教程",
+      "badge": "🔥 从这里开始",
+      "title": "热门指南",
+      "subtitle": "最受欢迎的入门指南，帮你快速上手",
+      "tutorials": "精选指南",
       "skills": "热门技能",
       "tutorial1": {
-        "title": "OpenClaw 官方文档",
-        "description": "完整的 API 参考、配置指南和架构说明"
+        "title": "如何创建 Telegram Bot（2026 分步指南）",
+        "description": "零基础也能做！手把手教你创建一个完整运行的 Telegram Bot。"
       },
       "tutorial2": {
-        "title": "freeCodeCamp — OpenClaw 完整教程",
-        "description": "从被动聊天到主动 Agent 的全面入门教程"
+        "title": "10 个 Telegram Bot 实战案例：今天就能上手搭建",
+        "description": "精选 10 个实用案例——从简单自动化到 AI 智能助手，新手友好。"
       },
       "tutorial3": {
-        "title": "IBM Think — 病毒式传播的「太空龙虾」Agent",
-        "description": "IBM 深度分析 OpenClaw 的架构创新"
+        "title": "Telegram 自动化完整指南（无需编程）",
+        "description": "把简单 Bot 变成 24/7 运转的智能系统，含 AI 能力集成。"
       },
-      "badgeOfficial": "官方",
+      "badgeOfficial": "指南",
       "badgePopular": "热门",
-      "badgeDeepDive": "深度",
+      "badgeDeepDive": "自动化",
       "skill1": {
         "description": "通过 gh CLI 操作 GitHub"
       },
@@ -183,10 +183,10 @@
     },
     "useCases": {
       "badge": "使用场景",
-      "title": "OpenClaw 能做什么？",
-      "subtitle": "从编程辅助到智能家居控制——发现 OpenClaw 驱动的真实使用场景。",
+      "title": "真实使用场景",
+      "subtitle": "看看人们如何在现实中使用 AI 智能体——自动化、编程、研究等。",
       "exampleCommands": "示例命令",
-      "exploreCta": "探索 97 个精选技能解锁更多场景",
+      "exploreCta": "浏览 97+ 个 AI 智能体技能 →",
       "coding": {
         "title": "编程助手",
         "description": "用任何语言编写、调试和重构代码。生成单元测试、创建脚本，自动化你的开发工作流。"
