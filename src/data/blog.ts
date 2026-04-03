@@ -7082,6 +7082,307 @@ In IP fields involving core business interests, OpenClaw can boost efficiency bu
     tags: ["安全", "知识产权", "专利", "风险提示", "合规", "security", "patent"],
     readingTime: 10,
     image: "/og-image.png"
+  },
+  {
+    id: 21,
+    slug: "how-to-create-telegram-bot",
+    title: "如何创建 Telegram Bot（2026 最新分步指南）",
+    titleEn: "How to Create a Telegram Bot (Step-by-Step Guide 2026)",
+    excerpt: "零基础也能做！本指南带你一步步创建 Telegram Bot，涵盖 BotFather 注册、无代码搭建、AI 集成等全部流程，适合完全没有编程经验的新手。",
+    excerptEn: "Learn how to create a Telegram bot step by step. Beginner-friendly guide with no-code options and AI integration.",
+    content: `创建 Telegram Bot 比你想象的要简单。在这篇指南中，你将学会如何从零开始一步步构建一个完整的 Telegram Bot——即使你是完全的新手。
+
+读完这篇教程，你将拥有一个可以运行的 Bot，用来自动化任务、发送消息，甚至充当 AI 助手。
+
+## 什么是 Telegram Bot？
+
+Telegram Bot 是一种可以在 Telegram 聊天中与用户互动的自动化程序。它可以：
+
+- 发送和接收消息
+- 自动化重复任务
+- 对接外部 API
+- 充当 AI 助手
+
+Telegram Bot 广泛应用于自动化、客户支持和生产力工作流。
+
+## 为什么要创建 Telegram Bot？
+
+以下是一些常见的使用场景：
+
+- 🔔 **通知推送**：告警、提醒、定时消息
+- 🤖 **AI 助手**：类似 ChatGPT 的智能对话
+- 📊 **数据自动化**：从 API 拉取数据并推送
+- 🧩 **工作流自动化**：连接多个工具协同工作
+
+## 第一步：通过 BotFather 创建 Bot
+
+1. 打开 Telegram，搜索 **BotFather**
+2. 开始对话，输入：
+
+\`\`\`
+/start
+\`\`\`
+
+3. 创建新 Bot：
+
+\`\`\`
+/newbot
+\`\`\`
+
+4. 按照提示操作：
+   - 设置 Bot 名称
+   - 设置用户名（必须以 \`bot\` 结尾）
+
+5. 复制你的 **Bot Token**（非常重要！）
+
+> 💡 Bot Token 是你的 Bot 的唯一身份凭证，请妥善保管，不要公开分享。
+
+## 第二步：连接你的 Bot
+
+你现在有两种主要方式：
+
+### 方式 A：代码开发（开发者方式）
+
+- 使用 Python / Node.js
+- 通过 Telegram Bot API 连接
+
+👉 适合有编程经验的开发者，但需要一定时间
+
+### 方式 B：无代码搭建（推荐）
+
+与其写代码，不如使用可视化工具来构建你的 Bot。
+
+例如，你可以使用 **OpenClaw** 这样的平台来：
+
+- 几分钟内连接 Telegram
+- 可视化构建自动化流程
+- 添加 AI 能力
+- 与 Discord / WhatsApp 等平台集成
+
+👉 这是新手最快的入门方式
+
+## 第三步：为 Bot 添加 AI 能力（可选但强大）
+
+你可以将 Telegram Bot 变成一个 AI 助手：
+
+- 连接 GPT / LLM API
+- 添加记忆或工作流
+- 自动化回复消息
+
+这正是 OpenClaw 等工具大显身手的地方。通过简单配置，你就能让 Bot 拥有智能对话能力。
+
+## 第四步：测试你的 Bot
+
+1. 在 Telegram 中打开你的 Bot
+2. 发送一条消息
+3. 检查是否有回复
+
+如果没有回复：
+- 检查你的 Token 是否正确
+- 确认你的设置是否完整
+- 查看 BotFather 中 Bot 的状态
+
+## Telegram Bot 创意合集
+
+以下是一些你可以构建的 Bot 创意：
+
+- 🤖 AI 聊天机器人
+- 📰 新闻推送 Bot
+- ⏰ 提醒 Bot
+- 💰 加密货币价格 Bot
+- 🎧 客户支持 Bot
+- 📝 待办事项 Bot
+
+## 常见错误
+
+- ❌ 忘记保存 Bot Token
+- ❌ Webhook 设置不正确
+- ❌ 第一个版本过于复杂
+
+👉 从简单开始，逐步完善
+
+## 常见问题
+
+### 如何获取 Telegram Bot Token？
+
+使用 BotFather 创建新 Bot，它会自动生成一个 Token。
+
+### Telegram Bot 是免费的吗？
+
+是的，创建和使用 Telegram Bot 完全免费。
+
+### 需要编程技能吗？
+
+不需要。你可以使用 OpenClaw 等无代码工具来可视化搭建 Bot。
+
+### 能创建 AI Telegram Bot 吗？
+
+可以。你可以将 Bot 连接到 GPT 等 AI 模型，创建智能助手。
+
+## 总结
+
+创建 Telegram Bot 是入门自动化和 AI 最简单的方式之一。
+
+如果你是新手，从简单开始——考虑使用无代码工具来加速上手。
+
+一旦你的 Bot 跑起来了，就可以将它扩展为一个强大的自动化系统。
+
+---
+
+👉 **下一步阅读**：
+- [Telegram Bot 应用案例大全](/blog/telegram-bot-examples)
+- [Telegram 自动化完整指南](/blog/telegram-automation-guide)
+- [AI Agent 入门指南](/blog/ai-agent-guide)`,
+    contentEn: `Creating a Telegram bot is easier than you think. In this guide, you'll learn how to build a fully working Telegram bot step by step — even if you're a complete beginner.
+
+By the end of this tutorial, you'll have your own bot running and ready to automate tasks, send messages, or even act as an AI assistant.
+
+## What is a Telegram Bot?
+
+A Telegram bot is an automated program that can interact with users through Telegram chats. It can:
+
+- Send and receive messages
+- Automate tasks
+- Integrate with APIs
+- Act as an AI assistant
+
+Telegram bots are widely used for automation, customer support, and productivity workflows.
+
+## Why Create a Telegram Bot?
+
+Here are some common use cases:
+
+- 🔔 **Notifications**: Alerts, reminders, scheduled messages
+- 🤖 **AI assistants**: ChatGPT-style bots
+- 📊 **Data automation**: Fetch data from APIs and push updates
+- 🧩 **Workflow automation**: Connect tools together
+
+## Step 1: Create a Bot with BotFather
+
+1. Open Telegram and search for **BotFather**
+2. Start a chat and type:
+
+\`\`\`
+/start
+\`\`\`
+
+3. Then create a new bot:
+
+\`\`\`
+/newbot
+\`\`\`
+
+4. Follow the instructions:
+   - Set bot name
+   - Set username (must end with \`bot\`)
+
+5. Copy your **Bot Token** (important!)
+
+> 💡 The Bot Token is your bot's unique credential. Keep it safe and never share it publicly.
+
+## Step 2: Connect Your Bot
+
+You now have 2 main options:
+
+### Option A: Coding (Developer Way)
+
+- Use Python / Node.js
+- Connect via Telegram Bot API
+
+👉 Good for developers, but takes time
+
+### Option B: No-Code (Recommended)
+
+Instead of writing code, you can use tools to build your bot visually.
+
+For example, you can use platforms like **OpenClaw** to:
+
+- Connect Telegram in minutes
+- Build automation flows visually
+- Add AI capabilities
+- Integrate with Discord / WhatsApp and more
+
+👉 This is the fastest way for beginners
+
+## Step 3: Add AI to Your Bot (Optional but Powerful)
+
+You can turn your Telegram bot into an AI assistant by:
+
+- Connecting to GPT / LLM APIs
+- Adding memory or workflows
+- Automating responses
+
+This is where tools like OpenClaw become very useful. With simple configuration, you can give your bot intelligent conversation capabilities.
+
+## Step 4: Test Your Bot
+
+1. Open your bot in Telegram
+2. Send a message
+3. Check if it responds
+
+If not:
+- Verify your token
+- Check your setup
+- Review bot status in BotFather
+
+## Telegram Bot Examples
+
+Here are some ideas you can build:
+
+- 🤖 AI Chatbot
+- 📰 News Bot
+- ⏰ Reminder Bot
+- 💰 Crypto Price Bot
+- 🎧 Customer Support Bot
+- 📝 To-do List Bot
+
+## Common Mistakes
+
+- ❌ Forgetting to save the bot token
+- ❌ Not setting webhook correctly
+- ❌ Overcomplicating the first version
+
+👉 Start simple, then improve
+
+## FAQ
+
+### How do I get a Telegram bot token?
+
+Use BotFather and create a new bot. It will generate a token for you.
+
+### Is Telegram bot free?
+
+Yes, Telegram bots are completely free to create and use.
+
+### Do I need coding skills?
+
+No. You can use no-code tools like OpenClaw to build bots visually.
+
+### Can I build an AI Telegram bot?
+
+Yes. You can connect your bot to AI models like GPT and create a smart assistant.
+
+## Final Thoughts
+
+Building a Telegram bot is one of the easiest ways to get started with automation and AI.
+
+If you're a beginner, start simple — and consider using no-code tools to speed things up.
+
+Once your bot is running, you can expand it into a powerful automation system.
+
+---
+
+👉 **Next Steps**:
+- [Telegram Bot Examples](/blog/telegram-bot-examples)
+- [Telegram Automation Guide](/blog/telegram-automation-guide)
+- [AI Agent Guide](/blog/ai-agent-guide)`,
+    author: "OpenClaw 101",
+    date: "2026-04-03",
+    category: "教程",
+    categoryEn: "Tutorial",
+    tags: ["Telegram", "Bot", "教程", "Tutorial", "自动化", "Automation", "AI", "No-Code", "Beginner"],
+    readingTime: 8,
+    image: "/og-image.png"
   }
 ];
 
