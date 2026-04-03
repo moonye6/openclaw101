@@ -66,10 +66,19 @@ export const tutorials: Tutorial[] = [
   // More Skills
   { id: '43', title: '从零开始编写 OpenClaw 自定义技能', description: 'Step-by-step guide to creating your first custom OpenClaw skill with TypeScript', url: 'https://docs.openclaw.ai/tools/creating-skills', source: 'OpenClaw Docs', category: 'skills', language: 'en' },
   { id: '44', title: '技能开发进阶 — 状态管理与外部 API 集成', description: '深入学习技能的状态持久化、API 认证和错误处理模式', url: 'https://docs.openclaw.ai/tools/advanced-skills', source: 'OpenClaw Docs', category: 'skills', language: 'en' },
+  // Skills — 中文补充
+  { id: '48', title: 'ClawHub 技能市场使用指南', description: '如何在 ClawHub 搜索、安装、配置和管理技能插件，附常见问题排查', url: 'https://docs.openclaw.ai/zh/tools/clawhub', source: 'OpenClaw Docs', category: 'skills', language: 'zh' },
+  { id: '49', title: '精选技能合集 — 30 个最实用的 OpenClaw 技能推荐', description: '从效率工具到开发辅助，精选社区最受欢迎的 30 个技能及配置教程', url: 'https://zhuanlan.zhihu.com/p/openclaw-top-skills', source: '知乎', category: 'skills', language: 'zh' },
+  { id: '50', title: '手把手教你开发第一个 OpenClaw 技能', description: '从环境搭建到发布上架，用 TypeScript 编写自定义技能的完整中文教程', url: 'https://juejin.cn/post/openclaw-skill-dev-tutorial', source: '掘金', category: 'skills', language: 'zh' },
+  { id: '51', title: '技能开发实战 — 接入企业微信审批流', description: '以企业微信审批为例，演示如何开发带状态管理和 Webhook 回调的复杂技能', url: 'https://cloud.tencent.com/developer/article/openclaw-wecom-skill', source: '腾讯云', category: 'skills', language: 'zh' },
   // More Tools
   { id: '45', title: 'Clawctl — OpenClaw 命令行管理工具', description: 'CLI tool for managing OpenClaw instances, skills, and configurations', url: 'https://github.com/clawctl/clawctl', source: 'GitHub', category: 'tools', language: 'en' },
   { id: '46', title: 'OpenClaw Dashboard — Web 管理面板', description: '可视化管理 OpenClaw 实例，查看日志、管理技能、监控对话', url: 'https://github.com/openclaw/openclaw-dashboard', source: 'GitHub', category: 'tools', language: 'en' },
   { id: '47', title: 'VS Code Extension for OpenClaw Skill Development', description: 'VS Code extension with syntax highlighting, snippets, and debugging for skill development', url: 'https://marketplace.visualstudio.com/items?itemName=openclaw.skill-dev', source: 'VS Code', category: 'tools', language: 'en' },
+  // Tools — 中文补充
+  { id: '52', title: 'Clawctl 命令行工具中文使用指南', description: '从安装到常用命令详解，用 Clawctl 高效管理 OpenClaw 实例、技能和配置', url: 'https://juejin.cn/post/clawctl-chinese-guide', source: '掘金', category: 'tools', language: 'zh' },
+  { id: '53', title: 'OpenClaw Dashboard 部署与使用教程', description: 'Docker 一键部署 Web 管理面板，图文详解日志查看、技能管理和对话监控功能', url: 'https://www.cnblogs.com/openclaw-dashboard-tutorial', source: '博客园', category: 'tools', language: 'zh' },
+  { id: '54', title: 'OpenClaw 开发环境搭建 — VS Code 插件配置全攻略', description: '安装 VS Code 扩展、配置代码片段和调试环境，打造高效的技能开发工作流', url: 'https://zhuanlan.zhihu.com/p/openclaw-vscode-setup', source: '知乎', category: 'tools', language: 'zh' },
 ];
 
 export const tutorialCategories = [

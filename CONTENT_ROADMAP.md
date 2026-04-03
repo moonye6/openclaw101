@@ -8,7 +8,7 @@
 
 ## 一、技能 (Skills) 板块
 
-### 现状：12 分类，72 个技能
+### 现状：17 分类，97 个技能
 
 | 分类 | 技能数 | 示例 |
 |------|--------|------|
@@ -29,11 +29,11 @@
 
 | # | 新分类 | 建议技能 | 优先级 | 状态 |
 |---|--------|---------|--------|------|
-| S1 | 数据与数据库 (Data & Database) | redis, mongodb, mysql, excel-parser, csv-tools | P0 | ⏳ 进行中 |
-| S2 | 文件与文档处理 (Files & Documents) | pdf-reader, ocr, office-converter, markdown-tools, file-manager | P0 | ⏳ 进行中 |
-| S3 | 视频与媒体 (Video & Media) | video-editor, subtitle-gen, youtube-dl, screen-recorder, ffmpeg | P1 | ⏳ 进行中 |
-| S4 | 日历与任务管理 (Productivity) | google-calendar, todoist, trello, pomodoro-timer, habit-tracker | P1 | ⏳ 进行中 |
-| S5 | 金融与加密 (Finance & Crypto) | crypto-tracker, defi-monitor, budget, tax-calc, portfolio | P2 | ⏳ 进行中 |
+| S1 | 数据与数据库 (Data & Database) | redis, mongodb, mysql, excel-parser, csv-tools | P0 | ✅ 已完成 |
+| S2 | 文件与文档处理 (Files & Documents) | pdf-reader, ocr, office-converter, markdown-tools, file-manager | P0 | ✅ 已完成 |
+| S3 | 视频与媒体 (Video & Media) | video-editor, subtitle-gen, youtube-dl, screen-recorder, ffmpeg | P1 | ✅ 已完成 |
+| S4 | 日历与任务管理 (Productivity) | google-calendar, todoist, trello, pomodoro-timer, habit-tracker | P1 | ✅ 已完成 |
+| S5 | 金融与加密 (Finance & Crypto) | crypto-tracker, defi-monitor, budget, tax-calc, portfolio | P2 | ✅ 已完成 |
 | S6 | 设计与创意（可选） | figma, canva, color-palette, mockup-gen | P2 | — |
 | S7 | 教育与学习（可选） | flashcard, language-learn, course-tracker, quiz-gen | P2 | — |
 
@@ -41,7 +41,7 @@
 
 ## 二、教程 (Tutorials) 板块
 
-### 现状：8 分类，47 篇教程
+### 现状：8 分类，54 篇教程
 
 | 分类 | 数量 | 中/英分布 |
 |------|------|----------|
@@ -50,15 +50,15 @@
 | Getting Started (入门) | 8 | 5 中 / 3 英 |
 | Videos (视频) | 6 | 3 中 / 3 英 |
 | Deep Dives (深度分析) | 11 | 3 中 / 8 英 |
-| Skills (技能开发) | 4 | 0 中 / 4 英 |
-| Tools (工具) | 3 | 1 中 / 2 英 |
+| Skills (技能开发) | 8 | 4 中 / 4 英 |
+| Tools (工具) | 7 | 4 中 / 3 英 |
 | Channels (通道配置) | 5 | 2 中 / 3 英 |
 
 ### 待补充（按优先级排序）
 
 | # | 任务 | 描述 | 优先级 | 状态 |
 |---|------|------|--------|------|
-| T1 | 补充中文教程 | Skills 分类 4 篇全英文、Tools 仅 1 中文，需补充中文版 | P0 | — |
+| T1 | 补充中文教程 | Skills 分类 4 篇全英文、Tools 仅 1 中文，需补充中文版 | P0 | ✅ 已完成 |
 | T2 | 新增"自动化/工作流"分类 | 核心卖点缺少独立分类，当前内容分散在 Deep Dives | P0 | — |
 | T3 | 新增"安全加固"分类 | 3 篇安全相关文章散落在 Deep Dives，应独立 | P1 | — |
 | T4 | 新增 API/开发者教程 | 如何用 API 集成 OpenClaw 到自己的应用 | P1 | — |
