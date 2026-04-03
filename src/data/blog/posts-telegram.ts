@@ -895,4 +895,633 @@ With hosted platforms like OpenClaw, no server setup is required — it works ou
     readingTime: 7,
     image: "/og-image.png"
   },
+  {
+    id: 24,
+    slug: "telegram-bot-api-tutorial",
+    title: "Telegram Bot API 完整教程：新手从零上手指南（2026）",
+    titleEn: "Telegram Bot API Tutorial (Complete Guide with Examples 2026)",
+    excerpt: "Telegram Bot API 是控制机器人的 HTTP 接口，让你的 Bot 能收发消息、自动化任务、对接外部服务。本文从原理到实战，手把手带你掌握核心 API 用法。",
+    excerptEn: "Learn how the Telegram Bot API works with real examples — send messages, set up webhooks, and build automation workflows step by step.",
+    content: `Telegram Bot API 是一套基于 HTTP 的接口，让开发者可以完整控制 Telegram Bot 的行为。
+
+通过它，你可以：
+
+- 发送和接收消息
+- 处理用户输入
+- 自动化工作流
+- 对接外部服务
+
+👉 如果你还没创建过 Bot，先看这篇：[如何创建 Telegram Bot](/blog/how-to-create-telegram-bot)
+
+## Telegram Bot API 的工作原理
+
+Telegram Bot 遵循这个简单架构：
+
+\`\`\`
+用户 → Telegram → Bot API → 你的服务器 → 响应 → 用户
+\`\`\`
+
+接收消息更新有两种主要方式：
+
+### 1. 长轮询（Long Polling）
+
+- 你的服务器持续主动请求更新
+- 搭建简单，适合本地开发
+- 适合新手入门
+
+### 2. Webhook
+
+- Telegram 主动将更新推送到你的服务器
+- 更快、更高效
+- 生产环境推荐
+
+## 分步实战：用 API 搭建 Telegram Bot
+
+### 第一步：获取 Bot Token
+
+1. 打开 Telegram，搜索 **BotFather**
+2. 运行命令：
+
+\`\`\`
+/newbot
+\`\`\`
+
+3. 按提示设置 Bot 名称和用户名
+4. 复制你的 **Bot Token**
+
+> ⚠️ 永远不要把 Token 硬编码在代码里或公开分享
+
+### 第二步：发送第一条消息
+
+使用以下 API 端点：
+
+\`\`\`
+https://api.telegram.org/bot<YOUR_TOKEN>/sendMessage
+\`\`\`
+
+示例请求：
+
+\`\`\`bash
+curl -X POST https://api.telegram.org/bot<TOKEN>/sendMessage \\
+  -d chat_id=123456 \\
+  -d text="来自我的 Bot 的你好"
+\`\`\`
+
+### 第三步：接收消息
+
+两种方式：
+
+- **长轮询** → 调用 \`getUpdates\`
+- **Webhook** → 设置你的 POST 端点
+
+## 常用 API 方法
+
+### sendMessage — 发送文字消息
+
+最基础、最常用的方法，支持 Markdown 和 HTML 格式。
+
+### sendPhoto — 发送图片
+
+支持本地文件上传或 URL 链接。
+
+### sendDocument — 发送文件
+
+支持各类格式文件的发送。
+
+### getUpdates — 接收用户消息
+
+长轮询模式下获取消息队列。
+
+## 真实使用场景
+
+用 Telegram Bot API 你可以构建：
+
+- 🤖 AI 聊天机器人
+- 🔔 通知和告警系统
+- ⚙️ 自动化工作流
+- 🖥 服务器监控工具
+
+👉 想要更多灵感？查看：[10 个 Telegram Bot 实战案例](/blog/telegram-bot-examples)
+
+## 无代码替代方案（更快的方式）
+
+如果不想手动处理 API，可以使用 **OpenClaw** 这样的工具：
+
+- 几分钟接入 Telegram
+- 可视化构建工作流
+- 添加 AI 能力
+- 自动化任务
+
+👉 这是新手构建真实 Bot 最快的方式
+
+## 常见错误
+
+- ❌ 使用错误的 chat_id
+- ❌ 没有正确处理消息更新
+- ❌ 忘记设置 Webhook
+- ❌ 把 Token 硬编码在代码里（安全风险）
+
+## API 与自动化的关系
+
+API 只是基础层。
+
+要构建真正的工作流：
+
+👉 查看 [Telegram 自动化完整指南](/blog/telegram-automation-guide)
+
+## 常见问题
+
+### Telegram Bot API 能做什么？
+
+发送消息、自动化任务、对接外部服务，几乎任何 Bot 功能都能实现。
+
+### Telegram Bot API 免费吗？
+
+完全免费，没有使用量限制。
+
+### 需要服务器吗？
+
+使用 Webhook 需要一台可公网访问的服务器。长轮询在本地就能跑。
+
+### 不会写代码也能用吗？
+
+可以。OpenClaw 等无代码工具让你无需写一行代码就能搭建 Bot。
+
+## 总结
+
+Telegram Bot API 功能强大，但对新手来说有一定门槛。
+
+从简单命令开始，逐步构建更复杂的自动化系统。
+
+---
+
+👉 **下一步**：
+- [如何创建 Telegram Bot](/blog/how-to-create-telegram-bot)
+- [10 个 Telegram Bot 实战案例](/blog/telegram-bot-examples)
+- [Telegram 自动化完整指南](/blog/telegram-automation-guide)`,
+    contentEn: `The Telegram Bot API is an HTTP-based interface that lets developers control Telegram bots.
+
+With it, you can:
+
+- Send and receive messages
+- Process user input
+- Automate workflows
+- Integrate external services
+
+👉 If you're new, start here: [How to Create a Telegram Bot](/blog/how-to-create-telegram-bot)
+
+## How Telegram Bot API Works
+
+Telegram bots follow a simple architecture:
+
+\`\`\`
+User → Telegram → Bot API → Your Server → Response → User
+\`\`\`
+
+There are two main ways to receive updates:
+
+### 1. Long Polling
+
+- Your server continuously requests updates
+- Easy to set up
+- Good for beginners and local development
+
+### 2. Webhooks
+
+- Telegram sends updates to your server
+- Faster and more efficient
+- Recommended for production
+
+## Step-by-Step: Build a Telegram Bot with API
+
+### Step 1: Get Your Bot Token
+
+1. Open Telegram and search for **BotFather**
+2. Run:
+
+\`\`\`
+/newbot
+\`\`\`
+
+3. Follow the prompts to set a name and username
+4. Copy your **Bot Token**
+
+> ⚠️ Never hardcode your token in code or share it publicly
+
+### Step 2: Send Your First Message
+
+Use this API endpoint:
+
+\`\`\`
+https://api.telegram.org/bot<YOUR_TOKEN>/sendMessage
+\`\`\`
+
+Example request:
+
+\`\`\`bash
+curl -X POST https://api.telegram.org/bot<TOKEN>/sendMessage \\
+  -d chat_id=123456 \\
+  -d text="Hello from my bot"
+\`\`\`
+
+### Step 3: Receive Messages
+
+You can use:
+
+- **Long polling** → call \`getUpdates\`
+- **Webhook** → set up a POST endpoint on your server
+
+## Common API Methods
+
+### sendMessage — Send text messages
+
+The most basic and widely used method. Supports Markdown and HTML formatting.
+
+### sendPhoto — Send images
+
+Supports file upload or URL.
+
+### sendDocument — Send files
+
+Supports all common file formats.
+
+### getUpdates — Receive user messages
+
+Used in long polling mode to fetch the message queue.
+
+## Real Use Cases
+
+With Telegram Bot API, you can build:
+
+- 🤖 AI chatbots
+- 🔔 Notification and alert systems
+- ⚙️ Automation workflows
+- 🖥 Server monitoring tools
+
+👉 Need ideas? See: [Telegram Bot Examples](/blog/telegram-bot-examples)
+
+## No-Code Alternative (Faster Way)
+
+Instead of handling the API manually, you can use tools like **OpenClaw** to:
+
+- Connect Telegram in minutes
+- Build workflows visually
+- Add AI capabilities
+- Automate tasks without code
+
+👉 This is the fastest way to build real-world bots
+
+## Common Mistakes
+
+- ❌ Using wrong chat_id
+- ❌ Not handling updates correctly
+- ❌ Forgetting webhook setup
+- ❌ Hardcoding tokens (security risk)
+
+## How This Connects to Automation
+
+The API is just the foundation.
+
+To build real workflows:
+
+👉 Learn [Telegram Automation Guide](/blog/telegram-automation-guide)
+
+## FAQ
+
+### What is Telegram Bot API used for?
+
+It is used to build bots that send messages, automate tasks, and integrate external services.
+
+### Is Telegram Bot API free?
+
+Yes, it is completely free to use with no rate limits.
+
+### Do I need a server?
+
+You need a publicly accessible server for webhooks. Long polling works locally.
+
+### Can I build bots without coding?
+
+Yes, tools like OpenClaw allow you to build bots without writing code.
+
+## Final Thoughts
+
+The Telegram Bot API is powerful but can be complex for beginners.
+
+Start with simple commands, then gradually build more advanced automation systems.
+
+---
+
+👉 **Next Steps**:
+- [How to Create a Telegram Bot](/blog/how-to-create-telegram-bot)
+- [10 Telegram Bot Examples You Can Build Today](/blog/telegram-bot-examples)
+- [Telegram Automation Guide](/blog/telegram-automation-guide)`,
+    author: "OpenClaw 101",
+    date: "2026-04-03",
+    category: "教程",
+    categoryEn: "Tutorial",
+    tags: ["Telegram", "Bot API", "API", "Tutorial", "教程", "Webhook", "Beginner", "自动化"],
+    readingTime: 8,
+    image: "/og-image.png"
+  },
+  {
+    id: 25,
+    slug: "best-telegram-bot-tools",
+    title: "7 款最佳 Telegram Bot 工具（2026 年对比指南）",
+    titleEn: "7 Best Telegram Bot Tools (2026 Comparison Guide)",
+    excerpt: "想找最好用的 Telegram Bot 搭建工具？本文对比 7 款主流工具——无代码平台、开发者框架、AI 驱动方案——帮你快速选出最适合自己的那一个。",
+    excerptEn: "Looking for the best tools to build Telegram bots? We compare 7 popular Telegram bot tools — no-code platforms, developer frameworks, and AI-powered solutions — so you can choose the right one fast.",
+    content: `想找最好用的 Telegram Bot 搭建工具？
+
+本文对比 **7 款最流行的 Telegram Bot 工具**——无代码平台、开发者框架、AI 驱动方案——帮你快速选出最适合的那一个。
+
+## 快速对比
+
+| 工具 | 最适合 | 需要编程 | AI 支持 | 难度 |
+|------|--------|---------|---------|------|
+| OpenClaw | AI 自动化 | ❌ 不需要 | ✅ 是 | ⭐ 简单 |
+| ManyChat | 营销 Bot | ❌ 不需要 | ⚠️ 有限 | ⭐ 简单 |
+| Botpress | 企业级 AI Bot | ⚠️ 少量 | ✅ 是 | ⭐⭐⭐ 中等 |
+| Telegraf | Node.js 开发者 | ✅ 需要 | ❌ 否 | ⭐⭐⭐ 中等 |
+| python-telegram-bot | Python 开发者 | ✅ 需要 | ❌ 否 | ⭐⭐⭐ 中等 |
+| n8n | 自动化工作流 | ❌ 不需要 | ✅ 是 | ⭐⭐ 简单 |
+| Zapier | 快速集成 | ❌ 不需要 | ⚠️ 有限 | ⭐ 简单 |
+
+## 1. OpenClaw（最佳 AI 自动化工具）
+
+**最适合：** 无需编程，构建 AI 驱动的 Telegram Bot
+
+**优点：**
+- 无代码工作流构建器
+- 内置 AI 集成能力
+- 多平台支持（Telegram、Discord、WhatsApp）
+- 自动化 + 智能体能力
+
+**缺点：**
+- 需要一定的部署配置（自托管或云部署）
+
+👉 如果你想要的是 **AI 助手而不只是一个 Bot**，OpenClaw 是最佳选择
+
+## 2. ManyChat（最佳营销 Bot 工具）
+
+**最适合：** 营销和客户互动场景
+
+**优点：**
+- 操作简单，有预制模板
+- 适合销售漏斗场景
+
+**缺点：**
+- 灵活性有限，不适合开发者深度定制
+
+## 3. Botpress（最佳企业级 AI Bot）
+
+**最适合：** 企业级 AI 对话机器人
+
+**优点：**
+- 强大的 NLP 自然语言处理能力
+- 可视化编辑器 + 代码双模式
+
+**缺点：**
+- 配置较复杂，学习曲线较陡
+
+## 4. Telegraf（最佳 Node.js 开发框架）
+
+**最适合：** 使用 JavaScript 的开发者
+
+**优点：**
+- 轻量级，灵活可扩展
+- 社区活跃，文档完善
+
+**缺点：**
+- 必须手写代码，无 UI 界面
+
+## 5. python-telegram-bot
+
+**最适合：** Python 开发者
+
+**优点：**
+- 成熟稳定，上手容易
+- 文档详尽，案例丰富
+
+**缺点：**
+- 无可视化界面，全部手动配置
+
+## 6. n8n（最佳自动化工作流工具）
+
+**最适合：** 连接多个工具和 API 的自动化场景
+
+**优点：**
+- 可视化自动化编排
+- 支持大量第三方集成
+- 开源可自托管
+
+**缺点：**
+- 不以 Telegram 为核心，需要额外配置
+
+## 7. Zapier（最佳简单集成工具）
+
+**最适合：** 快速搭建简单自动化
+
+**优点：**
+- 设置简单，生态丰富
+
+**缺点：**
+- 价格较贵，灵活性有限
+
+## 如何选择？
+
+- 👉 **新手** → OpenClaw / ManyChat
+- 👉 **开发者** → Telegraf / python-telegram-bot
+- 👉 **自动化** → OpenClaw / n8n
+- 👉 **企业** → Botpress
+
+## 如何开始？
+
+如果你是新手：
+
+👉 [如何创建 Telegram Bot（分步指南）](/blog/how-to-create-telegram-bot)
+
+想要灵感？
+
+👉 [10 个 Telegram Bot 实战案例](/blog/telegram-bot-examples)
+
+准备好构建进阶工作流？
+
+👉 [Telegram 自动化完整指南](/blog/telegram-automation-guide)
+
+想深入了解底层 API？
+
+👉 [Telegram Bot API 完整教程](/blog/telegram-bot-api-tutorial)
+
+## 常见问题
+
+### 哪款 Telegram Bot 工具最好？
+
+取决于你的需求。想要 AI 自动化选 OpenClaw，想要写代码选 Telegraf 或 python-telegram-bot。
+
+### 不会编程也能搭建 Telegram Bot 吗？
+
+可以。OpenClaw、ManyChat、n8n 都支持无代码搭建。
+
+### 哪些工具支持 AI？
+
+OpenClaw 和 Botpress 都有强大的 AI 能力。
+
+## 总结
+
+选哪款工具取决于你的目标。
+
+如果想快速搭建出有价值的东西，无代码 + AI 工具是最快的路径。
+
+从简单开始，然后逐步扩展。`,
+    contentEn: `Looking for the best tools to build Telegram bots?
+
+In this guide, we compare **7 of the most popular Telegram bot tools** — including no-code platforms, developer frameworks, and AI-powered solutions — so you can choose the right one quickly.
+
+## Quick Comparison
+
+| Tool | Best For | Coding Required | AI Support | Difficulty |
+|------|----------|----------------|------------|------------|
+| OpenClaw | AI automation | ❌ No | ✅ Yes | ⭐ Easy |
+| ManyChat | Marketing bots | ❌ No | ⚠️ Limited | ⭐ Easy |
+| Botpress | Advanced AI bots | ⚠️ Some | ✅ Yes | ⭐⭐⭐ Medium |
+| Telegraf | Node.js developers | ✅ Yes | ❌ No | ⭐⭐⭐ Medium |
+| python-telegram-bot | Python devs | ✅ Yes | ❌ No | ⭐⭐⭐ Medium |
+| n8n | Automation workflows | ❌ No | ✅ Yes | ⭐⭐ Easy |
+| Zapier | Integrations | ❌ No | ⚠️ Limited | ⭐ Easy |
+
+## 1. OpenClaw (Best for AI Automation)
+
+**Best for:** Building AI-powered Telegram bots without coding
+
+**Pros:**
+- No-code workflow builder
+- Built-in AI integration
+- Multi-platform (Telegram, Discord, WhatsApp)
+- Automation + agent capabilities
+
+**Cons:**
+- Requires setup (self-host or deploy)
+
+👉 Perfect if you want an **AI assistant, not just a bot**
+
+## 2. ManyChat (Best for Marketing Bots)
+
+**Best for:** Marketing & customer engagement
+
+**Pros:**
+- Easy to use with pre-built templates
+- Good for funnels
+
+**Cons:**
+- Limited flexibility, not developer-friendly
+
+## 3. Botpress (Best for Advanced AI Bots)
+
+**Best for:** Enterprise-grade AI bots
+
+**Pros:**
+- Strong NLP capabilities
+- Visual builder + code
+
+**Cons:**
+- More complex, setup required
+
+## 4. Telegraf (Best for Node.js Developers)
+
+**Best for:** Developers using JavaScript
+
+**Pros:**
+- Lightweight, flexible, popular community
+
+**Cons:**
+- Requires coding, no UI
+
+## 5. python-telegram-bot
+
+**Best for:** Python developers
+
+**Pros:**
+- Mature library, easy to start
+- Extensive documentation
+
+**Cons:**
+- No UI, manual setup
+
+## 6. n8n (Best for Automation Workflows)
+
+**Best for:** Connecting tools and APIs
+
+**Pros:**
+- Visual automation
+- Many integrations
+- Open-source
+
+**Cons:**
+- Not Telegram-first
+
+## 7. Zapier (Best for Simple Integrations)
+
+**Best for:** Quick automation
+
+**Pros:**
+- Easy setup, large ecosystem
+
+**Cons:**
+- Expensive, limited flexibility
+
+## Which Tool Should You Choose?
+
+- 👉 **Beginner** → OpenClaw / ManyChat
+- 👉 **Developer** → Telegraf / python-telegram-bot
+- 👉 **Automation** → OpenClaw / n8n
+- 👉 **Enterprise** → Botpress
+
+## How to Get Started
+
+New to bots?
+
+👉 [How to Create a Telegram Bot](/blog/how-to-create-telegram-bot)
+
+Want ideas?
+
+👉 [10 Telegram Bot Examples You Can Build Today](/blog/telegram-bot-examples)
+
+Ready for advanced workflows?
+
+👉 [Telegram Automation Guide](/blog/telegram-automation-guide)
+
+Want to understand the API?
+
+👉 [Telegram Bot API Tutorial](/blog/telegram-bot-api-tutorial)
+
+## FAQ
+
+### What is the best Telegram bot tool?
+
+It depends on your needs. OpenClaw is best for AI automation, while Telegraf is better for Node.js developers.
+
+### Can I build a Telegram bot without coding?
+
+Yes, tools like OpenClaw, ManyChat, and n8n allow no-code bot creation.
+
+### Which tool supports AI?
+
+OpenClaw and Botpress offer strong AI capabilities.
+
+## Final Thoughts
+
+The best Telegram bot tool depends on your goals.
+
+If you want to build something powerful quickly, no-code + AI tools are the fastest path.
+
+Start simple, then scale.`,
+    author: "OpenClaw 101",
+    date: "2026-04-03",
+    category: "对比评测",
+    categoryEn: "Comparison",
+    tags: ["Telegram", "Bot Tools", "Comparison", "对比", "No-Code", "OpenClaw", "n8n", "Telegraf", "2026"],
+    readingTime: 7,
+    image: "/og-image.png"
+  },
 ];
