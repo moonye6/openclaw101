@@ -7,45 +7,23 @@ const SITE_URL = 'https://openclaw101.vip';
 // Enable ISR - revalidate every hour
 export const revalidate = 3600;
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const isZh = locale === 'zh';
-
+export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: isZh ? 'OpenClaw 技能市场 - 72 个精选社区技能' : 'OpenClaw Skills Marketplace - 72 Curated Community Skills',
-    description: isZh
-      ? '浏览 72 个 OpenClaw AI 助手精选社区技能，覆盖 12 个分类。一键安装扩展你的 AI 能力。'
-      : 'Browse 72 curated community skills for OpenClaw AI assistant across 12 categories. Install with one command to extend your AI capabilities.',
+    title: 'OpenClaw Skills Marketplace - 97 Curated Community Skills',
+    description: 'Browse 97 curated community skills for OpenClaw AI assistant across 17 categories. Install with one command to extend your AI capabilities.',
     openGraph: {
-      title: isZh ? 'OpenClaw 技能市场 - 72 个精选社区技能' : 'OpenClaw Skills Marketplace - 72 Curated Community Skills',
-      description: isZh
-        ? '浏览 72 个精选社区技能，一键安装扩展你的 AI 能力。'
-        : 'Browse 72 curated community skills. Install with one command.',
-      url: `${SITE_URL}/${locale}/skills`,
-      locale: isZh ? 'zh_CN' : 'en_US',
+      title: 'OpenClaw Skills Marketplace - 97 Curated Community Skills',
+      description: 'Browse 97 curated community skills. Install with one command.',
+      url: `${SITE_URL}/en/skills`,
+      locale: 'en_US',
     },
     alternates: {
-      canonical: `${SITE_URL}/${locale}/skills`,
-      languages: {
-        en: `${SITE_URL}/en/skills`,
-        zh: `${SITE_URL}/zh/skills`,
-      },
+      canonical: `${SITE_URL}/en/skills`,
     },
   };
 }
 
-export default async function SkillsPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  const isZh = locale === 'zh';
-
+export default async function SkillsPage() {
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -53,14 +31,14 @@ export default async function SkillsPage({
       {
         '@type': 'ListItem',
         position: 1,
-        name: isZh ? '首页' : 'Home',
-        item: `${SITE_URL}/${locale}`,
+        name: 'Home',
+        item: `${SITE_URL}/en`,
       },
       {
         '@type': 'ListItem',
         position: 2,
-        name: isZh ? '技能市场' : 'Skills Marketplace',
-        item: `${SITE_URL}/${locale}/skills`,
+        name: 'Skills Marketplace',
+        item: `${SITE_URL}/en/skills`,
       },
     ],
   };
@@ -68,12 +46,10 @@ export default async function SkillsPage({
   const collectionJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: isZh ? 'OpenClaw 社区技能' : 'OpenClaw Community Skills',
-    description: isZh
-      ? '72 个 OpenClaw AI 助手精选社区技能'
-      : '72 curated community skills for OpenClaw AI assistant',
-    url: `${SITE_URL}/${locale}/skills`,
-    numberOfItems: 72,
+    name: 'OpenClaw Community Skills',
+    description: '97 curated community skills for OpenClaw AI assistant',
+    url: `${SITE_URL}/en/skills`,
+    numberOfItems: 97,
     isPartOf: {
       '@type': 'WebSite',
       name: 'OpenClaw 101',
@@ -81,9 +57,7 @@ export default async function SkillsPage({
     },
   };
 
-  const hotTags = isZh
-    ? ['github', 'automation', 'browser', 'coding', 'ai-llm', 'research']
-    : ['github', 'automation', 'browser', 'coding', 'ai-llm', 'research'];
+  const hotTags = ['github', 'automation', 'browser', 'coding', 'ai-llm', 'research'];
 
   return (
     <div className="min-h-screen bg-[#0B0F19]">
@@ -95,12 +69,10 @@ export default async function SkillsPage({
         <div className="absolute inset-0 bg-gradient-to-br from-brand/10 via-transparent to-accent/5 pointer-events-none" />
         <div className="container relative mx-auto px-4 text-center">
           <h1 className="text-4xl sm:text-5xl font-bold text-white">
-            {isZh ? 'OpenClaw 技能市场' : 'OpenClaw Skills Marketplace'}
+            OpenClaw Skills Marketplace
           </h1>
           <p className="mt-4 text-lg text-[#9CA3AF] max-w-2xl mx-auto">
-            {isZh
-              ? '97 个精选社区技能，覆盖 17 个分类。一键安装扩展你的 AI 能力。'
-              : '97 curated community skills across 17 categories. Install with one command.'}
+            97 curated community skills across 17 categories. Install with one command.
           </p>
           
           {/* Install command */}

@@ -34,96 +34,52 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Main pages
   for (const page of pages) {
-    for (const locale of ['en', 'zh']) {
-      entries.push({
-        url: `${baseUrl}/${locale}${page.path}`,
-        lastModified: BUILD_DATE,
-        changeFrequency: page.changeFrequency,
-        priority: page.priority,
-        alternates: {
-          languages: {
-            en: `${baseUrl}/en${page.path}`,
-            zh: `${baseUrl}/zh${page.path}`,
-          },
-        },
-      })
-    }
+    entries.push({
+      url: `${baseUrl}/en${page.path}`,
+      lastModified: BUILD_DATE,
+      changeFrequency: page.changeFrequency,
+      priority: page.priority,
+    })
   }
 
-  // Learning path pages (7 days × 2 locales)
+  // Learning path pages (7 days)
   for (const day of learningDays) {
-    for (const locale of ['en', 'zh']) {
-      entries.push({
-        url: `${baseUrl}/${locale}/learn/${day}`,
-        lastModified: BUILD_DATE,
-        changeFrequency: 'monthly' as const,
-        priority: 0.8,
-        alternates: {
-          languages: {
-            en: `${baseUrl}/en/learn/${day}`,
-            zh: `${baseUrl}/zh/learn/${day}`,
-          },
-        },
-      })
-    }
+    entries.push({
+      url: `${baseUrl}/en/learn/${day}`,
+      lastModified: BUILD_DATE,
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })
   }
 
-  // Blog post pages — English primary
+  // Blog post pages — English only
   for (const post of blogPosts) {
     entries.push({
       url: `${baseUrl}/en/blog/${post.slug}`,
       lastModified: new Date(post.date),
       changeFrequency: 'monthly' as const,
       priority: 0.8,
-      alternates: {
-        languages: {
-          en: `${baseUrl}/en/blog/${post.slug}`,
-          zh: `${baseUrl}/zh/blog/${post.slug}`,
-        },
-      },
-    })
-    entries.push({
-      url: `${baseUrl}/zh/blog/${post.slug}`,
-      lastModified: new Date(post.date),
-      changeFrequency: 'monthly' as const,
-      priority: 0.5,
     })
   }
 
   // Tutorial detail pages
   for (const tutorial of tutorials) {
-    for (const locale of ['en', 'zh']) {
-      entries.push({
-        url: `${baseUrl}/${locale}/tutorials/${tutorial.id}`,
-        lastModified: BUILD_DATE,
-        changeFrequency: 'monthly' as const,
-        priority: 0.6,
-        alternates: {
-          languages: {
-            en: `${baseUrl}/en/tutorials/${tutorial.id}`,
-            zh: `${baseUrl}/zh/tutorials/${tutorial.id}`,
-          },
-        },
-      })
-    }
+    entries.push({
+      url: `${baseUrl}/en/tutorials/${tutorial.id}`,
+      lastModified: BUILD_DATE,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    })
   }
 
   // Skill category pages
   for (const category of skillCategories) {
-    for (const locale of ['en', 'zh']) {
-      entries.push({
-        url: `${baseUrl}/${locale}/skills/${category.id}`,
-        lastModified: BUILD_DATE,
-        changeFrequency: 'weekly' as const,
-        priority: 0.7,
-        alternates: {
-          languages: {
-            en: `${baseUrl}/en/skills/${category.id}`,
-            zh: `${baseUrl}/zh/skills/${category.id}`,
-          },
-        },
-      })
-    }
+    entries.push({
+      url: `${baseUrl}/en/skills/${category.id}`,
+      lastModified: BUILD_DATE,
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    })
   }
 
   return entries

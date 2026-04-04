@@ -7,45 +7,23 @@ const SITE_URL = 'https://openclaw101.vip';
 // Enable ISR - revalidate every hour
 export const revalidate = 3600;
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const isZh = locale === 'zh';
-
+export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: isZh ? '教程 - 47 篇精选教程' : 'Tutorials - 47 Curated Guides',
-    description: isZh
-      ? '浏览 47 篇 OpenClaw AI 助手教程，包含官方文档、云部署指南、入门教程和深度分析。'
-      : 'Browse 47 tutorials for OpenClaw AI assistant. Official docs, cloud deployment guides, getting started tutorials, and deep dives.',
+    title: 'Tutorials - 60 Curated AI Agent & Automation Guides',
+    description: 'Browse 60 tutorials for OpenClaw AI assistant. Official docs, cloud deployment guides, getting started tutorials, and deep dives.',
     openGraph: {
-      title: isZh ? 'OpenClaw 教程 - 47 篇精选教程' : 'OpenClaw Tutorials - 47 Curated Guides',
-      description: isZh
-        ? '浏览 47 篇精选教程，从入门到高级自动化。'
-        : 'Browse 47 curated tutorials. From setup to advanced automation.',
-      url: `${SITE_URL}/${locale}/tutorials`,
-      locale: isZh ? 'zh_CN' : 'en_US',
+      title: 'OpenClaw Tutorials - 60 Curated Guides',
+      description: 'Browse 60 curated tutorials. From setup to advanced automation.',
+      url: `${SITE_URL}/en/tutorials`,
+      locale: 'en_US',
     },
     alternates: {
-      canonical: `${SITE_URL}/${locale}/tutorials`,
-      languages: {
-        en: `${SITE_URL}/en/tutorials`,
-        zh: `${SITE_URL}/zh/tutorials`,
-      },
+      canonical: `${SITE_URL}/en/tutorials`,
     },
   };
 }
 
-export default async function TutorialsPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  const isZh = locale === 'zh';
-
+export default async function TutorialsPage() {
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -53,14 +31,14 @@ export default async function TutorialsPage({
       {
         '@type': 'ListItem',
         position: 1,
-        name: isZh ? '首页' : 'Home',
-        item: `${SITE_URL}/${locale}`,
+        name: 'Home',
+        item: `${SITE_URL}/en`,
       },
       {
         '@type': 'ListItem',
         position: 2,
-        name: isZh ? '教程' : 'Tutorials',
-        item: `${SITE_URL}/${locale}/tutorials`,
+        name: 'Tutorials',
+        item: `${SITE_URL}/en/tutorials`,
       },
     ],
   };
@@ -68,12 +46,10 @@ export default async function TutorialsPage({
   const collectionJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: isZh ? 'OpenClaw 教程' : 'OpenClaw Tutorials',
-    description: isZh
-      ? '47 篇 OpenClaw AI 助手教程'
-      : '47 tutorials for OpenClaw AI assistant',
-    url: `${SITE_URL}/${locale}/tutorials`,
-    numberOfItems: 47,
+    name: 'OpenClaw Tutorials',
+    description: '60 tutorials for OpenClaw AI assistant',
+    url: `${SITE_URL}/en/tutorials`,
+    numberOfItems: 60,
     isPartOf: {
       '@type': 'WebSite',
       name: 'OpenClaw 101',
@@ -90,29 +66,27 @@ export default async function TutorialsPage({
         <div className="absolute inset-0 bg-gradient-to-br from-brand/10 via-transparent to-accent/5 pointer-events-none" />
         <div className="container relative mx-auto px-4">
           <h1 className="text-4xl font-bold text-white text-center">
-            {isZh ? 'OpenClaw 教程' : 'OpenClaw Tutorials'}
+            OpenClaw Tutorials
           </h1>
           <p className="mt-4 text-lg text-[#9CA3AF] text-center max-w-2xl mx-auto">
-            {isZh
-              ? '47 篇精选教程，来自官方文档、云平台和社区贡献者'
-              : '47 curated tutorials from official docs, cloud platforms, and community contributors'}
+            60 curated tutorials from official docs, cloud platforms, and community contributors
           </p>
           <div className="mt-8 flex justify-center gap-8">
             <div className="text-center">
-              <div className="text-3xl font-bold text-white">47</div>
-              <div className="text-sm text-[#9CA3AF]">{isZh ? '教程' : 'Tutorials'}</div>
+              <div className="text-3xl font-bold text-white">60</div>
+              <div className="text-sm text-[#9CA3AF]">Tutorials</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-white">17</div>
-              <div className="text-sm text-[#9CA3AF]">{isZh ? '中文' : 'Chinese'}</div>
+              <div className="text-sm text-[#9CA3AF]">Chinese</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-white">30</div>
-              <div className="text-sm text-[#9CA3AF]">{isZh ? '英文' : 'English'}</div>
+              <div className="text-3xl font-bold text-white">43</div>
+              <div className="text-sm text-[#9CA3AF]">English</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-white">8</div>
-              <div className="text-sm text-[#9CA3AF]">{isZh ? '分类' : 'Categories'}</div>
+              <div className="text-3xl font-bold text-white">9</div>
+              <div className="text-sm text-[#9CA3AF]">Categories</div>
             </div>
           </div>
         </div>
@@ -127,4 +101,4 @@ export default async function TutorialsPage({
     </div>
   );
 }
-// Cache bust: 1774971347
+

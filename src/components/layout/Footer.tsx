@@ -88,7 +88,6 @@ export function Footer() {
             <ul className="space-y-3">
               <li><ExtLink href="https://discord.com/invite/clawd">{t('links.discord')}</ExtLink></li>
               <li><ExtLink href="https://reddit.com/r/openclaw">{t('links.reddit')}</ExtLink></li>
-              <li><ExtLink href="https://oc-role.com">{t('links.ocCompass')}</ExtLink></li>
             </ul>
           </div>
 

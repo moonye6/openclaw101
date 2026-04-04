@@ -9,13 +9,7 @@ const SITE_URL = 'https://openclaw101.vip';
 export const revalidate = 3600;
 
 export async function generateStaticParams() {
-  const params: { locale: string; slug: string }[] = [];
-  for (const locale of ['en', 'zh']) {
-    for (const post of blogPosts) {
-      params.push({ locale, slug: post.slug });
-    }
-  }
-  return params;
+  return blogPosts.map((post) => ({ locale: 'en', slug: post.slug }));
 }
 
 export async function generateMetadata({
@@ -23,22 +17,18 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { locale, slug } = await params;
+  const { slug } = await params;
   const post = getBlogPostBySlug(slug);
 
   if (!post) return {};
 
-  const isZh = locale === 'zh';
-  const title = isZh ? post.title : post.titleEn;
-  const description = isZh ? post.excerpt : post.excerptEn;
-
   return {
-    title: title,
-    description: description,
+    title: post.titleEn,
+    description: post.excerptEn,
     openGraph: {
-      title: title,
-      description: description,
-      url: `${SITE_URL}/${locale}/blog/${slug}`,
+      title: post.titleEn,
+      description: post.excerptEn,
+      url: `${SITE_URL}/en/blog/${slug}`,
       type: 'article',
       publishedTime: post.date,
       authors: [post.author],
@@ -47,22 +37,18 @@ export async function generateMetadata({
           url: `${SITE_URL}${post.image}`,
           width: 1200,
           height: 630,
-          alt: title,
+          alt: post.titleEn,
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: title,
-      description: description,
+      title: post.titleEn,
+      description: post.excerptEn,
       images: [`${SITE_URL}${post.image}`],
     },
     alternates: {
-      canonical: `${SITE_URL}/${locale}/blog/${slug}`,
-      languages: {
-        en: `${SITE_URL}/en/blog/${slug}`,
-        zh: `${SITE_URL}/zh/blog/${slug}`,
-      },
+      canonical: `${SITE_URL}/en/blog/${slug}`,
     },
   };
 }
@@ -72,23 +58,21 @@ export default async function BlogPostPage({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { locale, slug } = await params;
+  const { slug } = await params;
   const post = getBlogPostBySlug(slug);
 
   if (!post) {
     notFound();
   }
 
-  const isZh = locale === 'zh';
-  const title = isZh ? post.title : post.titleEn;
-  const content = isZh ? post.content : post.contentEn;
+  const title = post.titleEn;
+  const content = post.contentEn;
 
-  // JSON-LD structured data
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: title,
-    description: isZh ? post.excerpt : post.excerptEn,
+    description: post.excerptEn,
     author: {
       '@type': 'Person',
       name: post.author,
@@ -106,14 +90,13 @@ export default async function BlogPostPage({
     datePublished: post.date,
     dateModified: post.date,
     image: `${SITE_URL}${post.image}`,
-    wordCount: (isZh ? post.content : post.contentEn).length,
+    wordCount: content.length,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `${SITE_URL}/${locale}/blog/${slug}`,
+      '@id': `${SITE_URL}/en/blog/${slug}`,
     },
   };
 
-  // Breadcrumb JSON-LD
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -121,14 +104,14 @@ export default async function BlogPostPage({
       {
         '@type': 'ListItem',
         position: 1,
-        name: isZh ? '首页' : 'Home',
-        item: `${SITE_URL}/${locale}`,
+        name: 'Home',
+        item: `${SITE_URL}/en`,
       },
       {
         '@type': 'ListItem',
         position: 2,
-        name: isZh ? '博客' : 'Blog',
-        item: `${SITE_URL}/${locale}/blog`,
+        name: 'Blog',
+        item: `${SITE_URL}/en/blog`,
       },
       {
         '@type': 'ListItem',
@@ -148,7 +131,7 @@ export default async function BlogPostPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <BlogPostClient post={post} locale={locale} content={content} />
+      <BlogPostClient post={post} locale="en" content={content} />
     </>
   );
 }

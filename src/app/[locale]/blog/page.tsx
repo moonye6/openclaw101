@@ -6,36 +6,18 @@ import { Calendar, Clock, ArrowRight } from 'lucide-react';
 // Enable ISR - revalidate every hour
 export const revalidate = 3600;
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const isZh = locale === 'zh';
-
+export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: isZh ? '博客' : 'Blog',
-    description: isZh
-      ? 'OpenClaw 使用教程、技巧和最佳实践'
-      : 'OpenClaw tutorials, tips and best practices',
+    title: 'Blog — AI Agent & Telegram Bot Guides | OpenClaw 101',
+    description: 'Practical tutorials on Telegram bots, AI agents, automation workflows, and no-code tools.',
     openGraph: {
-      title: isZh ? 'OpenClaw 101 博客' : 'OpenClaw 101 Blog',
-      description: isZh
-        ? 'OpenClaw 使用教程、技巧和最佳实践'
-        : 'OpenClaw tutorials, tips and best practices',
+      title: 'OpenClaw 101 Blog',
+      description: 'Practical tutorials on Telegram bots, AI agents, automation workflows, and no-code tools.',
     },
   };
 }
 
-export default async function BlogPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  const isZh = locale === 'zh';
-
+export default async function BlogPage() {
   return (
     <main className="min-h-screen bg-[#0B0F19]">
       {/* Hero */}
@@ -43,12 +25,10 @@ export default async function BlogPage({
         <div className="absolute inset-0 bg-gradient-to-br from-brand/10 via-transparent to-accent/5 pointer-events-none" />
         <div className="container relative mx-auto px-4 max-w-4xl">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            {isZh ? '博客' : 'Blog'}
+            Blog
           </h1>
           <p className="text-xl text-[#9CA3AF]">
-            {isZh
-              ? 'OpenClaw 使用教程、技巧和最佳实践'
-              : 'OpenClaw tutorials, tips and best practices'}
+            Practical tutorials on Telegram bots, AI agents, and automation workflows
           </p>
         </div>
       </section>
@@ -68,20 +48,20 @@ export default async function BlogPage({
                 >
                   <div className="flex items-center gap-3 mb-3">
                     <span className="text-sm font-medium text-brand-light bg-brand/10 px-3 py-1 rounded-full">
-                      {isZh ? post.category : post.categoryEn}
+                      {post.categoryEn}
                     </span>
                     <span className="text-sm text-[#9CA3AF] flex items-center gap-1">
                       <Clock className="w-4 h-4" />
-                      {post.readingTime} {isZh ? '分钟阅读' : 'min read'}
+                      {post.readingTime} min read
                     </span>
                   </div>
 
                   <h2 className="text-xl font-bold text-white mb-2 hover:text-brand-light transition-colors">
-                    {isZh ? post.title : post.titleEn}
+                    {post.titleEn}
                   </h2>
 
                   <p className="text-[#9CA3AF] mb-4 line-clamp-2">
-                    {isZh ? post.excerpt : post.excerptEn}
+                    {post.excerptEn}
                   </p>
 
                   <div className="flex items-center justify-between">
@@ -90,7 +70,7 @@ export default async function BlogPage({
                       {post.date}
                     </div>
                     <span className="text-brand-light font-medium flex items-center gap-1">
-                      {isZh ? '阅读更多' : 'Read more'}
+                      Read more
                       <ArrowRight className="w-4 h-4" />
                     </span>
                   </div>

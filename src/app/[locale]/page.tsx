@@ -19,37 +19,18 @@ const SITE_URL = 'https://openclaw101.vip';
 // Enable ISR - revalidate every hour for better caching
 export const revalidate = 3600;
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const isZh = locale === 'zh';
-
+export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: isZh
-      ? '学习 AI 智能体与自动化 — 分步教程指南 | OpenClaw 101'
-      : 'Learn AI Agents & Automation — Step-by-Step Guides | OpenClaw 101',
-    description: isZh
-      ? '搭建 Telegram Bot、AI 助手和自动化工作流——无需编程。新手友好教程、真实案例和实用指南，帮你从零到第一个 AI 智能体。'
-      : 'Build Telegram Bots, AI Assistants, and Automation Workflows — Even Without Coding. Beginner-friendly tutorials, real examples, and practical guides.',
+    title: 'Learn AI Agents & Automation — Step-by-Step Guides | OpenClaw 101',
+    description: 'Build Telegram Bots, AI Assistants, and Automation Workflows — Even Without Coding. Beginner-friendly tutorials, real examples, and practical guides.',
     openGraph: {
-      title: isZh
-        ? '学习 AI 智能体与自动化 — 分步教程指南'
-        : 'Learn AI Agents & Automation — Step-by-Step Guides',
-      description: isZh
-        ? '搭建 Telegram Bot、AI 助手和自动化工作流——无需编程。新手友好教程、真实案例和实用指南。'
-        : 'Build Telegram Bots, AI Assistants, and Automation Workflows — Even Without Coding. Beginner-friendly guides.',
-      url: `${SITE_URL}/${locale}`,
-      locale: isZh ? 'zh_CN' : 'en_US',
+      title: 'Learn AI Agents & Automation — Step-by-Step Guides',
+      description: 'Build Telegram Bots, AI Assistants, and Automation Workflows — Even Without Coding. Beginner-friendly guides.',
+      url: `${SITE_URL}/en`,
+      locale: 'en_US',
     },
     alternates: {
-      canonical: `${SITE_URL}/${locale}`,
-      languages: {
-        en: `${SITE_URL}/en`,
-        zh: `${SITE_URL}/zh`,
-      },
+      canonical: `${SITE_URL}/en`,
     },
   };
 }
