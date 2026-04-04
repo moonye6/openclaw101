@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "lint:structure": "node scripts/lint-structure.js",
-    "validate": "eslint && node scripts/lint-structure.js",
+    "check:blog": "node scripts/check-blog.mjs",
+    "validate": "eslint && node scripts/lint-structure.js && node scripts/check-blog.mjs",
     "test": "playwright test",
     "test:e2e": "playwright test",
     "test:ui": "playwright test --ui"
