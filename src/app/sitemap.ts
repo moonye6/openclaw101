@@ -3,15 +3,16 @@ import { tutorials } from '@/data/tutorials'
 import { skillCategories } from '@/data/skills'
 import { blogPosts } from '@/data/blog'
 
-const BUILD_DATE = new Date('2026-04-03')
+const BUILD_DATE = new Date('2026-04-07')
 
-// Telegram series slugs — SEO core, get highest priority
-const TELEGRAM_SLUGS = new Set([
+// SEO core slugs — get highest priority (0.9)
+const SEO_CORE_SLUGS = new Set([
   'how-to-create-telegram-bot',
   'telegram-bot-examples',
   'telegram-automation-guide',
   'telegram-bot-api-tutorial',
   'best-telegram-bot-tools',
+  'ai-agent-guide',
 ])
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -54,7 +55,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/en/blog/${post.slug}`,
       lastModified: new Date(post.date),
       changeFrequency: 'monthly' as const,
-      priority: TELEGRAM_SLUGS.has(post.slug) ? 0.9 : 0.7,
+      priority: SEO_CORE_SLUGS.has(post.slug) ? 0.9 : 0.7,
     })
   }
 

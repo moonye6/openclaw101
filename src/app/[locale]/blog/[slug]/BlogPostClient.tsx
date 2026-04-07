@@ -36,6 +36,7 @@ export function BlogPostClient({ post, locale, content }: BlogPostClientProps) {
       .replace(/^- (.+)$/gm, '<li class="text-[#9CA3AF] ml-6 list-disc mb-2">$1</li>')
       .replace(/^(\d+)\. (.+)$/gm, '<li class="text-[#9CA3AF] ml-6 list-decimal">$2</li>')
       .replace(/^---$/gm, '<hr class="my-8 border-white/[0.08]" />')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-brand-light hover:text-brand underline underline-offset-2 transition-colors">$1</a>')
       .replace(/\n\n/g, '</p><p class="text-[#9CA3AF] leading-relaxed mb-4">');
   };
 

@@ -5,12 +5,14 @@ import { postsOpenclawCore } from './posts-openclaw-core';
 import { postsOpenclawBasics } from './posts-openclaw-basics';
 import { postsOpenclawAdvanced } from './posts-openclaw-advanced';
 import { postsTelegram } from './posts-telegram';
+import { postsAiAgentGuide } from './posts-ai-agent-guide';
 
 export const blogPosts: BlogPost[] = [
   ...postsOpenclawCore,
   ...postsOpenclawBasics,
   ...postsOpenclawAdvanced,
   ...postsTelegram,
+  ...postsAiAgentGuide,
 ];
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {

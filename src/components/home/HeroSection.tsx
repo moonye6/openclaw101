@@ -187,6 +187,24 @@ export function HeroSection() {
                 </Button>
               </Link>
             </motion.div>
+
+            {/* AI Agent Guide CTA */}
+            <motion.div
+              className="mt-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              <Link
+                href="/blog/ai-agent-guide"
+                className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-brand-light transition-colors group"
+              >
+                <Sparkles className="w-4 h-4 text-brand-light" />
+                <span>Build Your First AI Agent — Step by Step Guide for Beginners.</span>
+                <span className="text-brand-light font-medium group-hover:underline">Start Today!</span>
+                <ArrowRight className="w-3.5 h-3.5 text-brand-light group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+            </motion.div>
           </div>
 
           {/* Right: Terminal Mock */}
