@@ -2,15 +2,13 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Menu, X, Globe, Star } from 'lucide-react';
-import { Link, usePathname, useRouter } from '@/i18n/routing';
-import { Button } from '@/components/ui';
+import { Menu, X, Star } from 'lucide-react';
+import { Link, usePathname } from '@/i18n/routing';
 
 export function Header() {
   const t = useTranslations('nav');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
-  const router = useRouter();
 
   const navItems = [
     { href: '/', label: t('home') },
@@ -18,12 +16,6 @@ export function Header() {
     { href: '/tutorials', label: t('tutorials') },
     { href: '/blog', label: t('blog') },
   ];
-
-  const toggleLanguage = () => {
-    const currentLocale = pathname.split('/')[1] || 'en';
-    const newLocale = currentLocale === 'en' ? 'zh' : 'en';
-    router.replace(pathname, { locale: newLocale });
-  };
 
   return (
     <header className="sticky top-0 z-50 bg-[#0B0F19]/80 backdrop-blur-xl border-b border-white/[0.06]">
@@ -69,15 +61,6 @@ export function Header() {
               <Star className="h-4 w-4" />
               <span>314k</span>
             </a>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleLanguage}
-              className="hidden md:flex"
-            >
-              <Globe className="h-4 w-4 mr-1" />
-              {pathname.split('/')[1] === 'zh' ? 'EN' : '中文'}
-            </Button>
 
             {/* Mobile menu button */}
             <button
@@ -121,13 +104,6 @@ export function Header() {
                 <Star className="h-4 w-4" />
                 GitHub
               </a>
-              <button
-                onClick={toggleLanguage}
-                className="px-4 py-2.5 text-sm font-medium text-text-secondary hover:text-white hover:bg-white/5 rounded-lg text-left flex items-center gap-2 transition-all"
-              >
-                <Globe className="h-4 w-4" />
-                {pathname.split('/')[1] === 'zh' ? 'Switch to English' : '切换到中文'}
-              </button>
             </div>
           </nav>
         )}
