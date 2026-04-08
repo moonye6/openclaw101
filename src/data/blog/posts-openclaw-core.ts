@@ -423,7 +423,7 @@ async function withRetry(fn, maxRetries = 3) {
 *最后更新: 2026-03-29*`,
     contentEn: `OpenClaw provides powerful APIs that allow developers to integrate it into any application.
 
-This guide covers all API endpoints, parameters, and usage patterns.
+This guide covers all API endpoints, parameters, and usage patterns in detail.
 
 ## API Basics
 
@@ -433,18 +433,18 @@ This guide covers all API endpoints, parameters, and usage patterns.
 http://localhost:3000/api/v1
 \`\`\`
 
-Use HTTPS in production.
+For production environments, always use HTTPS to encrypt data in transit.
 
 ### Authentication
 
-All API requests require authentication in the Header:
+All API requests require an authentication token in the request header:
 
 \`\`\`bash
 curl -H "Authorization: Bearer YOUR_API_KEY" \\
   http://localhost:3000/api/v1/conversations
 \`\`\`
 
-Generate API Keys in Dashboard settings.
+API Keys can be generated from the Dashboard settings page. Each key is scoped to a specific user and can be revoked at any time.
 
 ---
 
@@ -456,14 +456,26 @@ Generate API Keys in Dashboard settings.
 POST /api/v1/conversations
 \`\`\`
 
-**Parameters**:
+**Request Parameters**:
 
 | Parameter | Type | Required | Description |
 |------|------|------|------|
 | title | string | No | Conversation title |
-| model | string | No | Model ID |
+| model | string | No | Model ID, defaults to configured model |
 | context | object | No | Initial context |
-| skills | string[] | No | Enabled skills list |
+| skills | string[] | No | List of enabled skills |
+
+**Example**:
+
+\`\`\`bash
+curl -X POST http://localhost:3000/api/v1/conversations \\
+  -H "Authorization: Bearer YOUR_API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "title": "New Conversation",
+    "model": "claude-sonnet-4-6"
+  }'
+\`\`\`
 
 **Response**:
 
@@ -482,13 +494,50 @@ POST /api/v1/conversations
 POST /api/v1/conversations/{id}/messages
 \`\`\`
 
-**Parameters**:
+**Request Parameters**:
 
 | Parameter | Type | Required | Description |
 |------|------|------|------|
 | content | string | Yes | Message content |
-| role | string | No | Role, default "user" |
-| stream | boolean | No | Stream response |
+| role | string | No | Role, defaults to "user" |
+| stream | boolean | No | Whether to stream the response |
+
+**Example**:
+
+\`\`\`bash
+curl -X POST http://localhost:3000/api/v1/conversations/conv_abc123/messages \\
+  -H "Authorization: Bearer YOUR_API_KEY" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "content": "Help me write a Python web scraper",
+    "stream": false
+  }'
+\`\`\`
+
+**Response**:
+
+\`\`\`json
+{
+  "id": "msg_xyz789",
+  "role": "assistant",
+  "content": "Sure, I will help you write a Python web scraper...",
+  "createdAt": "2026-03-29T06:01:00Z"
+}
+\`\`\`
+
+### Get Conversation History
+
+\`\`\`http
+GET /api/v1/conversations/{id}/messages
+\`\`\`
+
+**Query Parameters**:
+
+| Parameter | Type | Description |
+|------|------|------|
+| limit | number | Number of messages to return, default 50 |
+| before | string | Fetch messages before this message ID |
+| after | string | Fetch messages after this message ID |
 
 ---
 
@@ -500,9 +549,17 @@ POST /api/v1/conversations/{id}/messages
 POST /api/v1/skills/{skillId}/invoke
 \`\`\`
 
+**Request Parameters**:
+
+| Parameter | Type | Required | Description |
+|------|------|------|------|
+| input | any | Yes | Skill input parameters |
+| conversationId | string | No | Associated conversation ID |
+
 **Example**:
 
 \`\`\`bash
+# Invoke the weather skill
 curl -X POST http://localhost:3000/api/v1/skills/weather/invoke \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
@@ -519,6 +576,22 @@ curl -X POST http://localhost:3000/api/v1/skills/weather/invoke \\
 GET /api/v1/skills
 \`\`\`
 
+**Response**:
+
+\`\`\`json
+{
+  "skills": [
+    {
+      "id": "weather",
+      "name": "Weather Query",
+      "description": "Get weather information for a specified city",
+      "version": "1.0.0",
+      "enabled": true
+    }
+  ]
+}
+\`\`\`
+
 ---
 
 ## Files API
@@ -529,22 +602,56 @@ GET /api/v1/skills
 POST /api/v1/files
 \`\`\`
 
-Format: multipart/form-data
+**Request Format**: multipart/form-data
+
+**Parameters**:
+
+| Parameter | Type | Description |
+|------|------|------|
+| file | File | The file to upload |
+| conversationId | string | Associated conversation ID |
+
+**Example**:
+
+\`\`\`bash
+curl -X POST http://localhost:3000/api/v1/files \\
+  -H "Authorization: Bearer YOUR_API_KEY" \\
+  -F "file=@document.pdf" \\
+  -F "conversationId=conv_abc123"
+\`\`\`
+
+### Read File
+
+\`\`\`http
+GET /api/v1/files/{fileId}
+\`\`\`
+
+### Delete File
+
+\`\`\`http
+DELETE /api/v1/files/{fileId}
+\`\`\`
 
 ---
 
 ## WebSocket API
 
-### Connect
+### Connecting
 
 \`\`\`javascript
 const ws = new WebSocket('ws://localhost:3000/ws');
 
 ws.onopen = () => {
+  // Send authentication
   ws.send(JSON.stringify({
     type: 'auth',
     token: 'YOUR_API_KEY'
   }));
+};
+
+ws.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  console.log('Received message:', data);
 };
 \`\`\`
 
@@ -552,23 +659,46 @@ ws.onopen = () => {
 
 | Type | Description |
 |------|------|
-| auth | Authentication |
+| auth | Authentication request |
 | message | Conversation message |
-| stream | Stream response |
-| skill | Skill result |
-| error | Error |
+| stream | Streaming response chunk |
+| skill | Skill invocation result |
+| error | Error information |
+
+### Streaming Conversation
+
+\`\`\`javascript
+ws.send(JSON.stringify({
+  type: 'message',
+  conversationId: 'conv_abc123',
+  content: 'Help me write some code',
+  stream: true
+}));
+
+// Receive streaming response
+ws.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  if (data.type === 'stream') {
+    process.stdout.write(data.chunk);
+  }
+};
+\`\`\`
 
 ---
 
 ## Error Handling
 
-### Error Response
+### Error Response Format
 
 \`\`\`json
 {
   "error": {
     "code": "INVALID_REQUEST",
-    "message": "Invalid request parameters"
+    "message": "Invalid request parameters",
+    "details": {
+      "field": "content",
+      "reason": "content cannot be empty"
+    }
   }
 }
 \`\`\`
@@ -580,9 +710,9 @@ ws.onopen = () => {
 | UNAUTHORIZED | Authentication failed | 401 |
 | FORBIDDEN | Insufficient permissions | 403 |
 | NOT_FOUND | Resource not found | 404 |
-| INVALID_REQUEST | Invalid parameters | 400 |
+| INVALID_REQUEST | Invalid request parameters | 400 |
 | RATE_LIMITED | Rate limit exceeded | 429 |
-| INTERNAL_ERROR | Server error | 500 |
+| INTERNAL_ERROR | Internal server error | 500 |
 
 ---
 
@@ -594,38 +724,115 @@ ws.onopen = () => {
 | /skills/invoke | 30 requests | 1 minute |
 | /files | 20 requests | 1 minute |
 
+Exceeding the limit will return a 429 error. Include retry logic with exponential backoff in your client code to handle rate limiting gracefully.
+
 ---
 
 ## SDK Usage
 
 ### Node.js
 
+\`\`\`bash
+npm install @openclaw/sdk
+\`\`\`
+
 \`\`\`javascript
 import { OpenClaw } from '@openclaw/sdk';
 
 const client = new OpenClaw({
-  apiKey: 'YOUR_API_KEY'
+  apiKey: 'YOUR_API_KEY',
+  baseUrl: 'http://localhost:3000'
 });
 
-const conversation = await client.conversations.create();
+// Create a conversation
+const conversation = await client.conversations.create({
+  title: 'API Test'
+});
+
+// Send a message
 const response = await client.messages.send({
   conversationId: conversation.id,
   content: 'Hello!'
 });
+
+console.log(response.content);
 \`\`\`
 
 ### Python
 
+\`\`\`bash
+pip install openclaw-sdk
+\`\`\`
+
 \`\`\`python
 from openclaw import OpenClaw
 
-client = OpenClaw(api_key="YOUR_API_KEY")
-conversation = client.conversations.create()
+client = OpenClaw(
+    api_key="YOUR_API_KEY",
+    base_url="http://localhost:3000"
+)
+
+# Create a conversation
+conversation = client.conversations.create(
+    title="API Test"
+)
+
+# Send a message
 response = client.messages.send(
     conversation_id=conversation.id,
     content="Hello!"
 )
+
+print(response.content)
 \`\`\`
+
+---
+
+## Best Practices
+
+### 1. Store API Keys in Environment Variables
+
+\`\`\`bash
+export OPENCLAW_API_KEY=your_key_here
+\`\`\`
+
+Never hardcode API keys in your source code. Use environment variables or a secrets manager to keep credentials safe.
+
+### 2. Implement Error Retry Logic
+
+\`\`\`javascript
+async function withRetry(fn, maxRetries = 3) {
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      return await fn();
+    } catch (error) {
+      if (error.code === 'RATE_LIMITED') {
+        await new Promise(r => setTimeout(r, 1000 * (i + 1)));
+        continue;
+      }
+      throw error;
+    }
+  }
+}
+\`\`\`
+
+Use exponential backoff when retrying failed requests, especially for rate-limited responses.
+
+### 3. Use Streaming for Large Responses
+
+For long text generation, use the WebSocket streaming API to receive results incrementally. This avoids request timeouts and provides a better user experience.
+
+### 4. Cache Frequently Used Results
+
+For repetitive requests (such as listing available skills), cache the results on the client side to reduce unnecessary API calls and improve performance.
+
+---
+
+## Reference Resources
+
+- [OpenClaw Official Documentation](https://docs.openclaw.ai)
+- [SDK GitHub Repository](https://github.com/openclaw/openclaw-sdk)
+- [API Changelog](https://docs.openclaw.ai/changelog/api)
 
 ---
 
@@ -2373,9 +2580,7 @@ openclaw config show
 ---
 
 *最后更新: 2026-03-29*`,
-    contentEn: `Errors are inevitable when using OpenClaw.
-
-This guide covers the most common errors and their solutions.
+    contentEn: `Errors are inevitable when using OpenClaw. This guide compiles the most common error types and their solutions to help you quickly diagnose and resolve issues.
 
 ---
 
@@ -2383,12 +2588,12 @@ This guide covers the most common errors and their solutions.
 
 | Type | Description | Difficulty |
 |------|------|----------|
-| API Errors | Model API call failures | ⭐ |
-| Config Errors | Configuration parameter errors | ⭐⭐ |
-| Connection Errors | Network or platform issues | ⭐⭐ |
-| Permission Errors | Insufficient permissions | ⭐ |
-| Resource Errors | Memory, disk issues | ⭐⭐⭐ |
-| Skill Errors | Skill execution failures | ⭐⭐ |
+| API Errors | Model API call failures | Easy |
+| Config Errors | Configuration parameter errors | Medium |
+| Connection Errors | Network or platform connection issues | Medium |
+| Permission Errors | Insufficient permissions or auth failures | Easy |
+| Resource Errors | Memory, disk, and system resource issues | Hard |
+| Skill Errors | Skill execution failures | Medium |
 
 ---
 
@@ -2396,10 +2601,16 @@ This guide covers the most common errors and their solutions.
 
 ### 1. Invalid API Key
 
+**Error message**:
 \`\`\`
 Error: Invalid API Key
 Authentication failed for provider: anthropic
 \`\`\`
+
+**Causes**:
+- API key format is incorrect
+- API key has expired
+- Environment variable is not set
 
 **Solution**:
 
@@ -2409,19 +2620,28 @@ echo $ANTHROPIC_API_KEY
 
 # Set environment variable
 export ANTHROPIC_API_KEY="sk-ant-api03-..."
+
+# Or set it directly in the configuration file
 \`\`\`
 
 ---
 
-### 2. Request Timeout
+### 2. API Request Timeout
 
+**Error message**:
 \`\`\`
 Error: Request timeout after 60000ms
 \`\`\`
 
+**Causes**:
+- Unstable network connection
+- Slow API server response
+- Request content too large
+
 **Solution**:
 
 \`\`\`json
+// Increase timeout duration
 {
   "providers": {
     "anthropic": {
@@ -2433,56 +2653,337 @@ Error: Request timeout after 60000ms
 
 ---
 
-### 3. Rate Limit
+### 3. Rate Limit Exceeded
 
+**Error message**:
 \`\`\`
 Error: Rate limit exceeded
+429 Too Many Requests
 \`\`\`
 
-**Solution**: Reduce request frequency or upgrade API plan.
+**Causes**:
+- Request frequency too high
+- API quota exceeded
+
+**Solution**:
+
+1. Reduce request frequency
+2. Upgrade your API plan
+3. Enable request queuing
+
+\`\`\`json
+{
+  "providers": {
+    "anthropic": {
+      "rateLimit": {
+        "enabled": true,
+        "requestsPerMinute": 50
+      }
+    }
+  }
+}
+\`\`\`
+
+---
+
+### 4. Model Not Available
+
+**Error message**:
+\`\`\`
+Error: Model not found: claude-opus-5
+\`\`\`
+
+**Causes**:
+- Model name is misspelled
+- Model has been deprecated
+- Your account does not have access to this model
+
+**Solution**:
+
+\`\`\`bash
+# List available models
+openclaw models list
+
+# Use the correct model name
+\`\`\`
 
 ---
 
 ## Configuration Errors
 
-### 4. Config File Not Found
+### 5. Configuration File Not Found
+
+**Error message**:
+\`\`\`
+Error: Configuration file not found
+\`\`\`
+
+**Solution**:
 
 \`\`\`bash
 # Initialize configuration
 openclaw init
+
+# Or create a default configuration
+openclaw config create
 \`\`\`
 
 ---
 
-### 5. Invalid JSON
+### 6. Configuration File Format Error
+
+**Error message**:
+\`\`\`
+Error: Failed to parse configuration
+JSON parse error: Unexpected token
+\`\`\`
+
+**Causes**:
+- JSON syntax error
+- Missing quotes or commas
+- Unsupported characters
+
+**Solution**:
 
 \`\`\`bash
-# Validate configuration
+# Validate the configuration file
 openclaw config validate
+
+# Or use a JSON validation tool
+cat ~/.openclaw/openclaw.json | jq '.'
+\`\`\`
+
+---
+
+### 7. Environment Variable Not Set
+
+**Error message**:
+\`\`\`
+Error: Environment variable not found: ANTHROPIC_API_KEY
+\`\`\`
+
+**Solution**:
+
+\`\`\`bash
+# Temporary (current session only)
+export ANTHROPIC_API_KEY="sk-ant-..."
+
+# Permanent (add to ~/.bashrc)
+echo 'export ANTHROPIC_API_KEY="sk-ant-..."' >> ~/.bashrc
+source ~/.bashrc
 \`\`\`
 
 ---
 
 ## Connection Errors
 
-### 6. Telegram Connection Failed
+### 8. Telegram Bot Connection Failed
+
+**Error message**:
+\`\`\`
+Error: Failed to connect to Telegram
+404 Not Found
+\`\`\`
+
+**Causes**:
+- Bot Token is incorrect
+- Bot has been banned
+- Network issues
+
+**Solution**:
+
+1. Verify that the Bot Token is correct
+2. Regenerate the token via @BotFather
+3. Check your network connection
 
 \`\`\`bash
-# Test Bot Token
-curl "https://api.telegram.org/bot<TOKEN>/getMe"
+# Test the Bot Token
+curl "https://api.telegram.org/bot<YOUR_TOKEN>/getMe"
 \`\`\`
 
 ---
 
-### 7. Discord Intents Error
+### 9. Discord Connection Failed
 
-Enable required Intents in Discord Developer Portal.
+**Error message**:
+\`\`\`
+Error: Discord connection failed
+DISALLOWED_INTENTS
+\`\`\`
+
+**Causes**:
+- Required Intents are not enabled
+- Insufficient bot permissions
+
+**Solution**:
+
+1. Go to the Discord Developer Portal
+2. Select your application, then navigate to Bot
+3. Enable the following Intents:
+   - PRESENCE INTENT
+   - SERVER MEMBERS INTENT
+   - MESSAGE CONTENT INTENT
 
 ---
 
-## Debug Tips
+### 10. Feishu Connection Failed
 
-### Enable Debug Logging
+**Error message**:
+\`\`\`
+Error: Feishu authentication failed
+Invalid app_id or app_secret
+\`\`\`
+
+**Solution**:
+
+1. Check the application configuration on the Feishu Open Platform
+2. Confirm that the App ID and App Secret are correct
+3. Verify the application permission settings
+
+---
+
+## Permission Errors
+
+### 11. File Permission Denied
+
+**Error message**:
+\`\`\`
+Error: Permission denied: /root/.openclaw/openclaw.json
+\`\`\`
+
+**Solution**:
+
+\`\`\`bash
+# Fix file permissions
+chmod 600 ~/.openclaw/openclaw.json
+
+# Or fix ownership
+chown -R $USER:$USER ~/.openclaw
+\`\`\`
+
+---
+
+### 12. Elevated Command Permission Denied
+
+**Error message**:
+\`\`\`
+Error: Command requires elevated permissions
+\`\`\`
+
+**Causes**:
+- Attempting to execute a command that requires sudo
+- Security policy is blocking the command
+
+**Solution**:
+
+1. Execute the command manually and authorize it
+2. Or modify the security policy
+
+\`\`\`json
+{
+  "security": {
+    "allowElevated": true,
+    "requireConfirmation": ["exec:elevated"]
+  }
+}
+\`\`\`
+
+---
+
+## Resource Errors
+
+### 13. Out of Memory
+
+**Error message**:
+\`\`\`
+Error: JavaScript heap out of memory
+\`\`\`
+
+**Solution**:
+
+\`\`\`bash
+# Increase Node.js memory limit
+export NODE_OPTIONS="--max-old-space-size=4096"
+
+# Or specify at startup
+node --max-old-space-size=4096 /path/to/openclaw
+\`\`\`
+
+---
+
+### 14. Disk Space Full
+
+**Error message**:
+\`\`\`
+Error: No space left on device
+\`\`\`
+
+**Solution**:
+
+\`\`\`bash
+# Check disk space
+df -h
+
+# Clean up logs and cache
+rm -rf ~/.openclaw/logs/*.log
+rm -rf ~/.openclaw/cache/*
+
+# Clean npm cache
+npm cache clean --force
+\`\`\`
+
+---
+
+## Skill Errors
+
+### 15. Skill Loading Failed
+
+**Error message**:
+\`\`\`
+Error: Failed to load skill: weather
+Cannot find module 'weather-skill'
+\`\`\`
+
+**Solution**:
+
+\`\`\`bash
+# Reinstall the skill
+npx clawhub install weather
+
+# Or install manually
+cd ~/.openclaw/skills
+git clone https://github.com/xxx/weather-skill.git
+\`\`\`
+
+---
+
+### 16. Skill Execution Failed
+
+**Error message**:
+\`\`\`
+Error: Skill execution failed
+TypeError: Cannot read property 'data' of undefined
+\`\`\`
+
+**Solution**:
+
+1. Check the skill configuration
+2. Review the skill logs
+3. Update the skill to the latest version
+
+\`\`\`bash
+# View skill logs
+openclaw logs --skill weather
+
+# Update the skill
+npx clawhub update weather
+\`\`\`
+
+---
+
+## Debugging Tips
+
+### Enable Verbose Logging
 
 \`\`\`json
 {
@@ -2495,19 +2996,51 @@ Enable required Intents in Discord Developer Portal.
 ### View Real-time Logs
 
 \`\`\`bash
+# View all logs
 openclaw logs -f
+
+# View logs of a specific type
+openclaw logs --type api
+
+# View the last 100 lines
+openclaw logs --tail 100
+\`\`\`
+
+### Check Service Status
+
+\`\`\`bash
+# Check OpenClaw status
+openclaw status
+
+# Check version
+openclaw --version
+
+# Check configuration
+openclaw config show
 \`\`\`
 
 ---
 
-## Quick Reference
+## Getting Help
+
+If none of the above solutions resolve your issue:
+
+1. **Official Documentation**: https://docs.openclaw.ai
+2. **Search Issues**: https://github.com/openclaw/openclaw/issues
+3. **Community Support**: https://discord.gg/clawd
+4. **File a Bug Report**: https://github.com/openclaw/openclaw/issues/new
+
+---
+
+## Quick Reference Commands
 
 | Command | Description |
 |------|------|
-| \`openclaw status\` | Check status |
-| \`openclaw config validate\` | Validate config |
-| \`openclaw logs -f\` | Real-time logs |
-| \`openclaw restart\` | Restart service |
+| \`openclaw status\` | Check service status |
+| \`openclaw config validate\` | Validate configuration |
+| \`openclaw logs -f\` | Stream real-time logs |
+| \`openclaw restart\` | Restart the service |
+| \`openclaw update\` | Update to the latest version |
 
 ---
 
@@ -2720,142 +3253,227 @@ Claude API 调用：按实际使用付费
 
 *OpenClaw GitHub: https://github.com/openclaw/openclaw*
 *Claude Code GitHub: https://github.com/anthropics/claude-code*`,
-    contentEn: `In 2026, the AI coding assistant market is flourishing. Claude Code and OpenClaw are two of the most prominent products.
+    contentEn: `In 2026, the AI coding assistant market is flourishing. Claude Code and OpenClaw are two of the most prominent products in this space.
 
-Claude Code is launched by Anthropic, closed-source and commercial; OpenClaw is a star in the open-source community with 336k+ GitHub stars.
+Claude Code is Anthropic's official coding assistant -- closed-source and commercially licensed. OpenClaw is an open-source community star project, boasting 336k+ GitHub stars. Both tools aim to supercharge developer productivity, but they take fundamentally different approaches.
 
-This article provides an in-depth comparison to help you choose.
+This article provides a deep, dimension-by-dimension comparison of these two products to help you make an informed choice.
 
-## Quick Comparison
+## Core Comparison at a Glance
 
 | Dimension | OpenClaw | Claude Code |
 |------|----------|-------------|
 | **Developer** | Open Source Community | Anthropic Official |
-| **Open Source** | ✅ Fully Open | ❌ Closed |
+| **Open Source** | ✅ Fully Open Source | ❌ Closed Source |
 | **GitHub Stars** | 336,466 | 82,917 |
-| **Platform Support** | Multi-platform | Terminal Only |
+| **Platform Support** | Multi-platform (10+) | Terminal Only |
 | **Self-hosting** | ✅ Supported | ❌ Not Supported |
 | **Skills Ecosystem** | ✅ 42,000+ stars | ❌ None |
 | **Pricing** | Free (API fees only) | Pay-per-use |
 
-## 1. Platform Support
+## What is Claude Code?
+
+Claude Code is Anthropic's official command-line coding assistant. It runs in your terminal, connects to Anthropic's Claude models, and can read your codebase, write code, run commands, and help with software development tasks. It is designed specifically for programmers who are comfortable working in a terminal environment.
+
+## What is OpenClaw?
+
+OpenClaw is an open-source AI assistant platform created and maintained by the community. Unlike single-purpose coding tools, OpenClaw is a general-purpose AI assistant that integrates with messaging platforms, supports custom skills, and can be self-hosted. It supports multiple AI model providers including Anthropic Claude, OpenAI GPT, and local models via LocalAI.
+
+## 1. Platform Support Comparison
 
 ### OpenClaw: True Multi-Platform
 
 OpenClaw natively supports **10+ messaging platforms**:
 
-- Telegram, WhatsApp, Discord, Signal
-- Feishu, DingTalk, WeCom, QQ
-- iMessage, Slack
+- Telegram
+- WhatsApp
+- Discord
+- Signal
+- Feishu (Lark)
+- DingTalk
+- WeCom (WeChat Work)
+- QQ
+- iMessage
+- Slack
 
-**This means**: Use OpenClaw in any chat app you already use.
+**What this means**: You can use OpenClaw inside whatever chat application you already use every day, without switching tools. Whether you are on your phone messaging via Telegram, collaborating with your team on Slack, or managing your company's workflow through Feishu, OpenClaw is right there with you. This multi-platform approach means your AI assistant goes where you go, rather than forcing you to open a separate application.
 
 ### Claude Code: Terminal Only
 
-Claude Code only works in **terminal**:
+Claude Code only works in the **terminal**:
 
-- Command-line operation required
+- Requires command-line operation
 - No mobile support
-- No GUI
+- No graphical user interface
 
-**This means**: Not suitable for non-technical users.
+**What this means**: You need to be comfortable with command-line workflows. Claude Code is not suitable for non-technical users or scenarios where you want AI assistance on the go through a messaging app. If your team includes non-developers who could benefit from AI assistance (project managers, designers, operations staff), Claude Code will not serve them.
 
-## 2. Open Source
+## 2. Open Source Comparison
 
 ### OpenClaw: Fully Open Source
 
 \`\`\`
-- Code fully transparent
-- Modify and extend freely
+- Code is fully transparent
+- You can modify and extend it freely
 - Community-driven development
-- No vendor lock-in
+- No vendor lock-in risk
 \`\`\`
 
-**Advantages**: Security auditable, customizable, rich community contributions.
+**Advantages**:
+- Security is fully auditable -- you can inspect every line of code
+- You can customize functionality to fit your exact needs
+- The community contributes a rich and growing library of features, fixes, and integrations
 
-### Claude Code: Closed Source
+### Claude Code: Closed Source Commercial
 
 \`\`\`
-- Code not public
-- Cannot modify
-- Anthropic controlled
-- Vendor lock-in risk
+- Source code is not public
+- You cannot modify or extend it
+- Anthropic has exclusive control
+- Vendor lock-in risk exists
 \`\`\`
 
-**Risks**: No security audit, dependent on Anthropic decisions, potential price increases.
+**Risks**:
+- You cannot audit the security of the tool yourself
+- You are dependent on Anthropic's decisions about features, pricing, and direction
+- Pricing may increase at any time without alternatives available
 
-## 3. Skills Ecosystem
+## 3. Skills Ecosystem Comparison
 
 ### OpenClaw: 42,000+ Stars Skills Library
 
-OpenClaw has a massive skills ecosystem:
+OpenClaw has a massive and growing skills ecosystem:
 
-- **ClawHub**: Official marketplace, growing community skills
-- **awesome-openclaw-skills**: Community curated, 42,027 stars
-- **Skills API**: Custom skill development
+- **ClawHub**: The official skills marketplace where community-built skills are published and shared. The number of available skills continues to grow rapidly.
+- **awesome-openclaw-skills**: A community-curated collection of the best skills, with 42,027 stars on GitHub.
+- **Skills API**: A well-documented API for developing your own custom skills, allowing you to extend OpenClaw with any capability you can imagine.
+
+**Popular skill categories include**:
+- Document operations (Feishu, Notion integration)
+- Image generation (DALL-E, Midjourney)
+- Data analysis (SQL queries, Excel processing)
+- Automation (cron jobs, workflow orchestration)
 
 ### Claude Code: No Skills System
 
-No extension mechanism. Features decided by Anthropic.
+Claude Code does not have a skills extension mechanism:
 
-## 4. Self-hosting
+- Features are determined solely by Anthropic
+- You cannot build or install custom extensions
+- You must wait for official updates to get new capabilities
 
-### OpenClaw: Supported
+## 4. Self-hosting Comparison
 
-Multiple self-hosting options:
+### OpenClaw: Full Self-hosting Support
 
-1. Local deployment
-2. VPS deployment
-3. nanoclaw (containerized)
-4. Clawith (enterprise)
+OpenClaw provides multiple self-hosting options to fit different scales and requirements:
 
-**Advantages**: Data sovereignty, compliance, lower API costs.
+1. **Local deployment**: Run directly on your local machine for development or personal use
+2. **VPS deployment**: Deploy to a cloud server for stable, always-on availability
+3. **nanoclaw**: A containerized, security-hardened deployment option
+4. **Clawith**: An enterprise-grade private deployment solution
 
-### Claude Code: Not Supported
+**Advantages**:
+- Your data stays entirely under your control
+- Meet compliance requirements (GDPR, HIPAA, and more)
+- Reduce API costs by pairing with local models via LocalAI
 
-Must connect to Anthropic cloud. Data passes through Anthropic servers.
+### Claude Code: No Self-hosting
 
-## 5. Pricing
+Claude Code must connect to Anthropic's cloud infrastructure:
+
+- All data passes through Anthropic's servers
+- There is no option for local or on-premises deployment
+- Every API call incurs a cost with no way to use local models
+
+## 5. Pricing Comparison
 
 ### OpenClaw: Free + API Fees
 
 \`\`\`
-OpenClaw: Free
-Claude API: Pay-per-use
-Self-hosting: $0 (local models)
+OpenClaw itself: Free
+Claude API calls: Pay per actual usage
+Self-hosted with local models: $0 API fees
 \`\`\`
 
-**Cost estimate**: $5-20/month (personal), $50-200/month (enterprise)
+**Estimated costs**:
+- Personal users: $5-20/month
+- Enterprise users: $50-200/month
+- Self-hosted with LocalAI: $0 (only hardware costs)
 
 ### Claude Code: Pay-per-use
 
 \`\`\`
 Per-token billing
-No free tier
-No self-hosting option
+No free tier available
+No self-hosting option to reduce costs
 \`\`\`
 
-**Cost estimate**: $20-50/month (personal), $200-500/month (enterprise)
+**Estimated costs**:
+- Personal users: $20-50/month
+- Enterprise users: $200-500/month
+
+## 6. Use Case Fit
+
+### OpenClaw is ideal for:
+
+- Users who need multi-platform support across different messaging apps
+- Enterprises that prioritize data security and regulatory compliance
+- Developers who want to customize and extend their tools with custom skills
+- Teams looking to optimize costs through self-hosting and local models
+- Users who want access to a rich skills ecosystem
+
+### Claude Code is ideal for:
+
+- Users already invested in the Anthropic ecosystem
+- Developers comfortable with terminal-based workflows
+- Individual users who do not need self-hosting capabilities
+- Users who prefer official vendor support and zero configuration
+
+## Can They Work Together?
+
+Yes! OpenClaw and Claude Code are not mutually exclusive. In fact, many developers use both tools together as part of their daily workflow:
+
+- Use **Claude Code** in the terminal for deep coding sessions where you need tight integration with your local codebase, file system access, and command execution within a project
+- Use **OpenClaw** for everything else -- team communication on Slack or Telegram, automated cron jobs, multi-platform task execution, document processing, and daily productivity tasks that go beyond pure coding
+
+Since OpenClaw supports Claude as a backend model provider, you get the best of both worlds: Anthropic's powerful AI models combined with OpenClaw's open-source flexibility, multi-platform reach, and extensible skills ecosystem. You do not have to choose one or the other -- they complement each other well.
+
+## Frequently Asked Questions
+
+**Q: Can OpenClaw use the same Claude models as Claude Code?**
+A: Yes. OpenClaw supports Anthropic's Claude API as a model provider, so you get the same underlying AI capabilities.
+
+**Q: Is Claude Code faster because it is official?**
+A: Not necessarily. Both tools call the same Claude API. The difference is in features and platform support, not model speed.
+
+**Q: Can I migrate from Claude Code to OpenClaw?**
+A: Yes. Since OpenClaw supports Claude models, you can switch without losing access to the AI capabilities you rely on. You gain multi-platform support, skills, and self-hosting in the process.
 
 ## Summary
 
 **OpenClaw Advantages**:
-- Multi-platform support
-- Fully open source
-- Massive skills ecosystem
-- Self-hosting support
-- Lower cost
+- Multi-platform support -- use it anywhere, anytime, on any messaging app
+- Fully open source -- secure, transparent, and community-driven
+- A massive skills ecosystem with 42,000+ stars for extending functionality
+- Self-hosting support for complete data sovereignty
+- Lower overall cost, with the option to eliminate API fees entirely using local models
 
 **Claude Code Advantages**:
-- Anthropic official support
-- Deep integration with Claude
-- Zero configuration
+- Official Anthropic support and maintenance
+- Deep integration with Claude models out of the box
+- Zero configuration needed -- works immediately after installation
 
 **Recommendation**:
-- If you need multi-platform, self-hosting, skills ecosystem → **OpenClaw**
-- If you only need terminal coding assistant with official support → **Claude Code**
+- If you need multi-platform access, self-hosting, or a skills ecosystem --> choose **OpenClaw**
+- If you only need a terminal-based coding assistant and value official support --> choose **Claude Code**
 
-For most users, OpenClaw's comprehensive advantages are more compelling.`,
+For the majority of users, OpenClaw's comprehensive advantages -- open source, multi-platform, self-hostable, extensible, and cost-effective -- make it the more compelling choice.
+
+---
+
+*OpenClaw GitHub: https://github.com/openclaw/openclaw*
+*Claude Code GitHub: https://github.com/anthropics/claude-code*`,
     author: "OpenClaw 101",
     date: "2026-03-26",
     category: "对比评测",
@@ -4949,146 +5567,266 @@ OpenClaw 在企业的应用场景：
 2. 从小场景开始试点
 3. 持续优化和迭代
 4. 重视安全和权限`,
-    contentEn: `OpenClaw is not just for individuals — more enterprises are using it to improve efficiency.
+    contentEn: `OpenClaw is not just a tool for individual developers -- more and more enterprises are adopting it to dramatically improve operational efficiency across departments.
 
-This article shares 5 real enterprise use cases.
+This article shares 5 real-world enterprise use cases, detailing the company background, specific pain points, the OpenClaw-based solution implemented, and the measurable results achieved.
 
 ## Case 1: E-commerce Customer Service Automation
 
-**Background**:
-- E-commerce company with 50M annual sales
-- 2000+ daily customer inquiries
-- 10-person support team
+**Company Background**:
+- An e-commerce company with approximately $7 million (50 million RMB) in annual sales
+- Over 2,000 customer service inquiries per day
+- A 10-person customer support team
 
 **Pain Points**:
-- 60% repetitive questions
-- Slow response times
-- High labor costs
+- 60% of all inquiries were repetitive questions (logistics tracking, returns/exchanges, coupon inquiries)
+- Slow response times were hurting customer satisfaction scores
+- High labor costs with limited scalability
 
 **Solution**:
+
 \`\`\`
-Deploy OpenClaw + Feishu Bot:
-1. Connect to Feishu support groups
-2. Train OpenClaw to recognize common questions
-3. Auto-reply to repetitive questions
-4. Escalate complex issues to humans
+Deploy OpenClaw + Feishu (Lark) Bot:
+1. Connect OpenClaw to Feishu customer service groups
+2. Train OpenClaw to recognize and categorize common questions
+3. Automatically reply to repetitive questions (logistics, returns, coupons)
+4. Route complex or sensitive issues to human agents
+\`\`\`
+
+**Key Code Example**:
+
+\`\`\`typescript
+// Customer service automation skill
+export default {
+  name: 'customer-service',
+  triggers: ['help', 'support'],
+  
+  async handle(message) {
+    // Auto-reply for common questions
+    if (message.includes('shipping')) {
+      return 'Your order is being delivered. Expected arrival: tomorrow.';
+    }
+    if (message.includes('return')) {
+      return 'Please provide your order number. We will process within 24 hours.';
+    }
+    // Complex questions escalated to human
+    return null; // null triggers human handoff
+  }
+};
 \`\`\`
 
 **Results**:
-- 📉 Support workload reduced by 50%
-- ⚡ Response time from 5 min to 30 sec
-- 💰 Annual savings of $43k
+- Human support workload reduced by 50%
+- Average response time dropped from 5 minutes to 30 seconds
+- Annual labor cost savings of approximately $43,000
 
-## Case 2: Data Report Automation
+## Case 2: Automated Data Reporting
 
-**Background**:
-- Fintech company
-- 50+ daily reports
-- 3 data analysts
+**Company Background**:
+- A fintech company
+- Over 50 reports generated daily across departments
+- A 3-person data analyst team
 
 **Pain Points**:
-- Report generation takes 15-30 min each
-- Error-prone
-- Repetitive work
+- Each report took 15-30 minutes to generate manually
+- Manual processes were error-prone (5% error rate)
+- Analysts spent most of their time on repetitive data pulling instead of analysis
 
 **Solution**:
+
 \`\`\`
-OpenClaw Cron Jobs:
-1. Pull data at 6 AM daily
-2. Generate Excel reports
-3. Email to management
-4. Alert on anomalies
+OpenClaw Scheduled Tasks (Cron Jobs):
+1. Automatically pull data from databases at 6 AM daily
+2. Generate formatted Excel reports
+3. Email reports to management
+4. Flag anomalous data and send alerts
+\`\`\`
+
+**Cron Job Configuration**:
+
+\`\`\`bash
+# Daily sales report at 6 AM
+openclaw cron add "0 6 * * *" "Generate yesterday's sales report and email to sales@company.com"
+
+# Weekly operations report every Monday at 8 AM
+openclaw cron add "0 8 * * 1" "Generate last week's operations report and send to management"
+
+# Monthly financial report on the 1st of each month
+openclaw cron add "0 0 1 * *" "Generate last month's financial report and archive"
 \`\`\`
 
 **Results**:
-- ⏰ Report time from 20 min to 2 min
-- ❌ Error rate from 5% to 0.1%
+- Report generation time dropped from 20 minutes to 2 minutes per report
+- Error rate plummeted from 5% to 0.1%
+- Data analysts were freed from repetitive labor to focus on strategic analysis
 
-## Case 3: R&D Assistance
+## Case 3: Software Development (R&D) Assistance
 
-**Background**:
-- Software company
-- 20 developers
-- Node.js + React + PostgreSQL
+**Company Background**:
+- A software development company
+- A 20-person engineering team
+- Tech stack: Node.js + React + PostgreSQL
 
 **Pain Points**:
-- Time-consuming code reviews
-- Heavy documentation burden
-- Slow onboarding
+- Code reviews were time-consuming and inconsistent
+- Documentation was a heavy burden that developers avoided
+- New hires took 2 weeks to become productive
 
 **Solution**:
+
 \`\`\`
 OpenClaw + GitHub Integration:
-1. Auto-review PRs
-2. Generate API docs
-3. Answer technical questions
-4. Assist onboarding
+1. Automatically review pull requests (code style, potential bugs, security issues)
+2. Auto-generate API documentation from code
+3. Answer common technical questions in team channels
+4. Provide onboarding guidance for new team members
+\`\`\`
+
+**GitHub Actions Integration**:
+
+\`\`\`yaml
+# .github/workflows/ai-review.yml
+name: AI Code Review
+on: [pull_request]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: OpenClaw Review
+        run: |
+          curl -X POST OPENCLAW_URL/api/review \\
+            -H "Authorization: Bearer OPENCLAW_TOKEN" \\
+            -d '{"pr": "PR_NUMBER"}'
 \`\`\`
 
 **Results**:
-- 🔍 Code review efficiency +40%
-- 📚 Documentation work -60%
-- 🎓 Onboarding time from 2 weeks to 1 week
+- Code review efficiency improved by 40%
+- Documentation maintenance workload reduced by 60%
+- New hire onboarding time cut from 2 weeks to 1 week
 
-## Case 4: Operations Efficiency
+## Case 4: Content Operations Efficiency
 
-**Background**:
-- Content operations company
-- Managing WeChat, Xiaohongshu, Douyin
-- 5-person team
+**Company Background**:
+- A content operations company
+- Managing presence on WeChat Official Account, Xiaohongshu (Little Red Book), and Douyin (TikTok China)
+- A 5-person operations team
 
 **Pain Points**:
-- Cross-platform publishing tedious
-- Scattered data
-- Delayed sentiment monitoring
+- Publishing content across multiple platforms was tedious and time-consuming
+- Analytics data was scattered across different platform dashboards
+- Sentiment monitoring and brand reputation tracking were always lagging behind
 
 **Solution**:
+
 \`\`\`
 OpenClaw Multi-platform Automation:
-1. One-click publish to all platforms
-2. Aggregate platform data
-3. Real-time sentiment monitoring
-4. Competitor tracking
+1. One-click content publishing to all platforms simultaneously
+2. Automatically aggregate analytics data from all platforms into a single report
+3. Real-time sentiment monitoring for brand mentions
+4. Competitor activity tracking and alerts
+\`\`\`
+
+**Automation Scripts**:
+
+\`\`\`bash
+# Daily data aggregation at 9 AM
+openclaw cron add "0 9 * * *" \
+  "Aggregate yesterday's data from WeChat, Xiaohongshu, and Douyin. Generate daily operations report."
+
+# Sentiment monitoring every 2 hours
+openclaw cron add "0 */2 * * *" \
+  "Search for company-related news and social mentions. Alert immediately on negative sentiment."
 \`\`\`
 
 **Results**:
-- 📤 Publishing efficiency +300%
-- 📊 Data aggregation from 1 hour to 5 min
-- 🔔 Response time from 1 day to 1 hour
+- Content publishing efficiency improved by 300%
+- Data aggregation time dropped from 1 hour to 5 minutes
+- Sentiment response time improved from 1 day to 1 hour
 
-## Case 5: Knowledge Management
+## Case 5: Enterprise Knowledge Management
 
-**Background**:
-- Consulting firm
-- 5000+ knowledge base documents
-- 50 consultants
+**Company Background**:
+- A management consulting firm
+- Over 5,000 documents in the knowledge base
+- A team of 50 consultants
 
 **Pain Points**:
-- Hard to find knowledge
-- Outdated documents
-- Steep learning curve
+- Finding relevant knowledge was difficult and time-consuming
+- Documents were frequently outdated without anyone noticing
+- New consultants faced a steep learning curve (3-month ramp-up)
 
 **Solution**:
+
 \`\`\`
-OpenClaw + Feishu Knowledge Base:
-1. Intelligent Q&A
-2. Auto-archive and categorize
-3. Document update reminders
-4. Learning path recommendations
+OpenClaw + Feishu Knowledge Base Integration:
+1. Intelligent Q&A powered by the knowledge base (consultants ask questions in natural language)
+2. Automatic document archiving and categorization
+3. Proactive reminders when documents need updating
+4. Personalized learning path recommendations for new hires
+\`\`\`
+
+**Knowledge Base Q&A Example**:
+
+\`\`\`
+User: Does the company have a client privacy protection policy?
+
+OpenClaw: Yes, please refer to the following documents:
+  "Client Privacy Protection Policy" v2.0
+  "Data Processing Standards"
+  "Employee Confidentiality Agreement"
+
+Key points summary:
+1. Client data may only be used for agreed purposes
+2. Data storage must be encrypted
+3. Access requires permission approval
+...
 \`\`\`
 
 **Results**:
-- 🔍 Search time from 10 min to 30 sec
-- 📝 Document timeliness +80%
-- 📚 Onboarding from 3 months to 1.5 months
+- Knowledge search time dropped from 10 minutes to 30 seconds
+- Document update timeliness improved by 80%
+- New consultant ramp-up time cut from 3 months to 1.5 months
 
 ## Enterprise Deployment Recommendations
 
-| Company Size | Recommended | Reason |
-|--------------|-------------|--------|
-| Small (<10) | Local server | Low cost, sufficient |
-| Medium (10-100) | VPS + Tailscale | Stable, secure |
-| Large (>100) | Private cloud | Compliant, controllable |
+### 1. Choosing a Deployment Method
+
+| Company Size | Recommended Approach | Rationale |
+|----------|----------|------|
+| Small team (<10 people) | Local server | Low cost, sufficient capacity |
+| Medium company (10-100 people) | VPS + Tailscale | Stable, secure remote access |
+| Large enterprise (>100 people) | Private cloud + dedicated ops | Compliance, full control |
+
+### 2. Security Configuration
+
+\`\`\`bash
+# Enterprise-grade security settings
+openclaw config set gateway.auth.enabled true
+openclaw config set fs.allowed_paths "/company/data"
+openclaw config set exec.blocked_commands "rm -rf,format"
+openclaw config set logging.level "audit"
+\`\`\`
+
+### 3. Permission Management
+
+\`\`\`bash
+# Set permissions by department
+openclaw config set permissions.sales "read:crm,write:reports"
+openclaw config set permissions.dev "read:code,write:code,read:docs"
+openclaw config set permissions.hr "read:employees,write:employees"
+\`\`\`
+
+### 4. Monitoring and Alerts
+
+\`\`\`bash
+# Usage monitoring configuration
+openclaw config set monitoring.daily_limit 1000
+openclaw config set monitoring.alert_email "it@company.com"
+openclaw config set monitoring.cost_limit 100  # USD per day
+\`\`\`
 
 ## ROI Analysis
 
@@ -5096,32 +5834,33 @@ For a 50-person company:
 
 | Item | Cost | Savings |
 |------|------|---------|
-| OpenClaw Deploy | $50/mo | - |
-| LLM API | $200/mo | - |
-| Labor Savings | - | $5000/mo |
-| **Net Benefit** | - | **$4750/mo** |
+| OpenClaw Deployment | $50/month (VPS) | - |
+| LLM API Fees | $200/month | - |
+| Labor Cost Savings | - | $5,000/month |
+| Efficiency Gains | - | Difficult to quantify |
+| **Net Benefit** | - | **$4,750/month** |
 
-**Payback Period**: < 1 month
+**Payback period**: Less than 1 month
 
 ---
 
 ## Summary
 
-OpenClaw Enterprise Use Cases:
+OpenClaw enterprise application scenarios at a glance:
 
-| Scenario | Problem Solved | Impact |
-|----------|----------------|--------|
-| Customer Service | Repetitive questions | Labor -50% |
-| Data Reports | Repetitive work | Efficiency 10x |
-| R&D Assistance | Docs, reviews | Efficiency +40% |
-| Operations | Cross-platform | Efficiency +300% |
-| Knowledge Mgmt | Hard to find | Time -95% |
+| Scenario | Problem Solved | Measured Impact |
+|------|------------|------|
+| Customer Service Automation | High volume of repetitive questions | Labor reduced by 50% |
+| Data Reporting | Repetitive manual report generation | Efficiency improved 10x |
+| R&D Assistance | Documentation and code review burden | Efficiency improved 40% |
+| Operations | Cross-platform content management | Efficiency improved 300% |
+| Knowledge Management | Difficulty finding information | Search time reduced 95% |
 
 **Key Success Factors**:
-1. Define pain points and goals
-2. Start small and pilot
-3. Continuously optimize
-4. Prioritize security`,
+1. Clearly define pain points and measurable goals before starting
+2. Begin with a small pilot scenario and expand after proving value
+3. Continuously optimize and iterate on the implementation
+4. Prioritize security configuration and permission management from day one`,
     author: "OpenClaw 101",
     date: "2026-03-21",
     category: "企业应用",
@@ -5440,33 +6179,43 @@ openclaw config set gateway.host tailscale
 定期检查、定期更新、定期审计。`,
     contentEn: `OpenClaw is a powerful AI assistant, but with great power comes great responsibility.
 
-Recently, security researcher @theonejvi found: **Some OpenClaw configuration errors exposed private keys and APIs on the public internet**.
+Recently, cybersecurity researcher @theonejvo discovered that **some misconfigured OpenClaw instances had their private keys and API credentials exposed on the public internet**.
 
-This guide teaches you how to **securely configure OpenClaw**.
+This guide teaches you how to **securely configure OpenClaw** and avoid becoming the next victim.
 
 ## Security Risk Sources
 
 ### 1. Environment Variable File Exposure
 
 **Problem**:
-- \`.env\` files uploaded to GitHub
-- \`.env.local\` accessible via Web
+- \`.env\` files accidentally uploaded to GitHub
+- \`.env.local\` files accessible via web requests
 
 **Consequences**:
 - API keys leaked (OpenAI, Anthropic, etc.)
-- Database connection strings leaked
-- Third-party tokens leaked
+- Database connection strings exposed
+- Third-party service tokens compromised
 
 ### 2. Gateway Port Exposure
 
 **Problem**:
-- Gateway defaults to 0.0.0.0 (all interfaces)
-- No authentication set
+- Gateway defaults to listening on 0.0.0.0 (all network interfaces)
+- No authentication configured
 
 **Consequences**:
-- Anyone can call your Gateway
-- Consume your API quota
-- Access your file system
+- Anyone on the internet can call your Gateway
+- Attackers can consume your API quota
+- Unauthorized access to your file system
+
+### 3. Database Configuration Errors
+
+**Problem**:
+- Turso/SQLite database file permissions are too permissive
+- Database credentials stored directly in source code
+
+**Consequences**:
+- Conversation history leaked
+- User data exposed
 
 ## 10 Key Security Settings
 
@@ -5477,40 +6226,62 @@ This guide teaches you how to **securely configure OpenClaw**.
 echo ".env*" >> .gitignore
 echo "!.env.example" >> .gitignore
 
-# Confirm .env not in version control
+# Confirm .env is not in version control
 git status
 \`\`\`
 
-### 2. Gateway Bind to Local Address
+**Verification**:
+\`\`\`bash
+# Try to access the .env file from the web
+curl https://your-domain.com/.env
+# Should return 404
+\`\`\`
+
+### 2. Bind Gateway to Local Address
 
 \`\`\`bash
-# Listen locally only
+# Listen on localhost only
 openclaw config set gateway.host 127.0.0.1
 
 # Or use Tailscale (recommended)
 openclaw tailscale setup
 \`\`\`
 
+**Why this matters**:
+- 127.0.0.1 only allows local machine access
+- Tailscale provides VPN-level security without exposing ports
+
 ### 3. Set Gateway Authentication
 
 \`\`\`bash
-# Set access password
+# Enable and set access password
 openclaw config set gateway.auth.enabled true
 openclaw config set gateway.auth.secret "your-strong-secret-here"
+\`\`\`
+
+**Usage**:
+\`\`\`bash
+# Include authentication when calling the Gateway
+curl -H "Authorization: Bearer your-strong-secret-here" \\
+  http://localhost:18789/api/chat
 \`\`\`
 
 ### 4. Restrict File System Access
 
 \`\`\`bash
-# Set working directory whitelist
+# Set a working directory whitelist
 openclaw config set fs.allowed_paths \\
   "/home/user/documents,/home/user/projects"
 \`\`\`
 
+**Why this matters**:
+- Restricts the AI to only access specific directories
+- Prevents accidental deletion of system files
+
 ### 5. Disable Dangerous Commands
 
 \`\`\`bash
-# Blocked commands list
+# Define a blocked commands list
 openclaw config set exec.blocked_commands \\
   "rm -rf,format,dd,mkfs"
 \`\`\`
@@ -5518,16 +6289,20 @@ openclaw config set exec.blocked_commands \\
 ### 6. API Key Rotation Strategy
 
 \`\`\`bash
-# Rotate API keys every 90 days
-# 1. Generate new key
-# 2. Update .env
-# 3. Revoke old key
+# Rotate API keys regularly (recommended every 90 days)
+
+# 1. Generate a new key
+# 2. Update your .env file
+# 3. Revoke the old key
+
+# OpenAI Key management
+open https://platform.openai.com/api-keys
 \`\`\`
 
 ### 7. Log Sanitization
 
 \`\`\`bash
-# Disable logging sensitive fields
+# Prevent sensitive information from appearing in logs
 openclaw config set logging.sensitive_fields \\
   "password,token,secret,api_key,private_key"
 \`\`\`
@@ -5535,7 +6310,7 @@ openclaw config set logging.sensitive_fields \\
 ### 8. Database Security
 
 \`\`\`bash
-# Turso: Use strong password
+# Turso: Use a strong authentication token
 turso db create openclaw --auth-token "strong-random-token"
 
 # SQLite: Restrict file permissions
@@ -5545,30 +6320,160 @@ chmod 600 ~/.openclaw/data/openclaw.db
 ### 9. Skill Security Audit
 
 \`\`\`bash
-# Check permissions before installing
+# Inspect permissions before installing any skill
 openclaw skills inspect skill-name
 
-# Only install from trusted sources
+# Only install from trusted, verified sources
 openclaw skills install --verify-signature skill-name
 \`\`\`
+
+**Red flags to watch for**:
+- Skill requests full file system access
+- Skill requests unrestricted network access
+- Skill comes from an unknown or unverified source
 
 ### 10. Monitoring and Alerts
 
 \`\`\`bash
-# Set API usage alerts
+# Set daily API usage limits and alerts
 openclaw config set monitoring.daily_limit 100
 openclaw config set monitoring.alert_email "admin@example.com"
 \`\`\`
 
-## Security Checklist
+## Security Configuration Checklist
+
+Run this checklist script to verify your OpenClaw security posture:
+
+\`\`\`bash
+#!/bin/bash
+# OpenClaw Security Check Script
+
+echo "OpenClaw Security Check"
+echo "=========================="
+
+# 1. Check .gitignore
+if grep -q ".env" .gitignore; then
+  echo "PASS: .env is in .gitignore"
+else
+  echo "FAIL: .env is NOT in .gitignore"
+fi
+
+# 2. Check Gateway binding
+HOST=$(openclaw config get gateway.host)
+if [ "$HOST" = "127.0.0.1" ]; then
+  echo "PASS: Gateway listens on localhost only"
+else
+  echo "WARN: Gateway listens on $HOST (may be exposed to the internet)"
+fi
+
+# 3. Check authentication
+AUTH=$(openclaw config get gateway.auth.enabled)
+if [ "$AUTH" = "true" ]; then
+  echo "PASS: Gateway authentication is enabled"
+else
+  echo "FAIL: Gateway authentication is NOT enabled"
+fi
+
+# 4. Check database permissions
+if [ -f ~/.openclaw/data/openclaw.db ]; then
+  PERMS=$(stat -c %a ~/.openclaw/data/openclaw.db)
+  if [ "$PERMS" = "600" ]; then
+    echo "PASS: Database permissions are correct"
+  else
+    echo "WARN: Database permissions are $PERMS (recommended: 600)"
+  fi
+fi
+
+echo ""
+echo "Check complete!"
+\`\`\`
+
+## Frequently Asked Questions
+
+### Q: I have already been running on a public IP. What should I do?
+
+\`\`\`bash
+# Take immediate action:
+
+# 1. Rotate ALL API keys immediately
+# 2. Change the Gateway authentication password
+# 3. Review access logs to confirm no abuse has occurred
+# 4. Reconfigure following this security guide
+\`\`\`
+
+### Q: How do I confirm that I have not leaked sensitive information?
+
+\`\`\`bash
+# Check for publicly exposed content
+
+# 1. Search your GitHub repository
+# github.com/search?q=env+repo:your-username/your-repo
+
+# 2. Try accessing potentially sensitive files
+curl https://your-domain.com/.env
+curl https://your-domain.com/.env.local
+curl https://your-domain.com/config
+
+# 3. Check Git history for accidentally committed secrets
+git log --all --full-history -- "*.env"
+\`\`\`
+
+### Q: What is Tailscale?
+
+Tailscale is a zero-configuration VPN service:
+- Free to use (up to 100 devices)
+- End-to-end encrypted
+- No public IP required
+
+\`\`\`bash
+# Install
+curl -fsSL https://tailscale.com/install.sh | sh
+
+# Connect
+tailscale up
+
+# Then configure OpenClaw
+openclaw config set gateway.host tailscale
+\`\`\`
+
+## Security Best Practices
+
+### Development Environment
+
+\`\`\`bash
+# Use separate API keys (isolated from production)
+# Use a separate database
+# Reset the environment regularly
+\`\`\`
+
+### Production Environment
+
+\`\`\`bash
+# Use a secrets management service (AWS Secrets Manager, HashiCorp Vault)
+# Enable all security settings
+# Audit logs regularly
+# Set up usage alerts
+\`\`\`
+
+### Team Collaboration
+
+\`\`\`bash
+# Use environment variables instead of config files for secrets
+# Inject secrets through CI/CD pipelines
+# Never hardcode sensitive information in source code
+\`\`\`
+
+---
+
+## Summary
 
 | Risk | Solution |
 |------|----------|
-| Env vars leaked | Add to .gitignore |
+| Environment variable leak | Add to .gitignore |
 | Gateway exposed | Bind to 127.0.0.1 or use Tailscale |
-| Unauthorized access | Enable Gateway auth |
-| File system risk | Limit access paths |
-| API keys leaked | Regular rotation + usage monitoring |
+| Unauthorized access | Enable Gateway authentication |
+| File system risk | Restrict allowed access paths |
+| API key leak | Regular rotation + usage monitoring |
 
 **Remember**: Security is not a one-time setup, but an ongoing process.
 
@@ -6096,60 +7001,220 @@ AutoGPT：自主执行：
 **总结**：没有"最好"的 AI Agent，只有"最适合"你的。
 
 建议先尝试 **OpenClaw**（免费开源），如果专注于编程再考虑 Cursor，如果只需要网页自动化再考虑 Manus。`,
-    contentEn: `In 2026, AI Agents became one of the hottest topics in tech.
+    contentEn: `In 2026, AI Agents became one of the hottest topics in the tech world.
 
-No longer just "chatbots", they are AI assistants that can **actually do things**.
+These are no longer just "chatbots" -- they are AI assistants that can **actually do things**: run code, manipulate files, control browsers, call APIs, and automate entire workflows.
 
-This article compares 4 popular AI Agents: **OpenClaw, Cursor, Manus, AutoGPT**.
+The market has seen several prominent AI Agent products emerge. What are the differences between them? Which one should you choose?
 
-## What is an AI Agent?
+This article provides a deep comparison of 4 popular AI Agents: **OpenClaw, Cursor, Manus, and AutoGPT**.
+
+## Core Concept: What is an AI Agent?
 
 Traditional AI chatbots (like ChatGPT) can only **output text**:
+
 - Answer questions
 - Generate code snippets
-- Provide suggestions
+- Provide suggestions and recommendations
 
-AI Agents can **execute tasks**:
-- Run code directly
-- Operate file systems
-- Control browsers
-- Call external APIs
-- Automate workflows
+AI Agents, on the other hand, can **execute tasks**:
 
-**Analogy**:
-- ChatGPT = Consultant (tells you how)
-- AI Agent = Assistant (does it for you)
+- Run code directly on your machine
+- Create, edit, and delete files
+- Control web browsers via automation
+- Call external APIs and services
+- Orchestrate complex, multi-step workflows
 
-## Comparison Overview
+**Think of it this way**:
+- ChatGPT = A consultant (tells you how to do something)
+- AI Agent = An assistant (actually does it for you)
+
+## Comparison at a Glance
 
 | Dimension | OpenClaw | Cursor | Manus | AutoGPT |
-|-----------|----------|--------|-------|---------|
-| **Core Focus** | General AI Assistant | Coding AI | Browser Automation | Autonomous Tasks |
-| **Open Source** | ✅ Full | ❌ Closed | ❌ Closed | ✅ Full |
-| **Local Run** | ✅ Yes | ✅ Yes | ☁️ Cloud | ✅ Yes |
-| **Platforms** | Telegram/Discord/WhatsApp/Feishu/DingTalk | VS Code | Web | CLI |
-| **File Operations** | ✅ Full | ✅ Project | ❌ | ✅ |
-| **Browser Control** | ✅ Playwright | ❌ | ✅ Core | ⚠️ Limited |
-| **Code Execution** | ✅ Local | ✅ Local | ❌ | ✅ |
-| **Multi-Agent** | ✅ Yes | ❌ | ❌ | ✅ |
-| **Skills** | ✅ ClawHub ✅ | ❌ | ❌ | ⚠️ Plugins |
-| **Pricing** | Free (API fees) | $20/mo | $15/mo | Free (API fees) |
+|------|----------|--------|-------|---------|
+| **Core Focus** | General-purpose AI Assistant | Coding AI Assistant | Browser Automation | Autonomous Task Execution |
+| **Open Source** | ✅ Fully Open Source | ❌ Closed Source | ❌ Closed Source | ✅ Open Source |
+| **Local Execution** | ✅ Supported | ✅ Supported | ☁️ Cloud Only | ✅ Supported |
+| **Platform Support** | Telegram/Discord/WhatsApp/Feishu/DingTalk | VS Code Only | Web Only | CLI Only |
+| **File Operations** | ✅ Full file system access | ✅ Project-scoped | ❌ None | ✅ Full |
+| **Browser Control** | ✅ Playwright integration | ❌ None | ✅ Core capability | ⚠️ Limited |
+| **Code Execution** | ✅ Local execution | ✅ Local execution | ❌ None | ✅ Local execution |
+| **Multi-Agent** | ✅ Supported | ❌ Not supported | ❌ Not supported | ✅ Supported |
+| **Skills/Extensions** | ✅ ClawHub ecosystem | ❌ None | ❌ None | ⚠️ Plugin system |
+| **Pricing** | Free (API fees only) | $20/month | $15/month | Free (API fees only) |
+| **Best For** | Daily automation, multi-platform | Software development | Web tasks, form filling | Research, experiments |
 
-## Recommendations
+## Detailed Analysis
 
-| User Type | Recommendation | Reason |
-|-----------|----------------|--------|
-| Personal | OpenClaw | Free, powerful, privacy |
-| Developer | Cursor + OpenClaw | Cursor for coding, OpenClaw for daily |
-| Enterprise | OpenClaw | Local deploy, data security |
-| Operations | Manus | Browser automation specialist |
-| Researcher | AutoGPT | Explore AI boundaries |
+### 1. OpenClaw: The All-Rounder
+
+**Strengths**:
+- ✅ Truly open source with fully transparent code
+- ✅ Multi-platform support -- use one assistant across all your messaging apps
+- ✅ Rich skills ecosystem (ClawHub with a growing community of contributed skills)
+- ✅ Runs locally for complete data privacy control
+- ✅ Supports multi-agent collaboration for complex tasks
+
+**Weaknesses**:
+- ⚠️ Requires self-deployment and maintenance
+- ⚠️ You need to configure your own API keys (LLM costs are your responsibility)
+- ⚠️ The learning curve is slightly steeper than plug-and-play tools
+
+**Ideal Users**:
+- Individual users and developers who want maximum flexibility
+- Teams that need multi-platform messaging integration
+- Privacy-conscious users and organizations
+- Anyone who wants deep customization capabilities
+
+**Typical Use Cases**:
+\`\`\`
+User: Every morning at 9 AM, check the weather and send it to my Telegram
+OpenClaw: ✅ Scheduled task created
+
+User: Translate this PDF to Chinese and save it
+OpenClaw: ✅ Translation complete, saved as xxx_cn.pdf
+
+User: Search for mechanical keyboards on Taobao, sort by sales
+OpenClaw: ✅ Browser opened, search complete, screenshot attached
+\`\`\`
+
+### 2. Cursor: The Programmer's AI Pair
+
+**Strengths**:
+- ✅ Deep integration with VS Code editor
+- ✅ Code completion, refactoring, and debugging in one unified experience
+- ✅ Understands your entire codebase context
+- ✅ Works out of the box with zero configuration
+
+**Weaknesses**:
+- ❌ Only useful for programming -- cannot help with other tasks
+- ❌ Closed source; your code data is uploaded to the cloud
+- ❌ $20/month subscription fee
+- ❌ No support for other platforms or messaging apps
+
+**Ideal Users**:
+- Software developers who want an AI coding companion
+- Teams that need a code assistant without setup hassle
+- Developers who prefer not to configure tools themselves
+
+**Typical Use Cases**:
+\`\`\`
+Developer: Refactor this function to improve performance
+Cursor: ✅ Refactored, performance improved by 40%
+
+Developer: Write unit tests covering this module
+Cursor: ✅ Generated 15 test cases
+\`\`\`
+
+### 3. Manus: The Browser Automation Expert
+
+**Strengths**:
+- ✅ Exceptional browser automation capabilities
+- ✅ Automated form filling, web scraping, and page interaction
+- ✅ No local deployment needed -- runs in the cloud
+- ✅ Visual, easy-to-understand operation interface
+
+**Weaknesses**:
+- ❌ Limited to browser-based tasks only
+- ❌ Closed source; all data passes through cloud servers
+- ❌ $15/month subscription fee
+- ❌ Cannot access or modify local files
+
+**Ideal Users**:
+- Users who need web automation (e-commerce operations, data collection)
+- Non-technical users who want AI-powered browser tasks
+- Teams that prefer zero-deployment cloud solutions
+
+**Typical Use Cases**:
+\`\`\`
+User: Check this product page every 2 hours for stock availability
+Manus: ✅ Monitoring set up. Will notify you when in stock.
+
+User: Fill out these 100 forms with this spreadsheet data
+Manus: ✅ All 100 forms completed
+\`\`\`
+
+### 4. AutoGPT: The Autonomous Explorer
+
+**Strengths**:
+- ✅ Fully autonomous operation -- minimal human intervention needed
+- ✅ Open source and customizable
+- ✅ Supports complex, multi-step task chains
+- ✅ Active community of contributors and experimenters
+
+**Weaknesses**:
+- ⚠️ Prone to going off-track -- requires careful prompt tuning
+- ⚠️ Costs are hard to control (frequent API calls can add up quickly)
+- ⚠️ Success rate is inconsistent
+- ⚠️ Steep learning curve for effective use
+
+**Ideal Users**:
+- AI researchers and enthusiasts exploring the boundaries of autonomous AI
+- Technical users who want to experiment with agentic workflows
+- Anyone with the patience to iterate on prompts and configurations
+
+**Typical Use Cases**:
+\`\`\`
+User: Research the electric vehicle market and generate a report
+AutoGPT: Autonomous execution:
+  1. Search for EV brands and models
+  2. Scrape data from multiple sources
+  3. Analyze and compare findings
+  4. Generate report (may succeed fully, or may go off-track)
+\`\`\`
+
+## Choosing the Right Tool
+
+### If you want...
+
+**A daily automation assistant** --> **OpenClaw**
+- Multi-platform messaging integration (Telegram, Discord, Feishu, and more)
+- Local execution for privacy and control
+- Free and open source with a rich skills ecosystem
+
+**A programming development assistant** --> **Cursor**
+- Deep VS Code integration
+- Code completion, refactoring, and debugging
+- Works out of the box
+
+**Web and browser automation** --> **Manus**
+- Professional-grade browser control
+- Zero deployment required
+- Form filling, data scraping, and page monitoring
+
+**AI research and experimentation** --> **AutoGPT**
+- Explore autonomous AI capabilities
+- Fully open source
+- Customizable agent behavior
+
+## Our Recommendations
+
+| User Type | Recommendation | Rationale |
+|----------|------|------|
+| Individual users | OpenClaw | Free, powerful, privacy-preserving, works on all your devices |
+| Developers | Cursor + OpenClaw | Cursor for in-editor coding, OpenClaw for automation and daily tasks |
+| Enterprise users | OpenClaw | Local deployment, data security, regulatory compliance |
+| Operations teams | Manus | Specialized browser automation for web-based workflows |
+| Researchers | AutoGPT | Pushing the boundaries of autonomous AI agents |
+
+## Key Takeaways
+
+When deciding between these four tools, consider these factors:
+
+**On openness and control**: If you value transparency, data sovereignty, and the ability to customize, OpenClaw and AutoGPT are the open-source options. OpenClaw is more mature and practical for everyday use, while AutoGPT is better suited for experimental and research scenarios.
+
+**On specialization vs. generality**: Cursor is laser-focused on coding within VS Code. Manus is laser-focused on browser automation. OpenClaw is the generalist that covers the widest range of use cases. Choose a specialist if your needs are narrow; choose the generalist if you want one tool for many tasks.
+
+**On cost**: OpenClaw and AutoGPT are free to use (you only pay for API calls to the LLM provider, or nothing at all if you use local models). Cursor costs $20/month and Manus costs $15/month as subscription fees on top of any usage costs.
+
+**On deployment**: If you need to run everything on your own infrastructure (for compliance, security, or cost reasons), OpenClaw and AutoGPT support self-hosting. Cursor runs locally but connects to cloud services. Manus is entirely cloud-based with no self-hosting option.
 
 ---
 
-**Summary**: There's no "best" AI Agent, only the one that "fits you best".
+**In summary**: There is no single "best" AI Agent -- only the one that best fits your specific needs and workflow.
 
-Recommend trying **OpenClaw** first (free & open source), then consider Cursor for coding focus, or Manus for web automation needs.`,
+We recommend starting with **OpenClaw** (free and open source) as your primary AI assistant. If your primary focus is coding, add Cursor to your toolkit for the in-editor experience. If you specifically need web browser automation for tasks like form filling or data scraping, consider Manus. And if you want to experiment with fully autonomous AI agents, AutoGPT is the place to start.`,
     author: "OpenClaw 101",
     date: "2026-03-21",
     category: "对比评测",
@@ -6333,87 +7398,98 @@ model PointsTransaction {
 **在线体验**：[avatardoll.online](https://avatardoll.online)`,
     contentEn: `## Background
 
-I had an idea: AI-generated doll-style avatars. Users upload a photo, choose a style (Barbie/Anime/Chibi), and get a personalized avatar.
+I had an idea: use AI to generate doll-style avatars. Users would upload a photo, choose a style (Barbie, Anime, or Chibi), and get a personalized avatar with one click.
 
 3 days later, the product went live: [avatardoll.online](https://avatardoll.online)
 
-This article reviews the entire development process, focusing on **the pitfalls I encountered**.
+This article is a complete retrospective of the entire development process, with a focus on **the pitfalls I encountered** and how I solved them.
 
-## Tech Stack
+## Tech Stack Selection
 
-| Need | Choice | Reason |
+| Requirement | Choice | Rationale |
 |------|------|------|
-| Framework | Next.js 16 | App Router + Server Components |
-| Database | Turso | SQLite compatible, free, edge deployment |
-| Payment | PayPal | Global support, good sandbox |
-| Auth | Google OAuth | Large user base, simple implementation |
-| Image Gen | Replicate | Simple API, pay-per-use |
+| Framework | Next.js 16 | App Router + Server Components for fast, modern web dev |
+| Database | Turso | SQLite-compatible, free tier, edge deployment support |
+| Payment | PayPal | Global payment support, well-documented sandbox environment |
+| Authentication | Google OAuth | Massive user base, straightforward implementation |
+| Image Generation | Replicate | Simple API, pay-per-use pricing, no GPU needed on our end |
 
 ## Pitfall 1: Quota Calculation Error
 
-**Symptom**: Header shows 20, Create page shows 18
+**Symptom**: The header displayed 20 remaining uses, but the Create page showed 18.
 
-**Cause**:
+**Root Cause**:
 \`\`\`typescript
-// Wrong: double counting
+// WRONG: double counting
 const total = usedToday + pointsBalance;
-// usedToday already includes free usage
+// usedToday already includes free usage count, so adding it again inflates the total
 \`\`\`
 
-**Solution**:
+**The Fix**:
 \`\`\`typescript
-// Correct: separate calculation
+// CORRECT: separate free quota from paid points
 const freeRemaining = Math.max(0, dailyQuota - usedToday);
 const total = freeRemaining + pointsBalance;
 \`\`\`
 
-## Pitfall 2: Points Not Deducted (Critical!)
+**Lesson**: When dealing with quota systems, clearly separate free-tier usage from paid credits. Semantic confusion in data models leads to calculation bugs that are hard to spot.
 
-**Symptom**: User generated 4 images, balance still 20
+## Pitfall 2: Points Not Being Deducted (Critical!)
 
-**Cause**:
+**Symptom**: A user generated 4 images, but their points balance still showed 20.
+
+**Root Cause**:
 \`\`\`typescript
-// Only update usedToday, never deduct points
+// Only incrementing usedToday, never actually deducting from points balance
 await prisma.user.update({
   data: { usedToday: { increment: 1 } }
 });
 \`\`\`
 
-**Result**: Users can generate infinitely!
+**The Consequence**: Users could generate images indefinitely without ever consuming their paid points!
 
-**Solution**:
+**The Fix**:
 \`\`\`typescript
 const freeRemaining = dailyQuota - usedToday;
 
 if (freeRemaining > 0) {
-  // Use free quota
+  // Still within free quota -- just track usage
   await prisma.user.update({
     data: { usedToday: { increment: 1 } }
   });
 } else {
-  // Deduct points
+  // Free quota exhausted -- deduct from paid points
   await prisma.pointsAccount.update({
     data: { balance: { decrement: 1 } }
+  });
+  await prisma.pointsTransaction.create({
+    data: { type: 'USAGE', amount: -1, ... }
   });
 }
 \`\`\`
 
+**Lesson**: Payment and credits logic must form a complete, closed loop. Always test the full lifecycle: free usage exhausted --> points deducted --> points reach zero --> generation blocked.
+
 ## Pitfall 3: PayPal Sandbox Traps
 
-**Problem 1**: Order status stuck at PENDING
-- Cause: Not handling webhook correctly
-- Solution: Add webhook verification and status polling
+**Problem 1: Order status stuck at PENDING**
+- **Cause**: The webhook handler was not correctly processing PayPal's asynchronous order status updates.
+- **Solution**: Added proper webhook signature verification and implemented a status polling fallback to handle cases where webhooks were delayed or missed.
 
-**Problem 2**: Points not credited after payment
-- Cause: Capture API failed, no transaction rollback
-- Solution: Add detailed logs, use database transactions
+**Problem 2: Points not credited after successful payment**
+- **Cause**: The PayPal capture API call failed silently, and without database transaction wrapping, the points credit step was skipped with no rollback.
+- **Solution**: Added comprehensive logging at every step of the payment flow and wrapped the capture + points credit operations in a database transaction to ensure atomicity.
 
 ## Key Code: PayPal Payment Flow
 
 \`\`\`typescript
-// 1. Create order
+// Step 1: Create order on the server
 const order = await fetch('https://api-m.sandbox.paypal.com/v2/checkout/orders', {
   method: 'POST',
+  headers: {
+    'Authorization': \\\`Basic \\\${credentials}\\\`,
+    'Content-Type': 'application/json',
+  },
   body: JSON.stringify({
     intent: 'CAPTURE',
     purchase_units: [{
@@ -6423,31 +7499,106 @@ const order = await fetch('https://api-m.sandbox.paypal.com/v2/checkout/orders',
   }),
 });
 
-// 2. Capture after user approval
+// Step 2: After user approves on PayPal, capture the payment
 const capture = await fetch(
-  \`https://api-m.sandbox.paypal.com/v2/checkout/orders/\\\${orderId}/capture\`,
+  \\\`https://api-m.sandbox.paypal.com/v2/checkout/orders/\\\${orderId}/capture\\\`,
   { method: 'POST', ... }
 );
 
-// 3. Update points
+// Step 3: Credit points to user account (inside a transaction)
 await prisma.pointsAccount.update({
   where: { userId },
   data: { balance: { increment: 20 } }
 });
 \`\`\`
 
+## Data Model
+
+\`\`\`prisma
+model User {
+  id           String   @id
+  email        String   @unique
+  dailyQuota   Int      @default(1)  // Daily free generation quota
+  usedToday    Int      @default(0)  // Generations used today
+}
+
+model PointsAccount {
+  userId   String   @id
+  balance  Int      @default(0)  // Paid points balance
+}
+
+model PointsTransaction {
+  id           String   @id
+  userId       String
+  type         String   // PURCHASE, USAGE, REFUND
+  amount       Int
+  balanceAfter Int
+}
+\`\`\`
+
+## Deployment Architecture
+
+\`\`\`
+User --> Cloudflare (CDN/Protection) --> Vercel (Application) --> Turso (Database)
+                                              |
+                                        Replicate (AI Image Generation)
+\`\`\`
+
+This architecture is lightweight, cost-effective, and scales well for a side project. Cloudflare handles caching and DDoS protection, Vercel provides serverless compute with zero-config deploys, Turso gives us a globally distributed SQLite database, and Replicate handles the GPU-intensive image generation on demand.
+
+## Day-by-Day Timeline
+
+### Day 1: Foundation (Framework + Auth + Database)
+
+The first day was all about getting the skeleton up and running. I scaffolded the Next.js 16 project with App Router, set up Google OAuth for authentication, and connected Turso as the database. By the end of Day 1, users could sign in, and I had the basic page layout working with a header showing the user's avatar and remaining quota.
+
+The key decision here was choosing Turso over traditional PostgreSQL. For a side project, Turso's SQLite compatibility means zero-config locally, free tier in production, and edge deployment support. The trade-off is that it is less suitable for heavy concurrent writes, but for an avatar generation app the read/write ratio is heavily skewed toward reads.
+
+### Day 2: Core Feature (Image Generation + Quota System)
+
+Day 2 was the most intense. I integrated Replicate's API for image generation, built the upload flow (photo upload, style selection, generation trigger), and implemented the quota system. This is where Pitfall 1 and Pitfall 2 hit me -- the quota calculation bugs described above consumed several hours of debugging.
+
+The image generation workflow: the user uploads a photo, the server sends it to Replicate's model endpoint along with the chosen style prompt, Replicate processes it asynchronously and returns a URL to the generated image, and our server downloads and stores it. The entire round-trip takes about 15-30 seconds depending on the model and queue depth.
+
+### Day 3: Monetization + Polish (Payment + Deploy)
+
+The final day was about making money and shipping. I integrated PayPal's checkout flow for purchasing points, built the points management UI, and deployed everything. This is where Pitfall 3 struck -- the PayPal sandbox issues ate up most of the morning.
+
+After fixing the payment bugs, I did a final round of testing, set up the production environment on Vercel, configured the custom domain, and launched. Total time from idea to live product: roughly 72 hours of focused work.
+
 ## Lessons Learned
 
-1. **Payment logic must be complete**: Test the full flow
-2. **Clear quota calculation**: Avoid semantic confusion
-3. **Detailed logs**: Quick troubleshooting
-4. **Read third-party API docs**: Don't assume
+1. **Payment logic must form a closed loop**: Test the complete flow end-to-end. Every edge case (free quota exhausted, points deducted correctly, zero balance blocks generation, failed payment rolls back, webhook delays handled) must be covered. A payment system with a hole is worse than no payment system at all -- users will find and exploit the gap.
+2. **Quota calculations need clear semantics**: Design your data model so that each field has one unambiguous meaning. Avoid mixing concepts like "total used" and "free used" in a single counter. When I separated free remaining quota from paid points balance, the calculation became trivially correct.
+3. **Logging must be comprehensive**: When integrating third-party APIs like PayPal, log every request and response with timestamps and correlation IDs. When something goes wrong at 2 AM, detailed logs are the difference between a 5-minute fix and hours of blind debugging. I added structured logging with request ID tracking across the entire payment flow.
+4. **Read third-party API docs thoroughly**: Do not assume how an API behaves based on naming alone. PayPal's sandbox has subtle behavioral differences from production (different error codes, timing behaviors, webhook delivery patterns) that can catch you off guard if you skip the documentation.
+
+## What Would I Do Differently?
+
+Looking back, there are a few things I would change:
+
+- **Use Stripe instead of PayPal**: Stripe's developer experience is significantly better -- cleaner APIs, better documentation, and more predictable webhook behavior. PayPal's sandbox environment has too many quirks.
+- **Add rate limiting from Day 1**: I did not add rate limiting until after launch, which was risky. Any user could have hammered the generation endpoint and run up my Replicate bill.
+- **Write tests for the payment flow**: I tested manually, which is why the points deduction bug slipped through. Even a few integration tests covering the quota and payment paths would have caught it immediately.
+
+## Cost Analysis
+
+| Item | Cost |
+|------|------|
+| Domain name | $12/year |
+| Vercel hosting | Free tier sufficient for initial traffic |
+| Turso database | Free tier sufficient (up to 9GB) |
+| Replicate (image gen) | ~$0.002 per generation |
+| Cloudflare CDN | Free tier |
+| **Total** | **~$15/month to start** |
+
+At this cost structure, you only need a handful of paying users to break even. The key insight: by choosing services with generous free tiers (Vercel, Turso, Cloudflare) and pay-per-use AI infrastructure (Replicate), you can launch a real, revenue-generating product with almost zero upfront investment. The marginal cost per user is essentially just the Replicate API call -- about $0.002 per image generation.
 
 ---
 
-**Full Code**: [github.com/moonye6/AvatarDoll](https://github.com/moonye6/AvatarDoll)
+**Full Source Code**: [github.com/moonye6/AvatarDoll](https://github.com/moonye6/AvatarDoll)
 
-**Try It**: [avatardoll.online](https://avatardoll.online)`,
+**Try It Live**: [avatardoll.online](https://avatardoll.online)`,
     author: "OpenClaw 101",
     date: "2026-03-21",
     category: "实战案例",
@@ -6517,7 +7668,7 @@ It answers: "You can use Python's os and shutil libraries to iterate through the
 
 Then you look at this pile of suggestions and think: "Can't you just do it for me?"
 
-This is the pain point of traditional AI chatbots—they can only talk, not do.
+This is the pain point of traditional AI chatbots -- they can only talk, not do.
 
 ## Core Difference: From Consultant to Executor
 
@@ -6539,7 +7690,141 @@ OpenClaw is an executor:
 - Run code, execute scripts
 - Search the web, crawl pages
 - Control browsers, operate applications
-- Set up scheduled tasks, send notifications`,
+- Set up scheduled tasks, send notifications
+
+## Feature Comparison
+
+| Feature | OpenClaw | ChatGPT |
+|---------|----------|---------|
+| **Text Generation** | Supported (via LLM providers) | Supported (native) |
+| **File Operations** | Direct create/edit/delete | Only provides instructions |
+| **Code Execution** | Runs code directly in sandbox | Code Interpreter (limited) |
+| **Web Browsing** | Full headless browser control | Browsing plugin (limited) |
+| **Multi-Platform** | 10+ messaging platforms | Web and mobile app only |
+| **Self-Hosting** | Fully supported | Not available |
+| **Skills/Plugins** | 42,000+ community skills | Limited plugin ecosystem |
+| **Open Source** | Fully open source | Closed source |
+| **Offline Use** | Supported (with local models) | Requires internet |
+| **Scheduled Tasks** | Built-in cron and automation | Not supported |
+| **Custom Extensions** | Skills API for any integration | No custom extension API |
+| **Data Privacy** | Data stays on your server | Data sent to OpenAI servers |
+
+## Concrete Examples
+
+### Example 1: Organizing Files
+
+**ChatGPT**:
+> "Here is a Python script you can use to organize your files. Copy this code, save it as organize.py, and run it in your terminal..."
+
+You still need to: copy the code, create a file, open a terminal, run the script, and debug any errors.
+
+**OpenClaw**:
+> "Done. I have moved 247 photos into folders organized by date. Here is a summary: 2025-01 (32 files), 2025-02 (45 files)..."
+
+OpenClaw directly accesses the file system, reads EXIF data, creates the folders, and moves the files. You just ask and it is done.
+
+### Example 2: Monitoring a Website
+
+**ChatGPT**:
+> "You can use Python's requests library to periodically check the website. Here is an example using cron..."
+
+You need to write the code, set up cron, handle error cases, and configure notifications yourself.
+
+**OpenClaw**:
+> "I have set up monitoring for https://example.com. I will check every 5 minutes and notify you via Telegram if the site goes down or the response time exceeds 3 seconds."
+
+OpenClaw creates the scheduled task, handles retries, and sends real-time notifications through your preferred messaging platform.
+
+### Example 3: Data Analysis
+
+**ChatGPT**:
+> "Upload your CSV file and I can analyze it with Code Interpreter."
+
+Limited to files under 512MB, runs in a restricted sandbox, and you lose your session after timeout.
+
+**OpenClaw**:
+> "I have connected to your PostgreSQL database, run the query, generated the charts, and posted the weekly report summary to your Slack channel."
+
+OpenClaw can connect to real databases, process large datasets, generate visualizations, and distribute reports automatically.
+
+## Pricing Comparison
+
+### ChatGPT
+
+\`\`\`
+ChatGPT Free: Limited access, GPT-3.5 only
+ChatGPT Plus: $20/month (GPT-4 access, limited usage)
+ChatGPT Team: $25/user/month
+ChatGPT Enterprise: Custom pricing
+\`\`\`
+
+**Monthly cost estimate**:
+- Individual: $20/month (Plus)
+- Team of 10: $250/month
+
+### OpenClaw
+
+\`\`\`
+OpenClaw software: Free (open source)
+AI model costs: Pay only for API usage
+Self-hosted with local models: $0 API cost
+\`\`\`
+
+**Monthly cost estimate**:
+- Individual (cloud API): $5-15/month
+- Individual (local models): $0/month
+- Team of 10 (cloud API): $50-150/month
+- Team of 10 (self-hosted): Hardware costs only
+
+OpenClaw is significantly cheaper for heavy users because you pay only for the API tokens you consume, with no platform markup. With local models via LocalAI or Ollama, the API cost drops to zero.
+
+## When to Choose Each
+
+### Choose ChatGPT if you:
+
+- Only need text generation, translation, and writing assistance
+- Do not need the AI to execute real-world actions
+- Prefer a simple web interface with no setup
+- Are comfortable with data being processed on OpenAI servers
+- Do not need multi-platform integration
+
+### Choose OpenClaw if you:
+
+- Want to automate daily tasks and boost productivity
+- Need code execution and file operation capabilities
+- Value data privacy and want to run everything locally
+- Want to use AI through Telegram, Discord, Slack, or other messaging platforms
+- Need a customizable and extensible skill ecosystem
+- Are a developer who wants full control over the AI stack
+- Need scheduled tasks, monitoring, or workflow automation
+
+## Frequently Asked Questions
+
+### Q: Can OpenClaw use ChatGPT's models?
+
+Yes. OpenClaw supports OpenAI's GPT models as a provider, alongside Anthropic Claude, local models, and others. You can even configure multiple providers with automatic fallback.
+
+### Q: Is ChatGPT easier to set up?
+
+Yes, ChatGPT requires zero setup -- just open the website and start chatting. OpenClaw requires initial configuration, but the \`openclaw init\` command makes it straightforward. The tradeoff is that OpenClaw gives you far more power and flexibility after setup.
+
+### Q: Can I switch from ChatGPT to OpenClaw?
+
+Absolutely. Many users start with ChatGPT for simple conversations and move to OpenClaw when they need actual task execution, automation, or multi-platform access.
+
+### Q: Which has better AI quality?
+
+Both can use the same underlying models. OpenClaw supports Claude, GPT-4, and local models. The AI quality depends on which model you choose, not on the platform itself.
+
+## Summary
+
+**ChatGPT** is a great conversational AI for text generation and Q&A. It is simple, polished, and requires no setup.
+
+**OpenClaw** is a full AI agent platform that goes beyond conversation to actually execute tasks on your behalf. It is open source, self-hostable, multi-platform, and extensible.
+
+The fundamental difference: ChatGPT tells you how to do things. OpenClaw does them for you.
+
+For most users who want an AI that can truly act on their behalf, OpenClaw is the stronger choice.`,
     author: "OpenClaw 101",
     date: "2026-03-17",
     category: "对比评测",
