@@ -41,16 +41,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const entries: MetadataRoute.Sitemap = []
 
-  // Main pages (both en and zh)
+  // Main pages (en only — zh redirects to en via middleware)
   for (const page of pages) {
-    for (const locale of ['en', 'zh']) {
-      entries.push({
-        url: `${baseUrl}/${locale}${page.path}`,
-        lastModified: BUILD_DATE,
-        changeFrequency: page.changeFrequency,
-        priority: page.priority,
-      })
-    }
+    entries.push({
+      url: `${baseUrl}/en${page.path}`,
+      lastModified: BUILD_DATE,
+      changeFrequency: page.changeFrequency,
+      priority: page.priority,
+    })
   }
 
   // Learning path pages (7 days)

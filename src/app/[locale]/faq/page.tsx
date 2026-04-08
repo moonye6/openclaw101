@@ -4,6 +4,9 @@ import { FAQSection } from '@/components/seo/FAQSection'
 export const metadata: Metadata = {
   title: 'Frequently Asked Questions — OpenClaw 101',
   description: 'Find answers to the most common questions about OpenClaw: what it is, how to use it, pricing, supported platforms, security, and more.',
+  alternates: {
+    canonical: 'https://openclaw101.vip/en/faq',
+  },
 }
 
 export default function FAQPage() {

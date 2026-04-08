@@ -10,9 +10,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'Blog — AI Agent & Telegram Bot Guides | OpenClaw 101',
     description: 'Practical tutorials on Telegram bots, AI agents, automation workflows, and no-code tools.',
+    alternates: {
+      canonical: 'https://openclaw101.vip/en/blog',
+    },
     openGraph: {
       title: 'OpenClaw 101 Blog',
       description: 'Practical tutorials on Telegram bots, AI agents, automation workflows, and no-code tools.',
+      images: [{ url: 'https://openclaw101.vip/og-image.png', width: 1024, height: 1024, alt: 'OpenClaw 101 Blog' }],
     },
   };
 }

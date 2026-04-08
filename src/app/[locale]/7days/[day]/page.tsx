@@ -35,11 +35,7 @@ export async function generateMetadata({
       locale: isZh ? 'zh_CN' : 'en_US',
     },
     alternates: {
-      canonical: `${SITE_URL}/${locale}/7days/${dayNum}`,
-      languages: {
-        en: `${SITE_URL}/en/7days/${dayNum}`,
-        zh: `${SITE_URL}/zh/7days/${dayNum}`,
-      },
+      canonical: `${SITE_URL}/en/learn/${dayNum}`,
     },
   };
 }

@@ -10,10 +10,8 @@ export const revalidate = 3600;
 
 export async function generateStaticParams() {
   const params: { locale: string; day: string }[] = [];
-  for (const locale of ['en', 'zh']) {
-    for (let day = 1; day <= 7; day++) {
-      params.push({ locale, day: String(day) });
-    }
+  for (let day = 1; day <= 7; day++) {
+    params.push({ locale: 'en', day: String(day) });
   }
   return params;
 }
@@ -56,11 +54,7 @@ export async function generateMetadata({
       images: [`${SITE_URL}/og-image.png`],
     },
     alternates: {
-      canonical: `${SITE_URL}/${locale}/learn/${day}`,
-      languages: {
-        en: `${SITE_URL}/en/learn/${day}`,
-        zh: `${SITE_URL}/zh/learn/${day}`,
-      },
+      canonical: `${SITE_URL}/en/learn/${day}`,
     },
   };
 }

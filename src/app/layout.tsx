@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: "OpenClaw 101",
     locale: "en_US",
-    alternateLocale: "zh_CN",
+    // alternateLocale removed — zh redirects to en via middleware
     type: "website",
     images: [
       {
@@ -78,10 +78,6 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: SITE_URL,
-    languages: {
-      en: `${SITE_URL}/en`,
-      zh: `${SITE_URL}/zh`,
-    },
   },
 };
 

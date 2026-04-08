@@ -24,6 +24,14 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url, { status: 301 });
   }
 
+  // /7days/* 301 重定向到 /learn/* (消除重复内容)
+  const sevenDaysMatch = pathname.match(/^\/(en|zh)\/7days\/(\d+)/);
+  if (sevenDaysMatch) {
+    const url = request.nextUrl.clone();
+    url.pathname = `/en/learn/${sevenDaysMatch[2]}`;
+    return NextResponse.redirect(url, { status: 301 });
+  }
+
   return intlMiddleware(request);
 }
 

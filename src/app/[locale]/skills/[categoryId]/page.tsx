@@ -40,11 +40,7 @@ export async function generateMetadata({
       locale: isZh ? 'zh_CN' : 'en_US',
     },
     alternates: {
-      canonical: `${SITE_URL}/${locale}/skills/${categoryId}`,
-      languages: {
-        en: `${SITE_URL}/en/skills/${categoryId}`,
-        zh: `${SITE_URL}/zh/skills/${categoryId}`,
-      },
+      canonical: `${SITE_URL}/en/skills/${categoryId}`,
     },
   };
 }
