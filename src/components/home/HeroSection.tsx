@@ -168,40 +168,47 @@ export function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
-              <Link href="/blog">
+              <Link href="/guide">
                 <Button 
                   size="lg" 
                   className="bg-brand text-white hover:bg-brand-light shadow-lg shadow-brand/25 px-8"
                 >
-                  {t('cta')}
+                  🚀 {t('cta')}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
-              <Link href="/tutorials">
+              <Link href="/use-cases">
                 <Button 
                   size="lg" 
                   variant="outline" 
                   className="border-white/10 text-white hover:bg-white/5 hover:border-white/20 px-8"
                 >
-                  {t('learnMore')}
+                  💡 {t('learnMore')}
                 </Button>
               </Link>
             </motion.div>
 
-            {/* AI Agent Guide CTA */}
+            {/* Quick Links Row */}
             <motion.div
-              className="mt-6"
+              className="mt-6 flex flex-wrap gap-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
             >
               <Link
-                href="/blog/ai-agent-guide"
+                href="/examples"
                 className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-brand-light transition-colors group"
               >
-                <Sparkles className="w-4 h-4 text-brand-light" />
-                <span>Build Your First AI Agent — Step by Step Guide for Beginners.</span>
-                <span className="text-brand-light font-medium group-hover:underline">Start Today!</span>
+                <Sparkles className="w-4 h-4 text-warning" />
+                <span className="font-medium group-hover:underline">🔥 Examples</span>
+                <ArrowRight className="w-3.5 h-3.5 text-brand-light group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+              <Link
+                href="/skills"
+                className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-brand-light transition-colors group"
+              >
+                <Sparkles className="w-4 h-4 text-accent" />
+                <span className="font-medium group-hover:underline">🛠 97+ Skills</span>
                 <ArrowRight className="w-3.5 h-3.5 text-brand-light group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </motion.div>

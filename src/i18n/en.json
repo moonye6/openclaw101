@@ -278,9 +278,155 @@
   },
   "nav": {
     "home": "Home",
+    "guide": "Guide",
+    "useCases": "Use Cases",
     "skills": "Skills",
     "tutorials": "Tutorials",
     "blog": "Blog"
+  },
+  "guide": {
+    "title": "AI Agent Guide — Build Your First AI Agent",
+    "subtitle": "A complete beginner-friendly guide to building AI agents with OpenClaw. No coding required.",
+    "badge": "📘 Beginner Guide",
+    "metaTitle": "AI Agent Guide — Build Your First AI Agent Step by Step | OpenClaw 101",
+    "metaDescription": "Learn how to build your first AI agent with OpenClaw. Step-by-step beginner guide with real examples, no coding required. Start today!",
+    "toc": {
+      "title": "In This Guide",
+      "why": "Why AI Agents Matter",
+      "getStarted": "Getting Started",
+      "create": "Create Your First Agent",
+      "useCases": "Real Use Cases",
+      "automation": "Automation Workflows",
+      "advanced": "Advanced Tips & Tools",
+      "faq": "FAQ"
+    },
+    "sections": {
+      "whyTitle": "Why AI Agents Matter",
+      "whyDescription": "AI agents are intelligent programs that autonomously execute tasks, make decisions, and interact with external tools. Unlike traditional chatbots, AI agents can understand complex instructions, call APIs, remember context, and execute multi-step workflows.",
+      "whyBullet1": "Understand complex instructions and break down tasks",
+      "whyBullet2": "Call APIs and tools autonomously",
+      "whyBullet3": "Remember conversation context",
+      "whyBullet4": "Execute multi-step workflows",
+      "getStartedTitle": "Getting Started — Install OpenClaw",
+      "getStartedDescription": "Before creating your first AI agent, set up the OpenClaw platform. The entire setup takes about 5 minutes — completely beginner-friendly.",
+      "getStartedStep1": "Visit the OpenClaw official website",
+      "getStartedStep2": "Download the installer for your OS",
+      "getStartedStep3": "Follow the setup wizard",
+      "getStartedStep4": "Launch OpenClaw and create your account",
+      "createTitle": "Create Your First AI Agent",
+      "createStep1Title": "Choose Your Platform",
+      "createStep1Description": "OpenClaw supports Telegram, Discord, WhatsApp, and more.",
+      "createStep2Title": "Configure Your Agent",
+      "createStep2Description": "Create a project, select a template, configure parameters, and connect your platform.",
+      "createStep3Title": "Add AI Capabilities",
+      "createStep3Description": "Connect an LLM, set system prompts, enable memory, and add tool calling.",
+      "createStep4Title": "Test and Deploy",
+      "createStep4Description": "Test in sandbox, fine-tune, and deploy to production.",
+      "automationTitle": "Automation Workflows",
+      "automationDescription": "The real power of AI agents lies in automation. Set up scheduled tasks, trigger-based actions, and multi-step workflows.",
+      "automationScheduled": "Scheduled Tasks — Daily digests, reports, reminders",
+      "automationTrigger": "Trigger-Based — Auto-reply, alerts on data changes",
+      "automationMultiStep": "Multi-Step — Collect → Analyze → Report → Push",
+      "advancedTitle": "Advanced Tips & Recommended Tools",
+      "advancedMultiAgent": "Multi-Agent Collaboration — Multiple agents working together",
+      "advancedRAG": "RAG — Answer questions from your knowledge base",
+      "advancedFunctions": "Function Calling — Execute real-world actions via APIs",
+      "advancedMemory": "Memory Management — Hybrid long/short-term strategies"
+    },
+    "cta": {
+      "startDay1": "Start Day 1 Tutorial →",
+      "viewExamples": "View Real Examples →",
+      "viewUseCases": "Explore Use Cases →",
+      "browseSkills": "Browse 97+ Skills →"
+    }
+  },
+  "useCasesPage": {
+    "title": "AI Agent Use Cases",
+    "subtitle": "Discover how people use AI agents in real life — from coding to automation, research to smart home.",
+    "badge": "💡 Use Cases",
+    "metaTitle": "AI Agent Use Cases — Real-World Automation Examples | OpenClaw 101",
+    "metaDescription": "Explore real AI agent use cases: coding assistant, research, task automation, content creation, smart home, and data processing. Start building today!",
+    "backToUseCases": "← Back to Use Cases",
+    "exampleCommands": "Example Commands",
+    "relatedTutorials": "Related Tutorials",
+    "relatedSkills": "Related Skills",
+    "tryNow": "Try This Use Case →",
+    "viewGuide": "Read the Full Guide →",
+    "detailMetaTitle": "{title} — AI Agent Use Case | OpenClaw 101",
+    "detailMetaDescription": "Learn how to use AI agents for {title}. Step-by-step examples and commands included.",
+    "coding": {
+      "longDescription": "Transform your development workflow with an AI coding assistant. Write code in any language, debug complex issues, generate unit tests, create automation scripts, and refactor legacy code — all through natural language commands. OpenClaw's coding agent understands your codebase context and provides intelligent suggestions."
+    },
+    "research": {
+      "longDescription": "Supercharge your research process with AI-powered analysis. Search the web for the latest information, summarize academic papers, compare technologies, compile research reports, and track trends — automatically. Save hours of manual research every week."
+    },
+    "automation": {
+      "longDescription": "Build powerful automation workflows using natural language. Schedule recurring tasks, monitor services and infrastructure, send smart alerts, chain multiple actions together, and create conditional workflows — all without writing a single line of code."
+    },
+    "content": {
+      "longDescription": "Accelerate your content creation pipeline with AI. Generate blog posts and articles, translate documents into multiple languages, create social media content calendars, craft email campaigns, and maintain consistent brand voice across all channels."
+    },
+    "smarthome": {
+      "longDescription": "Control your entire smart home through conversational AI. Manage lights, thermostats, locks, and cameras with simple commands. Create complex automation scenes, set energy-saving schedules, and receive intelligent alerts — all from your favorite messaging platform."
+    },
+    "data": {
+      "longDescription": "Turn raw data into actionable insights with AI-powered analysis. Process CSV and Excel files, generate beautiful charts and visualizations, query databases with natural language, create automated reports, and discover patterns in your data."
+    },
+    "tutorialLabels": {
+      "aiAgentGuide": "AI Agent Beginner Guide",
+      "allTutorials": "Browse All Tutorials",
+      "automationGuide": "Automation Workflow Guide",
+      "createTelegramBot": "Create a Telegram Bot"
+    }
+  },
+  "examples": {
+    "title": "AI Agent Examples",
+    "subtitle": "Real-world AI agent projects you can build today. Each example includes step-by-step instructions and source code.",
+    "badge": "🔥 Real Examples",
+    "metaTitle": "AI Agent Examples — Build Real Projects | OpenClaw 101",
+    "metaDescription": "Explore real AI agent examples: Telegram bots, automation workflows, coding assistants, and more. Step-by-step instructions included.",
+    "viewTutorial": "View Full Tutorial →",
+    "difficulty": "Difficulty",
+    "timeToComplete": "Time",
+    "levels": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "project1": {
+      "title": "Build a Telegram Bot from Scratch",
+      "description": "Create a fully functional Telegram bot step by step. Learn bot creation, message handling, and AI integration.",
+      "time": "30 min"
+    },
+    "project2": {
+      "title": "10 Telegram Bot Examples",
+      "description": "Discover 10 practical Telegram bot examples — from simple auto-replies to AI-powered assistants with real commands.",
+      "time": "45 min"
+    },
+    "project3": {
+      "title": "Telegram Automation Workflows",
+      "description": "Build powerful 24/7 automation systems: scheduled reports, monitoring alerts, and multi-step workflows.",
+      "time": "1 hour"
+    },
+    "project4": {
+      "title": "AI Coding Assistant",
+      "description": "Set up an AI agent that writes code, debugs errors, generates tests, and manages your development workflow.",
+      "time": "20 min"
+    },
+    "project5": {
+      "title": "Smart Home Controller",
+      "description": "Control IoT devices, set scenes, and automate your home through conversational AI commands.",
+      "time": "45 min"
+    },
+    "project6": {
+      "title": "Research & Analysis Agent",
+      "description": "Build an agent that searches the web, summarizes papers, and compiles research reports automatically.",
+      "time": "30 min"
+    },
+    "startBuilding": "Start Building →",
+    "moreExamples": "More examples coming soon! Follow us on GitHub for updates.",
+    "ctaGuide": "New to AI Agents? Start with the Guide →",
+    "ctaUseCases": "Explore Use Cases →"
   },
   "footer": {
     "description": "Your comprehensive guide to OpenClaw AI agent skills. Open source, aiming to be the best resource hub for OpenClaw.",
@@ -357,5 +503,20 @@
       "title": "Smart Home Automation",
       "description": "A home automation enthusiast runs OpenClaw on a Raspberry Pi to control 30+ IoT devices, manage energy usage, and run proactive security checks 24/7."
     }
+  },
+  "internalLinks": {
+    "title": "Explore More",
+    "subtitle": "Discover everything you need to build and master AI agents.",
+    "explore": "Explore →",
+    "guideTitle": "AI Agent Guide",
+    "guideDesc": "Step-by-step beginner guide to building your first AI agent.",
+    "useCasesTitle": "Use Cases",
+    "useCasesDesc": "Real-world automation scenarios — coding, research, smart home, and more.",
+    "examplesTitle": "Examples",
+    "examplesDesc": "Hands-on projects with step-by-step instructions and source code.",
+    "skillsTitle": "Skills",
+    "skillsDesc": "Browse 97+ AI agent skills across 8 categories.",
+    "tutorialsTitle": "Tutorials",
+    "tutorialsDesc": "60+ curated tutorials from official docs to community guides."
   }
 }

@@ -278,9 +278,155 @@
   },
   "nav": {
     "home": "首页",
+    "guide": "入门指南",
+    "useCases": "使用场景",
     "skills": "技能",
     "tutorials": "教程",
     "blog": "博客"
+  },
+  "guide": {
+    "title": "AI Agent 入门指南 — 构建你的第一个 AI 智能体",
+    "subtitle": "完整的新手友好指南，使用 OpenClaw 构建 AI 智能体。无需编程基础。",
+    "badge": "📘 新手指南",
+    "metaTitle": "AI Agent 入门指南 — 一步步构建你的第一个 AI 智能体 | OpenClaw 101",
+    "metaDescription": "学习如何使用 OpenClaw 构建你的第一个 AI 智能体。分步新手指南，包含真实案例，无需编程。立即开始！",
+    "toc": {
+      "title": "本指南内容",
+      "why": "为什么 AI Agent 重要",
+      "getStarted": "开始准备",
+      "create": "创建你的第一个 Agent",
+      "useCases": "真实使用案例",
+      "automation": "自动化工作流",
+      "advanced": "进阶技巧与工具",
+      "faq": "常见问题"
+    },
+    "sections": {
+      "whyTitle": "为什么 AI Agent 如此重要",
+      "whyDescription": "AI Agent 是一种能够自主执行任务、做出决策并与外部工具交互的智能程序。与传统聊天机器人不同，AI Agent 能够理解复杂指令、调用 API、记忆上下文，并执行多步骤工作流。",
+      "whyBullet1": "理解复杂指令并拆解任务",
+      "whyBullet2": "自主调用 API 和工具",
+      "whyBullet3": "记忆对话上下文",
+      "whyBullet4": "执行多步骤工作流",
+      "getStartedTitle": "开始准备 — 安装 OpenClaw",
+      "getStartedDescription": "在创建你的第一个 AI Agent 之前，需要安装 OpenClaw 平台。整个安装过程大约只需要 5 分钟，零技术门槛。",
+      "getStartedStep1": "访问 OpenClaw 官方网站",
+      "getStartedStep2": "下载适合你操作系统的安装包",
+      "getStartedStep3": "按照安装向导完成设置",
+      "getStartedStep4": "启动 OpenClaw 并创建账号",
+      "createTitle": "创建你的第一个 AI Agent",
+      "createStep1Title": "选择平台",
+      "createStep1Description": "OpenClaw 支持 Telegram、Discord、WhatsApp 等多个平台。",
+      "createStep2Title": "配置你的 Agent",
+      "createStep2Description": "创建项目，选择模板，配置参数，连接平台。",
+      "createStep3Title": "添加 AI 能力",
+      "createStep3Description": "接入 LLM 模型，设置系统提示词，启用记忆，添加工具调用。",
+      "createStep4Title": "测试和部署",
+      "createStep4Description": "在测试环境中验证，微调参数，部署到生产环境。",
+      "automationTitle": "自动化工作流",
+      "automationDescription": "AI Agent 的真正威力在于自动化。设置定时任务、触发式动作和多步骤工作流。",
+      "automationScheduled": "定时任务 — 每日简报、数据报表、定期提醒",
+      "automationTrigger": "触发式任务 — 自动回复、数据变化告警",
+      "automationMultiStep": "多步骤工作流 — 收集 → 分析 → 报告 → 推送",
+      "advancedTitle": "进阶技巧与推荐工具",
+      "advancedMultiAgent": "多 Agent 协作 — 让多个 Agent 分工协作完成复杂任务",
+      "advancedRAG": "RAG — 让 Agent 基于你的知识库回答问题",
+      "advancedFunctions": "函数调用 — 通过 API 执行真实世界的操作",
+      "advancedMemory": "记忆管理 — 长期记忆 + 短期记忆的混合策略"
+    },
+    "cta": {
+      "startDay1": "从第 1 天开始 →",
+      "viewExamples": "查看真实案例 →",
+      "viewUseCases": "探索使用场景 →",
+      "browseSkills": "浏览 97+ 个技能 →"
+    }
+  },
+  "useCasesPage": {
+    "title": "AI Agent 使用场景",
+    "subtitle": "发现人们如何在现实中使用 AI 智能体——从编程到自动化，从研究到智能家居。",
+    "badge": "💡 使用场景",
+    "metaTitle": "AI Agent 使用场景 — 真实自动化案例 | OpenClaw 101",
+    "metaDescription": "探索真实的 AI Agent 使用场景：编程助手、研究分析、任务自动化、内容创作、智能家居和数据处理。立即开始构建！",
+    "backToUseCases": "← 返回使用场景",
+    "exampleCommands": "示例命令",
+    "relatedTutorials": "相关教程",
+    "relatedSkills": "相关技能",
+    "tryNow": "立即试用 →",
+    "viewGuide": "阅读完整指南 →",
+    "detailMetaTitle": "{title} — AI Agent 使用场景 | OpenClaw 101",
+    "detailMetaDescription": "了解如何使用 AI 智能体进行{title}。包含分步示例和命令。",
+    "coding": {
+      "longDescription": "用 AI 编程助手改变你的开发工作流。使用任何语言编写代码、调试复杂问题、生成单元测试、创建自动化脚本、重构旧代码——全部通过自然语言命令完成。OpenClaw 的编程 Agent 理解你的代码上下文，提供智能建议。"
+    },
+    "research": {
+      "longDescription": "用 AI 驱动的分析增强你的研究流程。搜索网络获取最新信息、总结学术论文、对比技术方案、编制研究报告、跟踪趋势——全自动完成。每周节省数小时的手动研究时间。"
+    },
+    "automation": {
+      "longDescription": "使用自然语言构建强大的自动化工作流。安排定期任务、监控服务和基础设施、发送智能告警、链接多个动作、创建条件工作流——全部无需编写任何代码。"
+    },
+    "content": {
+      "longDescription": "用 AI 加速你的内容创作管道。生成博客文章、翻译文档为多种语言、创建社交媒体内容日历、制作电子邮件营销、在所有渠道保持一致的品牌声音。"
+    },
+    "smarthome": {
+      "longDescription": "通过对话式 AI 控制你的整个智能家居。用简单命令管理灯光、温控器、门锁和摄像头。创建复杂的自动化场景、设置节能计划、接收智能告警——全部来自你喜欢的消息平台。"
+    },
+    "data": {
+      "longDescription": "用 AI 驱动的分析将原始数据转化为可操作的洞察。处理 CSV 和 Excel 文件、生成精美图表和可视化、用自然语言查询数据库、创建自动化报告、发现数据中的模式。"
+    },
+    "tutorialLabels": {
+      "aiAgentGuide": "AI Agent 新手指南",
+      "allTutorials": "浏览所有教程",
+      "automationGuide": "自动化工作流指南",
+      "createTelegramBot": "创建 Telegram Bot"
+    }
+  },
+  "examples": {
+    "title": "AI Agent 实战案例",
+    "subtitle": "真实的 AI 智能体项目，今天就能开始构建。每个案例都包含分步教程和源代码。",
+    "badge": "🔥 实战案例",
+    "metaTitle": "AI Agent 实战案例 — 构建真实项目 | OpenClaw 101",
+    "metaDescription": "探索真实 AI Agent 案例：Telegram Bot、自动化工作流、编程助手等。包含分步教程。",
+    "viewTutorial": "查看完整教程 →",
+    "difficulty": "难度",
+    "timeToComplete": "时长",
+    "levels": {
+      "beginner": "新手",
+      "intermediate": "中级",
+      "advanced": "进阶"
+    },
+    "project1": {
+      "title": "从零构建 Telegram Bot",
+      "description": "手把手教你创建一个完整运行的 Telegram Bot。学习 Bot 创建、消息处理和 AI 集成。",
+      "time": "30 分钟"
+    },
+    "project2": {
+      "title": "10 个 Telegram Bot 实战案例",
+      "description": "精选 10 个实用 Telegram Bot 案例——从简单自动回复到 AI 智能助手，附真实命令。",
+      "time": "45 分钟"
+    },
+    "project3": {
+      "title": "Telegram 自动化工作流",
+      "description": "构建强大的 24/7 自动化系统：定时报告、监控告警和多步骤工作流。",
+      "time": "1 小时"
+    },
+    "project4": {
+      "title": "AI 编程助手",
+      "description": "搭建一个能编写代码、调试错误、生成测试、管理开发工作流的 AI Agent。",
+      "time": "20 分钟"
+    },
+    "project5": {
+      "title": "智能家居控制器",
+      "description": "通过对话式 AI 命令控制 IoT 设备、设置场景、自动化你的家居。",
+      "time": "45 分钟"
+    },
+    "project6": {
+      "title": "研究与分析 Agent",
+      "description": "构建一个能搜索网络、总结论文、自动编制研究报告的 Agent。",
+      "time": "30 分钟"
+    },
+    "startBuilding": "开始构建 →",
+    "moreExamples": "更多案例即将推出！关注我们的 GitHub 获取更新。",
+    "ctaGuide": "AI Agent 新手？从入门指南开始 →",
+    "ctaUseCases": "探索使用场景 →"
   },
   "footer": {
     "description": "您的 OpenClaw AI 智能体技能综合指南。开源项目，致力于成为最好的 OpenClaw 资源中心。",
@@ -357,5 +503,20 @@
       "title": "智能家居自动化",
       "description": "一位智能家居爱好者在树莓派上运行 OpenClaw，控制 30+ 个 IoT 设备，管理能耗，并全天候运行主动安全检查。"
     }
+  },
+  "internalLinks": {
+    "title": "探索更多",
+    "subtitle": "发现构建和掌握 AI 智能体所需的一切。",
+    "explore": "探索 →",
+    "guideTitle": "AI Agent 入门指南",
+    "guideDesc": "分步新手指南，构建你的第一个 AI 智能体。",
+    "useCasesTitle": "使用场景",
+    "useCasesDesc": "真实的自动化场景——编程、研究、智能家居等。",
+    "examplesTitle": "实战案例",
+    "examplesDesc": "动手项目，包含分步教程和源代码。",
+    "skillsTitle": "技能",
+    "skillsDesc": "浏览 8 个分类中的 97+ 个 AI 智能体技能。",
+    "tutorialsTitle": "教程",
+    "tutorialsDesc": "60+ 精选教程，从官方文档到社区指南。"
   }
 }
