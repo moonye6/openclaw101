@@ -3,7 +3,7 @@ import { tutorials } from '@/data/tutorials'
 import { skillCategories } from '@/data/skills'
 import { blogPosts } from '@/data/blog'
 
-const BUILD_DATE = new Date('2026-04-07')
+const BUILD_DATE = new Date('2026-04-08')
 
 // SEO core slugs — get highest priority (0.9)
 const SEO_CORE_SLUGS = new Set([
@@ -13,30 +13,44 @@ const SEO_CORE_SLUGS = new Set([
   'telegram-bot-api-tutorial',
   'best-telegram-bot-tools',
   'ai-agent-guide',
+  'is-openclaw-free-pricing-guide',
+  'best-openclaw-workflows-productivity',
 ])
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://openclaw101.vip'
 
   const pages = [
-    { path: '',           changeFrequency: 'weekly' as const, priority: 1.0 },
-    { path: '/blog',      changeFrequency: 'weekly' as const, priority: 0.9 },
-    { path: '/tutorials', changeFrequency: 'daily'  as const, priority: 0.8 },
-    { path: '/skills',    changeFrequency: 'daily'  as const, priority: 0.8 },
+    { path: '',                   changeFrequency: 'weekly' as const, priority: 1.0 },
+    { path: '/blog',              changeFrequency: 'weekly' as const, priority: 0.9 },
+    { path: '/guide',             changeFrequency: 'weekly' as const, priority: 0.9 },
+    { path: '/examples',          changeFrequency: 'weekly' as const, priority: 0.8 },
+    { path: '/use-cases',         changeFrequency: 'weekly' as const, priority: 0.8 },
+    { path: '/tutorials',         changeFrequency: 'daily'  as const, priority: 0.8 },
+    { path: '/skills',            changeFrequency: 'daily'  as const, priority: 0.8 },
+    { path: '/faq',               changeFrequency: 'monthly' as const, priority: 0.7 },
+    { path: '/about',             changeFrequency: 'monthly' as const, priority: 0.6 },
+    { path: '/contact',           changeFrequency: 'monthly' as const, priority: 0.5 },
+    { path: '/privacy',           changeFrequency: 'yearly'  as const, priority: 0.4 },
+    { path: '/terms',             changeFrequency: 'yearly'  as const, priority: 0.4 },
+    { path: '/disclaimer',        changeFrequency: 'yearly'  as const, priority: 0.4 },
+    { path: '/editorial-policy',  changeFrequency: 'yearly'  as const, priority: 0.4 },
   ]
 
   const learningDays = [1, 2, 3, 4, 5, 6, 7]
 
   const entries: MetadataRoute.Sitemap = []
 
-  // Main pages
+  // Main pages (both en and zh)
   for (const page of pages) {
-    entries.push({
-      url: `${baseUrl}/en${page.path}`,
-      lastModified: BUILD_DATE,
-      changeFrequency: page.changeFrequency,
-      priority: page.priority,
-    })
+    for (const locale of ['en', 'zh']) {
+      entries.push({
+        url: `${baseUrl}/${locale}${page.path}`,
+        lastModified: BUILD_DATE,
+        changeFrequency: page.changeFrequency,
+        priority: page.priority,
+      })
+    }
   }
 
   // Learning path pages (7 days)
@@ -49,7 +63,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   }
 
-  // Blog post pages — Telegram series gets priority 0.9, others 0.7
+  // Blog post pages — Core Guides get priority 0.9, others 0.7
   for (const post of blogPosts) {
     entries.push({
       url: `${baseUrl}/en/blog/${post.slug}`,

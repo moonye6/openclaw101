@@ -4,11 +4,11 @@
     "subtitle": "Learn AI Agents & Automation (Step-by-Step Guides)",
     "description": "Build Telegram Bots, AI Assistants, and Automation Workflows — Even Without Coding. Beginner-friendly tutorials, real examples, and practical guides.",
     "hero": {
-      "title": "Learn AI Agents & Automation",
-      "subtitle": "Build Telegram Bots, AI Assistants, and Automation Workflows — Even Without Coding. Beginner-friendly tutorials, real examples, and practical guides to help you go from zero to your first AI agent.",
+      "title": "OpenClaw Guides, Tutorials, and Practical Examples",
+      "subtitle": "Learn what OpenClaw is, how it works, and how to use it with step-by-step guides, real examples, and beginner-friendly explanations.",
       "badge": "Free Guides · Beginner Friendly",
-      "cta": "Start Learning →",
-      "learnMore": "Explore Tutorials →",
+      "cta": "Start with the Beginner Guide",
+      "learnMore": "Explore Examples",
       "stats": {
         "tutorials": "Tutorials",
         "skills": "Skills",
@@ -278,11 +278,14 @@
   },
   "nav": {
     "home": "Home",
-    "guide": "Guide",
+    "guide": "Guides",
     "useCases": "Use Cases",
     "skills": "Skills",
     "tutorials": "Tutorials",
-    "blog": "Blog"
+    "blog": "Blog",
+    "examples": "Examples",
+    "faq": "FAQ",
+    "about": "About"
   },
   "guide": {
     "title": "AI Agent Guide — Build Your First AI Agent",
@@ -437,7 +440,8 @@
       "official": "Official",
       "learn": "Learn",
       "community": "Community",
-      "cloudPlatforms": "Cloud Platforms"
+      "cloudPlatforms": "Cloud Platforms",
+      "legal": "Legal & Info"
     },
     "links": {
       "docs": "Documentation",
@@ -452,12 +456,75 @@
       "clawhubSkills": "ClawHub Skills",
       "reddit": "Reddit",
       "digitalocean": "DigitalOcean",
-      "githubStars": "GitHub ({stars}+ ⭐)"
+      "githubStars": "GitHub ({stars}+ ⭐)",
+      "about": "About Us",
+      "contact": "Contact",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "disclaimer": "Disclaimer",
+      "editorialPolicy": "Editorial Policy"
     },
     "copyright": "© {year} OpenClaw 101. All rights reserved."
   },
   "faq": {
     "title": "Frequently Asked Questions"
+  },
+  "whatIsOpenClaw": {
+    "title": "What is OpenClaw?",
+    "paragraph1": "OpenClaw is an open-source AI agent framework that goes beyond simple chatbots. Unlike cloud-based AI services like ChatGPT or Claude, OpenClaw runs locally on your machine and can actually take actions on your behalf — writing code, managing files, searching the web, controlling browsers, and connecting to platforms like Telegram, Discord, and Slack.",
+    "paragraph2": "Think of it as a personal AI assistant that doesn't just answer questions, but executes tasks. You describe what you want in plain language, and OpenClaw handles the technical implementation. It supports multiple AI models (Claude, GPT, Llama, etc.), has a rich ecosystem of 97+ community skills on ClawHub, and can be extended to fit virtually any workflow.",
+    "paragraph3": "Whether you're a developer looking to automate repetitive tasks, a researcher who needs to collect and analyze data, or someone with zero coding experience who wants to build a Telegram bot — OpenClaw provides the tools and flexibility to make it happen.",
+    "highlight1Title": "Open Source & Free",
+    "highlight1Desc": "100% open source with 314k+ GitHub stars. Free to use with your own AI model API key.",
+    "highlight2Title": "Runs Locally",
+    "highlight2Desc": "Your data stays on your machine. Full control over privacy and permissions.",
+    "highlight3Title": "97+ Skills",
+    "highlight3Desc": "Extend capabilities with community-built skills from ClawHub marketplace."
+  },
+  "popularGuides": {
+    "title": "Popular Guides",
+    "subtitle": "Our most-read guides to help you get started with OpenClaw quickly.",
+    "readGuide": "Read Guide →",
+    "guide1": {
+      "title": "What Is OpenClaw? A Beginner-Friendly Guide",
+      "description": "A comprehensive introduction to OpenClaw — what it is, how it works, and why it's different from ChatGPT.",
+      "slug": "what-is-openclaw-guide"
+    },
+    "guide2": {
+      "title": "How to Use OpenClaw Step by Step",
+      "description": "Complete walkthrough from installation to your first AI agent, with real examples.",
+      "slug": "how-to-use-openclaw-step-by-step"
+    },
+    "guide3": {
+      "title": "How to Create a Telegram Bot (2026 Guide)",
+      "description": "Build a fully working Telegram bot step by step — even if you're a complete beginner.",
+      "slug": "how-to-create-telegram-bot"
+    },
+    "guide4": {
+      "title": "OpenClaw vs Other AI Agent Tools",
+      "description": "How does OpenClaw compare to ChatGPT, Claude, AutoGPT, and other tools? A detailed comparison.",
+      "slug": "openclaw-vs-other-ai-agents"
+    },
+    "guide5": {
+      "title": "Common OpenClaw Problems and Fixes",
+      "description": "Solutions to the most common issues when setting up and using OpenClaw.",
+      "slug": "openclaw-error-troubleshooting"
+    },
+    "guide6": {
+      "title": "Top OpenClaw Examples and Use Cases",
+      "description": "Real-world examples of what you can build with OpenClaw — from bots to automation workflows.",
+      "slug": "enterprise-use-cases"
+    }
+  },
+  "editorialTrust": {
+    "title": "Trusted, Reviewed Content",
+    "subtitle": "Every guide on OpenClaw 101 is written by experienced practitioners and reviewed for accuracy.",
+    "reviewedLabel": "Content reviewed and updated regularly",
+    "contactLabel": "Found an error?",
+    "contactLink": "Let us know →",
+    "policyLabel": "Read our",
+    "policyLink": "Editorial Policy →",
+    "lastUpdated": "Site last updated: April 2026"
   },
   "newsletter": {
     "badge": "Stay Updated",

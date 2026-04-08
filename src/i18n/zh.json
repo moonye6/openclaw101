@@ -4,11 +4,11 @@
     "subtitle": "学习 AI 智能体与自动化（分步教程指南）",
     "description": "搭建 Telegram Bot、AI 助手和自动化工作流 — 无需编程。新手友好的教程、真实案例和实用指南。",
     "hero": {
-      "title": "学习 AI 智能体与自动化",
-      "subtitle": "搭建 Telegram Bot、AI 助手和自动化工作流——无需编程基础。新手友好的分步教程、真实案例和实用指南，帮你从零开始构建第一个 AI 智能体。",
+      "title": "OpenClaw 指南、教程和实战案例",
+      "subtitle": "了解 OpenClaw 是什么、如何工作、如何使用——包含分步指南、真实案例和新手友好的讲解。",
       "badge": "免费指南 · 新手友好",
-      "cta": "开始学习 →",
-      "learnMore": "浏览所有教程 →",
+      "cta": "从新手指南开始",
+      "learnMore": "浏览实战案例",
       "stats": {
         "tutorials": "精选教程",
         "skills": "社区技能",
@@ -278,11 +278,14 @@
   },
   "nav": {
     "home": "首页",
-    "guide": "入门指南",
+    "guide": "指南",
     "useCases": "使用场景",
     "skills": "技能",
     "tutorials": "教程",
-    "blog": "博客"
+    "blog": "博客",
+    "examples": "案例",
+    "faq": "常见问题",
+    "about": "关于"
   },
   "guide": {
     "title": "AI Agent 入门指南 — 构建你的第一个 AI 智能体",
@@ -452,12 +455,75 @@
       "clawhubSkills": "ClawHub 技能市场",
       "reddit": "Reddit",
       "digitalocean": "DigitalOcean",
-      "githubStars": "GitHub ({stars}+ ⭐)"
+      "githubStars": "GitHub ({stars}+ ⭐)",
+      "about": "关于我们",
+      "contact": "联系我们",
+      "privacy": "隐私政策",
+      "terms": "服务条款",
+      "disclaimer": "免责声明",
+      "editorialPolicy": "编辑政策"
     },
     "copyright": "© {year} OpenClaw 101. 保留所有权利。"
   },
   "faq": {
     "title": "常见问题"
+  },
+  "whatIsOpenClaw": {
+    "title": "什么是 OpenClaw？",
+    "paragraph1": "OpenClaw 是一个开源 AI 智能体框架，远超简单的聊天机器人。与 ChatGPT 或 Claude 等云端 AI 服务不同，OpenClaw 在你的本地机器上运行，能够真正代你执行操作——编写代码、管理文件、搜索网络、控制浏览器，以及连接 Telegram、Discord、Slack 等平台。",
+    "paragraph2": "你可以把它想象成一个不仅能回答问题，还能执行任务的个人 AI 助手。你用自然语言描述想做的事，OpenClaw 会自动处理技术实现。它支持多种 AI 模型（Claude、GPT、Llama 等），在 ClawHub 上拥有 97+ 个社区技能的丰富生态，可以扩展到几乎任何工作流。",
+    "paragraph3": "无论你是想自动化重复任务的开发者、需要收集和分析数据的研究人员，还是零编程经验但想搭建 Telegram Bot 的新手——OpenClaw 都能提供工具和灵活性帮你实现。",
+    "highlight1Title": "开源 & 免费",
+    "highlight1Desc": "100% 开源，GitHub 314k+ Star。使用你自己的 AI 模型 API 密钥即可免费使用。",
+    "highlight2Title": "本地运行",
+    "highlight2Desc": "你的数据保留在本地。完全掌控隐私和权限。",
+    "highlight3Title": "97+ 个技能",
+    "highlight3Desc": "通过 ClawHub 市场的社区技能扩展功能。"
+  },
+  "popularGuides": {
+    "title": "热门指南",
+    "subtitle": "最受欢迎的指南，帮你快速上手 OpenClaw。",
+    "readGuide": "阅读指南 →",
+    "guide1": {
+      "title": "什么是 OpenClaw？新手友好完整指南",
+      "description": "全面介绍 OpenClaw——它是什么、如何工作、与 ChatGPT 有什么不同。",
+      "slug": "what-is-openclaw-guide"
+    },
+    "guide2": {
+      "title": "OpenClaw 使用教程：从入门到实战",
+      "description": "从安装到创建你的第一个 AI 智能体的完整教程，包含真实案例。",
+      "slug": "how-to-use-openclaw-step-by-step"
+    },
+    "guide3": {
+      "title": "如何创建 Telegram Bot（2026 分步指南）",
+      "description": "零基础也能做！手把手教你创建一个完整运行的 Telegram Bot。",
+      "slug": "how-to-create-telegram-bot"
+    },
+    "guide4": {
+      "title": "OpenClaw vs 其他 AI Agent 工具对比",
+      "description": "OpenClaw 与 ChatGPT、Claude、AutoGPT 等工具的详细对比分析。",
+      "slug": "openclaw-vs-other-ai-agents"
+    },
+    "guide5": {
+      "title": "OpenClaw 常见问题与解决方案",
+      "description": "安装和使用 OpenClaw 时最常见问题的解决方法。",
+      "slug": "openclaw-error-troubleshooting"
+    },
+    "guide6": {
+      "title": "OpenClaw 实用案例与使用场景",
+      "description": "用 OpenClaw 能做什么？从 Bot 到自动化工作流的真实案例。",
+      "slug": "enterprise-use-cases"
+    }
+  },
+  "editorialTrust": {
+    "title": "值得信赖的审核内容",
+    "subtitle": "OpenClaw 101 上的每篇指南都由资深从业者撰写，并经过准确性审核。",
+    "reviewedLabel": "内容定期审核和更新",
+    "contactLabel": "发现错误？",
+    "contactLink": "告诉我们 →",
+    "policyLabel": "阅读我们的",
+    "policyLink": "编辑政策 →",
+    "lastUpdated": "网站最后更新：2026年4月"
   },
   "newsletter": {
     "badge": "保持更新",

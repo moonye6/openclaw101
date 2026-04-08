@@ -18,6 +18,14 @@ function ExtLink({ href, children, follow }: { href: string; children: React.Rea
   );
 }
 
+function IntLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Link href={href} className="text-sm text-text-muted hover:text-white transition-colors">
+      {children}
+    </Link>
+  );
+}
+
 export function Footer() {
   const t = useTranslations('footer');
 
@@ -41,7 +49,7 @@ export function Footer() {
           </a>
         </div>
 
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-6">
           {/* Brand */}
           <div className="lg:col-span-1">
             <h3 className="text-lg font-bold text-gradient-brand mb-3">OpenClaw 101</h3>
@@ -67,16 +75,10 @@ export function Footer() {
               {t('sections.learn')}
             </h4>
             <ul className="space-y-3">
-              <li>
-                <Link href="/tutorials" className="text-sm text-text-muted hover:text-white transition-colors">
-                  {t('links.allResources')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/skills" className="text-sm text-text-muted hover:text-white transition-colors">
-                  {t('links.featuredSkills')}
-                </Link>
-              </li>
+              <li><IntLink href="/guide">{t('links.allResources')}</IntLink></li>
+              <li><IntLink href="/examples">{t('links.featuredSkills')}</IntLink></li>
+              <li><IntLink href="/blog">{t('links.docs')}</IntLink></li>
+              <li><IntLink href="/faq">{t('links.docs')}</IntLink></li>
             </ul>
           </div>
 
@@ -100,6 +102,21 @@ export function Footer() {
               <li><ExtLink href="https://help.aliyun.com/zh/simple-application-server/use-cases/quickly-deploy-and-use-openclaw">{t('links.alibabaCloud')}</ExtLink></li>
               <li><ExtLink href="https://cloud.tencent.com/developer/article/2625073">{t('links.tencentCloud')}</ExtLink></li>
               <li><ExtLink href="https://www.digitalocean.com/community/tutorials/how-to-run-openclaw">{t('links.digitalocean')}</ExtLink></li>
+            </ul>
+          </div>
+
+          {/* Legal & Info */}
+          <div>
+            <h4 className="text-xs font-semibold text-text-secondary uppercase tracking-widest mb-4">
+              {t('sections.legal')}
+            </h4>
+            <ul className="space-y-3">
+              <li><IntLink href="/about">{t('links.about')}</IntLink></li>
+              <li><IntLink href="/contact">{t('links.contact')}</IntLink></li>
+              <li><IntLink href="/privacy">{t('links.privacy')}</IntLink></li>
+              <li><IntLink href="/terms">{t('links.terms')}</IntLink></li>
+              <li><IntLink href="/disclaimer">{t('links.disclaimer')}</IntLink></li>
+              <li><IntLink href="/editorial-policy">{t('links.editorialPolicy')}</IntLink></li>
             </ul>
           </div>
         </div>
