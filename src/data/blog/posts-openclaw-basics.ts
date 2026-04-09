@@ -1416,9 +1416,9 @@ Feishu's single message limit is approximately 30,000 characters. If the AI resp
     id: 5,
     slug: "openclaw-deployment-guide",
     title: "OpenClaw 本地部署 vs 云端部署：如何选择？",
-    titleEn: "OpenClaw Local vs Cloud Deployment: How to Choose?",
+    titleEn: "OpenClaw Deployment: Local vs VPS vs Docker vs Cloud (2026)",
     excerpt: "对比 5 种部署方式：本地开发机、家庭服务器、VPS、云平台一键部署、企业私有云，找到最适合你的方案。",
-    excerptEn: "Compare 5 deployment methods: local machine, home server, VPS, one-click cloud deploy, enterprise private cloud.",
+    excerptEn: "Compare 5 deployment methods with cost breakdowns. Local dev machine, home server, VPS, Docker Compose, and one-click cloud deploy on Railway/Render/Fly.io.",
     content: `OpenClaw 支持多种部署方式：本地电脑、家庭服务器、VPS、云平台一键部署、企业私有云。选错了可能白花钱，选对了能省时省力。这篇文章详细对比五种方案，帮你找到最适合自己的部署方式。
 
 ## 部署方式概览
@@ -2183,9 +2183,9 @@ Three key areas: first, data security — manage API keys through a secrets mana
     id: 6,
     slug: "how-to-install-openclaw",
     title: "如何安装 OpenClaw：2026 最新完整指南（macOS / Linux / Windows）",
-    titleEn: "How to Install OpenClaw: Complete Step-by-Step Guide (2026)",
+    titleEn: "How to Install OpenClaw on Mac, Linux & Windows (2026)",
     excerpt: "从零开始安装 OpenClaw 的完整指南，覆盖 macOS、Linux、Windows 三大平台，包括常见问题排查。",
-    excerptEn: "The definitive guide to installing OpenClaw from scratch on macOS, Linux, and Windows. Includes troubleshooting common issues.",
+    excerptEn: "Three installation methods: npm, Docker, and from source. Includes first-time setup, API key configuration, model selection, and troubleshooting common errors.",
     content: `这是一篇面向完全新手的 OpenClaw 安装指南。无论你使用 macOS、Linux 还是 Windows，跟着这篇教程走，都能顺利完成安装并开始使用。本文覆盖三种安装方式（npm、Docker、源码编译）、三大平台的详细步骤、首次配置、配置文件详解、版本升级，以及常见问题排查。
 
 ## 前置条件
@@ -5191,6 +5191,969 @@ Most OpenClaw errors are predictable and fixable. The key is: understand what fa
     categoryEn: "Troubleshooting",
     tags: ["errors", "troubleshooting", "common errors", "fix", "debug", "2026"],
     readingTime: 20,
+    image: "/og-image.png"
+  },
+  {
+    id: 31,
+    slug: "openclaw-docker-compose-setup",
+    title: "OpenClaw Docker Compose 部署完整指南",
+    titleEn: "OpenClaw Docker Compose Setup — Complete Deployment Guide (2026)",
+    excerpt: "使用 Docker Compose 一键部署 OpenClaw，包含数据持久化、环境变量配置、多服务编排和生产环境最佳实践。",
+    excerptEn: "Deploy OpenClaw with Docker Compose in minutes. Includes docker-compose.yml examples, environment variables, persistent storage, multi-service setup, and production tips.",
+    content: `如果你正在寻找一种可靠、可重复、易于维护的方式来运行 OpenClaw，Docker Compose 是最佳选择。它把所有依赖打包在容器里，不会污染宿主机环境，升级回滚都只需要一条命令。本文将从零开始，带你完成 OpenClaw 的 Docker Compose 部署，涵盖基础配置、高级多服务编排和生产环境加固。
+
+## 为什么用 Docker Compose 部署 OpenClaw
+
+在部署 OpenClaw 时，你有多种选择：直接安装、Docker 单容器、Docker Compose 多服务编排。Docker Compose 是其中最平衡的方案，原因如下：
+
+- **环境隔离：** OpenClaw 运行在独立容器中，不会与宿主机上的 Node.js 版本、系统依赖产生冲突。你可以在同一台服务器上运行多个不同版本的 OpenClaw。
+- **可重复性：** 一个 \`docker-compose.yml\` 文件完整描述了所有服务、网络、存储卷。团队里任何人拿到这个文件，\`docker compose up -d\` 就能启动完全相同的环境。
+- **轻松升级：** 更新 OpenClaw 只需要 \`docker compose pull && docker compose up -d\`，旧容器自动被替换，数据卷不受影响。
+- **多服务编排：** 需要 Redis 缓存？需要 PostgreSQL 持久化？需要 Nginx 反向代理？在 compose 文件里加几行就行，所有服务共享同一个网络，互相通过服务名访问。
+- **一键启停：** \`docker compose up -d\` 启动全部服务，\`docker compose down\` 停止并清理。没有遗漏的后台进程，没有端口冲突。
+
+如果你只是在本地测试，单个 \`docker run\` 命令也够用。但一旦涉及生产部署、多服务协作或团队协作，Docker Compose 的优势就非常明显了。
+
+## 前置条件
+
+在开始之前，确保你的机器上已经安装了 Docker 和 Docker Compose：
+
+\`\`\`bash
+# 检查 Docker 版本（需要 20.10+）
+docker --version
+# Docker version 24.0.7, build afdd53b
+
+# 检查 Docker Compose 版本（需要 v2.0+）
+docker compose version
+# Docker Compose version v2.23.0
+\`\`\`
+
+如果还没有安装 Docker，按照官方指南操作：
+
+- **Ubuntu/Debian：** \`curl -fsSL https://get.docker.com | sh\`
+- **macOS：** 安装 Docker Desktop for Mac
+- **Windows：** 安装 Docker Desktop for Windows（推荐使用 WSL2 后端）
+
+安装完成后，确保你的用户在 docker 组里（Linux）：
+
+\`\`\`bash
+sudo usermod -aG docker $USER
+# 重新登录生效
+\`\`\`
+
+你还需要至少一个 LLM API Key（OpenAI、Anthropic 或 Google AI）。
+
+## 基础 docker-compose.yml
+
+创建一个项目目录，编写最基础的 compose 文件：
+
+\`\`\`bash
+mkdir openclaw-deploy && cd openclaw-deploy
+\`\`\`
+
+创建 \`docker-compose.yml\`：
+
+\`\`\`yaml
+version: '3.8'
+services:
+  openclaw:
+    image: openclaw/openclaw:latest
+    container_name: openclaw
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/root/.openclaw
+      - ./config:/root/.openclaw/config
+    environment:
+      - OPENAI_API_KEY=\${OPENAI_API_KEY}
+      - CLAUDE_API_KEY=\${CLAUDE_API_KEY}
+      - OPENCLAW_MODEL=anthropic/claude-3.5-sonnet
+    env_file:
+      - .env
+\`\`\`
+
+这个文件定义了一个服务 \`openclaw\`，关键字段解释如下：
+
+| 字段 | 作用 |
+|------|------|
+| \`image\` | 使用官方镜像，\`latest\` 标签始终指向最新稳定版 |
+| \`container_name\` | 固定容器名称，方便管理 |
+| \`restart: unless-stopped\` | 容器异常退出时自动重启，手动停止不重启 |
+| \`ports\` | 将容器内 3000 端口映射到宿主机 3000 端口 |
+| \`volumes\` | 挂载数据目录和配置目录，保证数据持久化 |
+| \`env_file\` | 从 .env 文件读取环境变量 |
+
+启动服务：
+
+\`\`\`bash
+docker compose up -d
+# 查看日志
+docker compose logs -f openclaw
+\`\`\`
+
+## 环境变量配置
+
+在项目目录下创建 \`.env\` 文件，存放所有敏感配置：
+
+\`\`\`bash
+# .env 文件 —— 不要提交到 git
+OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxxxxxxxxx
+CLAUDE_API_KEY=sk-ant-xxxxxxxxxxxxxxxxxxxx
+GOOGLE_AI_API_KEY=AIzaSyxxxxxxxxxxxxxxxxx
+
+# OpenClaw 配置
+OPENCLAW_MODEL=anthropic/claude-3.5-sonnet
+OPENCLAW_PORT=3000
+OPENCLAW_LOG_LEVEL=info
+
+# Telegram Bot（可选）
+TELEGRAM_BOT_TOKEN=123456789:ABCdefGHIjklMNOpqrsTUVwxyz
+TELEGRAM_ALLOWED_USERS=user_id_1,user_id_2
+
+# Discord Bot（可选）
+DISCORD_BOT_TOKEN=MTIzNDU2Nzg5.xxxxx.xxxxxxxxxx
+
+# 飞书 Bot（可选）
+FEISHU_APP_ID=cli_xxxxxxxxxxxxx
+FEISHU_APP_SECRET=xxxxxxxxxxxxxxxxxxxxxxx
+\`\`\`
+
+务必将 \`.env\` 加入 \`.gitignore\`：
+
+\`\`\`bash
+echo ".env" >> .gitignore
+\`\`\`
+
+## 高级配置：Redis 缓存 + PostgreSQL
+
+对于需要缓存对话历史、支持多用户并发的场景，推荐加入 Redis 和 PostgreSQL：
+
+\`\`\`yaml
+version: '3.8'
+services:
+  openclaw:
+    image: openclaw/openclaw:latest
+    container_name: openclaw
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/root/.openclaw
+      - ./config:/root/.openclaw/config
+    environment:
+      - OPENAI_API_KEY=\${OPENAI_API_KEY}
+      - CLAUDE_API_KEY=\${CLAUDE_API_KEY}
+      - OPENCLAW_MODEL=anthropic/claude-3.5-sonnet
+      - REDIS_URL=redis://redis:6379
+      - DATABASE_URL=postgresql://openclaw:openclaw_pass@postgres:5432/openclaw
+    env_file:
+      - .env
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+
+  redis:
+    image: redis:7-alpine
+    container_name: openclaw-redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: openclaw-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: openclaw
+      POSTGRES_PASSWORD: openclaw_pass
+      POSTGRES_DB: openclaw
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U openclaw"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  redis_data:
+  postgres_data:
+\`\`\`
+
+这个配置的核心变化：
+
+- **Redis** 用于缓存对话上下文、频率限制计数等。使用 Alpine 镜像，体积只有 30MB。
+- **PostgreSQL** 用于持久化对话历史、用户设置、Bot 配置等。数据存储在 Docker 命名卷中。
+- **depends_on + healthcheck** 确保 OpenClaw 在 Redis 和 PostgreSQL 完全就绪后才启动，避免连接错误。
+- **命名卷（named volumes）** 比绑定挂载更适合数据库存储，Docker 会自动管理文件权限。
+
+## 数据持久化详解
+
+Docker 容器是临时的，容器删除后内部数据全部丢失。所以必须通过卷（volumes）将重要数据映射到宿主机。
+
+OpenClaw 的关键数据目录：
+
+| 容器内路径 | 内容 | 建议挂载方式 |
+|------------|------|--------------|
+| \`/root/.openclaw\` | 对话历史、Agent 记忆、本地数据 | 绑定挂载到 \`./data\` |
+| \`/root/.openclaw/config\` | 配置文件、模型设置、平台连接 | 绑定挂载到 \`./config\` |
+| PostgreSQL 数据 | 数据库文件 | 命名卷 \`postgres_data\` |
+| Redis 数据 | 缓存快照 | 命名卷 \`redis_data\` |
+
+备份策略：
+
+\`\`\`bash
+# 备份 OpenClaw 数据
+tar czf backup-openclaw-$(date +%Y%m%d).tar.gz ./data ./config
+
+# 备份 PostgreSQL
+docker compose exec postgres pg_dump -U openclaw openclaw > backup-db-$(date +%Y%m%d).sql
+
+# 备份 Redis
+docker compose exec redis redis-cli BGSAVE
+docker cp openclaw-redis:/data/dump.rdb ./backup-redis-$(date +%Y%m%d).rdb
+\`\`\`
+
+## 更新 OpenClaw
+
+更新只需要两条命令：
+
+\`\`\`bash
+# 拉取最新镜像
+docker compose pull
+
+# 重建并启动（数据卷不受影响）
+docker compose up -d
+\`\`\`
+
+如果需要锁定特定版本，将 \`image\` 标签改为具体版本号：
+
+\`\`\`yaml
+image: openclaw/openclaw:1.3.2
+\`\`\`
+
+回滚到上一个版本：
+
+\`\`\`bash
+# 指定版本号
+docker compose pull openclaw/openclaw:1.3.1
+docker compose up -d
+\`\`\`
+
+## 接入 Telegram Bot
+
+在基础 compose 文件的 environment 部分加入 Telegram 配置：
+
+\`\`\`yaml
+version: '3.8'
+services:
+  openclaw:
+    image: openclaw/openclaw:latest
+    container_name: openclaw
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/root/.openclaw
+      - ./config:/root/.openclaw/config
+    environment:
+      - CLAUDE_API_KEY=\${CLAUDE_API_KEY}
+      - OPENCLAW_MODEL=anthropic/claude-3.5-sonnet
+      - TELEGRAM_BOT_TOKEN=\${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_ALLOWED_USERS=\${TELEGRAM_ALLOWED_USERS}
+      - TELEGRAM_WEBHOOK_URL=https://your-domain.com/webhook/telegram
+    env_file:
+      - .env
+\`\`\`
+
+如果服务器没有公网域名（例如在家庭网络后面），可以使用 polling 模式代替 webhook：
+
+\`\`\`yaml
+    environment:
+      - TELEGRAM_BOT_MODE=polling
+\`\`\`
+
+## 多平台同时运行：Telegram + Discord + 飞书
+
+OpenClaw 支持同时连接多个平台。只需要在环境变量中配置所有平台的凭据：
+
+\`\`\`yaml
+version: '3.8'
+services:
+  openclaw:
+    image: openclaw/openclaw:latest
+    container_name: openclaw
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/root/.openclaw
+      - ./config:/root/.openclaw/config
+    environment:
+      # LLM 配置
+      - CLAUDE_API_KEY=\${CLAUDE_API_KEY}
+      - OPENCLAW_MODEL=anthropic/claude-3.5-sonnet
+      # Telegram
+      - TELEGRAM_BOT_TOKEN=\${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_ALLOWED_USERS=\${TELEGRAM_ALLOWED_USERS}
+      # Discord
+      - DISCORD_BOT_TOKEN=\${DISCORD_BOT_TOKEN}
+      - DISCORD_ALLOWED_GUILDS=\${DISCORD_ALLOWED_GUILDS}
+      # 飞书 Feishu
+      - FEISHU_APP_ID=\${FEISHU_APP_ID}
+      - FEISHU_APP_SECRET=\${FEISHU_APP_SECRET}
+      - FEISHU_VERIFICATION_TOKEN=\${FEISHU_VERIFICATION_TOKEN}
+    env_file:
+      - .env
+\`\`\`
+
+每个平台独立运行，互不干扰。一个用户从 Telegram 发消息和从 Discord 发消息会被视为不同会话，除非你在配置中启用了跨平台用户映射。
+
+## 生产环境加固
+
+部署到生产环境时，以下配置可以显著提升稳定性和安全性：
+
+\`\`\`yaml
+version: '3.8'
+services:
+  openclaw:
+    image: openclaw/openclaw:latest
+    container_name: openclaw
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - ./data:/root/.openclaw
+      - ./config:/root/.openclaw/config
+    environment:
+      - CLAUDE_API_KEY=\${CLAUDE_API_KEY}
+      - OPENCLAW_MODEL=anthropic/claude-3.5-sonnet
+      - NODE_ENV=production
+    env_file:
+      - .env
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "5"
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp
+\`\`\`
+
+关键加固措施：
+
+| 措施 | 说明 |
+|------|------|
+| \`127.0.0.1:3000:3000\` | 只监听 localhost，配合反向代理使用 |
+| \`deploy.resources\` | 限制 CPU 和内存用量，防止单个容器吃光服务器资源 |
+| \`healthcheck\` | Docker 定期检查服务健康状态，不健康时自动重启 |
+| \`logging\` | 限制日志文件大小和数量，防止磁盘写满 |
+| \`security_opt\` | 禁止容器内进程提升权限 |
+| \`read_only\` | 容器文件系统只读，减少攻击面 |
+| \`NODE_ENV=production\` | 关闭调试信息，启用性能优化 |
+
+建议在前面加一层 Nginx 或 Caddy 作为反向代理，处理 HTTPS 和域名绑定。
+
+## 常见问题排查
+
+### 容器无法启动
+
+\`\`\`bash
+# 查看容器日志
+docker compose logs openclaw
+
+# 常见原因：
+# 1. 端口被占用
+lsof -i :3000
+# 解决：修改 ports 映射，例如 "3001:3000"
+
+# 2. 镜像拉取失败（网络问题）
+docker compose pull --quiet
+
+# 3. .env 文件不存在或格式错误
+cat .env  # 检查是否有多余的空格、引号
+\`\`\`
+
+### 端口冲突
+
+如果 3000 端口已经被其他应用占用：
+
+\`\`\`yaml
+ports:
+  - "8080:3000"  # 改用 8080 端口
+\`\`\`
+
+### 权限错误
+
+\`\`\`bash
+# 如果挂载目录出现权限问题
+sudo chown -R 1000:1000 ./data ./config
+
+# 或者在 compose 文件中指定用户
+services:
+  openclaw:
+    user: "1000:1000"
+\`\`\`
+
+### 容器内无法访问网络
+
+\`\`\`bash
+# 检查 Docker 网络
+docker network ls
+docker compose exec openclaw ping -c 3 api.anthropic.com
+
+# 如果使用代理
+environment:
+  - HTTP_PROXY=http://proxy:7890
+  - HTTPS_PROXY=http://proxy:7890
+\`\`\`
+
+### 数据库连接失败
+
+\`\`\`bash
+# 检查 PostgreSQL 是否就绪
+docker compose exec postgres pg_isready -U openclaw
+
+# 检查 Redis 是否就绪
+docker compose exec redis redis-cli ping
+\`\`\`
+
+## 常见问题 FAQ
+
+**Q: Docker Compose 和 docker-compose 命令有什么区别？**
+
+Docker Compose V2 使用 \`docker compose\`（空格分隔），是 Docker CLI 的插件。V1 使用 \`docker-compose\`（连字符），是独立的 Python 应用，已停止维护。本文所有命令均使用 V2 语法。如果你的系统只有 V1，建议升级到 V2。
+
+**Q: 可以用 Docker Compose 在一台服务器上运行多个 OpenClaw 实例吗？**
+
+可以。创建不同的项目目录，每个目录放一套 \`docker-compose.yml\` 和 \`.env\`，修改 \`container_name\` 和端口映射即可。Docker Compose 的项目隔离基于目录名，不同目录的服务完全独立。
+
+**Q: OpenClaw 容器需要多少资源？**
+
+基础运行需要约 512MB 内存。加上 Redis 和 PostgreSQL 大概需要 1.5GB 总内存。如果并发用户较多或使用 Agent 功能，建议分配 4GB 以上。CPU 方面，单核足以处理一般负载，密集使用建议 2 核。
+
+**Q: 如何查看 OpenClaw 容器的实时日志？**
+
+\`\`\`bash
+# 实时跟踪所有服务的日志
+docker compose logs -f
+
+# 只看 OpenClaw 的日志，最近 100 行
+docker compose logs -f --tail 100 openclaw
+\`\`\`
+
+**Q: 升级 OpenClaw 后数据会丢失吗？**
+
+不会。只要你正确使用了 volumes 挂载（如本文所示），数据存储在宿主机上，与容器生命周期无关。\`docker compose pull && docker compose up -d\` 会替换容器但保留所有卷数据。不过，重大版本升级前建议备份数据。
+
+---
+
+Docker Compose 是部署 OpenClaw 最省心的方式。一个 YAML 文件描述完整环境，一条命令启动所有服务，升级回滚都是秒级操作。从单服务开发环境到多服务生产部署，本文的配置模板可以直接复制使用，根据实际需求调整即可。`,
+    contentEn: `If you are looking for a reliable, reproducible, and easy-to-maintain way to run OpenClaw, Docker Compose is the best option. It packages all dependencies inside containers so nothing pollutes your host machine, and upgrades or rollbacks take a single command. This guide walks you through deploying OpenClaw with Docker Compose from scratch, covering basic configuration, advanced multi-service orchestration, and production hardening.
+
+## Why Docker Compose for OpenClaw
+
+When deploying OpenClaw you have several choices: direct installation, a single Docker container, or Docker Compose multi-service orchestration. Docker Compose strikes the best balance, and here is why:
+
+- **Isolation:** OpenClaw runs in its own container, with no conflicts against the host's Node.js version or system dependencies. You can run multiple OpenClaw versions on the same server side by side.
+- **Reproducibility:** A single \`docker-compose.yml\` file fully describes every service, network, and storage volume. Anyone on the team can run \`docker compose up -d\` and get an identical environment.
+- **Effortless upgrades:** Updating OpenClaw is just \`docker compose pull && docker compose up -d\`. The old container is replaced automatically while data volumes remain untouched.
+- **Multi-service orchestration:** Need Redis for caching? PostgreSQL for persistence? Nginx as a reverse proxy? Add a few lines to the compose file. All services share the same network and reach each other by service name.
+- **One-command start and stop:** \`docker compose up -d\` starts everything, \`docker compose down\` stops and cleans up. No orphaned background processes, no port conflicts.
+
+For quick local testing a plain \`docker run\` command works fine. But as soon as production deployment, multi-service coordination, or team collaboration enters the picture, Docker Compose becomes the clear winner.
+
+## Prerequisites
+
+Make sure Docker and Docker Compose are installed on your machine before starting:
+
+\`\`\`bash
+# Check Docker version (20.10+ required)
+docker --version
+# Docker version 24.0.7, build afdd53b
+
+# Check Docker Compose version (v2.0+ required)
+docker compose version
+# Docker Compose version v2.23.0
+\`\`\`
+
+If Docker is not installed yet, follow the official guides:
+
+- **Ubuntu/Debian:** \`curl -fsSL https://get.docker.com | sh\`
+- **macOS:** Install Docker Desktop for Mac
+- **Windows:** Install Docker Desktop for Windows (WSL2 backend recommended)
+
+After installation, make sure your user is in the docker group (Linux):
+
+\`\`\`bash
+sudo usermod -aG docker $USER
+# Log out and back in for the change to take effect
+\`\`\`
+
+You also need at least one LLM API key (OpenAI, Anthropic, or Google AI).
+
+## Basic docker-compose.yml
+
+Create a project directory and write the simplest compose file:
+
+\`\`\`bash
+mkdir openclaw-deploy && cd openclaw-deploy
+\`\`\`
+
+Create \`docker-compose.yml\`:
+
+\`\`\`yaml
+version: '3.8'
+services:
+  openclaw:
+    image: openclaw/openclaw:latest
+    container_name: openclaw
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/root/.openclaw
+      - ./config:/root/.openclaw/config
+    environment:
+      - OPENAI_API_KEY=\${OPENAI_API_KEY}
+      - CLAUDE_API_KEY=\${CLAUDE_API_KEY}
+      - OPENCLAW_MODEL=anthropic/claude-3.5-sonnet
+    env_file:
+      - .env
+\`\`\`
+
+This file defines one service called \`openclaw\`. Here is what each key field does:
+
+| Field | Purpose |
+|-------|---------|
+| \`image\` | Uses the official image. The \`latest\` tag always points to the newest stable release |
+| \`container_name\` | Fixes the container name for easier management |
+| \`restart: unless-stopped\` | Auto-restarts on crash but not after a manual stop |
+| \`ports\` | Maps container port 3000 to host port 3000 |
+| \`volumes\` | Mounts data and config directories for persistence |
+| \`env_file\` | Reads environment variables from a .env file |
+
+Start the service:
+
+\`\`\`bash
+docker compose up -d
+# View logs
+docker compose logs -f openclaw
+\`\`\`
+
+## Environment Variable Configuration
+
+Create a \`.env\` file in the project directory to hold all sensitive settings:
+
+\`\`\`bash
+# .env file — do NOT commit to git
+OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxxxxxxxxx
+CLAUDE_API_KEY=sk-ant-xxxxxxxxxxxxxxxxxxxx
+GOOGLE_AI_API_KEY=AIzaSyxxxxxxxxxxxxxxxxx
+
+# OpenClaw settings
+OPENCLAW_MODEL=anthropic/claude-3.5-sonnet
+OPENCLAW_PORT=3000
+OPENCLAW_LOG_LEVEL=info
+
+# Telegram Bot (optional)
+TELEGRAM_BOT_TOKEN=123456789:ABCdefGHIjklMNOpqrsTUVwxyz
+TELEGRAM_ALLOWED_USERS=user_id_1,user_id_2
+
+# Discord Bot (optional)
+DISCORD_BOT_TOKEN=MTIzNDU2Nzg5.xxxxx.xxxxxxxxxx
+
+# Feishu Bot (optional)
+FEISHU_APP_ID=cli_xxxxxxxxxxxxx
+FEISHU_APP_SECRET=xxxxxxxxxxxxxxxxxxxxxxx
+\`\`\`
+
+Add \`.env\` to \`.gitignore\`:
+
+\`\`\`bash
+echo ".env" >> .gitignore
+\`\`\`
+
+## Advanced Setup: Redis Cache + PostgreSQL
+
+For scenarios that need conversation history caching and multi-user concurrency, add Redis and PostgreSQL:
+
+\`\`\`yaml
+version: '3.8'
+services:
+  openclaw:
+    image: openclaw/openclaw:latest
+    container_name: openclaw
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/root/.openclaw
+      - ./config:/root/.openclaw/config
+    environment:
+      - OPENAI_API_KEY=\${OPENAI_API_KEY}
+      - CLAUDE_API_KEY=\${CLAUDE_API_KEY}
+      - OPENCLAW_MODEL=anthropic/claude-3.5-sonnet
+      - REDIS_URL=redis://redis:6379
+      - DATABASE_URL=postgresql://openclaw:openclaw_pass@postgres:5432/openclaw
+    env_file:
+      - .env
+    depends_on:
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+
+  redis:
+    image: redis:7-alpine
+    container_name: openclaw-redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: openclaw-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: openclaw
+      POSTGRES_PASSWORD: openclaw_pass
+      POSTGRES_DB: openclaw
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U openclaw"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  redis_data:
+  postgres_data:
+\`\`\`
+
+Key changes in this configuration:
+
+- **Redis** caches conversation context, rate limit counters, and more. The Alpine image is only about 30 MB.
+- **PostgreSQL** persists conversation history, user settings, and bot configuration. Data lives in a Docker named volume.
+- **depends_on + healthcheck** ensures OpenClaw only starts after Redis and PostgreSQL are fully ready, preventing connection errors.
+- **Named volumes** are better than bind mounts for database storage because Docker manages file permissions automatically.
+
+## Persistent Storage Explained
+
+Docker containers are ephemeral. When a container is deleted all data inside it is lost. Volumes map important data to the host machine so it survives container replacements.
+
+Key OpenClaw data directories:
+
+| Container Path | Contents | Recommended Mount |
+|----------------|----------|-------------------|
+| \`/root/.openclaw\` | Conversation history, agent memory, local data | Bind mount to \`./data\` |
+| \`/root/.openclaw/config\` | Config files, model settings, platform connections | Bind mount to \`./config\` |
+| PostgreSQL data | Database files | Named volume \`postgres_data\` |
+| Redis data | Cache snapshots | Named volume \`redis_data\` |
+
+Backup strategy:
+
+\`\`\`bash
+# Back up OpenClaw data
+tar czf backup-openclaw-$(date +%Y%m%d).tar.gz ./data ./config
+
+# Back up PostgreSQL
+docker compose exec postgres pg_dump -U openclaw openclaw > backup-db-$(date +%Y%m%d).sql
+
+# Back up Redis
+docker compose exec redis redis-cli BGSAVE
+docker cp openclaw-redis:/data/dump.rdb ./backup-redis-$(date +%Y%m%d).rdb
+\`\`\`
+
+## Updating OpenClaw
+
+Updating requires just two commands:
+
+\`\`\`bash
+# Pull the latest image
+docker compose pull
+
+# Recreate and start (data volumes are unaffected)
+docker compose up -d
+\`\`\`
+
+To pin a specific version, change the \`image\` tag:
+
+\`\`\`yaml
+image: openclaw/openclaw:1.3.2
+\`\`\`
+
+Roll back to a previous version:
+
+\`\`\`bash
+# Specify the version tag
+docker compose pull openclaw/openclaw:1.3.1
+docker compose up -d
+\`\`\`
+
+## Running with a Telegram Bot
+
+Add Telegram configuration to the environment section of the basic compose file:
+
+\`\`\`yaml
+version: '3.8'
+services:
+  openclaw:
+    image: openclaw/openclaw:latest
+    container_name: openclaw
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/root/.openclaw
+      - ./config:/root/.openclaw/config
+    environment:
+      - CLAUDE_API_KEY=\${CLAUDE_API_KEY}
+      - OPENCLAW_MODEL=anthropic/claude-3.5-sonnet
+      - TELEGRAM_BOT_TOKEN=\${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_ALLOWED_USERS=\${TELEGRAM_ALLOWED_USERS}
+      - TELEGRAM_WEBHOOK_URL=https://your-domain.com/webhook/telegram
+    env_file:
+      - .env
+\`\`\`
+
+If your server has no public domain (for example behind a home network), use polling mode instead of webhooks:
+
+\`\`\`yaml
+    environment:
+      - TELEGRAM_BOT_MODE=polling
+\`\`\`
+
+## Multi-Platform Setup: Telegram + Discord + Feishu
+
+OpenClaw can connect to multiple platforms simultaneously. Configure credentials for all platforms in the environment variables:
+
+\`\`\`yaml
+version: '3.8'
+services:
+  openclaw:
+    image: openclaw/openclaw:latest
+    container_name: openclaw
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/root/.openclaw
+      - ./config:/root/.openclaw/config
+    environment:
+      # LLM config
+      - CLAUDE_API_KEY=\${CLAUDE_API_KEY}
+      - OPENCLAW_MODEL=anthropic/claude-3.5-sonnet
+      # Telegram
+      - TELEGRAM_BOT_TOKEN=\${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_ALLOWED_USERS=\${TELEGRAM_ALLOWED_USERS}
+      # Discord
+      - DISCORD_BOT_TOKEN=\${DISCORD_BOT_TOKEN}
+      - DISCORD_ALLOWED_GUILDS=\${DISCORD_ALLOWED_GUILDS}
+      # Feishu
+      - FEISHU_APP_ID=\${FEISHU_APP_ID}
+      - FEISHU_APP_SECRET=\${FEISHU_APP_SECRET}
+      - FEISHU_VERIFICATION_TOKEN=\${FEISHU_VERIFICATION_TOKEN}
+    env_file:
+      - .env
+\`\`\`
+
+Each platform runs independently without interfering with the others. A user sending a message from Telegram and the same user sending from Discord are treated as different sessions unless you enable cross-platform user mapping in the configuration.
+
+## Production Hardening
+
+When deploying to production, these settings significantly improve stability and security:
+
+\`\`\`yaml
+version: '3.8'
+services:
+  openclaw:
+    image: openclaw/openclaw:latest
+    container_name: openclaw
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - ./data:/root/.openclaw
+      - ./config:/root/.openclaw/config
+    environment:
+      - CLAUDE_API_KEY=\${CLAUDE_API_KEY}
+      - OPENCLAW_MODEL=anthropic/claude-3.5-sonnet
+      - NODE_ENV=production
+    env_file:
+      - .env
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "5"
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp
+\`\`\`
+
+Key hardening measures:
+
+| Measure | Explanation |
+|---------|-------------|
+| \`127.0.0.1:3000:3000\` | Listens only on localhost; use a reverse proxy in front |
+| \`deploy.resources\` | Caps CPU and memory usage to prevent a single container from exhausting server resources |
+| \`healthcheck\` | Docker periodically checks service health and auto-restarts unhealthy containers |
+| \`logging\` | Limits log file size and count to prevent disk exhaustion |
+| \`security_opt\` | Prevents processes inside the container from escalating privileges |
+| \`read_only\` | Makes the container filesystem read-only to reduce the attack surface |
+| \`NODE_ENV=production\` | Disables debug output and enables performance optimizations |
+
+It is recommended to place Nginx or Caddy in front as a reverse proxy to handle HTTPS and domain binding.
+
+## Troubleshooting
+
+### Container Will Not Start
+
+\`\`\`bash
+# Check container logs
+docker compose logs openclaw
+
+# Common causes:
+# 1. Port already in use
+lsof -i :3000
+# Fix: change the port mapping, e.g. "3001:3000"
+
+# 2. Image pull failed (network issue)
+docker compose pull --quiet
+
+# 3. .env file missing or malformed
+cat .env  # Look for extra spaces or quotes
+\`\`\`
+
+### Port Conflicts
+
+If port 3000 is already taken by another application:
+
+\`\`\`yaml
+ports:
+  - "8080:3000"  # Use port 8080 instead
+\`\`\`
+
+### Permission Errors
+
+\`\`\`bash
+# If mounted directories have permission issues
+sudo chown -R 1000:1000 ./data ./config
+
+# Or specify the user in the compose file
+services:
+  openclaw:
+    user: "1000:1000"
+\`\`\`
+
+### Container Cannot Reach the Network
+
+\`\`\`bash
+# Check Docker networks
+docker network ls
+docker compose exec openclaw ping -c 3 api.anthropic.com
+
+# If using a proxy
+environment:
+  - HTTP_PROXY=http://proxy:7890
+  - HTTPS_PROXY=http://proxy:7890
+\`\`\`
+
+### Database Connection Failures
+
+\`\`\`bash
+# Check if PostgreSQL is ready
+docker compose exec postgres pg_isready -U openclaw
+
+# Check if Redis is ready
+docker compose exec redis redis-cli ping
+\`\`\`
+
+## FAQ
+
+**Q: What is the difference between \`docker compose\` and \`docker-compose\`?**
+
+Docker Compose V2 uses \`docker compose\` (with a space) and is a plugin for the Docker CLI. V1 used \`docker-compose\` (with a hyphen) and was a standalone Python application that is no longer maintained. All commands in this article use V2 syntax. If your system only has V1, upgrade to V2.
+
+**Q: Can I run multiple OpenClaw instances on the same server with Docker Compose?**
+
+Yes. Create separate project directories, each with its own \`docker-compose.yml\` and \`.env\`. Change the \`container_name\` and port mapping in each. Docker Compose isolates projects by directory name, so services in different directories are completely independent.
+
+**Q: How many resources does the OpenClaw container need?**
+
+A basic deployment needs about 512 MB of memory. Adding Redis and PostgreSQL brings the total to roughly 1.5 GB. For higher concurrency or heavy agent usage, allocate 4 GB or more. On the CPU side, a single core handles normal loads; two cores are recommended for intensive use.
+
+**Q: How do I view real-time OpenClaw container logs?**
+
+\`\`\`bash
+# Follow logs for all services in real time
+docker compose logs -f
+
+# Follow only OpenClaw logs, last 100 lines
+docker compose logs -f --tail 100 openclaw
+\`\`\`
+
+**Q: Will I lose data when upgrading OpenClaw?**
+
+No. As long as you use volume mounts correctly (as shown in this article), data is stored on the host and is independent of the container lifecycle. Running \`docker compose pull && docker compose up -d\` replaces the container but preserves all volume data. That said, it is good practice to back up before major version upgrades.
+
+---
+
+Docker Compose is the most hassle-free way to deploy OpenClaw. A single YAML file describes the complete environment, one command starts every service, and upgrades and rollbacks happen in seconds. From a single-service development setup to a multi-service production deployment, the configuration templates in this article are ready to copy and adapt to your needs.`,
+    category: "Deployment",
+    categoryEn: "Deployment",
+    tags: ["docker", "docker-compose", "deployment", "self-hosting", "devops", "2026"],
+    author: "Alex Chen",
+    date: "2026-04-09",
+    readingTime: 15,
     image: "/og-image.png"
   },
 ];

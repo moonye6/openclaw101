@@ -9,11 +9,11 @@ export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'OpenClaw Skills Marketplace - 97 Curated Community Skills',
-    description: 'Browse 97 curated community skills for OpenClaw AI assistant across 17 categories. Install with one command to extend your AI capabilities.',
+    title: 'OpenClaw Skills Marketplace — Browse 97+ ClawHub Skills (2026)',
+    description: 'Complete directory of 97+ OpenClaw community skills on ClawHub. AI image generation, Telegram bots, smart home, video processing & more. One-command install.',
     openGraph: {
-      title: 'OpenClaw Skills Marketplace - 97 Curated Community Skills',
-      description: 'Browse 97 curated community skills. Install with one command.',
+      title: 'OpenClaw Skills Marketplace — 97+ ClawHub Skills',
+      description: '97+ community skills for OpenClaw. AI image generation, Telegram bots, smart home & more.',
       url: `${SITE_URL}/skills`,
       locale: 'en_US',
     },

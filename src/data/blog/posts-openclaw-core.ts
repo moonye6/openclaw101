@@ -3057,9 +3057,9 @@ If none of the above solutions resolve your issue:
     id: 13,
     slug: "openclaw-vs-claude-code",
     title: "OpenClaw vs Claude Code：谁才是最好的 AI 编程助手？",
-    titleEn: "OpenClaw vs Claude Code: Which is the Best AI Coding Assistant?",
+    titleEn: "OpenClaw vs Claude Code — Which AI Coding Tool to Use (2026)",
     excerpt: "Claude Code 是 Anthropic 官方的编程助手，OpenClaw 是开源社区的明星项目。两者有什么区别？该选哪一个？从多平台支持、开源性、技能生态、自托管、定价全方位对比。",
-    excerptEn: "Claude Code is Anthropic's official coding assistant, while OpenClaw is a star in the open-source community. What's the difference? Which one should you choose? Comprehensive comparison from platform support, open source, skills ecosystem, self-hosting, and pricing.",
+    excerptEn: "Feature comparison: execution scope, platform support, browser control, skills ecosystem, and pricing. When to use each — and how to combine them.",
     content: `2026 年，AI 编程助手市场百花齐放。Claude Code 和 OpenClaw 是其中最受关注的两款产品。
 
 Claude Code 由 Anthropic 官方推出，闭源商业化；OpenClaw 是开源社区的明星项目，GitHub 336k+ stars。
@@ -7611,9 +7611,9 @@ At this cost structure, you only need a handful of paying users to break even. T
     id: 1,
     slug: "openclaw-vs-chatgpt",
     title: "OpenClaw vs ChatGPT：为什么你需要一个能动的 AI 助手",
-    titleEn: "OpenClaw vs ChatGPT: Why You Need an AI Assistant That Can Act",
+    titleEn: "OpenClaw vs ChatGPT — Why You Need an AI That Actually Acts",
     excerpt: "传统 AI 聊天机器人只能说不能做。OpenClaw 是一个真正能执行任务的 AI 助手。",
-    excerptEn: "Traditional AI chatbots can only talk, not do. OpenClaw is an AI assistant that can actually execute tasks.",
+    excerptEn: "ChatGPT gives advice. OpenClaw executes it. Side-by-side comparison of capabilities, cost, privacy, and automation — with real command examples.",
     content: `你是否有过这样的经历？
 
 问 ChatGPT："帮我整理一下这个文件夹里的照片，按日期分类。"

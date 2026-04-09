@@ -15,23 +15,15 @@ export async function generateMetadata({
   const isZh = locale === 'zh';
 
   return {
-    title: isZh
-      ? 'AI Agent 入门指南 — 一步步构建你的第一个 AI 智能体 | OpenClaw 101'
-      : 'AI Agent Guide — Build Your First AI Agent Step by Step | OpenClaw 101',
-    description: isZh
-      ? '学习如何使用 OpenClaw 构建你的第一个 AI 智能体。分步新手指南，包含真实案例，无需编程。立即开始！'
-      : 'Learn how to build your first AI agent with OpenClaw. Step-by-step beginner guide with real examples, no coding required. Start today!',
+    title: 'OpenClaw Beginner Guide — Install, Configure & Run Your First AI Agent (2026)',
+    description: 'Complete beginner tutorial for OpenClaw. Install on Mac/Linux/Windows, connect to Claude or GPT, set up Telegram bot, and run your first automation. No coding required.',
     openGraph: {
-      title: isZh
-        ? 'AI Agent 入门指南 — 构建你的第一个 AI 智能体'
-        : 'AI Agent Guide — Build Your First AI Agent',
-      description: isZh
-        ? '完整的新手友好指南，使用 OpenClaw 构建 AI 智能体。'
-        : 'A complete beginner-friendly guide to building AI agents with OpenClaw.',
-      url: `${SITE_URL}/${locale}/guide`,
+      title: 'OpenClaw Beginner Guide — Your First AI Agent in 10 Minutes',
+      description: 'Install OpenClaw, connect to Claude or GPT, set up Telegram, run your first automation. No coding required.',
+      url: `${SITE_URL}/guide`,
     },
     alternates: {
-      canonical: `${SITE_URL}/${locale}/guide`,
+      canonical: `${SITE_URL}/guide`,
     },
   };
 }

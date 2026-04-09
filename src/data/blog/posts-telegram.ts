@@ -6,9 +6,9 @@ export const postsTelegram: BlogPost[] = [
     id: 21,
     slug: "how-to-create-telegram-bot",
     title: "如何创建 Telegram Bot（2026 最新分步指南）",
-    titleEn: "How to Create a Telegram Bot (Step-by-Step Guide 2026)",
+    titleEn: "How to Create a Telegram Bot with OpenClaw (2026 Guide)",
     excerpt: "零基础也能做！本指南带你一步步创建 Telegram Bot，涵盖 BotFather 注册、无代码搭建、AI 集成等全部流程，适合完全没有编程经验的新手。",
-    excerptEn: "Learn how to create a Telegram bot step by step. Beginner-friendly guide with no-code options and AI integration.",
+    excerptEn: "Step-by-step: register with BotFather, connect OpenClaw, handle messages, add commands, and deploy. Working bot in under 15 minutes.",
     content: `创建 Telegram Bot 比你想象的要简单得多，但网上大部分教程要么太浅、要么已经过时了。这篇指南会带你从零开始，一步步完成一个真正能跑起来的 Telegram Bot，包含完整的代码示例和实际操作步骤。
 
 我们会用到 BotFather 注册 Bot、获取 Token、通过 OpenClaw 连接和管理 Bot、发送第一条消息、添加自定义命令，以及处理常见的报错。整个过程大概需要 15-20 分钟。
@@ -677,9 +677,9 @@ For production deployments, put it on a cloud server (AWS EC2, DigitalOcean Drop
     id: 22,
     slug: "telegram-bot-examples",
     title: "10 个 Telegram Bot 实战案例：今天就能上手搭建（2026）",
-    titleEn: "10 Telegram Bot Examples You Can Build Today (Step-by-Step)",
+    titleEn: "10 Telegram Bot Examples You Can Build with OpenClaw Today",
     excerpt: "精选 10 个实用 Telegram Bot 案例——从简单自动化到 AI 智能助手，零基础友好，今天就能动手实现。",
-    excerptEn: "Discover 10 practical Telegram bot examples you can build right now. Step-by-step ideas, automation workflows, and tools included.",
+    excerptEn: "Practical Telegram bot ideas with setup instructions: weather alerts, expense tracker, RSS reader, file converter, smart home control, and more.",
     content: `想找一些真正能动手做出来的 Telegram Bot 灵感？网上大部分"案例合集"都是清单式罗列，看完之后还是不知道该怎么做。这篇不一样——我们挑了 **10 个真正实用的 Telegram Bot 案例**，每一个都告诉你它能干什么、具体怎么用、以及用 OpenClaw 搭建的配置示例。
 
 不需要编程基础，大部分 Bot 从配置到上线不超过 30 分钟。
@@ -1338,9 +1338,9 @@ A few non-negotiable practices: never commit your Bot Token to a git repository 
     id: 23,
     slug: "telegram-automation-guide",
     title: "Telegram 自动化完整指南：无需编程，打造 24/7 运转的智能 Bot",
-    titleEn: "Telegram Automation Guide (Build Powerful Bots Without Coding)",
+    titleEn: "Telegram Bot Automation Guide — No-Code Workflows with OpenClaw",
     excerpt: "Telegram 自动化让你的 Bot 从简单程序变成全天候运转的智能系统。本指南教你如何自动化任务、连接工具、构建 AI 工作流——新手也能轻松上手。",
-    excerptEn: "Turn simple Telegram bots into powerful 24/7 automation systems. Learn how to automate tasks, connect tools, and build AI workflows — no coding required.",
+    excerptEn: "Automate Telegram with scheduled messages, auto-replies, content aggregation, monitoring alerts, and group management. Full config examples included.",
     content: `Telegram 自动化能让你的 Bot 从简单程序变成全天候运转的智能系统。借助 OpenClaw，你可以在不写代码的情况下构建复杂的自动化工作流——定时发送消息、自动回复、内容聚合、文件处理、监控告警、群组管理，全部一站搞定。
 
 本指南将详细介绍 6 种实用的自动化工作流，每一种都附带具体的配置步骤和代码示例，帮助你从零搭建 24/7 运转的 Telegram 自动化系统。
