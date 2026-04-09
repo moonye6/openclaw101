@@ -7,6 +7,8 @@ const SITE_URL = 'https://openclaw101.vip';
 
 export const revalidate = 3600;
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return getAllUseCaseSlugs().map((slug) => ({ slug }));
 }

@@ -487,12 +487,12 @@
     "guide1": {
       "title": "什么是 OpenClaw？新手友好完整指南",
       "description": "全面介绍 OpenClaw——它是什么、如何工作、与 ChatGPT 有什么不同。",
-      "slug": "what-is-openclaw-guide"
+      "slug": "ai-agent-guide"
     },
     "guide2": {
       "title": "OpenClaw 使用教程：从入门到实战",
       "description": "从安装到创建你的第一个 AI 智能体的完整教程，包含真实案例。",
-      "slug": "how-to-use-openclaw-step-by-step"
+      "slug": "how-to-install-openclaw"
     },
     "guide3": {
       "title": "如何创建 Telegram Bot（2026 分步指南）",
@@ -502,7 +502,7 @@
     "guide4": {
       "title": "OpenClaw vs 其他 AI Agent 工具对比",
       "description": "OpenClaw 与 ChatGPT、Claude、AutoGPT 等工具的详细对比分析。",
-      "slug": "openclaw-vs-other-ai-agents"
+      "slug": "openclaw-vs-chatgpt"
     },
     "guide5": {
       "title": "OpenClaw 常见问题与解决方案",

@@ -8,6 +8,9 @@ const SITE_URL = 'https://openclaw101.vip';
 // Enable ISR - revalidate every hour
 export const revalidate = 3600;
 
+// Return 404 for slugs not in generateStaticParams
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return blogPosts.map((post) => ({ locale: 'en', slug: post.slug }));
 }

@@ -18,6 +18,8 @@ const categoryIcons: Record<string, React.ReactNode> = {
   'tools': <Zap className="w-6 h-6" />,
 };
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return tutorials.map((t) => ({ id: t.id }));
 }

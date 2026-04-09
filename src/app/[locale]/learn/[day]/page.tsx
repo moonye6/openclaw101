@@ -8,6 +8,8 @@ const SITE_URL = 'https://openclaw101.vip';
 // Enable ISR - revalidate every hour
 export const revalidate = 3600;
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const params: { locale: string; day: string }[] = [];
   for (let day = 1; day <= 7; day++) {

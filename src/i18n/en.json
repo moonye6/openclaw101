@@ -488,12 +488,12 @@
     "guide1": {
       "title": "What Is OpenClaw? A Beginner-Friendly Guide",
       "description": "A comprehensive introduction to OpenClaw — what it is, how it works, and why it's different from ChatGPT.",
-      "slug": "what-is-openclaw-guide"
+      "slug": "ai-agent-guide"
     },
     "guide2": {
       "title": "How to Use OpenClaw Step by Step",
       "description": "Complete walkthrough from installation to your first AI agent, with real examples.",
-      "slug": "how-to-use-openclaw-step-by-step"
+      "slug": "how-to-install-openclaw"
     },
     "guide3": {
       "title": "How to Create a Telegram Bot (2026 Guide)",
@@ -503,7 +503,7 @@
     "guide4": {
       "title": "OpenClaw vs Other AI Agent Tools",
       "description": "How does OpenClaw compare to ChatGPT, Claude, AutoGPT, and other tools? A detailed comparison.",
-      "slug": "openclaw-vs-other-ai-agents"
+      "slug": "openclaw-vs-chatgpt"
     },
     "guide5": {
       "title": "Common OpenClaw Problems and Fixes",

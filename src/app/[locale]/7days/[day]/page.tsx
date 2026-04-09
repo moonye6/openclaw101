@@ -7,6 +7,8 @@ import { Link } from '@/i18n/routing';
 
 const SITE_URL = 'https://openclaw101.vip';
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return sevenDays.map((d) => ({ day: String(d.day) }));
 }

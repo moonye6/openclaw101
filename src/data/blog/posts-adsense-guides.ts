@@ -208,7 +208,7 @@ OpenClaw 软件本身 100% 免费开源，遵循 MIT 许可证。你不需要为
 - 阅读我们的[新手入门指南](/guide)
 - 查看[安装教程](/blog/how-to-install-openclaw)
 - 浏览[实战案例](/examples)
-- 了解如何[配置本地模型](/blog/how-to-use-local-llm-with-openclaw)节省费用
+- 了解如何[配置本地模型](/blog/openclaw-localai-integration)节省费用
 
 ---
 
@@ -432,7 +432,7 @@ Ready to get started with OpenClaw?
 - Read our [Beginner Guide](/guide)
 - Check the [Installation Tutorial](/blog/how-to-install-openclaw)
 - Browse [Real Examples](/examples)
-- Learn how to [set up local models](/blog/how-to-use-local-llm-with-openclaw) to save money
+- Learn how to [set up local models](/blog/openclaw-localai-integration) to save money
 
 ---
 
