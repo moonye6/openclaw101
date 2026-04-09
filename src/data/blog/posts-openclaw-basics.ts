@@ -4512,4 +4512,685 @@ Installation problems are normal — they are not a sign you are doing something
     readingTime: 18,
     image: "/og-image.png"
   },
+  {
+    id: 30,
+    slug: "openclaw-common-errors",
+    title: "15 Common OpenClaw Errors (2026) — Fix Them Fast",
+    titleEn: "15 Common OpenClaw Errors (2026) — Fix Them Fast (Step-by-Step)",
+    excerpt: "If OpenClaw doesn't work, it's usually one of these errors. Real-world fixes for the 15 most common issues.",
+    excerptEn: "If OpenClaw doesn't work, it's usually one of these errors. This guide lists the most common real-world issues — and exactly how to fix them.",
+    content: `If OpenClaw "doesn't work", it's usually one of these errors. This guide lists the most common real-world issues — and exactly how to fix them.
+
+## Why OpenClaw Errors Are So Common
+
+OpenClaw is not just a chatbot — it executes real tasks.
+
+That means errors can come from:
+
+- Your local environment
+- API configuration
+- Permissions
+- Skills / tools setup
+- Your command itself
+
+Most problems are NOT bugs — they are setup issues.
+
+## Error #1: claw: command not found
+
+**Cause:** CLI not installed or not in PATH.
+
+\`\`\`bash
+npm install -g openclaw
+claw --version
+\`\`\`
+
+If still failing, fix your PATH:
+
+\`\`\`bash
+npm config get prefix
+# Add the output path to your shell profile
+export PATH="$PATH:$(npm config get prefix)/bin"
+\`\`\`
+
+## Error #2: "Unauthorized" / API Key Errors
+
+**Cause:** Missing or incorrect API key.
+
+\`\`\`bash
+export OPENAI_API_KEY=your_key
+# Or:
+export CLAUDE_API_KEY=your_key
+\`\`\`
+
+Test it:
+
+\`\`\`bash
+claw "say hello"
+\`\`\`
+
+If using Claude, make sure the key starts with \`sk-ant-\`. For OpenAI, it starts with \`sk-\`. Expired keys fail silently — no error message, just nothing happens.
+
+## Error #3: OpenClaw Runs But Does Nothing
+
+This is the #1 confusion new users face.
+
+**Cause:** No skills installed, vague command, or wrong model.
+
+Bad:
+
+\`\`\`bash
+claw do something
+\`\`\`
+
+Good:
+
+\`\`\`bash
+claw write a Python script that scrapes Hacker News
+\`\`\`
+
+OpenClaw needs clear intent and an executable task. "Do something" is not a task — "write a Python script that does X" is.
+
+## Error #4: "Unsupported engine" / Syntax Errors
+
+**Cause:** Old Node.js version.
+
+\`\`\`bash
+node -v
+\`\`\`
+
+If below 18:
+
+\`\`\`bash
+nvm install 18
+nvm use 18
+\`\`\`
+
+OpenClaw uses modern JavaScript features that require Node 18+. Anything older will produce cryptic syntax errors.
+
+## Error #5: Permission Denied (EACCES)
+
+**Cause:** npm or system permission issues.
+
+\`\`\`bash
+sudo chown -R $(whoami) ~/.npm
+sudo chown -R $(whoami) $(npm config get prefix)/lib/node_modules
+\`\`\`
+
+Never use \`sudo npm install -g\`. Fix ownership instead.
+
+## Error #6: Skills Not Found / Not Working
+
+**Cause:** Skills not installed or not enabled.
+
+\`\`\`bash
+# Search for a skill
+openclaw skills search image
+
+# Install it
+openclaw skills install nano-banana-pro
+
+# Verify it is active
+openclaw skills list
+\`\`\`
+
+If a skill was installed but is not responding, restart the CLI. Some skills require a restart to load their configuration.
+
+## Error #7: File Operations Fail
+
+**Symptoms:** Cannot create files, cannot write output.
+
+**Cause:** Local permissions not granted.
+
+- **macOS**: Go to System Settings > Privacy & Security > Files and Folders. Enable access for your terminal app.
+- **Windows**: Run your terminal as Administrator if needed.
+- **Linux**: Check that the working directory is writable: \`ls -la .\`
+
+## Error #8: Browser Automation Not Working
+
+**Cause:** Missing browser control permissions or Playwright not installed.
+
+\`\`\`bash
+# Install Playwright browsers
+npx playwright install
+
+# On macOS, enable Accessibility permissions for your terminal
+# System Settings > Privacy & Security > Accessibility
+\`\`\`
+
+Test with a simple command first:
+
+\`\`\`bash
+claw "take a screenshot of google.com"
+\`\`\`
+
+## Error #9: Python Execution Errors
+
+**Cause:** Missing dependencies or environment conflict.
+
+\`\`\`bash
+python -m venv claw-env
+source claw-env/bin/activate
+pip install -r requirements.txt
+\`\`\`
+
+If you are using a system Python that conflicts with other tools, a virtual environment isolates everything cleanly.
+
+## Error #10: Rate Limit / Timeout Errors
+
+**Cause:** API limits hit, or network instability.
+
+**Symptoms:** Errors like \`429 Too Many Requests\` or \`Timeout\`.
+
+**Fix:**
+
+- Switch to a model with higher rate limits
+- Add a delay between requests in your config
+- Break large tasks into smaller, sequential steps
+
+\`\`\`bash
+# Check your current rate limit status
+openclaw config get model
+# Switch to a model with better limits
+openclaw config set model anthropic/claude-3-haiku
+\`\`\`
+
+## Error #11: Model Not Responding Properly
+
+**Cause:** Wrong model selected, or the model cannot handle the task.
+
+**Fix:**
+
+- Switch to a more capable model for complex tasks:
+
+\`\`\`bash
+openclaw config set model anthropic/claude-3.5-sonnet
+\`\`\`
+
+- Use structured, specific instructions instead of open-ended prompts
+- For coding tasks, Claude and GPT-4o perform significantly better than smaller models
+
+## Error #12: Output Is Wrong or Incomplete
+
+**Cause:** Prompt is too vague.
+
+Bad:
+
+\`\`\`bash
+claw build a bot
+\`\`\`
+
+Good:
+
+\`\`\`bash
+claw build a Telegram bot that sends daily weather updates for San Francisco at 9am
+\`\`\`
+
+Specificity is everything. The more detail you provide — what platform, what data, what format, what schedule — the more reliable the output.
+
+## Error #13: Installation Succeeded But Commands Fail
+
+**Cause:** Partial setup or missing configuration.
+
+Run through this diagnostic:
+
+\`\`\`bash
+# 1. CLI works?
+claw --version
+
+# 2. API key set?
+echo $OPENAI_API_KEY
+
+# 3. Simple command works?
+claw "say hello"
+
+# 4. If all above pass, try:
+claw "write hello world to test.txt"
+\`\`\`
+
+If step 1 passes but step 3 fails, your API key is the problem. If step 3 passes but step 4 fails, it is a permissions issue.
+
+## Error #14: "Module Not Found" Errors
+
+**Cause:** Missing dependencies after a partial install or update.
+
+\`\`\`bash
+# For Node dependencies
+npm install
+
+# For Python dependencies
+pip install -r requirements.txt
+
+# Nuclear option: clean reinstall
+npm uninstall -g openclaw
+npm cache clean --force
+npm install -g openclaw
+\`\`\`
+
+## Error #15: Everything Works… But It's Too Slow
+
+**Causes:** Large tasks, weak model, or network latency.
+
+**Fix:**
+
+- Split complex tasks into smaller steps
+- Use a faster model (Claude Haiku for simple tasks, Sonnet for complex ones)
+- Use local models via Ollama for tasks that do not need top-tier quality:
+
+\`\`\`bash
+openclaw config set model ollama/llama3
+\`\`\`
+
+- Avoid chaining too many steps in a single command
+
+## Real Debug Workflow (What Actually Works)
+
+When something breaks, follow this order — do not skip steps:
+
+\`\`\`bash
+# Step 1: Check CLI
+claw --version
+
+# Step 2: Test API
+claw "say hello"
+
+# Step 3: Try simple file task
+claw "write hello world to test.txt"
+
+# Step 4: Then increase complexity
+claw "write a Python script that fetches HN top stories"
+\`\`\`
+
+If it fails at step 1, it is an installation problem. If it fails at step 2, it is an API key problem. If it fails at step 3, it is a permissions problem. Only debug complex workflows after steps 1-3 pass.
+
+## Pro Tips (From Real Usage)
+
+- **Start small, then scale.** Verify \`claw "say hello"\` before attempting multi-step automation.
+- **Always verify environment first.** 90% of "OpenClaw is broken" reports are actually environment issues.
+- **Be explicit with commands.** The difference between a command that works and one that does not is usually specificity.
+- **Check logs.** Run with \`--verbose\` for detailed output. The error message almost always tells you exactly what went wrong.
+- **Test your API key independently.** Before blaming OpenClaw, verify the key works:
+
+\`\`\`bash
+curl https://api.openai.com/v1/models \\
+  -H "Authorization: Bearer $OPENAI_API_KEY"
+\`\`\`
+
+## When to Stop Debugging and Reset
+
+If you have hit 3 or more issues and spent more than 30 minutes debugging:
+
+\`\`\`bash
+npm uninstall -g openclaw
+npm cache clean --force
+npm install -g openclaw
+\`\`\`
+
+A clean reinstall takes 30 seconds and eliminates most corrupted-state problems. It is almost always faster than tracking down multiple interacting issues.
+
+## FAQ
+
+**Q: How do I know if the error is on my side or OpenClaw's side?**
+
+If \`claw --version\` works and \`claw "say hello"\` returns a response, OpenClaw itself is fine. Any issues after that point are either in your prompt, your permissions, or your specific skill configuration.
+
+**Q: I get different errors on macOS vs Linux — is that normal?**
+
+Yes. Permission models differ between operating systems. macOS requires explicit app-level permissions (Files, Accessibility). Linux typically just needs correct file ownership. Windows works best under WSL2.
+
+**Q: Can I use OpenClaw without an API key?**
+
+Only if you run a local model through Ollama or LocalAI. Cloud models (Claude, GPT) require a valid API key. Running \`openclaw config set model ollama/llama3\` lets you skip the API key entirely.
+
+**Q: What is the single most common error?**
+
+Error #3 — "runs but does nothing." It is almost always caused by vague prompts. Being specific about what you want OpenClaw to do solves it immediately.
+
+**Q: Where do I report actual bugs?**
+
+If you have confirmed the issue is not environmental (steps 1-3 in the debug workflow pass) and you can reproduce it consistently, file an issue at [github.com/openclaw/openclaw/issues](https://github.com/openclaw/openclaw/issues).
+
+---
+
+Most OpenClaw errors are predictable and fixable. The key is: understand what failed (not just that it failed), fix the environment first, and use clear, structured commands. Once these are stable, OpenClaw becomes extremely reliable.`,
+    contentEn: `If OpenClaw "doesn't work", it's usually one of these errors. This guide lists the most common real-world issues — and exactly how to fix them.
+
+## Why OpenClaw Errors Are So Common
+
+OpenClaw is not just a chatbot — it executes real tasks.
+
+That means errors can come from:
+
+- Your local environment
+- API configuration
+- Permissions
+- Skills / tools setup
+- Your command itself
+
+Most problems are NOT bugs — they are setup issues.
+
+## Error #1: claw: command not found
+
+**Cause:** CLI not installed or not in PATH.
+
+\`\`\`bash
+npm install -g openclaw
+claw --version
+\`\`\`
+
+If still failing, fix your PATH:
+
+\`\`\`bash
+npm config get prefix
+# Add the output path to your shell profile
+export PATH="$PATH:$(npm config get prefix)/bin"
+\`\`\`
+
+## Error #2: "Unauthorized" / API Key Errors
+
+**Cause:** Missing or incorrect API key.
+
+\`\`\`bash
+export OPENAI_API_KEY=your_key
+# Or:
+export CLAUDE_API_KEY=your_key
+\`\`\`
+
+Test it:
+
+\`\`\`bash
+claw "say hello"
+\`\`\`
+
+If using Claude, make sure the key starts with \`sk-ant-\`. For OpenAI, it starts with \`sk-\`. Expired keys fail silently — no error message, just nothing happens.
+
+## Error #3: OpenClaw Runs But Does Nothing
+
+This is the #1 confusion new users face.
+
+**Cause:** No skills installed, vague command, or wrong model.
+
+Bad:
+
+\`\`\`bash
+claw do something
+\`\`\`
+
+Good:
+
+\`\`\`bash
+claw write a Python script that scrapes Hacker News
+\`\`\`
+
+OpenClaw needs clear intent and an executable task. "Do something" is not a task — "write a Python script that does X" is.
+
+## Error #4: "Unsupported engine" / Syntax Errors
+
+**Cause:** Old Node.js version.
+
+\`\`\`bash
+node -v
+\`\`\`
+
+If below 18:
+
+\`\`\`bash
+nvm install 18
+nvm use 18
+\`\`\`
+
+OpenClaw uses modern JavaScript features that require Node 18+. Anything older will produce cryptic syntax errors.
+
+## Error #5: Permission Denied (EACCES)
+
+**Cause:** npm or system permission issues.
+
+\`\`\`bash
+sudo chown -R $(whoami) ~/.npm
+sudo chown -R $(whoami) $(npm config get prefix)/lib/node_modules
+\`\`\`
+
+Never use \`sudo npm install -g\`. Fix ownership instead.
+
+## Error #6: Skills Not Found / Not Working
+
+**Cause:** Skills not installed or not enabled.
+
+\`\`\`bash
+# Search for a skill
+openclaw skills search image
+
+# Install it
+openclaw skills install nano-banana-pro
+
+# Verify it is active
+openclaw skills list
+\`\`\`
+
+If a skill was installed but is not responding, restart the CLI. Some skills require a restart to load their configuration.
+
+## Error #7: File Operations Fail
+
+**Symptoms:** Cannot create files, cannot write output.
+
+**Cause:** Local permissions not granted.
+
+- **macOS**: Go to System Settings > Privacy & Security > Files and Folders. Enable access for your terminal app.
+- **Windows**: Run your terminal as Administrator if needed.
+- **Linux**: Check that the working directory is writable: \`ls -la .\`
+
+## Error #8: Browser Automation Not Working
+
+**Cause:** Missing browser control permissions or Playwright not installed.
+
+\`\`\`bash
+# Install Playwright browsers
+npx playwright install
+
+# On macOS, enable Accessibility permissions for your terminal
+# System Settings > Privacy & Security > Accessibility
+\`\`\`
+
+Test with a simple command first:
+
+\`\`\`bash
+claw "take a screenshot of google.com"
+\`\`\`
+
+## Error #9: Python Execution Errors
+
+**Cause:** Missing dependencies or environment conflict.
+
+\`\`\`bash
+python -m venv claw-env
+source claw-env/bin/activate
+pip install -r requirements.txt
+\`\`\`
+
+If you are using a system Python that conflicts with other tools, a virtual environment isolates everything cleanly.
+
+## Error #10: Rate Limit / Timeout Errors
+
+**Cause:** API limits hit, or network instability.
+
+**Symptoms:** Errors like \`429 Too Many Requests\` or \`Timeout\`.
+
+**Fix:**
+
+- Switch to a model with higher rate limits
+- Add a delay between requests in your config
+- Break large tasks into smaller, sequential steps
+
+\`\`\`bash
+# Check your current rate limit status
+openclaw config get model
+# Switch to a model with better limits
+openclaw config set model anthropic/claude-3-haiku
+\`\`\`
+
+## Error #11: Model Not Responding Properly
+
+**Cause:** Wrong model selected, or the model cannot handle the task.
+
+**Fix:**
+
+- Switch to a more capable model for complex tasks:
+
+\`\`\`bash
+openclaw config set model anthropic/claude-3.5-sonnet
+\`\`\`
+
+- Use structured, specific instructions instead of open-ended prompts
+- For coding tasks, Claude and GPT-4o perform significantly better than smaller models
+
+## Error #12: Output Is Wrong or Incomplete
+
+**Cause:** Prompt is too vague.
+
+Bad:
+
+\`\`\`bash
+claw build a bot
+\`\`\`
+
+Good:
+
+\`\`\`bash
+claw build a Telegram bot that sends daily weather updates for San Francisco at 9am
+\`\`\`
+
+Specificity is everything. The more detail you provide — what platform, what data, what format, what schedule — the more reliable the output.
+
+## Error #13: Installation Succeeded But Commands Fail
+
+**Cause:** Partial setup or missing configuration.
+
+Run through this diagnostic:
+
+\`\`\`bash
+# 1. CLI works?
+claw --version
+
+# 2. API key set?
+echo $OPENAI_API_KEY
+
+# 3. Simple command works?
+claw "say hello"
+
+# 4. If all above pass, try:
+claw "write hello world to test.txt"
+\`\`\`
+
+If step 1 passes but step 3 fails, your API key is the problem. If step 3 passes but step 4 fails, it is a permissions issue.
+
+## Error #14: "Module Not Found" Errors
+
+**Cause:** Missing dependencies after a partial install or update.
+
+\`\`\`bash
+# For Node dependencies
+npm install
+
+# For Python dependencies
+pip install -r requirements.txt
+
+# Nuclear option: clean reinstall
+npm uninstall -g openclaw
+npm cache clean --force
+npm install -g openclaw
+\`\`\`
+
+## Error #15: Everything Works… But It's Too Slow
+
+**Causes:** Large tasks, weak model, or network latency.
+
+**Fix:**
+
+- Split complex tasks into smaller steps
+- Use a faster model (Claude Haiku for simple tasks, Sonnet for complex ones)
+- Use local models via Ollama for tasks that do not need top-tier quality:
+
+\`\`\`bash
+openclaw config set model ollama/llama3
+\`\`\`
+
+- Avoid chaining too many steps in a single command
+
+## Real Debug Workflow (What Actually Works)
+
+When something breaks, follow this order — do not skip steps:
+
+\`\`\`bash
+# Step 1: Check CLI
+claw --version
+
+# Step 2: Test API
+claw "say hello"
+
+# Step 3: Try simple file task
+claw "write hello world to test.txt"
+
+# Step 4: Then increase complexity
+claw "write a Python script that fetches HN top stories"
+\`\`\`
+
+If it fails at step 1, it is an installation problem. If it fails at step 2, it is an API key problem. If it fails at step 3, it is a permissions problem. Only debug complex workflows after steps 1-3 pass.
+
+## Pro Tips (From Real Usage)
+
+- **Start small, then scale.** Verify \`claw "say hello"\` before attempting multi-step automation.
+- **Always verify environment first.** 90% of "OpenClaw is broken" reports are actually environment issues.
+- **Be explicit with commands.** The difference between a command that works and one that does not is usually specificity.
+- **Check logs.** Run with \`--verbose\` for detailed output. The error message almost always tells you exactly what went wrong.
+- **Test your API key independently.** Before blaming OpenClaw, verify the key works:
+
+\`\`\`bash
+curl https://api.openai.com/v1/models \\
+  -H "Authorization: Bearer $OPENAI_API_KEY"
+\`\`\`
+
+## When to Stop Debugging and Reset
+
+If you have hit 3 or more issues and spent more than 30 minutes debugging:
+
+\`\`\`bash
+npm uninstall -g openclaw
+npm cache clean --force
+npm install -g openclaw
+\`\`\`
+
+A clean reinstall takes 30 seconds and eliminates most corrupted-state problems. It is almost always faster than tracking down multiple interacting issues.
+
+## FAQ
+
+**Q: How do I know if the error is on my side or OpenClaw's side?**
+
+If \`claw --version\` works and \`claw "say hello"\` returns a response, OpenClaw itself is fine. Any issues after that point are either in your prompt, your permissions, or your specific skill configuration.
+
+**Q: I get different errors on macOS vs Linux — is that normal?**
+
+Yes. Permission models differ between operating systems. macOS requires explicit app-level permissions (Files, Accessibility). Linux typically just needs correct file ownership. Windows works best under WSL2.
+
+**Q: Can I use OpenClaw without an API key?**
+
+Only if you run a local model through Ollama or LocalAI. Cloud models (Claude, GPT) require a valid API key. Running \`openclaw config set model ollama/llama3\` lets you skip the API key entirely.
+
+**Q: What is the single most common error?**
+
+Error #3 — "runs but does nothing." It is almost always caused by vague prompts. Being specific about what you want OpenClaw to do solves it immediately.
+
+**Q: Where do I report actual bugs?**
+
+If you have confirmed the issue is not environmental (steps 1-3 in the debug workflow pass) and you can reproduce it consistently, file an issue at [github.com/openclaw/openclaw/issues](https://github.com/openclaw/openclaw/issues).
+
+---
+
+Most OpenClaw errors are predictable and fixable. The key is: understand what failed (not just that it failed), fix the environment first, and use clear, structured commands. Once these are stable, OpenClaw becomes extremely reliable.`,
+    author: "Alex Chen",
+    date: "2026-04-09",
+    category: "Troubleshooting",
+    categoryEn: "Troubleshooting",
+    tags: ["errors", "troubleshooting", "common errors", "fix", "debug", "2026"],
+    readingTime: 20,
+    image: "/og-image.png"
+  },
 ];

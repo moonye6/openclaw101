@@ -42,10 +42,8 @@ export default async function Home({
     '@type': 'WebSite',
     name: 'OpenClaw 101',
     url: SITE_URL,
-    description: isZh
-      ? 'OpenClaw 完整指南：从入门到实战的教程、案例和最佳实践。'
-      : 'The complete OpenClaw learning hub: guides, tutorials, examples, and best practices.',
-    inLanguage: ['en', 'zh-CN'],
+    description: 'The complete OpenClaw learning hub: guides, tutorials, examples, and best practices.',
+    inLanguage: 'en',
     potentialAction: {
       '@type': 'SearchAction',
       target: {

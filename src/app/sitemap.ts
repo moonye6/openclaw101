@@ -3,7 +3,7 @@ import { tutorials } from '@/data/tutorials'
 import { skillCategories } from '@/data/skills'
 import { blogPosts } from '@/data/blog'
 
-const BUILD_DATE = new Date('2026-04-08')
+const BUILD_DATE = new Date('2026-04-09')
 
 // SEO core slugs — get highest priority (0.9)
 const SEO_CORE_SLUGS = new Set([
@@ -15,6 +15,11 @@ const SEO_CORE_SLUGS = new Set([
   'ai-agent-guide',
   'is-openclaw-free-pricing-guide',
   'best-openclaw-workflows-productivity',
+  'openclaw-installation-troubleshooting',
+  'openclaw-common-errors',
+  'how-to-install-openclaw',
+  'openclaw-vs-chatgpt',
+  'openclaw-vs-langchain',
 ])
 
 export default function sitemap(): MetadataRoute.Sitemap {
