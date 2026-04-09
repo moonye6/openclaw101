@@ -40,17 +40,8 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        // 国际化页面缓存 — ISR 策略 (缩短缓存时间以便更快更新)
-        source: '/:locale(en|zh)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, s-maxage=300, stale-while-revalidate=60',
-          },
-        ],
-      },
-      {
-        source: '/:locale(en|zh)/:path*',
+        // Page cache — ISR strategy
+        source: '/((?!api|_next|_vercel).*)',
         headers: [
           {
             key: 'Cache-Control',

@@ -20,7 +20,7 @@ export async function GET() {
     rss.addItem({
       title: post.titleEn,
       description: post.excerptEn,
-      url: `${SITE_URL}/en/blog/${post.slug}`,
+      url: `${SITE_URL}/blog/${post.slug}`,
       date: new Date(post.date),
       categories: [post.categoryEn],
     })
@@ -31,7 +31,7 @@ export async function GET() {
     rss.addItem({
       title: tutorial.title,
       description: tutorial.description,
-      url: `${SITE_URL}/en/tutorials/${tutorial.id}`,
+      url: `${SITE_URL}/tutorials/${tutorial.id}`,
       date: new Date(),
       categories: [tutorial.category],
     })

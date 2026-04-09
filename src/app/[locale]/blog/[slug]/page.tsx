@@ -28,7 +28,7 @@ export async function generateMetadata({
     openGraph: {
       title: post.titleEn,
       description: post.excerptEn,
-      url: `${SITE_URL}/en/blog/${slug}`,
+      url: `${SITE_URL}/blog/${slug}`,
       type: 'article',
       publishedTime: post.date,
       authors: [post.author],
@@ -48,7 +48,7 @@ export async function generateMetadata({
       images: [`${SITE_URL}${post.image}`],
     },
     alternates: {
-      canonical: `${SITE_URL}/en/blog/${slug}`,
+      canonical: `${SITE_URL}/blog/${slug}`,
     },
   };
 }
@@ -93,7 +93,7 @@ export default async function BlogPostPage({
     wordCount: content.length,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `${SITE_URL}/en/blog/${slug}`,
+      '@id': `${SITE_URL}/blog/${slug}`,
     },
   };
 
@@ -105,13 +105,13 @@ export default async function BlogPostPage({
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: `${SITE_URL}/en`,
+        item: SITE_URL,
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Blog',
-        item: `${SITE_URL}/en/blog`,
+        item: `${SITE_URL}/blog`,
       },
       {
         '@type': 'ListItem',

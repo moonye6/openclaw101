@@ -26,7 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://openclaw101.vip'
 
   const pages = [
-    { path: '',                   changeFrequency: 'weekly' as const, priority: 1.0 },
+    { path: '/',                  changeFrequency: 'weekly' as const, priority: 1.0 },
     { path: '/blog',              changeFrequency: 'weekly' as const, priority: 0.9 },
     { path: '/guide',             changeFrequency: 'weekly' as const, priority: 0.9 },
     { path: '/examples',          changeFrequency: 'weekly' as const, priority: 0.8 },
@@ -46,10 +46,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const entries: MetadataRoute.Sitemap = []
 
-  // Main pages (en only — zh redirects to en via middleware)
+  // Main pages
   for (const page of pages) {
     entries.push({
-      url: `${baseUrl}/en${page.path}`,
+      url: `${baseUrl}${page.path}`,
       lastModified: BUILD_DATE,
       changeFrequency: page.changeFrequency,
       priority: page.priority,
@@ -59,7 +59,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Learning path pages (7 days)
   for (const day of learningDays) {
     entries.push({
-      url: `${baseUrl}/en/learn/${day}`,
+      url: `${baseUrl}/learn/${day}`,
       lastModified: BUILD_DATE,
       changeFrequency: 'monthly' as const,
       priority: 0.7,
@@ -69,7 +69,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Blog post pages — Core Guides get priority 0.9, others 0.7
   for (const post of blogPosts) {
     entries.push({
-      url: `${baseUrl}/en/blog/${post.slug}`,
+      url: `${baseUrl}/blog/${post.slug}`,
       lastModified: new Date(post.date),
       changeFrequency: 'monthly' as const,
       priority: SEO_CORE_SLUGS.has(post.slug) ? 0.9 : 0.7,
@@ -79,7 +79,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Tutorial detail pages
   for (const tutorial of tutorials) {
     entries.push({
-      url: `${baseUrl}/en/tutorials/${tutorial.id}`,
+      url: `${baseUrl}/tutorials/${tutorial.id}`,
       lastModified: BUILD_DATE,
       changeFrequency: 'monthly' as const,
       priority: 0.6,
@@ -89,7 +89,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Skill category pages
   for (const category of skillCategories) {
     entries.push({
-      url: `${baseUrl}/en/skills/${category.id}`,
+      url: `${baseUrl}/skills/${category.id}`,
       lastModified: BUILD_DATE,
       changeFrequency: 'weekly' as const,
       priority: 0.7,

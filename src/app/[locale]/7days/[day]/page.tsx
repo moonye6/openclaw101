@@ -31,11 +31,11 @@ export async function generateMetadata({
     openGraph: {
       title: `Day ${dayNum}: ${title}`,
       description,
-      url: `${SITE_URL}/${locale}/7days/${dayNum}`,
+      url: `${SITE_URL}/7days/${dayNum}`,
       locale: isZh ? 'zh_CN' : 'en_US',
     },
     alternates: {
-      canonical: `${SITE_URL}/en/learn/${dayNum}`,
+      canonical: `${SITE_URL}/learn/${dayNum}`,
     },
   };
 }

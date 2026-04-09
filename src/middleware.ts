@@ -10,25 +10,30 @@ const intlMiddleware = createMiddleware({
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // 根路径重定向到 /en
-  if (pathname === '/') {
+  // 301 redirect /en/* → /* (preserve SEO for indexed pages)
+  if (pathname === '/en' || pathname === '/en/') {
     const url = request.nextUrl.clone();
-    url.pathname = '/en';
+    url.pathname = '/';
+    return NextResponse.redirect(url, { status: 301 });
+  }
+  if (pathname.startsWith('/en/')) {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname.replace(/^\/en/, '');
     return NextResponse.redirect(url, { status: 301 });
   }
 
-  // /zh/* 全部 301 重定向到 /en/*
+  // 301 redirect /zh/* → /*
   if (pathname.startsWith('/zh')) {
     const url = request.nextUrl.clone();
-    url.pathname = pathname.replace(/^\/zh/, '/en');
+    url.pathname = pathname.replace(/^\/zh/, '') || '/';
     return NextResponse.redirect(url, { status: 301 });
   }
 
-  // /7days/* 301 重定向到 /learn/* (消除重复内容)
-  const sevenDaysMatch = pathname.match(/^\/(en|zh)\/7days\/(\d+)/);
+  // 301 redirect /7days/* → /learn/*
+  const sevenDaysMatch = pathname.match(/^\/7days\/(\d+)/);
   if (sevenDaysMatch) {
     const url = request.nextUrl.clone();
-    url.pathname = `/en/learn/${sevenDaysMatch[2]}`;
+    url.pathname = `/learn/${sevenDaysMatch[1]}`;
     return NextResponse.redirect(url, { status: 301 });
   }
 
@@ -36,5 +41,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/(en|zh)/:path*']
+  matcher: ['/', '/((?!api|_next|_vercel|.*\\..*).*)']
 };

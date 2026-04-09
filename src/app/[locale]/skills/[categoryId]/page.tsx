@@ -36,11 +36,11 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: `${SITE_URL}/${locale}/skills/${categoryId}`,
+      url: `${SITE_URL}/skills/${categoryId}`,
       locale: isZh ? 'zh_CN' : 'en_US',
     },
     alternates: {
-      canonical: `${SITE_URL}/en/skills/${categoryId}`,
+      canonical: `${SITE_URL}/skills/${categoryId}`,
     },
   };
 }
@@ -71,19 +71,19 @@ export default async function SkillCategoryPage({
         '@type': 'ListItem',
         position: 1,
         name: isZh ? '首页' : 'Home',
-        item: `${SITE_URL}/${locale}`,
+        item: SITE_URL,
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: isZh ? '技能库' : 'Skills',
-        item: `${SITE_URL}/${locale}/skills`,
+        item: `${SITE_URL}/skills`,
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: catName,
-        item: `${SITE_URL}/${locale}/skills/${categoryId}`,
+        item: `${SITE_URL}/skills/${categoryId}`,
       },
     ],
   };
@@ -93,7 +93,7 @@ export default async function SkillCategoryPage({
     '@type': 'CollectionPage',
     name: `${catName} — OpenClaw Skills`,
     description: catDescription,
-    url: `${SITE_URL}/${locale}/skills/${categoryId}`,
+    url: `${SITE_URL}/skills/${categoryId}`,
     numberOfItems: category.count,
     isPartOf: {
       '@type': 'WebSite',

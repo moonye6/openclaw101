@@ -22,7 +22,7 @@ export async function generateMetadata({
 
   return {
     alternates: {
-      canonical: `${SITE_URL}/${locale}`,
+      canonical: SITE_URL,
     },
   };
 }

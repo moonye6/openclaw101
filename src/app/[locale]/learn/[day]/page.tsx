@@ -35,7 +35,7 @@ export async function generateMetadata({
     openGraph: {
       title: `Day ${learningDay.day}: ${title} — OpenClaw 101`,
       description,
-      url: `${SITE_URL}/${locale}/learn/${day}`,
+      url: `${SITE_URL}/learn/${day}`,
       locale: isZh ? 'zh_CN' : 'en_US',
       type: 'article',
       images: [
@@ -54,7 +54,7 @@ export async function generateMetadata({
       images: [`${SITE_URL}/og-image.png`],
     },
     alternates: {
-      canonical: `${SITE_URL}/en/learn/${day}`,
+      canonical: `${SITE_URL}/learn/${day}`,
     },
   };
 }
@@ -97,7 +97,7 @@ export default async function LearningDayPage({
     dateModified: '2026-03-17',
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `${SITE_URL}/${locale}/learn/${day}`,
+      '@id': `${SITE_URL}/learn/${day}`,
     },
     isPartOf: {
       '@type': 'Course',
@@ -119,13 +119,13 @@ export default async function LearningDayPage({
         '@type': 'ListItem',
         position: 1,
         name: isZh ? '首页' : 'Home',
-        item: `${SITE_URL}/${locale}`,
+        item: SITE_URL,
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: isZh ? '学习路径' : 'Learning Path',
-        item: `${SITE_URL}/${locale}#learning-path`,
+        item: `${SITE_URL}/#learning-path`,
       },
       {
         '@type': 'ListItem',

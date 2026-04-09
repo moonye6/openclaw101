@@ -19,11 +19,11 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: 'OpenClaw Guides, Tutorials & Examples — Learn AI Agents',
       description: 'Learn what OpenClaw is, how it works, and how to use it. Step-by-step beginner-friendly guides.',
-      url: `${SITE_URL}/en`,
+      url: SITE_URL,
       locale: 'en_US',
     },
     alternates: {
-      canonical: `${SITE_URL}/en`,
+      canonical: SITE_URL,
     },
   };
 }
@@ -48,7 +48,7 @@ export default async function Home({
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: `${SITE_URL}/${locale}/skills?q={search_term_string}`,
+        urlTemplate: `${SITE_URL}/skills?q={search_term_string}`,
       },
       'query-input': 'required name=search_term_string',
     },

@@ -41,11 +41,11 @@ export async function generateMetadata({
     openGraph: {
       title: tutorial.title,
       description: tutorial.description,
-      url: `${SITE_URL}/${locale}/tutorials/${id}`,
+      url: `${SITE_URL}/tutorials/${id}`,
       locale: isZh ? 'zh_CN' : 'en_US',
     },
     alternates: {
-      canonical: `${SITE_URL}/en/tutorials/${id}`,
+      canonical: `${SITE_URL}/tutorials/${id}`,
     },
   };
 }
@@ -77,19 +77,19 @@ export default async function TutorialDetailPage({
         '@type': 'ListItem',
         position: 1,
         name: isZh ? '首页' : 'Home',
-        item: `${SITE_URL}/${locale}`,
+        item: SITE_URL,
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: isZh ? '教程' : 'Tutorials',
-        item: `${SITE_URL}/${locale}/tutorials`,
+        item: `${SITE_URL}/tutorials`,
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: tutorial.title,
-        item: `${SITE_URL}/${locale}/tutorials/${id}`,
+        item: `${SITE_URL}/tutorials/${id}`,
       },
     ],
   };

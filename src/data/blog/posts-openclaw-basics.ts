@@ -288,7 +288,7 @@ Before getting started, make sure you have the following ready:
 | LLM API Key | At least one: Anthropic, OpenAI, or Google AI |
 | Stable internet connection | Telegram Bot API requires internet access |
 
-If you haven't installed Node.js yet, check the [complete installation guide](/en/blog/how-to-install-openclaw).
+If you haven't installed Node.js yet, check the [complete installation guide](/blog/how-to-install-openclaw).
 
 ## Step 1: Install OpenClaw
 
@@ -2547,7 +2547,7 @@ npm 和 Docker 安装方式都需要联网下载。安装完成后，如果使�
 
 ## 下一步
 
-安装完成后，推荐跟着我们的 [7天学习路径](/en/learn/1) 继续学习！`,
+安装完成后，推荐跟着我们的 [7天学习路径](/learn/1) 继续学习！`,
     contentEn: `This is the definitive OpenClaw installation guide for 2026. Whether you are on macOS, Linux, or Windows, this tutorial covers everything you need: three installation methods (npm, Docker, from source), platform-specific instructions, first-time setup, configuration deep dive, upgrading, and troubleshooting common issues.
 
 ## Prerequisites
@@ -2909,7 +2909,7 @@ For enterprise deployment, we recommend Docker Compose or Kubernetes. OpenClaw p
 
 ## Next Steps
 
-After installation, follow our [7-Day Learning Path](/en/learn/1) to continue learning!`,
+After installation, follow our [7-Day Learning Path](/learn/1) to continue learning!`,
     author: "Dr. Sarah Kim",
     date: "2026-03-25",
     category: "安装教程",

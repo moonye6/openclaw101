@@ -14,11 +14,11 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: 'OpenClaw Skills Marketplace - 97 Curated Community Skills',
       description: 'Browse 97 curated community skills. Install with one command.',
-      url: `${SITE_URL}/en/skills`,
+      url: `${SITE_URL}/skills`,
       locale: 'en_US',
     },
     alternates: {
-      canonical: `${SITE_URL}/en/skills`,
+      canonical: `${SITE_URL}/skills`,
     },
   };
 }
@@ -32,13 +32,13 @@ export default async function SkillsPage() {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: `${SITE_URL}/en`,
+        item: SITE_URL,
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Skills Marketplace',
-        item: `${SITE_URL}/en/skills`,
+        item: `${SITE_URL}/skills`,
       },
     ],
   };
@@ -48,7 +48,7 @@ export default async function SkillsPage() {
     '@type': 'CollectionPage',
     name: 'OpenClaw Community Skills',
     description: '97 curated community skills for OpenClaw AI assistant',
-    url: `${SITE_URL}/en/skills`,
+    url: `${SITE_URL}/skills`,
     numberOfItems: 97,
     isPartOf: {
       '@type': 'WebSite',

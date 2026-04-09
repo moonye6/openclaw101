@@ -14,11 +14,11 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: 'OpenClaw Tutorials - 60 Curated Guides',
       description: 'Browse 60 curated tutorials. From setup to advanced automation.',
-      url: `${SITE_URL}/en/tutorials`,
+      url: `${SITE_URL}/tutorials`,
       locale: 'en_US',
     },
     alternates: {
-      canonical: `${SITE_URL}/en/tutorials`,
+      canonical: `${SITE_URL}/tutorials`,
     },
   };
 }
@@ -32,13 +32,13 @@ export default async function TutorialsPage() {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: `${SITE_URL}/en`,
+        item: SITE_URL,
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Tutorials',
-        item: `${SITE_URL}/en/tutorials`,
+        item: `${SITE_URL}/tutorials`,
       },
     ],
   };
@@ -48,7 +48,7 @@ export default async function TutorialsPage() {
     '@type': 'CollectionPage',
     name: 'OpenClaw Tutorials',
     description: '60 tutorials for OpenClaw AI assistant',
-    url: `${SITE_URL}/en/tutorials`,
+    url: `${SITE_URL}/tutorials`,
     numberOfItems: 60,
     isPartOf: {
       '@type': 'WebSite',

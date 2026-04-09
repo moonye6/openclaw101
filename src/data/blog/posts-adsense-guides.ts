@@ -205,10 +205,10 @@ OpenClaw 软件本身 100% 免费开源，遵循 MIT 许可证。你不需要为
 ## 下一步
 
 如果你准备开始使用 OpenClaw：
-- 阅读我们的[新手入门指南](/en/guide)
-- 查看[安装教程](/en/blog/how-to-install-openclaw)
-- 浏览[实战案例](/en/examples)
-- 了解如何[配置本地模型](/en/blog/how-to-use-local-llm-with-openclaw)节省费用
+- 阅读我们的[新手入门指南](/guide)
+- 查看[安装教程](/blog/how-to-install-openclaw)
+- 浏览[实战案例](/examples)
+- 了解如何[配置本地模型](/blog/how-to-use-local-llm-with-openclaw)节省费用
 
 ---
 
@@ -429,10 +429,10 @@ Local models in 2026 are remarkably capable. Llama 3 8B performs well on most ev
 ## Next Steps
 
 Ready to get started with OpenClaw?
-- Read our [Beginner Guide](/en/guide)
-- Check the [Installation Tutorial](/en/blog/how-to-install-openclaw)
-- Browse [Real Examples](/en/examples)
-- Learn how to [set up local models](/en/blog/how-to-use-local-llm-with-openclaw) to save money
+- Read our [Beginner Guide](/guide)
+- Check the [Installation Tutorial](/blog/how-to-install-openclaw)
+- Browse [Real Examples](/examples)
+- Learn how to [set up local models](/blog/how-to-use-local-llm-with-openclaw) to save money
 
 ---
 
@@ -1253,9 +1253,9 @@ Three tips: first, make your prompt more specific by including format requiremen
 
 ## Next Steps
 
-- Read the [AI Agent Guide](/en/guide) for basic setup
-- Check the [OpenClaw Installation Tutorial](/en/blog/how-to-install-openclaw)
-- Browse [97+ Community Skills](/en/skills) for more capabilities
+- Read the [AI Agent Guide](/guide) for basic setup
+- Check the [OpenClaw Installation Tutorial](/blog/how-to-install-openclaw)
+- Browse [97+ Community Skills](/skills) for more capabilities
 - Join the [Community](https://discord.com/invite/clawd) to share your workflows
 
 ---
