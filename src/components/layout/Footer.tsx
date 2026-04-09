@@ -121,8 +121,13 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/[0.06] text-center text-sm text-text-muted">
-          {t('copyright', { year: new Date().getFullYear() })}
+        <div className="mt-12 pt-8 border-t border-white/[0.06] text-center space-y-2">
+          <p className="text-sm text-text-muted">
+            {t('copyright', { year: new Date().getFullYear() })}
+          </p>
+          <p className="text-xs text-text-muted/60">
+            OpenClaw 101 is an independent educational resource and is not affiliated with or endorsed by the official OpenClaw project.
+          </p>
         </div>
       </div>
     </footer>

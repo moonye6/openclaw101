@@ -63,8 +63,8 @@ export function HeroSection() {
           transition={{ duration: 0.5, delay: 0.3 }}
         >
           <Link href="/guide">
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className="bg-brand text-white hover:bg-brand-light shadow-lg shadow-brand/25 px-8"
             >
               {t('cta')}
@@ -72,15 +72,25 @@ export function HeroSection() {
             </Button>
           </Link>
           <Link href="/examples">
-            <Button 
-              size="lg" 
-              variant="outline" 
+            <Button
+              size="lg"
+              variant="outline"
               className="border-white/10 text-white hover:bg-white/5 hover:border-white/20 px-8"
             >
               {t('learnMore')}
             </Button>
           </Link>
         </motion.div>
+
+        {/* Independent disclaimer */}
+        <motion.p
+          className="mt-6 text-xs text-text-muted/60"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          OpenClaw 101 is an independent educational resource and is not affiliated with the official OpenClaw team.
+        </motion.p>
       </div>
     </section>
   );
