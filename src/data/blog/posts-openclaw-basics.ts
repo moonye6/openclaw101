@@ -3950,4 +3950,566 @@ There is no hard limit. That said, we recommend keeping 5 to 8 skills active at 
     readingTime: 22,
     image: "/og-image.png"
   },
+  {
+    id: 29,
+    slug: "openclaw-installation-troubleshooting",
+    title: "OpenClaw 安装问题排查指南（2026 版）",
+    titleEn: "OpenClaw Installation Troubleshooting (2026 Guide)",
+    excerpt: "基于真实安装经验，解决 OpenClaw 安装过程中最常见的 8 个问题——环境不匹配、依赖缺失、API 配置错误等。",
+    excerptEn: "A practical, real-world guide to fixing OpenClaw installation issues — based on actual setup experience, not theory.",
+    content: `OpenClaw 很强大——但它不是一个开箱即用的工具。
+
+根据我的经验，大多数安装问题来自以下几个方面：
+
+- 环境不匹配（Node / Python / 操作系统）
+- 缺少依赖
+- API 配置错误
+- 权限或路径问题
+- 对 OpenClaw 本地运行方式的误解
+
+这篇指南会带你走过你大概率会遇到的真实问题，并告诉你怎么一步步修复。
+
+## 开始之前（关键检查清单）
+
+确保你已经准备好：
+
+- **Node.js**（>= 18，推荐 20+）
+- **Python**（>= 3.10）
+- **Git** 已安装
+- 一个有效的 **API Key**（OpenAI / Claude / 其他）
+
+如果以上任何一项缺失，安装必定失败。
+
+## 问题 1："command not found: claw"
+
+### 这意味着什么
+
+OpenClaw CLI 没有全局安装，或者没有被添加到 PATH。
+
+### 修复方法
+
+\`\`\`bash
+npm install -g openclaw
+\`\`\`
+
+然后验证：
+
+\`\`\`bash
+claw --version
+\`\`\`
+
+如果还是不行：
+
+\`\`\`bash
+# 查看 npm 全局路径
+npm config get prefix
+
+# 将输出的路径添加到你的 PATH
+# 例如在 ~/.bashrc 或 ~/.zshrc 中添加：
+export PATH="$PATH:$(npm config get prefix)/bin"
+\`\`\`
+
+## 问题 2：Node 版本过旧
+
+### 错误示例
+
+- \`Unsupported engine\`
+- \`SyntaxError: Unexpected token\`
+
+### 根本原因
+
+你的 Node 版本太旧了。
+
+### 修复方法
+
+\`\`\`bash
+node -v
+\`\`\`
+
+如果低于 18，使用 nvm 升级：
+
+\`\`\`bash
+nvm install 18
+nvm use 18
+\`\`\`
+
+## 问题 3：API Key 不生效
+
+### 症状
+
+- 请求静默失败
+- 出现 "Unauthorized" 错误
+- Agent 什么都不做
+
+### 修复方法
+
+正确设置你的 API Key：
+
+\`\`\`bash
+export OPENAI_API_KEY=你的密钥
+# 或者
+export CLAUDE_API_KEY=你的密钥
+\`\`\`
+
+然后测试：
+
+\`\`\`bash
+claw "say hello"
+\`\`\`
+
+如果使用 Claude，确认密钥格式以 \`sk-ant-\` 开头。如果使用 OpenAI，确认以 \`sk-\` 开头。过期或被吊销的密钥不会有明确的错误提示，只是静默失败。
+
+## 问题 4：权限错误（Mac/Linux）
+
+### 错误信息
+
+\`\`\`
+EACCES: permission denied
+\`\`\`
+
+### 修复方法
+
+不要盲目使用 \`sudo\`。正确做法：
+
+\`\`\`bash
+sudo chown -R $(whoami) ~/.npm
+sudo chown -R $(whoami) $(npm config get prefix)/lib/node_modules
+\`\`\`
+
+然后重新安装。
+
+## 问题 5：Python 环境冲突
+
+### 症状
+
+- 工具执行失败
+- 脚本报错
+- 缺少模块
+
+### 修复方法
+
+创建一个干净的虚拟环境：
+
+\`\`\`bash
+python -m venv claw-env
+source claw-env/bin/activate
+pip install -r requirements.txt
+\`\`\`
+
+## 问题 6：OpenClaw 运行但什么都不做
+
+这个问题非常常见。你运行：
+
+\`\`\`bash
+claw do something
+\`\`\`
+
+……然后什么都没发生。
+
+### 根本原因
+
+- 没有安装技能
+- 没有配置工具权限
+- 选错了模型
+
+### 修复方法
+
+- 从 ClawHub 安装技能
+- 检查配置文件
+- 明确指定操作：
+
+\`\`\`bash
+claw write a Python script that scrapes a website
+\`\`\`
+
+关键：模糊的提示 = 没有执行。越具体越好。
+
+## 问题 7：文件 / 浏览器操作不生效
+
+### 症状
+
+- 无法打开浏览器
+- 无法写入文件
+- 自动化失败
+
+### 根本原因
+
+本地权限未授予。
+
+### 修复方法
+
+- **macOS**：在系统设置中为终端启用"文件和文件夹"以及"辅助功能"权限
+- **Windows**：如果需要，以管理员身份运行终端
+- 检查 OpenClaw 配置中的允许操作列表
+
+## 问题 8：安装成功但运行缓慢或不稳定
+
+### 可能原因
+
+- 使用了较弱的 API 模型
+- 触发了速率限制
+- 网络问题
+
+### 修复方法
+
+- 切换模型（GPT-4o / Claude 3.5 / 本地 LLM）
+- 添加重试逻辑
+- 避免在单个命令中执行过于复杂的任务
+
+## 真实安装示例（验证安装是否成功）
+
+这是一个最小可用的安装流程：
+
+\`\`\`bash
+npm install -g openclaw
+export OPENAI_API_KEY=你的密钥
+
+claw write a Python script that fetches latest AI news
+\`\`\`
+
+预期行为：
+
+1. 生成代码
+2. 保存文件
+3. 输出结果
+
+如果这个流程不通——你的安装还没搞定。
+
+## 实用建议（来自真实使用经验）
+
+- 永远从简单命令开始测试
+- 不要一上来就搞自动化——先测基本操作
+- 使用明确的指令，不要用模糊的提示
+- 查看日志——OpenClaw 通常会告诉你哪里出了问题
+
+## 什么时候该全部重装
+
+如果你遇到了多个问题叠加，不要无休止地调试——直接重置：
+
+\`\`\`bash
+npm uninstall -g openclaw
+npm cache clean --force
+npm install -g openclaw
+\`\`\`
+
+## 最终检查清单
+
+在说"它不工作"之前，确认以下每一项：
+
+- Node >= 18
+- Python 已安装
+- API Key 有效
+- CLI 可访问（\`claw --version\` 有输出）
+- 至少一个简单命令能正常执行
+
+## 常见问题
+
+**Q：我按步骤做了，但 \`claw\` 命令还是找不到？**
+
+重新打开终端窗口。npm 全局安装后，当前终端会话可能还没加载新的 PATH。如果新终端还是不行，手动检查 \`npm config get prefix\` 的路径是否在你的 \`$PATH\` 中。
+
+**Q：OpenClaw 支持 Windows 原生环境吗？**
+
+支持，但推荐使用 WSL2（Windows Subsystem for Linux）。原生 Windows 环境下某些文件操作和浏览器控制功能可能受限。
+
+**Q：免费模型能用吗？**
+
+可以。通过 Ollama 运行本地模型（如 Llama 3）完全免费。但本地模型的响应质量和速度取决于你的硬件。对于复杂任务，建议使用 Claude 或 GPT-4o。
+
+**Q：安装后第一件事应该做什么？**
+
+运行 \`claw "say hello"\`。如果你能看到 AI 的回复，说明环境、API Key、CLI 都没问题。然后再逐步尝试更复杂的操作。
+
+---
+
+安装问题是正常的，不是你做错了什么。重要的是：先修好环境，逐步测试，使用清晰的命令。一旦安装成功，OpenClaw 的能力会让你惊喜。`,
+    contentEn: `OpenClaw is powerful — but it is not a plug-and-play tool.
+
+From my experience, most installation problems come from:
+
+- Environment mismatch (Node / Python / OS)
+- Missing dependencies
+- Incorrect API configuration
+- Permission or path issues
+- Misunderstanding how OpenClaw actually runs locally
+
+This guide walks through real problems you will likely hit, and how to fix them step by step.
+
+## Before You Start (Critical Checklist)
+
+Make sure you have:
+
+- **Node.js** (>= 18, 20+ recommended)
+- **Python** (>= 3.10)
+- **Git** installed
+- A valid **API key** (OpenAI / Claude / etc.)
+
+If any of these are missing, installation will fail — guaranteed.
+
+## Problem 1: "command not found: claw"
+
+### What it means
+
+OpenClaw CLI is not installed globally or not added to PATH.
+
+### Fix
+
+\`\`\`bash
+npm install -g openclaw
+\`\`\`
+
+Then verify:
+
+\`\`\`bash
+claw --version
+\`\`\`
+
+If still not working:
+
+\`\`\`bash
+# Check npm global path
+npm config get prefix
+
+# Add it to your PATH (in ~/.bashrc or ~/.zshrc):
+export PATH="$PATH:$(npm config get prefix)/bin"
+\`\`\`
+
+## Problem 2: Node Version Issues
+
+### Error examples
+
+- \`Unsupported engine\`
+- \`SyntaxError: Unexpected token\`
+
+### Root cause
+
+Your Node version is too old.
+
+### Fix
+
+\`\`\`bash
+node -v
+\`\`\`
+
+If below 18, use nvm:
+
+\`\`\`bash
+nvm install 18
+nvm use 18
+\`\`\`
+
+## Problem 3: API Key Not Working
+
+### Symptoms
+
+- Requests fail silently
+- "Unauthorized" errors
+- Agent does nothing
+
+### Fix
+
+Set your API key correctly:
+
+\`\`\`bash
+export OPENAI_API_KEY=your_key_here
+# Or:
+export CLAUDE_API_KEY=your_key_here
+\`\`\`
+
+Then test:
+
+\`\`\`bash
+claw "say hello"
+\`\`\`
+
+If using Claude, confirm the key starts with \`sk-ant-\`. For OpenAI, it should start with \`sk-\`. Expired or revoked keys fail silently — there is no explicit error message, it just does nothing.
+
+## Problem 4: Permission Errors (Mac/Linux)
+
+### Error
+
+\`\`\`
+EACCES: permission denied
+\`\`\`
+
+### Fix
+
+Do not use \`sudo\` blindly. Instead:
+
+\`\`\`bash
+sudo chown -R $(whoami) ~/.npm
+sudo chown -R $(whoami) $(npm config get prefix)/lib/node_modules
+\`\`\`
+
+Then reinstall.
+
+## Problem 5: Python Environment Conflicts
+
+### Symptoms
+
+- Tool execution fails
+- Script errors
+- Missing modules
+
+### Fix
+
+Create a clean virtual environment:
+
+\`\`\`bash
+python -m venv claw-env
+source claw-env/bin/activate
+pip install -r requirements.txt
+\`\`\`
+
+## Problem 6: OpenClaw Runs but Does Nothing
+
+This is very common. You run:
+
+\`\`\`bash
+claw do something
+\`\`\`
+
+…and nothing happens.
+
+### Root cause
+
+- No skills installed
+- No tool permissions configured
+- Wrong model selected
+
+### Fix
+
+- Install skills from ClawHub
+- Check your config file
+- Be specific with your instructions:
+
+\`\`\`bash
+claw write a Python script that scrapes a website
+\`\`\`
+
+Vague prompts produce no execution. The more specific you are, the better OpenClaw performs.
+
+## Problem 7: File / Browser Actions Not Working
+
+### Symptoms
+
+- Cannot open browser
+- Cannot write files
+- Automation fails
+
+### Root cause
+
+Local permissions not granted.
+
+### Fix
+
+- **macOS**: Enable Terminal permissions for Files and Accessibility in System Settings
+- **Windows**: Run terminal as administrator if needed
+- Check OpenClaw config for allowed actions
+
+## Problem 8: Installation Works, But It's Slow or Unstable
+
+### Causes
+
+- Weak API model
+- Rate limits
+- Network issues
+
+### Fix
+
+- Switch model (GPT-4o / Claude 3.5 / local LLM via Ollama)
+- Add retry logic in your config
+- Avoid overly complex tasks in a single command
+
+## Real Setup Example (What Actually Works)
+
+Here is a minimal working setup you can use to verify everything is configured:
+
+\`\`\`bash
+npm install -g openclaw
+export OPENAI_API_KEY=your_key
+
+claw write a Python script that fetches latest AI news
+\`\`\`
+
+Expected behavior:
+
+1. Generates code
+2. Saves file to disk
+3. Outputs result
+
+If this does not work, your setup is still broken. Go back through the checklist.
+
+## Pro Tips (From Real Usage)
+
+- **Always start with simple commands.** Run \`claw "say hello"\` before trying anything complex.
+- **Do not try automation first.** Test basic actions like writing a file or running a script.
+- **Use explicit instructions, not vague prompts.** "Write a Python script that…" works. "Do something cool" does not.
+- **Check logs.** OpenClaw usually tells you what failed. Run with \`--verbose\` flag for more detail.
+- **Test your API key independently.** Use curl to verify the key works before blaming OpenClaw:
+
+\`\`\`bash
+curl https://api.openai.com/v1/models \\
+  -H "Authorization: Bearer $OPENAI_API_KEY"
+\`\`\`
+
+If this returns a list of models, the key is valid.
+
+## When You Should Reinstall Everything
+
+If you hit multiple overlapping issues, do not debug forever — reset:
+
+\`\`\`bash
+npm uninstall -g openclaw
+npm cache clean --force
+npm install -g openclaw
+\`\`\`
+
+This takes 30 seconds and eliminates most corrupted-state problems.
+
+## Final Checklist
+
+Before saying "it does not work," confirm every single one of these:
+
+- Node >= 18 (\`node -v\`)
+- Python installed (\`python --version\`)
+- API key valid (test with curl)
+- CLI accessible (\`claw --version\` returns a version number)
+- At least one simple command works (\`claw "say hello"\`)
+
+If all five pass and you still have issues, the problem is likely in your specific command or skill configuration — not the installation itself.
+
+## FAQ
+
+**Q: I followed every step but \`claw\` command is still not found?**
+
+Close and reopen your terminal. After a global npm install, the current shell session may not have loaded the updated PATH. If a fresh terminal still cannot find it, manually check that the output of \`npm config get prefix\` is in your \`$PATH\` environment variable.
+
+**Q: Does OpenClaw work on native Windows?**
+
+Yes, but WSL2 (Windows Subsystem for Linux) is recommended. Some file operations and browser control features may be limited on native Windows. If you are on Windows, install WSL2 first, then install OpenClaw inside the Linux environment.
+
+**Q: Can I use free models?**
+
+Yes. Running local models through Ollama (like Llama 3 or Mistral) is completely free. However, response quality and speed depend on your hardware — you need at least 8GB RAM for smaller models and a decent GPU for larger ones. For complex tasks, Claude or GPT-4o will give better results.
+
+**Q: What should I do first after installation?**
+
+Run \`claw "say hello"\`. If you see the AI respond, your environment, API key, and CLI are all working. From there, try progressively more complex tasks: write a file, run a script, install a skill.
+
+**Q: How do I know if my problem is installation vs. configuration?**
+
+If \`claw --version\` works but \`claw "say hello"\` does not, it is a configuration issue (usually API key). If \`claw --version\` itself fails, it is an installation issue (PATH, Node version, or npm problem).
+
+---
+
+Installation problems are normal — they are not a sign you are doing something wrong. What matters is: fix the environment first, test step by step, and use clear commands. Once the setup works, OpenClaw becomes incredibly powerful. The installation phase is where most people quit, but it is also the shortest part of the journey.`,
+    author: "Alex Chen",
+    date: "2026-04-09",
+    category: "配置教程",
+    categoryEn: "Troubleshooting",
+    tags: ["installation", "troubleshooting", "setup", "beginner", "2026"],
+    readingTime: 18,
+    image: "/og-image.png"
+  },
 ];
