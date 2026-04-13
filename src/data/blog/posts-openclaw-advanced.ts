@@ -1273,7 +1273,7 @@ This combination truly delivers the vision of "conversation as automation" — j
     id: 19,
     slug: "openclaw-qq-bot-native-integration",
     title: "重磅！OpenClaw v2026.3.31 原生集成 QQ 机器人——国内首个官方接入的社交平台",
-    titleEn: "Breaking: OpenClaw v2026.3.31 Natively Integrates QQ Bot — First Official Social Platform in China",
+    titleEn: "How to Setup OpenClaw QQ Bot (2026) – Step-by-Step Integration Guide",
     excerpt: "OpenClaw 正式发布 v2026.3.31 版本，原生内置 QQ Bot 官方插件。QQ 成为国内首个被 OpenClaw 官方原生接入的社交平台，仅需三步即可完成部署。",
     excerptEn: "OpenClaw officially releases v2026.3.31 with native QQ Bot plugin built-in. QQ becomes the first social platform in China to be natively integrated into OpenClaw, deployable in just 3 steps.",
     content: `4 月 1 日凌晨，OpenClaw 正式发布 v2026.3.31 版本。此次更新最大的亮点是：**原生内置 QQ 机器人（QQ Bot）官方插件**，QQ 成为国内首个被 OpenClaw 官方原生接入的社交平台。

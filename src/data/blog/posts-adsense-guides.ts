@@ -450,7 +450,7 @@ Ready to get started with OpenClaw?
     id: 28,
     slug: "best-openclaw-workflows-productivity",
     title: "最佳 OpenClaw 工作流：用 AI 智能体提升 10 倍生产力",
-    titleEn: "Best OpenClaw Workflows for Productivity: 10x Your Output with AI Agents",
+    titleEn: "OpenClaw Workflow Guide – Real Use Cases (2026)",
     excerpt: "发现最实用的 OpenClaw 工作流——从自动化日报到代码审查，从数据分析到内容创作。每个工作流都包含具体配置步骤和命令示例。",
     excerptEn: "Discover the most practical OpenClaw workflows — from automated daily reports to code reviews, data analysis to content creation. Each workflow includes specific setup steps and command examples.",
     content: `OpenClaw 不只是一个 AI 聊天工具——它的真正威力在于自动化工作流。

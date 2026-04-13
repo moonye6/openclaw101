@@ -18,7 +18,7 @@ const SITE_URL = "https://openclaw101.vip";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "OpenClaw Tutorial & Guide — Learn AI Agent Skills in 7 Days | OpenClaw 101",
+    default: "OpenClaw101 – #1 OpenClaw Guide, Setup & Skills Hub (2026)",
     template: "%s | OpenClaw 101",
   },
   description:
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   creator: "OpenClaw 101",
   publisher: "OpenClaw 101",
   openGraph: {
-    title: "OpenClaw Tutorial & Guide — Learn AI Agent Skills in 7 Days",
+    title: "OpenClaw101 – #1 OpenClaw Guide, Setup & Skills Hub (2026)",
     description:
       "The complete OpenClaw tutorial with 97 curated skills. From installation to advanced automation.",
     url: SITE_URL,
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "OpenClaw Tutorial & Guide — Learn AI Agent Skills in 7 Days",
+    title: "OpenClaw101 – #1 OpenClaw Guide, Setup & Skills Hub (2026)",
     description:
       "The complete OpenClaw tutorial with 97 curated skills. From installation to advanced automation.",
     images: ["/og-image.png"],

@@ -14,10 +14,10 @@ export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'OpenClaw 101 — Setup Guides, Telegram Bot Tutorials & Skills Directory',
-    description: 'The #1 independent guide to OpenClaw. Install OpenClaw, set up Telegram bots, browse 97+ skills on ClawHub, and automate tasks with the open-source AI agent. Beginner-friendly.',
+    title: 'OpenClaw101 – #1 OpenClaw Guide, Setup & Skills Hub (2026)',
+    description: 'The #1 independent OpenClaw guide — install, configure, and automate. Setup tutorials, 97+ ClawHub skills, QQ/Telegram/WhatsApp bot integration, and real workflow use cases.',
     openGraph: {
-      title: 'OpenClaw 101 — Setup Guides, Telegram Bot Tutorials & Skills',
+      title: 'OpenClaw101 – #1 OpenClaw Guide, Setup & Skills Hub (2026)',
       description: 'Install OpenClaw, set up Telegram bots, browse 97+ skills, and automate tasks. Beginner-friendly guides.',
       url: SITE_URL,
       locale: 'en_US',

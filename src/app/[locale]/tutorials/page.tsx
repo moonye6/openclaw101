@@ -9,10 +9,10 @@ export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'OpenClaw Tutorials — 60+ Guides from Installation to Automation (2026)',
-    description: 'Curated collection of 60+ OpenClaw tutorials. Docker setup, Telegram bot configuration, cloud deployment on AWS/Alibaba/Tencent, and advanced automation workflows.',
+    title: 'OpenClaw Tutorial (2026) – Beginner to Advanced Guide',
+    description: 'The complete OpenClaw tutorial — from installation and first bot to advanced automation. 60+ step-by-step guides covering Docker setup, Telegram/QQ/WhatsApp bots, cloud deployment, and workflows.',
     openGraph: {
-      title: 'OpenClaw Tutorials — 60+ Guides (2026)',
+      title: 'OpenClaw Tutorial (2026) – Beginner to Advanced Guide',
       description: 'Docker setup, Telegram bots, cloud deployment, and advanced automation. 60+ curated tutorials.',
       url: `${SITE_URL}/tutorials`,
       locale: 'en_US',

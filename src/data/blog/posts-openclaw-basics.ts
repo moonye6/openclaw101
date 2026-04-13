@@ -529,7 +529,7 @@ Installed skills are automatically available in the Telegram bot. For example, i
     id: 3,
     slug: "openclaw-best-skills",
     title: "OpenClaw 最佳技能推荐：提升效率的 10 个必备插件",
-    titleEn: "OpenClaw Best Skills: 10 Must-Have Plugins",
+    titleEn: "OpenClaw Skills Marketplace (2026) – Best Skills & How to Use",
     excerpt: "从图像生成到视频分析，这些技能将让你的 OpenClaw 如虎添翼。",
     excerptEn: "From image generation to video analysis, these skills will supercharge your OpenClaw.",
     content: `OpenClaw 装好之后，默认就能处理文件、写代码、搜网页。这些通用能力覆盖大部分日常任务，但总有一些场景需要更专业的工具——比如生成图片、操作飞书文档、转录会议录音。
@@ -3393,7 +3393,7 @@ Want to use AI? OpenClaw. Want to build AI? LangChain. Want both? Install both a
     id: 8,
     slug: "best-openclaw-skills-2026",
     title: "2026 最佳 OpenClaw 技能推荐 — 25 个必装 ClawHub 技能",
-    titleEn: "Best OpenClaw Skills 2026 — 25 Must-Install ClawHub Skills",
+    titleEn: "OpenClaw Skills List (2026) – Best GitHub Skills & Setup",
     excerpt: "精选 25 个最实用的 OpenClaw ClawHub 技能，按编程、研究、自动化、内容创作等分类推荐。",
     excerptEn: "Curated list of the 25 most useful OpenClaw ClawHub skills, organized by category: coding, research, automation, content creation, and more.",
     content: `ClawHub 社区市场有上千个技能可供选择，但哪些真正值得安装？经过深度测试，我们精选了 25 个最实用的技能，按场景分类推荐。本文还会介绍技能的工作原理、如何在 ClawHub 上评估技能质量，以及如何创建自己的技能。
