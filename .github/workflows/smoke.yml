@@ -20,9 +20,13 @@ concurrency:
 jobs:
   smoke:
     name: Smoke test ${{ github.event.deployment_status.target_url || inputs.base_url || 'https://openclaw101.vip' }}
-    # deployment_status fires for every state (pending/in_progress/success/failure).
-    # Only run once the deployment has actually succeeded.
-    if: github.event_name != 'deployment_status' || github.event.deployment_status.state == 'success'
+    # deployment_status fires for preview + prod, any state. Only run on
+    # successful PRODUCTION deployments — previews are Vercel-auth-gated (401)
+    # and would fail every smoke assertion.
+    if: >-
+      github.event_name != 'deployment_status' ||
+      (github.event.deployment_status.state == 'success' &&
+       github.event.deployment.environment == 'Production')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
