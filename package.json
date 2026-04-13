@@ -16,7 +16,10 @@
     "test": "playwright test",
     "test:e2e": "playwright test",
     "test:ui": "playwright test --ui",
-    "test:smoke": "playwright test --config=playwright.smoke.config.ts"
+    "test:smoke": "playwright test --config=playwright.smoke.config.ts",
+    "pre-deploy": "bash scripts/pre-deploy.sh",
+    "pre-deploy:quick": "bash scripts/pre-deploy.sh --quick",
+    "prepare": "husky"
   },
   "dependencies": {
     "clsx": "^2.1.1",
