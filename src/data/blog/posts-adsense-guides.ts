@@ -1270,4 +1270,574 @@ Three tips: first, make your prompt more specific by including format requiremen
     readingTime: 16,
     image: "/images/blog/openclaw-workflows.webp"
   },
+  {
+    id: 32,
+    slug: "openclaw-agentskills-clawhub",
+    title: "OpenClaw AgentSkills 完全指南（2026）——ClawHub 新功能详解",
+    titleEn: "OpenClaw AgentSkills Explained (2026) – ClawHub New Features",
+    excerpt: "AgentSkills 是 OpenClaw 里最小的可复用能力单元，ClawHub 是它们的官方市场。本文讲清 AgentSkills 的结构、ClawHub 的 2026 新特性，以及安装和发布流程。",
+    excerptEn: "AgentSkills are the smallest reusable capability unit in OpenClaw; ClawHub is where they live. This guide covers how AgentSkills work, 2026 ClawHub features, and how to install or publish skills.",
+    content: `AgentSkills 是 OpenClaw 生态里最核心的抽象——每一个 Skill 都是一段可以被 Agent 按需调用的能力，例如"发送 Telegram 消息"、"查询数据库"、"调用一个外部 API"。ClawHub 则是 OpenClaw 官方的 Skill 发行市场，负责把社区写好的 Skill 分发到每个人的本地环境。
+
+这篇文章覆盖 AgentSkills 的结构、ClawHub 在 2026 年的新功能，以及作为使用者和发布者你分别要做什么。
+
+## AgentSkills 是什么？
+
+一个 AgentSkill 本质上是一个带有元数据的函数——它对外暴露一个名字、一段自然语言描述、一组参数，以及实际的执行逻辑。Agent 在运行时根据用户输入和任务规划，挑出合适的 Skill 来执行。
+
+和传统 SDK 或 Plugin 的区别在于：
+
+- Skill 的描述是给 LLM 看的，不是给人看的——写得好不好直接决定 Agent 能不能挑对
+- Skill 是沙箱化的，默认只能拿到它声明过的资源和权限
+- Skill 可以组合：一个 Skill 内部可以调用另一个 Skill
+
+## ClawHub 在 2026 做了什么
+
+2026 版 ClawHub 有几个关键升级：
+
+- **一键安装**：\`openclaw skill install <name>\` 直接拉取并校验签名
+- **版本锁定**：每个 Skill 支持 semver，生产环境可以锁死版本避免上游意外变更
+- **权限可见**：安装前 CLI 会打印 Skill 声明的权限清单（网络、文件、Secrets），你确认后才会继续
+- **本地沙箱**：Skill 默认在隔离目录里运行，越界访问会被拒绝并记录审计日志
+- **社区评分**：每个 Skill 有下载量、平均评分和最近问题列表
+
+## 安装一个 Skill
+
+最常见的流程就是三行命令：
+
+\`\`\`bash
+openclaw skill search telegram
+openclaw skill install @official/telegram-send
+openclaw skill list
+\`\`\`
+
+安装完可以在 \`~/.openclaw/skills/\` 看到对应的目录。启用 Skill 之后 Agent 会在启动时把它的描述注入到可用工具清单里。
+
+## 发布你自己的 Skill
+
+1. 用 \`openclaw skill init my-skill\` 生成脚手架
+2. 编辑 \`skill.yaml\` 声明参数、权限、返回值
+3. 在 \`handler.ts\` 里实现执行逻辑
+4. 本地测试：\`openclaw skill test my-skill\`
+5. 发布：\`openclaw skill publish\`
+
+发布需要注册 ClawHub 账号并通过人工审核（主要看权限声明和描述质量）。审核通过后你的 Skill 会出现在 ClawHub 市场。
+
+## 挑选 Skill 的几条建议
+
+不要装来路不明的 Skill。ClawHub 对官方和社区 Skill 做了区分，官方 \`@official/*\` 命名空间下的是 OpenClaw 团队维护的。社区 Skill 在安装时 CLI 会明确告知作者和签名状态。
+
+挑 Skill 的时候重点看：权限声明是否最小化、近 30 天是否有更新、issue 里有没有未解决的严重问题。
+
+## FAQ
+
+**Q: AgentSkills 和 ClawHub Skills 是同一个东西吗？**
+
+本质是同一个概念。AgentSkills 是开发者视角的称呼（强调它是给 Agent 用的），ClawHub Skills 是从分发角度说（强调它在 Hub 里）。
+
+**Q: Skill 之间的依赖怎么管理？**
+
+skill.yaml 里 \`requires\` 字段声明依赖，安装时自动拉起。循环依赖会在发布时被检测并拒绝。
+
+**Q: 可以在企业内网搭私有 Skill 仓库吗？**
+
+可以。\`openclaw skill registry add <url>\` 添加私有源，支持 HTTPS + Token 鉴权。很多团队把内部工具 Skill 放在自建仓库里，对外只暴露 ClawHub 公共 Skill。
+
+## 下一步
+
+- 浏览 [Best OpenClaw Skills 2026](/blog/best-openclaw-skills-2026) 查看推荐的 25 个 Skill
+- 读 [OpenClaw Best Skills](/blog/openclaw-best-skills) 了解必装的 10 款核心 Skill
+- 了解 [OpenClaw API Reference](/blog/openclaw-api-reference) 看 Skill SDK 细节`,
+    contentEn: `AgentSkills are the core abstraction in the OpenClaw ecosystem — each Skill is a reusable piece of capability an agent can invoke on demand, like "send a Telegram message", "query a database", or "call an external API". ClawHub is the official distribution registry where community-built Skills are published and installed from.
+
+This guide covers what AgentSkills are, the 2026 ClawHub upgrades, and what you need to do as both a user and a publisher.
+
+## What Is an AgentSkill?
+
+An AgentSkill is essentially a function wrapped with metadata — a name, a natural-language description, a parameter schema, and an execution body. At runtime, the agent reads user intent, plans the task, and picks the right Skill to execute.
+
+A few things make Skills different from a traditional SDK or plugin:
+
+- The description is written for the LLM, not for humans — bad descriptions mean the agent picks wrong tools
+- Skills are sandboxed: they only get the resources and permissions they explicitly declare
+- Skills are composable: one Skill can invoke another Skill internally
+- Skills have a deterministic interface: same input, same output, which makes evals reliable
+
+## What's New in ClawHub (2026)
+
+ClawHub 2026 brings several meaningful upgrades:
+
+- **One-line install**: \`openclaw skill install <name>\` pulls the Skill and verifies its signature
+- **Version pinning**: every Skill follows semver, so production can lock exact versions and avoid surprise upstream changes
+- **Permission surface**: before install, the CLI prints the Skill's declared permissions (network, files, secrets) — you confirm before it proceeds
+- **Local sandbox**: by default each Skill runs in an isolated directory; out-of-scope access is rejected and audited
+- **Community signals**: download counts, average ratings, and a recent-issues feed surface on every Skill page
+
+## Installing a Skill
+
+The common flow is three commands:
+
+\`\`\`bash
+openclaw skill search telegram
+openclaw skill install @official/telegram-send
+openclaw skill list
+\`\`\`
+
+After install you'll find the Skill under \`~/.openclaw/skills/\`. Once enabled, the agent injects its description into the available-tools list at startup.
+
+## Publishing Your Own Skill
+
+1. Run \`openclaw skill init my-skill\` to scaffold
+2. Edit \`skill.yaml\` — declare params, permissions, return schema
+3. Implement the handler in \`handler.ts\` (or \`handler.py\`)
+4. Test locally: \`openclaw skill test my-skill\`
+5. Publish: \`openclaw skill publish\`
+
+Publishing requires a ClawHub account and a lightweight human review (mainly checking permission declarations and description quality). Once approved, the Skill appears on the ClawHub marketplace.
+
+## Picking Skills Safely
+
+Don't install random Skills. ClawHub separates official from community: the \`@official/*\` namespace is maintained by the OpenClaw team. For community Skills the CLI clearly shows the author and signature status at install time.
+
+When evaluating a Skill, look at three things: is the permission declaration minimal (a Skill that asks for network + filesystem + secrets to "send a message" is suspicious), has it been updated in the last 30 days, and are there any unresolved serious issues in the tracker.
+
+## FAQ
+
+**Q: Are AgentSkills and ClawHub Skills the same thing?**
+
+They refer to the same concept. "AgentSkills" is the developer-facing term (emphasizing they're consumed by agents); "ClawHub Skills" is the distribution angle (they live in the Hub).
+
+**Q: How do Skill-to-Skill dependencies work?**
+
+The \`requires\` field in skill.yaml declares dependencies; install-time resolves and fetches them. Circular dependencies are detected at publish time and rejected.
+
+**Q: Can I host a private Skill registry inside my company?**
+
+Yes. \`openclaw skill registry add <url>\` adds a private source with HTTPS + token auth. Many teams keep internal tools in a private registry and only expose public ClawHub Skills alongside.
+
+**Q: Are Skills versioned per agent or globally?**
+
+Per agent. Your config file pins specific Skill versions for a given agent, so upgrading ClawHub-wide won't silently change behavior for bots that are already deployed.
+
+## Next Steps
+
+- Browse the [best openclaw skills 2026](/blog/best-openclaw-skills-2026) list of 25 recommended Skills
+- Read [openclaw best skills](/blog/openclaw-best-skills) for the 10 must-install core Skills
+- See the [openclaw api reference](/blog/openclaw-api-reference) for Skill SDK details`,
+    author: "OpenClaw 101",
+    date: "2026-04-14",
+    category: "OpenClaw 进阶",
+    categoryEn: "OpenClaw Advanced",
+    tags: ["openclaw", "agentskills", "clawhub", "skills", "marketplace", "2026"],
+    readingTime: 7,
+    image: "/og-image.png"
+  },
+  {
+    id: 33,
+    slug: "openclaw-supported-channels",
+    title: "OpenClaw 支持的消息平台（2026）——QQ、Discord、WhatsApp 等全平台接入清单",
+    titleEn: "OpenClaw Supported Channels (2026) – QQ, Discord, WhatsApp",
+    excerpt: "OpenClaw 在 2026 年支持哪些消息平台？本文给出 QQ、Telegram、Discord、Feishu、Slack、WhatsApp 的接入方式、成熟度和上手链接。",
+    excerptEn: "Which messaging platforms does OpenClaw support in 2026? This guide lists QQ, Telegram, Discord, Feishu, Slack, and WhatsApp — with integration path, maturity level, and setup links.",
+    content: `OpenClaw 的目标是做一个统一的 Agent 运行时，把同一个 Agent 逻辑挂到不同的消息平台上。本文给出 2026 年 OpenClaw 官方和社区支持的 6 个主要消息平台、各自的接入方式、成熟度、以及具体的上手链接。
+
+## 一张表看完全平台支持
+
+| 平台 | 官方原生 | 社区适配 | 成熟度 | 入口文档 |
+|------|---------|---------|--------|----------|
+| Telegram | ✅ | — | 稳定 | [10 分钟搭建教程](/blog/openclaw-telegram-tutorial) |
+| QQ | ✅ (v2026.3.31) | — | 稳定 | [QQ Bot 配置指南](/blog/openclaw-qq-bot-native-integration) |
+| Feishu / 飞书 | ✅ | — | 稳定 | [Feishu 完整教程](/blog/openclaw-feishu-tutorial) |
+| Discord | — | ✅ | 可用 | ClawHub 搜索 \`discord-bridge\` |
+| Slack | — | ✅ | 可用 | ClawHub 搜索 \`slack-adapter\` |
+| WhatsApp | — | ✅ (Cloud API) | 实验 | [WhatsApp 接入指南](/blog/openclaw-whatsapp-integration) |
+
+## 官方原生接入：Telegram / QQ / Feishu
+
+这三个是 OpenClaw 官方直接维护的 Channel。
+
+- **Telegram** 是最早支持的平台，Bot API 开放度高，适合从零快速跑通，参考 [10 分钟上手教程](/blog/openclaw-telegram-tutorial)
+- **QQ** 是 2026.3.31 原生加入的平台，国内第一个官方接入的社交平台，参考 [QQ Bot 集成文档](/blog/openclaw-qq-bot-native-integration)
+- **Feishu** 主要服务企业场景，支持消息、消息卡片、群机器人，参考 [Feishu 教程](/blog/openclaw-feishu-tutorial)
+
+官方 Channel 的共同特点：直接通过 \`openclaw --platform <name>\` 启动，Token 在 config 里配置，升级由官方统一推送。
+
+## 社区适配：Discord / Slack
+
+Discord 和 Slack 目前通过 ClawHub 上的社区 Adapter 接入。
+
+- **Discord**：\`openclaw skill install @community/discord-bridge\`，需要在 Discord 开发者后台创建 Bot 并填入 Token
+- **Slack**：\`openclaw skill install @community/slack-adapter\`，支持 Slack App 的 Events API 和 Slash Commands
+
+社区 Adapter 的好处是迭代快，缺点是你要自己跟进上游 API 变更。如果你的团队重度依赖某个平台，建议 fork 一份到内部私有仓库锁版本。
+
+## 实验支持：WhatsApp
+
+WhatsApp 目前通过 Meta 官方的 Cloud API 对接，属于实验性支持：
+
+- 需要通过 Meta Business 审核才能获得 Cloud API 凭证
+- 官方模板消息和客户发起的 24 小时对话窗口有严格区分
+- 社区 Adapter 处理了模板消息、Webhook 签名校验、Media 上传
+
+详细步骤见 [OpenClaw WhatsApp Integration 指南](/blog/openclaw-whatsapp-integration)。
+
+## 怎么选 Channel？
+
+几个经验规则：
+
+- 快速验证想法 → 用 Telegram，零审核、API 最成熟
+- 国内用户为主 → QQ 或 Feishu，延迟低、合规友好
+- 企业内部协作 → Feishu 或 Slack，看团队现有工具栈
+- 2C 触达海外客户 → WhatsApp（实验），或 Telegram（成熟）
+
+一个 Agent 可以同时挂到多个 Channel——在 config 里声明多个 platform，同一套业务逻辑会并行工作。
+
+## FAQ
+
+**Q: 一个 Bot 能同时跑在 QQ 和 Telegram 吗？**
+
+可以。OpenClaw 的 Agent 核心是 Channel 无关的，只要在启动时 \`--platform telegram --platform qq\` 同时声明即可。
+
+**Q: WhatsApp 什么时候会升级到官方原生支持？**
+
+目前官方没有公开 ETA。Meta 的 Cloud API 审核门槛和商业条款是主要瓶颈。关注 [OpenClaw 发布日志](/blog/openclaw-qq-bot-native-integration) 获取最新官方 Channel 信息。
+
+**Q: 我想接微信，有办法吗？**
+
+微信个人号目前没有合规方案，OpenClaw 不提供也不推荐。企业微信可以通过 Feishu 类似的 API 接入，社区有相关 Adapter。
+
+## 下一步
+
+- 想马上跑一个 Bot？从 [Telegram 教程](/blog/openclaw-telegram-tutorial) 开始最快
+- 想了解每个 Channel 的配置细节？读 [OpenClaw Configuration Guide](/blog/openclaw-configuration-guide)
+- 想自己写 Adapter？参考 [OpenClaw API Reference](/blog/openclaw-api-reference)`,
+    contentEn: `OpenClaw aims to be a unified agent runtime you can plug into any messaging platform, so the same agent logic can reach users wherever they are. This guide lists the 6 main messaging platforms OpenClaw officially or community-supports in 2026, how each is integrated, its maturity level, and the concrete setup path.
+
+## Full Platform Support Table
+
+| Platform | Official native | Community adapter | Maturity | Docs |
+|----------|-----------------|-------------------|----------|------|
+| Telegram | ✅ | — | Stable | [10-minute setup](/blog/openclaw-telegram-tutorial) |
+| QQ | ✅ (v2026.3.31) | — | Stable | [QQ Bot setup guide](/blog/openclaw-qq-bot-native-integration) |
+| Feishu | ✅ | — | Stable | [Feishu complete guide](/blog/openclaw-feishu-tutorial) |
+| Discord | — | ✅ | Usable | ClawHub: \`discord-bridge\` |
+| Slack | — | ✅ | Usable | ClawHub: \`slack-adapter\` |
+| WhatsApp | — | ✅ (Cloud API) | Experimental | [WhatsApp integration](/blog/openclaw-whatsapp-integration) |
+
+## Official Native: Telegram / QQ / Feishu
+
+These three are first-party channels maintained directly by the OpenClaw team.
+
+- **Telegram** was the first supported channel — the Bot API is open, rate-limits are generous, and it's the fastest way to get a working bot end-to-end. See the [10-minute openclaw + telegram tutorial](/blog/openclaw-telegram-tutorial).
+- **QQ** landed natively in v2026.3.31 — the first Chinese social platform with official OpenClaw support. Full setup in the [qq bot integration guide](/blog/openclaw-qq-bot-native-integration).
+- **Feishu** targets enterprise workflows — messages, message cards, group bots, and webhooks all supported. See the [feishu complete guide](/blog/openclaw-feishu-tutorial).
+
+Common traits of official channels: launch with \`openclaw --platform <name>\`, tokens live in config, upgrades ship through the official release channel.
+
+## Community Adapters: Discord / Slack
+
+Discord and Slack are currently integrated via community adapters published on ClawHub.
+
+- **Discord**: \`openclaw skill install @community/discord-bridge\`. You'll create a bot in the Discord Developer Portal and paste the token into your OpenClaw config.
+- **Slack**: \`openclaw skill install @community/slack-adapter\`. Supports Slack App Events API and Slash Commands out of the box.
+
+Community adapters iterate fast — the trade-off is you track upstream API changes yourself. If your team depends heavily on one platform, fork the adapter into a private registry and pin the version.
+
+## Experimental: WhatsApp
+
+WhatsApp integration currently rides on Meta's Cloud API and is flagged experimental:
+
+- You need Meta Business verification to get Cloud API credentials
+- Template messages vs the 24-hour customer-initiated conversation window have strict, separate rules
+- The community adapter handles template messages, webhook signature verification, and media uploads
+
+Step-by-step in the [openclaw whatsapp integration guide](/blog/openclaw-whatsapp-integration).
+
+## How to Pick a Channel
+
+A few heuristics:
+
+- **Fastest prototype** → Telegram. Zero approval, most mature Bot API.
+- **China-first user base** → QQ or Feishu. Low latency, compliance-friendly.
+- **Internal team tools** → Feishu or Slack, depending on existing stack.
+- **Global B2C reach** → WhatsApp (experimental) or Telegram (mature).
+
+A single agent can bind to multiple channels at once — declare multiple platforms in config and the same agent logic runs in parallel on each.
+
+## FAQ
+
+**Q: Can one bot run on QQ and Telegram at the same time?**
+
+Yes. OpenClaw's agent core is channel-agnostic. Just pass \`--platform telegram --platform qq\` at startup or declare both in config.
+
+**Q: When will WhatsApp become an official native channel?**
+
+No public ETA. Meta's Cloud API approval and commercial terms are the main blocker. Watch the [OpenClaw release notes](/blog/openclaw-qq-bot-native-integration) for future channel announcements.
+
+**Q: Can I integrate WeChat?**
+
+Personal WeChat has no compliant API path, so OpenClaw doesn't support it. Enterprise WeChat (企业微信) has a Feishu-style API that community adapters cover.
+
+**Q: Do I need a separate bot token per channel?**
+
+Yes. Each channel has its own auth model — one bot, N tokens, all in your OpenClaw config.
+
+## Next Steps
+
+- Want a working bot today? Start with the [openclaw telegram tutorial](/blog/openclaw-telegram-tutorial).
+- Need per-channel config details? Read the [openclaw configuration guide](/blog/openclaw-configuration-guide).
+- Building your own adapter? Start from the [openclaw api reference](/blog/openclaw-api-reference).`,
+    author: "OpenClaw 101",
+    date: "2026-04-14",
+    category: "OpenClaw 入门",
+    categoryEn: "OpenClaw Basics",
+    tags: ["openclaw", "channels", "qq", "discord", "whatsapp", "telegram", "feishu", "slack"],
+    readingTime: 6,
+    image: "/og-image.png"
+  },
+  {
+    id: 34,
+    slug: "openclaw-whatsapp-integration",
+    title: "OpenClaw WhatsApp 接入指南（2026）——Cloud API 完整配置步骤",
+    titleEn: "OpenClaw WhatsApp Integration (2026) – Step-by-Step Setup Guide",
+    excerpt: "把 OpenClaw Agent 接入 WhatsApp 的完整流程：Meta Business 账号准备、Cloud API 获取凭证、Webhook 配置、模板消息发送、常见报错排查。",
+    excerptEn: "Connect your OpenClaw agent to WhatsApp in under an hour: Meta Business setup, Cloud API credentials, webhook config, template messages, and common error troubleshooting.",
+    content: `WhatsApp 全球月活超过 20 亿，是 B2C 触达海外客户最有效的渠道之一。OpenClaw 通过 Meta 官方的 WhatsApp Cloud API 接入——本文给出完整的 Step-by-Step 流程，从 Meta Business 账号准备到第一条消息发出，大约 45 分钟。
+
+> ⚠️ WhatsApp 接入目前是实验性支持（社区 Adapter）。如果你的业务要求官方原生，可以先用 [Telegram](/blog/openclaw-telegram-tutorial) 或 [QQ](/blog/openclaw-qq-bot-native-integration) 跑通。
+
+## 开始前你需要
+
+- Meta Business 账号（免费，需完成营业信息验证）
+- 一个未被其他 WhatsApp App 占用的手机号（用于接收验证码）
+- OpenClaw 本地或服务器环境（参考 [安装教程](/blog/how-to-install-openclaw)）
+- 一个公网可达的 HTTPS Endpoint（用来接收 WhatsApp Webhook，本地开发可以用 ngrok）
+
+## Step 1：在 Meta 后台创建 App
+
+1. 打开 [developers.facebook.com/apps](https://developers.facebook.com/apps)
+2. 点 "Create App" → 选 "Business" 类型
+3. 添加 "WhatsApp" 产品到 App
+4. 在 "Quickstart" 页面记下 Phone Number ID、WhatsApp Business Account ID，以及临时 Access Token（24 小时有效）
+
+## Step 2：生成长期 Access Token
+
+临时 Token 仅用于测试，生产需要系统用户 Token：
+
+1. 进入 Meta Business Settings → Users → System Users
+2. 新建一个 System User，角色选 "Employee"
+3. 给 System User 授予对应 WhatsApp Business Account 的权限
+4. 点 "Generate New Token"，勾选 \`whatsapp_business_messaging\` 和 \`whatsapp_business_management\` 权限
+5. 复制生成的永久 Token 并妥善保存（⚠️ 只显示一次）
+
+## Step 3：安装 OpenClaw WhatsApp Adapter
+
+\`\`\`bash
+openclaw skill install @community/whatsapp-cloud-api
+\`\`\`
+
+安装时 CLI 会列出 Adapter 声明的权限（网络访问 graph.facebook.com、读取 config 里的 secrets）。确认后继续。
+
+## Step 4：配置凭证
+
+在 \`~/.openclaw/config.yaml\` 添加：
+
+\`\`\`yaml
+channels:
+  whatsapp:
+    phone_number_id: "YOUR_PHONE_NUMBER_ID"
+    access_token: "${ 'WHATSAPP_TOKEN' }"  # 从 env var 读取
+    verify_token: "pick-a-random-string"   # Webhook 校验用
+    api_version: "v20.0"
+\`\`\`
+
+把 Access Token 放到环境变量里，不要直接写进 config：
+
+\`\`\`bash
+export WHATSAPP_TOKEN="EAAxxxx..."
+\`\`\`
+
+## Step 5：配置 Webhook
+
+WhatsApp 通过 Webhook 推送入站消息：
+
+1. 启动 OpenClaw：\`openclaw start --platform whatsapp\`，默认监听 \`/webhooks/whatsapp\`
+2. 本地开发用 ngrok 暴露：\`ngrok http 3000\`
+3. 回到 Meta App → WhatsApp → Configuration → Webhooks
+4. 填 \`https://your-ngrok.ngrok.io/webhooks/whatsapp\` 作为 Callback URL
+5. Verify Token 填步骤 4 里的 \`verify_token\`
+6. 订阅 \`messages\` 事件
+
+## Step 6：发第一条测试消息
+
+Meta 要求首次会话必须是预先审核过的 Template。测试阶段有内置的 \`hello_world\` 模板：
+
+\`\`\`bash
+openclaw whatsapp send \\
+  --to "8613800138000" \\
+  --template hello_world \\
+  --lang en_US
+\`\`\`
+
+对方回复后，你有 24 小时窗口可以发送自由格式消息（称为 "Service Conversation"）。窗口过期后再次主动联系必须走模板。
+
+## 常见错误
+
+- **131051 Parameter value is not valid**：模板参数数量对不上模板定义，检查模板变量
+- **132000 Not Authorized**：Access Token 没有 \`whatsapp_business_messaging\` 权限，或已过期
+- **Webhook verify 失败**：\`verify_token\` 与 Meta 后台填的不一致
+- **一直收不到消息**：检查 Meta 后台 Webhook 是否订阅了 \`messages\` 事件
+
+## 上线前的 Checklist
+
+- [ ] Access Token 通过 env var 注入，不在 git 里
+- [ ] Webhook Endpoint 启用了 HTTPS + 签名校验（\`x-hub-signature-256\`）
+- [ ] 对接 Meta Business 审核，提交至少一个生产用模板
+- [ ] 明确 24 小时会话窗口的业务逻辑，避免超窗再推被降权
+- [ ] 接入监控：入站消息数、发送失败率、模板审核状态
+
+## FAQ
+
+**Q: 必须通过 Meta 审核才能发消息吗？**
+
+开发测试有 test number 额度可以发给验证过的号码，不需要业务审核。但正式上线必须走 Business Verification + 模板审核。
+
+**Q: OpenClaw 支持 WhatsApp Business App（手机版）吗？**
+
+不支持。手机版 Business App 没有公开 API，只能走 Cloud API 或 Business Platform（BSP）。
+
+**Q: 每条消息多少钱？**
+
+按 Meta 定价分类别和地区计费——Marketing、Utility、Authentication 费率不同。具体见 [Meta Pricing](https://developers.facebook.com/docs/whatsapp/pricing)。
+
+## 下一步
+
+- 完成 WhatsApp 后想加 Telegram？看 [Telegram 教程](/blog/openclaw-telegram-tutorial)
+- 想对比全平台支持情况？读 [OpenClaw Supported Channels](/blog/openclaw-supported-channels)
+- 自己写适配器？参考 [OpenClaw API Reference](/blog/openclaw-api-reference)`,
+    contentEn: `WhatsApp has over 2 billion monthly active users, making it one of the highest-reach B2C channels for global customers. OpenClaw integrates with WhatsApp via Meta's official Cloud API. This guide walks through the full setup end-to-end — Meta Business account, Cloud API credentials, webhook config, first message — in about 45 minutes.
+
+> ⚠️ WhatsApp support is currently experimental (community adapter). If you need official first-party support today, start with [Telegram](/blog/openclaw-telegram-tutorial) or [QQ](/blog/openclaw-qq-bot-native-integration).
+
+## Before You Start
+
+- A Meta Business account (free, requires business verification)
+- A phone number not currently used by any WhatsApp app (for verification codes)
+- A running OpenClaw environment (see the [installation guide](/blog/how-to-install-openclaw))
+- A public HTTPS endpoint to receive webhooks (ngrok works for local dev)
+
+## Step 1: Create an App in Meta's Dashboard
+
+1. Go to [developers.facebook.com/apps](https://developers.facebook.com/apps)
+2. Click "Create App" → choose the "Business" type
+3. Add the "WhatsApp" product to the app
+4. On the Quickstart page, note down: Phone Number ID, WhatsApp Business Account ID, and the temporary Access Token (valid 24 hours)
+
+## Step 2: Generate a Permanent Access Token
+
+Temporary tokens are for testing only. For production you need a System User token:
+
+1. Go to Meta Business Settings → Users → System Users
+2. Create a new System User with the "Employee" role
+3. Grant the System User access to your WhatsApp Business Account
+4. Click "Generate New Token" and tick the \`whatsapp_business_messaging\` and \`whatsapp_business_management\` scopes
+5. Copy the generated token and store it securely (⚠️ shown only once)
+
+## Step 3: Install the OpenClaw WhatsApp Adapter
+
+\`\`\`bash
+openclaw skill install @community/whatsapp-cloud-api
+\`\`\`
+
+During install, the CLI lists the permissions the adapter declares (network access to graph.facebook.com, reading secrets from config). Confirm to continue.
+
+## Step 4: Configure Credentials
+
+Add to \`~/.openclaw/config.yaml\`:
+
+\`\`\`yaml
+channels:
+  whatsapp:
+    phone_number_id: "YOUR_PHONE_NUMBER_ID"
+    access_token: "${ 'WHATSAPP_TOKEN' }"  # read from env
+    verify_token: "pick-a-random-string"   # used for webhook verification
+    api_version: "v20.0"
+\`\`\`
+
+Keep the access token in an environment variable, never in the config file itself:
+
+\`\`\`bash
+export WHATSAPP_TOKEN="EAAxxxx..."
+\`\`\`
+
+## Step 5: Wire Up the Webhook
+
+WhatsApp delivers inbound messages via webhook:
+
+1. Start OpenClaw: \`openclaw start --platform whatsapp\`. It listens on \`/webhooks/whatsapp\` by default.
+2. For local development, expose it with ngrok: \`ngrok http 3000\`
+3. In the Meta App dashboard → WhatsApp → Configuration → Webhooks
+4. Set the Callback URL to \`https://your-ngrok.ngrok.io/webhooks/whatsapp\`
+5. Set Verify Token to the value from Step 4
+6. Subscribe to the \`messages\` event
+
+## Step 6: Send Your First Test Message
+
+Meta requires the first message to be a pre-approved template. In testing, the built-in \`hello_world\` template is available:
+
+\`\`\`bash
+openclaw whatsapp send \\
+  --to "14155551234" \\
+  --template hello_world \\
+  --lang en_US
+\`\`\`
+
+Once the user replies, you have a 24-hour "Service Conversation" window to send free-form messages. After that window closes, any outbound message must again be a template.
+
+## Common Errors
+
+- **131051 Parameter value is not valid**: template parameter count doesn't match the template definition — check template variables
+- **132000 Not Authorized**: access token is missing \`whatsapp_business_messaging\` scope or has expired
+- **Webhook verify failure**: the \`verify_token\` doesn't match what's set in the Meta dashboard
+- **No inbound messages arriving**: confirm the Meta dashboard has the \`messages\` event subscribed
+
+## Pre-Launch Checklist
+
+- [ ] Access token injected via env var, not committed to git
+- [ ] Webhook endpoint uses HTTPS and verifies \`x-hub-signature-256\`
+- [ ] Submitted at least one production template for Meta approval
+- [ ] 24-hour window logic is explicit — avoid over-window sends that hurt sender quality
+- [ ] Monitoring in place: inbound message count, send failure rate, template approval status
+
+## FAQ
+
+**Q: Do I need Meta Business verification to send messages?**
+
+For dev/test there's a free test-number quota you can send to verified recipients without full business verification. For production you need Business Verification plus template approval.
+
+**Q: Does OpenClaw support the WhatsApp Business App (mobile)?**
+
+No. The mobile Business App has no public API. You must use Cloud API or a BSP (Business Solution Provider).
+
+**Q: How much does each message cost?**
+
+Meta prices per conversation category (Marketing, Utility, Authentication) and region. See [Meta's WhatsApp pricing](https://developers.facebook.com/docs/whatsapp/pricing) for current rates.
+
+**Q: Can I send images, videos, and documents?**
+
+Yes. The adapter supports media uploads via the Cloud API Media endpoint. Each media type has size limits (image 5MB, video 16MB, document 100MB as of 2026).
+
+## Next Steps
+
+- Want to add Telegram too? See the [telegram bot tutorial](/blog/openclaw-telegram-tutorial).
+- Need the full channel matrix? Read [openclaw supported channels](/blog/openclaw-supported-channels).
+- Writing your own adapter? Start from the [openclaw api reference](/blog/openclaw-api-reference).`,
+    author: "OpenClaw 101",
+    date: "2026-04-14",
+    category: "OpenClaw 进阶",
+    categoryEn: "OpenClaw Advanced",
+    tags: ["openclaw", "whatsapp", "integration", "cloud-api", "2026", "setup"],
+    readingTime: 7,
+    image: "/og-image.png"
+  },
 ];
