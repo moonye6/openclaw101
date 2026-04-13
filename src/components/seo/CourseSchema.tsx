@@ -10,8 +10,10 @@ interface CourseSchemaProps {
   lessons?: CourseItem[];
 }
 
+type JsonLd = Record<string, unknown>;
+
 export function CourseSchema({ name, description, provider, lessons }: CourseSchemaProps) {
-  const jsonLd: any = {
+  const jsonLd: JsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Course',
     name,
