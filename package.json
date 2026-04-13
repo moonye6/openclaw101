@@ -8,11 +8,15 @@
     "start": "next start",
     "lint": "eslint",
     "lint:structure": "node scripts/lint-structure.js",
+    "typecheck": "tsc --noEmit",
     "check:blog": "node scripts/check-blog.mjs",
-    "validate": "eslint && node scripts/lint-structure.js && node scripts/check-blog.mjs",
+    "check:routes": "node scripts/check-dynamic-routes.mjs",
+    "check:links": "node scripts/check-internal-links.mjs",
+    "validate": "pnpm typecheck && pnpm lint && pnpm lint:structure && pnpm check:routes && pnpm check:links && pnpm check:blog",
     "test": "playwright test",
     "test:e2e": "playwright test",
-    "test:ui": "playwright test --ui"
+    "test:ui": "playwright test --ui",
+    "test:smoke": "playwright test --config=playwright.smoke.config.ts"
   },
   "dependencies": {
     "clsx": "^2.1.1",

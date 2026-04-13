@@ -1,0 +1,52 @@
+name: Smoke (post-deploy)
+
+on:
+  deployment_status:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: 'Target URL to smoke test'
+        required: false
+        default: 'https://openclaw101.vip'
+  schedule:
+    # Daily smoke of production at 02:17 UTC — catches upstream regressions
+    # (CDN config drift, expired pages, broken redirects).
+    - cron: '17 2 * * *'
+
+concurrency:
+  group: smoke-${{ github.event.deployment_status.target_url || inputs.base_url || 'prod' }}
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    name: Smoke test ${{ github.event.deployment_status.target_url || inputs.base_url || 'https://openclaw101.vip' }}
+    # deployment_status fires for every state (pending/in_progress/success/failure).
+    # Only run once the deployment has actually succeeded.
+    if: github.event_name != 'deployment_status' || github.event.deployment_status.state == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      BASE_URL: ${{ github.event.deployment_status.target_url || inputs.base_url || 'https://openclaw101.vip' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Smoke tests
+        run: pnpm test:smoke
+      - name: Upload smoke report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-report-${{ github.run_id }}
+          path: playwright-report
+          retention-days: 14
+          if-no-files-found: ignore

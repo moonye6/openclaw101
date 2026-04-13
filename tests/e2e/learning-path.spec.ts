@@ -151,7 +151,7 @@ test.describe('Learning Path - 404 handling', () => {
   test('should handle invalid day number gracefully', async ({ page }) => {
     const response = await page.goto('/en/learn/99');
     // Should return 404 or redirect
-    expect(response?.status()).toBeOneOf([200, 404]);
+    expect([200, 404]).toContain(response?.status());
   });
 });
 
