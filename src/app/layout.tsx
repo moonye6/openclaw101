@@ -18,11 +18,11 @@ const SITE_URL = "https://openclaw101.vip";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "OpenClaw101 – #1 OpenClaw Guide, Setup & Skills Hub (2026)",
-    template: "%s | OpenClaw 101",
+    default: "OpenClaw101 — Complete OpenClaw Guide, Setup & Skills Hub",
+    template: "%s | OpenClaw101",
   },
   description:
-    "The complete OpenClaw tutorial with 72 curated skills. Learn how to install, configure, and automate with the open-source AI agent step by step.",
+    "OpenClaw101 — the complete independent guide to OpenClaw. Install, configure, and build Telegram, QQ, and WhatsApp bots. Browse 97+ ClawHub skills and real workflow use cases.",
   keywords: [
     "OpenClaw tutorial",
     "OpenClaw guide",
