@@ -1261,7 +1261,26 @@ Three tips: first, make your prompt more specific by including format requiremen
 ---
 
 *Last updated: April 2026*
-*Content reviewed by the OpenClaw 101 editorial team*`,
+*Content reviewed by the OpenClaw 101 editorial team*
+
+## FAQ
+
+**Q: How long does each workflow take to set up?**
+
+Most of these take 15–30 minutes for first setup. Reusing them afterward is a single command or a scheduled cron.
+
+**Q: Can workflows be combined?**
+
+Yes. One workflow can invoke another by calling its entry command. A daily report workflow can trigger code-review for flagged PRs, which can then post to Slack via the channel adapter.
+
+**Q: Do workflows run locally or in the cloud?**
+
+Both. The same workflow definition runs on your laptop with \`openclaw start\` or on a VPS/container in production. See the [deployment guide](/blog/openclaw-deployment-guide) for production patterns.
+
+**Q: How do I debug a workflow that breaks?**
+
+Run it with \`--log-level debug\` to see every Skill invocation. Each Skill logs its inputs, outputs, and elapsed time — so you can pinpoint the slow or failing step quickly.
+`,
     author: "Marco Liu",
     date: "2026-04-08",
     category: "OpenClaw 入门",

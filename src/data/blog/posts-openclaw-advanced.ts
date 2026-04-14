@@ -1656,7 +1656,15 @@ No. OpenClaw is entirely self-hosted. QQ Bot messages travel from Tencent's serv
 - **Rich media**: Images, audio, and video fully supported
 - **Multi-platform ready**: Run QQ and Telegram bots from the same OpenClaw instance
 
-Ready to chat with your AI assistant in QQ? Upgrade to the latest version now!`,
+Ready to chat with your AI assistant in QQ? Upgrade to the latest version now!
+
+## Next Steps
+
+- Want to add more channels? See [OpenClaw Supported Channels](/blog/openclaw-supported-channels) for the full platform list.
+- Prefer Telegram first? Start with the [openclaw telegram tutorial](/blog/openclaw-telegram-tutorial).
+- Need WhatsApp reach? Read the [openclaw whatsapp integration](/blog/openclaw-whatsapp-integration) guide.
+- Broader config reference: [OpenClaw Configuration Guide](/blog/openclaw-configuration-guide).
+`,
     author: "OpenClaw 101",
     date: "2026-04-02",
     category: "新闻动态",

@@ -904,7 +904,33 @@ All skills on ClawHub go through a basic security review. However, skills that c
 
 **Q: Is there a limit on how many skills I can install?**
 
-No hard limit right now. That said, we recommend keeping 5 to 8 skills active at a time. Too many active skills slow down the initial response as OpenClaw loads their context. You can disable a skill without uninstalling it using \`openclaw skills disable <skill-name>\`.`,
+No hard limit right now. That said, we recommend keeping 5 to 8 skills active at a time. Too many active skills slow down the initial response as OpenClaw loads their context. You can disable a skill without uninstalling it using \`openclaw skills disable <skill-name>\`.
+
+## FAQ
+
+**Q: Which Skill should I install first?**
+
+Start with \`@official/shell\` and \`@official/file-read\` — they unlock most common tasks without extra setup. Add one domain-specific Skill at a time so you can tell which one made the difference.
+
+**Q: Do these Skills cost money?**
+
+The Skills themselves are free. Some wrap paid upstream APIs (OpenAI, Anthropic, image generation, etc.) — you provide your own API key via env vars, and you pay the upstream provider directly.
+
+**Q: Can I run these Skills offline?**
+
+Yes, if the Skill doesn't call an external API. Shell, file, and local-LLM Skills work fully offline. Cloud-dependent Skills (GPT, Gemini, image generation) need network access.
+
+**Q: How is this list different from "OpenClaw Skills List (2026)"?**
+
+This one is the 10-Skill essential starter pack. The [OpenClaw Skills List (2026)](/blog/best-openclaw-skills-2026) is broader — 25 Skills across categories for when you're ready to go deeper.
+
+## Next Steps
+
+- Ready for more? See the broader [OpenClaw Skills List (2026)](/blog/best-openclaw-skills-2026).
+- Want to know how Skills work under the hood? Read [OpenClaw AgentSkills Explained](/blog/openclaw-agentskills-clawhub).
+- Looking for workflow inspiration? Try the [OpenClaw Workflow Guide](/blog/best-openclaw-workflows-productivity).
+- Publish your own Skill — see the [OpenClaw API Reference](/blog/openclaw-api-reference).
+`,
     author: "OpenClaw 101",
     date: "2026-03-17",
     category: "技能推荐",
@@ -3941,7 +3967,33 @@ All skills on ClawHub go through a basic security review. However, skills that c
 
 **Q: Is there a limit on how many skills I can install?**
 
-There is no hard limit. That said, we recommend keeping 5 to 8 skills active at a time. Too many active skills slow down the initial response because OpenClaw needs to load their context. You can disable a skill without uninstalling it using \`openclaw skills disable <skill-name>\`.`,
+There is no hard limit. That said, we recommend keeping 5 to 8 skills active at a time. Too many active skills slow down the initial response because OpenClaw needs to load their context. You can disable a skill without uninstalling it using \`openclaw skills disable <skill-name>\`.
+
+## FAQ
+
+**Q: How do I install a Skill from this list?**
+
+Run \`openclaw skill install @official/<skill-name>\` or \`@community/<skill-name>\`. The CLI prints the declared permissions and asks you to confirm before fetching.
+
+**Q: Are all Skills safe?**
+
+Official Skills under \`@official/*\` are maintained by the OpenClaw team. Community Skills show the author and signature status at install time — check the permissions declaration and the last-updated date before installing.
+
+**Q: Can I pin a Skill version in production?**
+
+Yes. Add \`version: "x.y.z"\` to the skill entry in your config. ClawHub uses semver, so minor upgrades won't ship surprise breaking changes if you pin.
+
+**Q: How do I uninstall or disable a Skill?**
+
+\`openclaw skill remove <name>\` removes it entirely. To keep it installed but disabled, toggle the \`enabled\` flag in your config.
+
+## Next Steps
+
+- New to Skills? Read [OpenClaw AgentSkills Explained](/blog/openclaw-agentskills-clawhub) first.
+- Want the 10-skill starter pack? See [OpenClaw Skills Marketplace](/blog/openclaw-best-skills).
+- Building your own Skill? Check the [OpenClaw API Reference](/blog/openclaw-api-reference).
+- Browse the full [Skills directory](/skills) for 97+ curated picks.
+`,
     author: "Marco Liu",
     date: "2026-03-29",
     category: "技能推荐",
