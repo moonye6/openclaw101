@@ -836,7 +836,33 @@ For repetitive requests (such as listing available skills), cache the results on
 
 ---
 
-*Last updated: 2026-03-29*`,
+*Last updated: 2026-03-29*
+
+## FAQ
+
+**Q: Is the API stable across versions?**
+
+Public API follows semver — breaking changes only on major versions. Internal APIs (prefixed \`_internal\` or in \`@openclaw/core\`) can change on minor versions, so don't depend on them.
+
+**Q: How do I authenticate API calls?**
+
+Short-lived tokens via the CLI (\`openclaw token create\`), long-lived via API key in \`~/.openclaw/config.yaml\`. Never hardcode tokens in code — use env vars. See [OpenClaw Security Guide](/blog/openclaw-security-guide) for full threat model.
+
+**Q: Is there rate limiting on the API?**
+
+Self-hosted has no upstream limits beyond your machine. The managed plan (ClawHub Cloud) has per-minute and daily limits documented in the dashboard.
+
+**Q: How do I build a custom Skill that uses this API?**
+
+Start with \`openclaw skill init\`, implement the handler, declare the APIs you'll call in skill.yaml. See [OpenClaw AgentSkills Explained](/blog/openclaw-agentskills-clawhub) for the full lifecycle.
+
+## Next Steps
+
+- Learn the Skill model: [OpenClaw AgentSkills Explained](/blog/openclaw-agentskills-clawhub)
+- Add a channel to your agent: [OpenClaw Supported Channels](/blog/openclaw-supported-channels)
+- Ship safely: [OpenClaw Security Guide](/blog/openclaw-security-guide)
+- Configure per-environment: [OpenClaw Configuration Guide](/blog/openclaw-configuration-guide)
+`,
     author: "OpenClaw 101",
     date: "2026-03-29",
     category: "技术深度",
@@ -3044,7 +3070,33 @@ If none of the above solutions resolve your issue:
 
 ---
 
-*Last updated: 2026-03-29*`,
+*Last updated: 2026-03-29*
+
+## FAQ
+
+**Q: Where do I check logs first?**
+
+\`~/.openclaw/logs/\` rotates daily. Start with \`today.log\` and grep for \`ERROR\` or \`WARN\`. Run with \`--log-level debug\` when reproducing an issue to get full traces.
+
+**Q: Why is my Skill failing silently?**
+
+Silent failures usually mean the Skill's permission declaration doesn't match what it actually does. Re-run with \`--log-level debug\` and check the permission-denied entries.
+
+**Q: My agent responds slowly. How do I diagnose?**
+
+Enable Skill-level timing via \`--profile\`. Each Skill logs its input, output, and elapsed ms. The slowest Skill is usually an LLM call or an uncached external API.
+
+**Q: I'm getting the same error after upgrading — help?**
+
+Run \`openclaw doctor\` — it checks config validity, Skill versions, and common breakage patterns. 80% of post-upgrade errors are stale cached Skills; \`openclaw skill update --all\` usually fixes it.
+
+## Next Steps
+
+- Install-time issues: [OpenClaw Installation Troubleshooting](/blog/openclaw-installation-troubleshooting)
+- Top 15 errors and fixes: [15 Common OpenClaw Errors](/blog/openclaw-common-errors)
+- Skill-specific debugging: [OpenClaw AgentSkills Explained](/blog/openclaw-agentskills-clawhub)
+- Config reference: [OpenClaw Configuration Guide](/blog/openclaw-configuration-guide)
+`,
     author: "OpenClaw 101",
     date: "2026-03-29",
     category: "技术教程",
@@ -5860,7 +5912,33 @@ OpenClaw enterprise application scenarios at a glance:
 1. Clearly define pain points and measurable goals before starting
 2. Begin with a small pilot scenario and expand after proving value
 3. Continuously optimize and iterate on the implementation
-4. Prioritize security configuration and permission management from day one`,
+4. Prioritize security configuration and permission management from day one
+
+## FAQ
+
+**Q: Is OpenClaw actually production-ready for enterprise?**
+
+Yes for teams with internal DevOps capacity. The 5 cases here are from companies running OpenClaw against real traffic. It's not yet a "plug-and-play enterprise SaaS" — you self-host and integrate.
+
+**Q: What about compliance (SOC 2, GDPR, HIPAA)?**
+
+Self-hosting means compliance is inherited from your infrastructure. OpenClaw core doesn't store customer data by default; Skills that do (e.g., notion-api) need their own compliance review.
+
+**Q: How does this compare to LangChain or Haystack in an enterprise setting?**
+
+LangChain is a Python library — more flexible but more DIY for production. OpenClaw is an agent runtime — opinionated defaults for multi-channel, scheduling, and Skill isolation. See [OpenClaw vs LangChain](/blog/openclaw-vs-langchain) for the full trade-off.
+
+**Q: What's the minimum team size to adopt OpenClaw?**
+
+One motivated engineer can run OpenClaw in production for a department. Multi-team rollouts work well with a dedicated platform owner.
+
+## Next Steps
+
+- Deploy to production: [OpenClaw Deployment Guide](/blog/openclaw-deployment-guide)
+- Self-host at scale: [Complete Guide to OpenClaw Self-hosting](/blog/openclaw-self-hosting-guide)
+- Secure your rollout: [OpenClaw Security Guide](/blog/openclaw-security-guide)
+- Framework comparison: [OpenClaw vs LangChain](/blog/openclaw-vs-langchain)
+`,
     author: "OpenClaw 101",
     date: "2026-03-21",
     category: "企业应用",
@@ -6785,7 +6863,33 @@ ClawCon surfaced several broader trends worth tracking:
 
 ---
 
-**See you at ClawCon 2027!**`,
+**See you at ClawCon 2027!**
+
+## FAQ
+
+**Q: Will there be a ClawCon 2027?**
+
+No date announced yet, but the community is planning to repeat it. Watch the OpenClaw Discord or GitHub for updates.
+
+**Q: Are talk recordings available?**
+
+Yes — recordings go up on the community YouTube within 2-4 weeks of the event. Slides from most talks are in the ClawCon 2026 GitHub repo under the community org.
+
+**Q: Can I run a local ClawCon meetup?**
+
+Absolutely — the community encourages local chapters. Reach out on Discord for the meetup starter kit (slide templates, talk prompts, swag ordering).
+
+**Q: What were the most-discussed Skills at the event?**
+
+The Telegram, QQ, and WhatsApp channel adapters and the new ClawHub signing flow dominated hallway conversations. See [Best OpenClaw Skills 2026](/blog/best-openclaw-skills-2026) for the current top picks.
+
+## Next Steps
+
+- Try the community's top Skills: [OpenClaw Skills List (2026)](/blog/best-openclaw-skills-2026)
+- Build your first agent: [How to Install OpenClaw](/blog/how-to-install-openclaw)
+- See what's new in ClawHub: [OpenClaw AgentSkills Explained](/blog/openclaw-agentskills-clawhub)
+- Get production-ready: [OpenClaw Deployment Guide](/blog/openclaw-deployment-guide)
+`,
     author: "OpenClaw 101",
     date: "2026-03-21",
     category: "行业动态",
@@ -7214,7 +7318,33 @@ When deciding between these four tools, consider these factors:
 
 **In summary**: There is no single "best" AI Agent -- only the one that best fits your specific needs and workflow.
 
-We recommend starting with **OpenClaw** (free and open source) as your primary AI assistant. If your primary focus is coding, add Cursor to your toolkit for the in-editor experience. If you specifically need web browser automation for tasks like form filling or data scraping, consider Manus. And if you want to experiment with fully autonomous AI agents, AutoGPT is the place to start.`,
+We recommend starting with **OpenClaw** (free and open source) as your primary AI assistant. If your primary focus is coding, add Cursor to your toolkit for the in-editor experience. If you specifically need web browser automation for tasks like form filling or data scraping, consider Manus. And if you want to experiment with fully autonomous AI agents, AutoGPT is the place to start.
+
+## FAQ
+
+**Q: Which tool should I pick if I just want to ship code faster?**
+
+For pure coding speed, Cursor is the tightest editor integration. For running actual agents that execute Skills, OpenClaw wins. Manus sits between the two and tries to own the full lifecycle, which is a bigger commitment.
+
+**Q: Can I use OpenClaw alongside Cursor?**
+
+Yes. Keep Cursor for editor-level AI pair-programming, and use OpenClaw for agent runtime (Telegram/QQ bots, scheduled workflows, Skill orchestration). See [OpenClaw VS Code Extension Setup](/blog/openclaw-vscode-extension) for integration patterns.
+
+**Q: Is OpenClaw open source but Cursor and Manus closed?**
+
+Yes. OpenClaw is MIT-licensed and self-hostable. Cursor is proprietary with a free tier. Manus has an open core plus a paid cloud tier.
+
+**Q: Which has the best skill/plugin ecosystem?**
+
+OpenClaw's ClawHub has 97+ curated Skills with signed publishing. Cursor uses MCP servers (growing fast, less curated). Manus has a smaller, vertically-integrated set. See [OpenClaw Skills Marketplace](/blog/openclaw-best-skills) for the current catalog.
+
+## Next Steps
+
+- Install OpenClaw first: [How to Install OpenClaw](/blog/how-to-install-openclaw)
+- Compare OpenClaw directly with ChatGPT: [OpenClaw vs ChatGPT](/blog/openclaw-vs-chatgpt)
+- Full framework comparison: [OpenClaw vs LangChain](/blog/openclaw-vs-langchain)
+- See OpenClaw in editor: [OpenClaw VS Code Extension Setup](/blog/openclaw-vscode-extension)
+`,
     author: "OpenClaw 101",
     date: "2026-03-21",
     category: "对比评测",
@@ -7598,7 +7728,33 @@ At this cost structure, you only need a handful of paying users to break even. T
 
 **Full Source Code**: [github.com/moonye6/AvatarDoll](https://github.com/moonye6/AvatarDoll)
 
-**Try It Live**: [avatardoll.online](https://avatardoll.online)`,
+**Try It Live**: [avatardoll.online](https://avatardoll.online)
+
+## FAQ
+
+**Q: Is "3 days" realistic if I've never shipped anything?**
+
+Yes for a narrow MVP — a single agent solving one specific problem for one user type. Not yes for a polished multi-user product. Pick a wedge, not a platform.
+
+**Q: What's the cheapest stack to get started?**
+
+Self-host OpenClaw on a \`$5\`/mo VPS, use a free-tier LLM key (Gemini or Groq), plug in ClawHub Skills for the rest. Zero-to-revenue cost under \`$10\`. See [Is OpenClaw Free?](/blog/is-openclaw-free-pricing-guide) for the pricing breakdown.
+
+**Q: What should I validate before building?**
+
+That at least 3 people have said "I'd pay for this" about a specific pain. Without that, build something else. "I thought this was cool" does not equal "I'd pay for this."
+
+**Q: What do I do on day 4?**
+
+Ship to real users, not to production. Show 3-5 people, watch them use it silently, take notes on every confused moment. That list is your day-5-to-10 roadmap.
+
+## Next Steps
+
+- Set up OpenClaw: [How to Install OpenClaw](/blog/how-to-install-openclaw)
+- Pick your channel: [OpenClaw Supported Channels](/blog/openclaw-supported-channels)
+- Automate from day 1: [OpenClaw Workflow Guide](/blog/best-openclaw-workflows-productivity)
+- See real enterprise wedges: [How Enterprises Use OpenClaw](/blog/openclaw-enterprise-use-cases)
+`,
     author: "OpenClaw 101",
     date: "2026-03-21",
     category: "实战案例",
