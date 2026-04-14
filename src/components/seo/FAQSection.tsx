@@ -7,11 +7,21 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { HelpCircle, ChevronDown } from 'lucide-react';
 
-export function FAQSection() {
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface FAQSectionProps {
+  items?: FAQItem[];
+  title?: string;
+}
+
+export function FAQSection({ items: overrideItems, title: overrideTitle }: FAQSectionProps = {}) {
   const params = useParams();
   const locale = params.locale as string;
   const isZh = locale === 'zh';
-  const items = isZh ? faqData.zh : faqData.en;
+  const items = overrideItems ?? (isZh ? faqData.zh : faqData.en);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const t = useTranslations('faq');
 
@@ -23,7 +33,7 @@ export function FAQSection() {
           <div className="flex items-center gap-3 mb-10">
             <HelpCircle className="w-8 h-8 text-brand-light" />
             <h2 className="text-3xl font-bold text-white">
-              {t('title')}
+              {overrideTitle ?? t('title')}
             </h2>
           </div>
 

@@ -1,6 +1,35 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
 import { TutorialList } from '@/components/tutorials/TutorialList';
 import { JsonLd } from '@/components/seo/JsonLd';
+import { FAQSection } from '@/components/seo/FAQSection';
+
+const TUTORIALS_FAQ = [
+  {
+    question: 'Where should I start if I\'m brand new to OpenClaw?',
+    answer: 'Start with the installation guide, then walk through a first bot tutorial end-to-end. Most beginners complete "install + first bot" in under 30 minutes. See the Beginner track below or the OpenClaw installation guide.',
+  },
+  {
+    question: 'Do I need to know how to code?',
+    answer: 'No. OpenClaw is designed so most setup and automation can be done via YAML config and CLI commands. You only need code when building a custom Skill or integrating a non-supported API.',
+  },
+  {
+    question: 'Which platforms can I connect a bot to?',
+    answer: 'Officially: Telegram, QQ, and Feishu. Via community adapters: Discord, Slack, and WhatsApp (experimental). See "OpenClaw Supported Channels" for the full matrix and setup links.',
+  },
+  {
+    question: 'Can I self-host OpenClaw?',
+    answer: 'Yes. Self-hosting is the default. Local (Mac/Linux/Windows), Docker Compose, a VPS, or cloud platforms (AWS, Alibaba, Tencent) all work. Tutorials cover each path.',
+  },
+  {
+    question: 'How is OpenClaw different from ChatGPT or Claude Code?',
+    answer: 'OpenClaw is an agent runtime — it can execute Skills, call external APIs, run scripts, and persist state. ChatGPT is a chat interface; Claude Code is a coding CLI. See the OpenClaw vs Claude Code and OpenClaw vs ChatGPT comparison guides.',
+  },
+  {
+    question: 'How often are tutorials updated?',
+    answer: 'Editorial team reviews tutorials quarterly and after every major OpenClaw release. Articles show a "Last updated" date and version compatibility where relevant.',
+  },
+];
 
 const SITE_URL = 'https://openclaw101.vip';
 
@@ -96,6 +125,35 @@ export default async function TutorialsPage() {
       <section className="py-12">
         <div className="container mx-auto px-4">
           <TutorialList />
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <FAQSection items={TUTORIALS_FAQ} title="OpenClaw Tutorial FAQ" />
+
+      {/* Next-step CTA band */}
+      <section className="py-16 border-t border-white/[0.08]">
+        <div className="container mx-auto px-4 max-w-4xl text-center">
+          <h2 className="text-2xl font-bold text-white">Ready to build?</h2>
+          <p className="mt-3 text-[#9CA3AF]">Pick your next step — each link is a standalone guide.</p>
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+            <Link href="/blog/how-to-install-openclaw" className="block rounded-xl border border-white/[0.08] bg-surface p-5 hover:border-brand/50 transition-colors">
+              <div className="text-white font-semibold">Install OpenClaw</div>
+              <div className="mt-1 text-sm text-[#9CA3AF]">Mac / Linux / Windows — from zero to running agent in 10 min.</div>
+            </Link>
+            <Link href="/blog/how-to-create-telegram-bot" className="block rounded-xl border border-white/[0.08] bg-surface p-5 hover:border-brand/50 transition-colors">
+              <div className="text-white font-semibold">Build a Telegram Bot</div>
+              <div className="mt-1 text-sm text-[#9CA3AF]">Step-by-step guide to your first working bot.</div>
+            </Link>
+            <Link href="/blog/openclaw-qq-bot-native-integration" className="block rounded-xl border border-white/[0.08] bg-surface p-5 hover:border-brand/50 transition-colors">
+              <div className="text-white font-semibold">Setup OpenClaw QQ Bot</div>
+              <div className="mt-1 text-sm text-[#9CA3AF]">Native QQ integration, 3-step deployment.</div>
+            </Link>
+            <Link href="/blog/best-openclaw-skills-2026" className="block rounded-xl border border-white/[0.08] bg-surface p-5 hover:border-brand/50 transition-colors">
+              <div className="text-white font-semibold">Best Skills for 2026</div>
+              <div className="mt-1 text-sm text-[#9CA3AF]">25 must-install ClawHub Skills, by category.</div>
+            </Link>
+          </div>
         </div>
       </section>
     </div>
