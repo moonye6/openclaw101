@@ -46,3 +46,6 @@ package-lock.json
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# operational SEO artifacts (maintenance / content-engine / link-builder)
+/report
