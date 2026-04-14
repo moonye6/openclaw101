@@ -1859,4 +1859,448 @@ Yes. The adapter supports media uploads via the Cloud API Media endpoint. Each m
     readingTime: 7,
     image: "/og-image.png"
   },
+  {
+    id: 35,
+    slug: "openclaw-vscode-extension",
+    title: "OpenClaw VS Code 集成指南（2026）——在编辑器里直接跑 Agent",
+    titleEn: "OpenClaw VS Code Extension & Setup (2026) – Run Agents Inside Your Editor",
+    excerpt: "如何在 VS Code 里使用 OpenClaw：终端集成、MCP 连接、任务触发、调试 Skill。不需要额外插件，开箱即用。",
+    excerptEn: "How to use OpenClaw inside VS Code — terminal integration, MCP connection, task triggers, and Skill debugging. Works out of the box, no custom extension required.",
+    content: `如果你每天的开发时间都在 VS Code 里，把 OpenClaw 接进编辑器能省掉频繁切终端的成本。本文给出 3 种在 VS Code 里跑 OpenClaw 的方式，覆盖轻量使用到深度集成的场景。
+
+## 为什么要在 VS Code 里跑 OpenClaw？
+
+- **上下文更近**：Agent 直接看到你当前文件、git 分支、选中代码
+- **调用更顺**：选中代码 → 右键 → 让 OpenClaw 处理，不用复制粘贴
+- **调试更快**：Skill 执行日志、中间输出直接在编辑器里查看
+- **团队一致**：把启动配置 commit 到 \`.vscode/tasks.json\`，新人 clone 下来立刻能用
+
+## 方式 1：集成终端（最简单）
+
+最低门槛的接法——OpenClaw CLI 在 VS Code 内置终端里直接跑：
+
+\`\`\`bash
+openclaw start --platform telegram
+\`\`\`
+
+配合 VS Code Tasks，把启动命令写进 \`.vscode/tasks.json\`：
+
+\`\`\`json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start OpenClaw",
+      "type": "shell",
+      "command": "openclaw start --platform telegram",
+      "isBackground": true,
+      "presentation": { "panel": "dedicated" }
+    }
+  ]
+}
+\`\`\`
+
+之后 \\\`Cmd/Ctrl+Shift+P\\\` → Run Task → Start OpenClaw。这是 80% 场景下最推荐的接法。
+
+## 方式 2：MCP 连接（深度集成）
+
+MCP（Model Context Protocol）让 VS Code 里支持 MCP 的 AI 助手直接调用 OpenClaw Skills。适用于你在 VS Code 里用 Claude Code、Cursor、Continue 的场景。
+
+1. 启用 MCP 端口：\\\`openclaw start --mcp-port 8765\\\`
+2. 在 AI 助手的 MCP 配置里加 OpenClaw：
+   \`\`\`json
+   {
+     "mcpServers": {
+       "openclaw": { "url": "http://localhost:8765" }
+     }
+   }
+   \`\`\`
+3. AI 助手会自动发现 OpenClaw 已安装的全部 Skills 并按指令调用。
+
+典型用法：在 Claude Code 里说"用 telegram-send 把构建状态推给我"，Claude 走 MCP 调 OpenClaw 的 Telegram Skill。
+
+## 方式 3：Keybinding + Launch 配置（高频用户）
+
+每天启停 Agent 十几次的话，绑快捷键最省时间。
+
+VS Code \`keybindings.json\`：
+
+\`\`\`json
+[
+  { "key": "cmd+shift+o", "command": "workbench.action.tasks.runTask", "args": "Start OpenClaw" },
+  { "key": "cmd+shift+x", "command": "workbench.action.tasks.terminate", "args": "Start OpenClaw" }
+]
+\`\`\`
+
+配合 \`.vscode/launch.json\` 可以 Debug 某个 Skill，单步断点：
+
+\`\`\`json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug OpenClaw Skill",
+      "program": "\${workspaceFolder}/skills/my-skill/handler.js",
+      "cwd": "\${workspaceFolder}"
+    }
+  ]
+}
+\`\`\`
+
+## 关于"OpenClaw VS Code Extension"
+
+OpenClaw 官方目前**没有**在 Marketplace 上架独立 VS Code 扩展。上面三种方式覆盖了扩展能提供的大部分价值（启动、调试、快捷键、MCP）。Marketplace 里社区扩展搜 \`openclaw\` 有几个早期版本，但更新不稳定，生产环境建议 CLI + Tasks 的路子更可靠。
+
+## FAQ
+
+**Q: 能在 Remote SSH / Dev Container 里跑吗？**
+
+可以。VS Code Remote SSH 连上远端之后，CLI 和 Tasks 都照常。MCP 的 localhost 端口需要 VS Code port forwarding。
+
+**Q: 调试 Skill 的时候能看到完整的 Agent 决策吗？**
+
+开 \\\`--log-level debug\\\` 启动，每一步调用、参数、返回值都打到终端。用 VS Code Output 面板过滤，比翻日志文件快。
+
+**Q: 多项目切配置怎么搞？**
+
+OpenClaw 支持 \`--config <path>\`。每个项目的 \`.vscode/tasks.json\` 里写 \\\`openclaw start --config ./.openclaw.yaml\\\`，项目级配置随 workspace 加载。
+
+**Q: Skill 代码热重载？**
+
+默认不热重载。\\\`--watch\\\` 可以让 Skill 文件变化后自动重启，但运行中的会话会断。开发期用，生产不建议。
+
+## 下一步
+
+- 先装 OpenClaw？读 [How to Install OpenClaw](/blog/how-to-install-openclaw).
+- 挑 Skill 试？看 [OpenClaw Skills List (2026)](/blog/best-openclaw-skills-2026).
+- 搞自动化？读 [OpenClaw Workflow Guide](/blog/best-openclaw-workflows-productivity).
+- 深入 API？参考 [OpenClaw API Reference](/blog/openclaw-api-reference).`,
+    contentEn: `If you spend your dev day in VS Code, wiring OpenClaw into the editor saves the context-switch tax. This guide gives you 3 ways to run OpenClaw inside VS Code — from lightweight to deeply integrated.
+
+## Why Run OpenClaw Inside VS Code?
+
+- **Context is closer** — the agent sees your current file, git branch, selected code
+- **Invocations are smoother** — select code, right-click, hand it to OpenClaw
+- **Debugging is faster** — Skill logs and intermediate output show up in the editor
+- **Team-consistent** — commit the startup config to \`.vscode/tasks.json\` and teammates can run it immediately
+
+## Method 1: Integrated Terminal (Simplest)
+
+Lowest friction. Run the OpenClaw CLI in VS Code's built-in terminal:
+
+\`\`\`bash
+openclaw start --platform telegram
+\`\`\`
+
+Combine with VS Code Tasks — \`.vscode/tasks.json\`:
+
+\`\`\`json
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start OpenClaw",
+      "type": "shell",
+      "command": "openclaw start --platform telegram",
+      "isBackground": true,
+      "presentation": { "panel": "dedicated" }
+    }
+  ]
+}
+\`\`\`
+
+Then \\\`Cmd/Ctrl+Shift+P\\\` → Run Task → Start OpenClaw. Recommended for 80% of use cases.
+
+## Method 2: MCP Integration (Deep)
+
+MCP (Model Context Protocol) lets any MCP-aware AI assistant in VS Code invoke OpenClaw Skills directly. Useful with Claude Code, Cursor, or Continue.
+
+1. Enable the MCP port: \\\`openclaw start --mcp-port 8765\\\`
+2. Add OpenClaw to the AI assistant's MCP config:
+   \`\`\`json
+   {
+     "mcpServers": {
+       "openclaw": { "url": "http://localhost:8765" }
+     }
+   }
+   \`\`\`
+3. The AI assistant auto-discovers OpenClaw-installed Skills and routes requests.
+
+Typical use: in Claude Code, say "push the build status via telegram-send" and Claude routes through MCP to OpenClaw's Telegram Skill.
+
+## Method 3: Keybindings + Launch Config (Power Users)
+
+If you start/stop agents dozens of times a day, bind keys. In \`keybindings.json\`:
+
+\`\`\`json
+[
+  { "key": "cmd+shift+o", "command": "workbench.action.tasks.runTask", "args": "Start OpenClaw" },
+  { "key": "cmd+shift+x", "command": "workbench.action.tasks.terminate", "args": "Start OpenClaw" }
+]
+\`\`\`
+
+Pair with \`.vscode/launch.json\` for step-through debugging:
+
+\`\`\`json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug OpenClaw Skill",
+      "program": "\${workspaceFolder}/skills/my-skill/handler.js",
+      "cwd": "\${workspaceFolder}"
+    }
+  ]
+}
+\`\`\`
+
+## About "OpenClaw VS Code Extension"
+
+OpenClaw ships **no** first-party VS Code Marketplace extension today. The three methods above cover most of what an extension would provide (startup, debugging, shortcuts, MCP). Marketplace has a few community extensions under \`openclaw\` — they update irregularly, so for production stick with CLI + Tasks.
+
+## FAQ
+
+**Q: Does it work in Remote SSH or Dev Containers?**
+
+Yes. CLI and Tasks work normally once Remote SSH is connected. For MCP, use VS Code port forwarding to reach the localhost MCP port.
+
+**Q: Can I see the full agent decision trace when debugging?**
+
+Start OpenClaw with \\\`--log-level debug\\\`. Every Skill invocation, inputs, and return values print to the terminal. VS Code Output panel filter is faster than tailing log files.
+
+**Q: How do I switch configs across projects?**
+
+Use \`--config <path>\` in each project's \`.vscode/tasks.json\`: \\\`openclaw start --config ./.openclaw.yaml\\\`. Project config loads with the workspace.
+
+**Q: Can Skill code hot-reload?**
+
+Not by default. \\\`--watch\\\` restarts Skills on file change but drops in-flight sessions. Dev only.
+
+## Next Steps
+
+- New to OpenClaw? Start with [How to Install OpenClaw](/blog/how-to-install-openclaw).
+- Pick Skills to try — see [OpenClaw Skills List (2026)](/blog/best-openclaw-skills-2026).
+- Automate real work — [OpenClaw Workflow Guide](/blog/best-openclaw-workflows-productivity).
+- Go deeper — [OpenClaw API Reference](/blog/openclaw-api-reference).`,
+    author: "OpenClaw 101",
+    date: "2026-04-14",
+    category: "OpenClaw 进阶",
+    categoryEn: "OpenClaw Advanced",
+    tags: ["openclaw", "vscode", "vs-code", "extension", "editor", "mcp", "2026"],
+    readingTime: 6,
+    image: "/og-image.png"
+  },
+  {
+    id: 36,
+    slug: "openclaw-pkm",
+    title: "OpenClaw 个人知识管理指南（2026）——用 AI Agent 搭你的 PKM 工作流",
+    titleEn: "OpenClaw for Personal Knowledge Management (PKM) (2026)",
+    excerpt: "用 OpenClaw 把笔记、书签、待办、日记串成一个可以自动索引、自动整理、自动回顾的 PKM 系统。对接 Obsidian、Notion、Logseq。",
+    excerptEn: "Use OpenClaw to wire notes, bookmarks, tasks, and journals into a PKM workflow that auto-indexes, auto-organizes, and auto-reviews — with Obsidian, Notion, or Logseq.",
+    content: `PKM 的痛点从来不是工具不够——Obsidian、Notion、Logseq 都足够强——而是串不成"真的在用"的系统。OpenClaw 作为 Agent 运行时正好填这个缝：自动索引、标签整理、周期回顾、跨工具同步，全部走 Skill 完成。
+
+这篇给一套**今天就能搭**起来的 PKM 工作流，覆盖 Obsidian / Notion / Logseq。
+
+## PKM 里 OpenClaw 能做什么
+
+不是取代笔记工具，是补齐自动化空白：
+
+- **自动入库**：邮件、文章、聊天记录 → 自动摘要 → 存进笔记库
+- **标签与反向链接**：扫孤立笔记，自动打标签、补 backlink
+- **周期回顾**：每天/每周自动拉"过去同时期"的笔记做复盘
+- **跨工具同步**：Notion task 同步到 Obsidian Daily Note
+- **对话式检索**：问自然语言，Agent 在笔记库做 RAG 并回答
+
+## 方案 A：Obsidian + OpenClaw
+
+Obsidian 本地 Markdown，OpenClaw 直接读写最顺。
+
+**需要的 Skill**：
+- \\\`@official/file-read\\\`、\\\`@official/file-write\\\`
+- \\\`@official/llm-summarize\\\`
+- \\\`@community/obsidian-index\\\`（读 Obsidian 的 backlinks 元数据）
+
+**周复盘 Agent**：每周日晚上扫 \`~/vault/journal/\` 过去 7 天的日记，写一篇"本周发生了什么 + 下周关注点"到 \`weekly-review/YYYY-WW.md\`。
+
+\`\`\`yaml
+agents:
+  - name: obsidian-weekly
+    schedule: "0 21 * * 0"
+    task: |
+      Read all notes in ~/vault/journal/ modified in the last 7 days.
+      Summarize recurring themes, unresolved items, and key insights.
+      Write to ~/vault/weekly-review/\\\${YYYY-WW}.md.
+    skills: [file-read, file-write, llm-summarize]
+\`\`\`
+
+## 方案 B：Notion + OpenClaw
+
+Notion 官方 API 成熟，适合团队 PKM 或重度依赖数据库视图。
+
+**需要的 Skill**：
+- \\\`@community/notion-api\\\`
+- \\\`@community/web-fetch\\\`
+- \\\`@official/llm-tag\\\`
+
+**书签自动入库**：发 URL 给 CLI → Agent 抓页面 → LLM 摘要+打标签 → 存进 Notion "Reading List"。
+
+\`\`\`yaml
+agents:
+  - name: notion-bookmark
+    trigger: cli
+    task: |
+      Given a URL, fetch its content, generate a 3-sentence summary,
+      tag with 3-5 relevant tags, and insert into Notion database
+      "Reading List" with title, URL, summary, tags, added_at.
+    skills: [web-fetch, llm-tag, notion-api]
+\`\`\`
+
+\`openclaw run notion-bookmark --url https://example.com/article\` — 10 秒搞定。
+
+## 方案 C：Logseq + OpenClaw
+
+Logseq 基于块（block），适合"快速捕获→后期整理"。
+
+**需要的 Skill**：
+- \\\`@community/logseq-graph\\\`
+- \\\`@official/llm-cluster\\\`
+
+**孤立块聚类**：orphaned blocks（无 backlink 的块）是最容易被遗忘的知识。Agent 每周扫一次，语义聚类，建议合并或建立 backlink。
+
+## 整合建议
+
+- **入口单一**：所有 PKM Agent 走同一个 OpenClaw 实例，不要分散
+- **幂等设计**：给每条入库加唯一 ID（URL hash/timestamp），入库前查重
+- **回看友好**：每次 Agent 执行日志写到 \`~/vault/agent-log/\`，方便你人工审查
+- **避免幻觉**：标签和摘要只给 LLM 看原文，不要让它"补充背景"
+
+## FAQ
+
+**Q: 我用的是 Roam Research？**
+
+Roam API 有限，双向编辑弱。\`@community/roam-read-only\` 做单向拉取，反向写入走 Markdown 导出。
+
+**Q: 一定要用云端 LLM 吗？**
+
+不。参考 [OpenClaw + LocalAI Integration](/blog/openclaw-localai-integration)，本地 LLM 做摘要和标签够用。
+
+**Q: 能自动把浏览历史转成笔记吗？**
+
+可以但要慎重。加过滤（停留 > 2 min、有正文、排除社交媒体），Agent 只处理"值得记住"的页面。
+
+**Q: 每月多少钱？**
+
+主要是 LLM API——个人用云端大约 \$2–$5/月。本地 LLM 零 API 成本。
+
+## 下一步
+
+- [OpenClaw AgentSkills Explained](/blog/openclaw-agentskills-clawhub) —— 看 Skills 怎么工作
+- [OpenClaw Workflow Guide](/blog/best-openclaw-workflows-productivity) —— 完整工作流模板
+- [OpenClaw + LocalAI Integration](/blog/openclaw-localai-integration) —— 本地 LLM
+- [OpenClaw VS Code Extension](/blog/openclaw-vscode-extension) —— 把 PKM Agent 装进编辑器`,
+    contentEn: `PKM pain isn't about tools — Obsidian, Notion, and Logseq are all powerful enough. The pain is wiring them into a system you actually use. OpenClaw as an agent runtime fills that gap: auto-indexing, tag cleanup, periodic review, cross-tool sync.
+
+This guide gives you a PKM workflow you can stand up today, across Obsidian, Notion, and Logseq.
+
+## What Can OpenClaw Do in a PKM Stack?
+
+It doesn't replace your note tool. It covers the automation gap your note tool leaves behind:
+
+- **Auto-capture**: emails, articles, chats → auto-summary → into notes
+- **Tag and backlink maintenance**: scan orphan notes, auto-tag, add backlinks
+- **Periodic review**: pull "on this date" notes daily/weekly for reflection
+- **Cross-tool sync**: Notion tasks surface in Obsidian's Daily Note
+- **Conversational retrieval**: ask natural-language questions, agent runs RAG over your notes
+
+## Approach A: Obsidian + OpenClaw
+
+Obsidian stores plain Markdown locally — OpenClaw reads and writes it directly.
+
+**Skills**: \\\`@official/file-read\\\`, \\\`@official/file-write\\\`, \\\`@official/llm-summarize\\\`, \\\`@community/obsidian-index\\\`.
+
+**Weekly review agent**: Sunday evening, agent scans \`~/vault/journal/\` for the last 7 days, writes "what happened + focus for next week" to \`weekly-review/YYYY-WW.md\`.
+
+\`\`\`yaml
+agents:
+  - name: obsidian-weekly
+    schedule: "0 21 * * 0"
+    task: |
+      Read all notes in ~/vault/journal/ modified in the last 7 days.
+      Summarize recurring themes, unresolved items, and key insights.
+      Write to ~/vault/weekly-review/\\\${YYYY-WW}.md.
+    skills: [file-read, file-write, llm-summarize]
+\`\`\`
+
+## Approach B: Notion + OpenClaw
+
+Notion has a mature official API. Good for team PKM or database-heavy workflows.
+
+**Skills**: \\\`@community/notion-api\\\`, \\\`@community/web-fetch\\\`, \\\`@official/llm-tag\\\`.
+
+**Bookmark ingestion**: send a URL (email, CLI, share sheet) → agent fetches → LLM summarizes + tags → inserts into Notion "Reading List".
+
+\`\`\`yaml
+agents:
+  - name: notion-bookmark
+    trigger: cli
+    task: |
+      Given a URL, fetch its content, generate a 3-sentence summary,
+      tag with 3-5 relevant tags, and insert into Notion database
+      "Reading List" with title, URL, summary, tags, added_at.
+    skills: [web-fetch, llm-tag, notion-api]
+\`\`\`
+
+\`openclaw run notion-bookmark --url https://example.com/article\` — 10 seconds for what used to be manual.
+
+## Approach C: Logseq + OpenClaw
+
+Logseq is block-based. Good for "capture fast, organize later."
+
+**Skills**: \\\`@community/logseq-graph\\\`, \\\`@official/llm-cluster\\\`.
+
+**Orphan block clustering**: orphan blocks (no backlinks) are Logseq's dark matter — likely forgotten knowledge. Agent scans weekly, clusters semantically similar ones, suggests merges or backlinks.
+
+## Integration Principles
+
+- **Single entry point** — run all PKM agents from one OpenClaw instance with one credential store
+- **Idempotent by design** — each ingestion has a unique ID (URL hash or timestamp); dedupe before insert
+- **Review-friendly** — log every agent execution to \`~/vault/agent-log/\` for auditability
+- **Avoid LLM drift** — for tagging and summarizing, feed only the source text. Don't let the LLM "add background context." A knowledge base needs accuracy, not completeness.
+
+## FAQ
+
+**Q: I use Roam Research — does this work?**
+
+Roam's API is limited and bi-directional editing is weak. Use \`@community/roam-read-only\` for one-way pulls. For writes, go through Markdown export.
+
+**Q: Do I have to use a cloud LLM?**
+
+No. Run a local LLM — see [OpenClaw + LocalAI Integration](/blog/openclaw-localai-integration). Local models are accurate enough for PKM-scale summarization and tagging.
+
+**Q: Can I auto-capture browser history into notes?**
+
+Yes, but carefully. Raw history is noisy. Add filters (dwell > 2 min, clear article content, no social feeds) so the agent only ingests pages worth remembering.
+
+**Q: What does this cost per month?**
+
+Mostly LLM API — personal cloud use is \$2–$5/month. Local LLM is zero API cost but you maintain hardware.
+
+## Next Steps
+
+- [OpenClaw AgentSkills Explained](/blog/openclaw-agentskills-clawhub) — how Skills work under the hood
+- [OpenClaw Workflow Guide](/blog/best-openclaw-workflows-productivity) — full workflow templates
+- [OpenClaw + LocalAI Integration](/blog/openclaw-localai-integration) — local LLM
+- [OpenClaw VS Code Extension](/blog/openclaw-vscode-extension) — PKM agents inside the editor`,
+    author: "OpenClaw 101",
+    date: "2026-04-14",
+    category: "OpenClaw 进阶",
+    categoryEn: "OpenClaw Advanced",
+    tags: ["openclaw", "pkm", "personal-knowledge-management", "obsidian", "notion", "logseq", "2026"],
+    readingTime: 8,
+    image: "/og-image.png"
+  },
 ];
