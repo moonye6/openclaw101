@@ -19,7 +19,7 @@
     "test:smoke": "playwright test --config=playwright.smoke.config.ts",
     "pre-deploy": "bash scripts/pre-deploy.sh",
     "pre-deploy:quick": "bash scripts/pre-deploy.sh --quick",
-    "prepare": "husky"
+    "prepare": "husky || true"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
+    "husky": "^9",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
