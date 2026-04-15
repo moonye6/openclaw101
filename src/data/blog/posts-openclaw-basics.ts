@@ -3421,7 +3421,7 @@ Want to use AI? OpenClaw. Want to build AI? LangChain. Want both? Install both a
     title: "2026 最佳 OpenClaw 技能推荐 — 25 个必装 ClawHub 技能",
     titleEn: "OpenClaw Skills List (2026) – Best GitHub Skills & Setup",
     excerpt: "精选 25 个最实用的 OpenClaw ClawHub 技能，按编程、研究、自动化、内容创作等分类推荐。",
-    excerptEn: "Curated list of the 25 most useful OpenClaw ClawHub skills, organized by category: coding, research, automation, content creation, and more.",
+    excerptEn: "The 25 best OpenClaw skills for 2026 — install commands, GitHub links, and ClawHub marketplace picks across coding, research, automation, and content. Updated quarterly.",
     content: `ClawHub 社区市场有上千个技能可供选择，但哪些真正值得安装？经过深度测试，我们精选了 25 个最实用的技能，按场景分类推荐。本文还会介绍技能的工作原理、如何在 ClawHub 上评估技能质量，以及如何创建自己的技能。
 
 ## 什么是 OpenClaw 技能？

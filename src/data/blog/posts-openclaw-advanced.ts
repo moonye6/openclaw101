@@ -1273,9 +1273,9 @@ This combination truly delivers the vision of "conversation as automation" — j
     id: 19,
     slug: "openclaw-qq-bot-native-integration",
     title: "重磅！OpenClaw v2026.3.31 原生集成 QQ 机器人——国内首个官方接入的社交平台",
-    titleEn: "How to Setup OpenClaw QQ Bot (2026) – Step-by-Step Integration Guide",
-    excerpt: "OpenClaw 正式发布 v2026.3.31 版本，原生内置 QQ Bot 官方插件。QQ 成为国内首个被 OpenClaw 官方原生接入的社交平台，仅需三步即可完成部署。",
-    excerptEn: "OpenClaw officially releases v2026.3.31 with native QQ Bot plugin built-in. QQ becomes the first social platform in China to be natively integrated into OpenClaw, deployable in just 3 steps.",
+    titleEn: "OpenClaw QQ Bot & Channel Support (2026) – Native Setup Guide",
+    excerpt: "OpenClaw 原生支持 QQ Bot 和 QQ Channel 接入。本文给出 BotFather 注册、Token 配置、Channel 权限、插件安装的完整 3 步部署流程，附常见报错。",
+    excerptEn: "How to set up OpenClaw on QQ — native Bot and Channel support, step by step. Covers the @tencent-connect/openclaw-qqbot plugin, permission scopes, and the 3-step deploy. Beginner-friendly.",
     content: `4 月 1 日凌晨，OpenClaw 正式发布 v2026.3.31 版本。此次更新最大的亮点是：**原生内置 QQ 机器人（QQ Bot）官方插件**，QQ 成为国内首个被 OpenClaw 官方原生接入的社交平台。
 
 腾讯轻量云协同 QQ 团队贡献的 QQ Bot 代码已正式合入 OpenClaw 主仓库，OpenClaw 创始人 Peter Steinberger 也公开点赞了这一里程碑事件。
@@ -1630,7 +1630,39 @@ Sources close to Tencent suggest that QQ's community product — Tencent Channel
 
 This signals that AI Agents are evolving from "tools" to "infrastructure."
 
+## QQ Channel Support — what's different from QQ Bot
+
+OpenClaw supports **both QQ Bot (group + DM) and QQ Channel (频道) out of the box**, through the same native integration. Channel support is part of the same \\\`@tencent-connect/openclaw-qqbot\\\` plugin — you don't install anything extra, you just flip a config flag.
+
+Three things to know about QQ Channel specifically:
+
+1. **Permission scope differs** — Channel requires the \\\`channel.read\\\` + \\\`channel.send\\\` scopes on Tencent's Open Platform. Enable them on the same bot registration page.
+2. **Message routing is separate** — channel messages come in with a \\\`channel_id\\\` field; OpenClaw's skill config can route per-channel differently (staff-only, announcements, Q&A, etc.).
+3. **Rate limits are higher in channels** — QQ relaxes per-second caps inside channels vs DMs, so channel-based deployments scale further.
+
+To enable QQ Channel support in an existing OpenClaw QQ deployment, add this to \\\`config.yaml\\\`:
+
+\`\`\`yaml
+platform:
+  qq:
+    enabled: true
+    bot_token: "\${QQ_BOT_TOKEN}"
+    channel:
+      enabled: true          # turn on QQ Channel
+      scopes: [read, send]   # permission scopes
+\`\`\`
+
+Restart OpenClaw and your bot will receive channel messages alongside DMs.
+
 ## FAQ
+
+### What is OpenClaw QQ Channel support (openclaw qq channel support 2026)?
+
+OpenClaw natively supports QQ Channel (QQ 频道) via the same \\\`@tencent-connect/openclaw-qqbot\\\` plugin that handles QQ Bot. Enable it with one config flag; no extra install. Supported since OpenClaw v2026.3.31 and stable through 2026.
+
+### What is the OpenClaw QQ Channel plugin (openclaw qq channel plugin 2026)?
+
+The plugin is \\\`@tencent-connect/openclaw-qqbot\\\` — it ships with OpenClaw core and covers both QQ Bot (DM + group) and QQ Channel in a single install. You don't need a separate "channel plugin"; both modes are one package.
 
 ### What is the difference between QQ Bot and QQ Channel Bot?
 
