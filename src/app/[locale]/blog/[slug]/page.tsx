@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { blogPosts, getBlogPostBySlug, getRelatedPosts, BlogPost } from '@/data/blog';
+import { blogPosts, getBlogPostBySlug, getRelatedPosts } from '@/data/blog';
 import { BlogPostClient } from './BlogPostClient';
 
 const SITE_URL = 'https://openclaw101.vip';

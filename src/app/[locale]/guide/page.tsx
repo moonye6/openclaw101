@@ -6,14 +6,7 @@ const SITE_URL = 'https://openclaw101.vip';
 
 export const revalidate = 3600;
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const isZh = locale === 'zh';
-
+export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'OpenClaw Beginner Guide — Install, Configure & Run Your First AI Agent (2026)',
     description: 'Complete beginner tutorial for OpenClaw. Install on Mac/Linux/Windows, connect to Claude or GPT, set up Telegram bot, and run your first automation. No coding required.',
