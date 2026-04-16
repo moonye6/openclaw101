@@ -35,14 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function Home({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-
-  const isZh = locale === 'zh';
+export default async function Home() {
 
   const websiteJsonLd = {
     '@context': 'https://schema.org',
