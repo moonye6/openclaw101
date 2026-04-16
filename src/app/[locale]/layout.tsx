@@ -18,22 +18,9 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const SITE_URL = 'https://openclaw101.vip';
+  void locale; // locale preserved for future i18n expansion
 
-  return {
-    alternates: {
-      canonical: SITE_URL,
-      languages: {
-        en: `${SITE_URL}/en`,
-        zh: `${SITE_URL}/zh`,
-        'x-default': `${SITE_URL}/en`,
-      },
-    },
-    openGraph: {
-      locale: locale === 'zh' ? 'zh_CN' : 'en_US',
-      alternateLocale: locale === 'zh' ? ['en_US'] : ['zh_CN'],
-    },
-  };
+  return {};
 }
 
 export default async function LocaleLayout({

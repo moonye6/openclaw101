@@ -12,12 +12,7 @@ export const revalidate = 3600;
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  const params: { locale: string; slug: string }[] = [];
-  for (const post of blogPosts) {
-    params.push({ locale: 'en', slug: post.slug });
-    params.push({ locale: 'zh', slug: post.slug });
-  }
-  return params;
+  return blogPosts.map((post) => ({ locale: 'en', slug: post.slug }));
 }
 
 export async function generateMetadata({
@@ -62,11 +57,6 @@ export async function generateMetadata({
     },
     alternates: {
       canonical: `${SITE_URL}/blog/${slug}`,
-      languages: {
-        en: `${SITE_URL}/en/blog/${slug}`,
-        zh: `${SITE_URL}/zh/blog/${slug}`,
-        'x-default': `${SITE_URL}/en/blog/${slug}`,
-      },
     },
   };
 }

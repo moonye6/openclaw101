@@ -445,6 +445,8 @@
     },
     "links": {
       "docs": "Documentation",
+      "blog": "Blog",
+      "faq": "FAQ",
       "github": "GitHub",
       "discord": "Discord",
       "allResources": "All Resources",
