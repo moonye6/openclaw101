@@ -77,8 +77,8 @@ export function Footer() {
             <ul className="space-y-3">
               <li><IntLink href="/guide">{t('links.allResources')}</IntLink></li>
               <li><IntLink href="/examples">{t('links.featuredSkills')}</IntLink></li>
-              <li><IntLink href="/blog">{t('links.docs')}</IntLink></li>
-              <li><IntLink href="/faq">{t('links.docs')}</IntLink></li>
+              <li><IntLink href="/blog">{t('links.blog')}</IntLink></li>
+              <li><IntLink href="/faq">{t('links.faq')}</IntLink></li>
             </ul>
           </div>
 

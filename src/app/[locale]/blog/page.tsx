@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { Link } from '@/i18n/routing';
 import { blogPosts } from '@/data/blog';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
+import { JsonLd } from '@/components/seo/JsonLd';
 
 // Enable ISR - revalidate every hour
 export const revalidate = 3600;
@@ -12,11 +13,6 @@ export async function generateMetadata(): Promise<Metadata> {
     description: 'Practical tutorials on Telegram bots, AI agents, automation workflows, and no-code tools.',
     alternates: {
       canonical: 'https://openclaw101.vip/blog',
-      languages: {
-        en: 'https://openclaw101.vip/en/blog',
-        zh: 'https://openclaw101.vip/zh/blog',
-        'x-default': 'https://openclaw101.vip/en/blog',
-      },
     },
     openGraph: {
       title: 'OpenClaw 101 Blog',
@@ -26,9 +22,30 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+const SITE_URL = 'https://openclaw101.vip';
+
 export default async function BlogPage() {
+  const sortedPosts = [...blogPosts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  const blogListJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: 'OpenClaw 101 Blog',
+    url: `${SITE_URL}/blog`,
+    description: 'Practical tutorials on Telegram bots, AI agents, automation workflows, and no-code tools.',
+    inLanguage: 'en',
+    blogPost: sortedPosts.slice(0, 10).map((post) => ({
+      '@type': 'BlogPosting',
+      headline: post.titleEn,
+      url: `${SITE_URL}/blog/${post.slug}`,
+      datePublished: post.date,
+      author: { '@type': 'Person', name: post.author },
+    })),
+  };
+
   return (
-    <main className="min-h-screen bg-[#0B0F19]">
+    <div className="min-h-screen bg-[#0B0F19]">
+      <JsonLd data={blogListJsonLd} />
       {/* Hero */}
       <section className="relative overflow-hidden py-16 bg-[#0B0F19] border-b border-white/[0.08]">
         <div className="absolute inset-0 bg-gradient-to-br from-brand/10 via-transparent to-accent/5 pointer-events-none" />
@@ -46,7 +63,7 @@ export default async function BlogPage() {
       <section className="py-12">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="grid gap-6">
-            {[...blogPosts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map((post) => (
+            {sortedPosts.map((post) => (
               <article
                 key={post.id}
                 className="bg-[#111827] rounded-xl border border-white/[0.08] overflow-hidden hover:border-brand/30 hover:shadow-lg hover:shadow-brand/5 transition-all duration-300"
@@ -89,6 +106,6 @@ export default async function BlogPage() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

@@ -445,6 +445,8 @@
     },
     "links": {
       "docs": "文档",
+      "blog": "博客",
+      "faq": "常见问题",
       "github": "GitHub",
       "discord": "Discord",
       "allResources": "全部资源",
