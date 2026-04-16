@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { ArrowLeft, Calendar, Clock, Tag, Copy, Check, List } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Tag, List } from 'lucide-react';
 import type { BlogPost } from '@/data/blog';
 import { Link } from '@/i18n/routing';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
@@ -183,7 +183,6 @@ export function BlogPostClient({ post, locale, content, relatedPosts = [] }: Blo
   const isZh = currentLocale === 'zh';
   const title = isZh ? post.title : post.titleEn;
   const [showToc, setShowToc] = useState(false);
-  const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
 
   const breadcrumbItems = [
     { label: isZh ? '首页' : 'Home', href: '/' },

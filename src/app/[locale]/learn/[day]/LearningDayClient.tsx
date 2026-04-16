@@ -1,7 +1,7 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { ArrowLeft, ArrowRight, BookOpen, Target, CheckCircle, Lightbulb } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Target, CheckCircle, Lightbulb } from 'lucide-react';
 import { learningPath } from '@/data/learning-path';
 import { Link } from '@/i18n/routing';
 import { Breadcrumbs } from '@/components/seo/Breadcrumbs';
