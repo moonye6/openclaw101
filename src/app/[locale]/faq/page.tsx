@@ -6,6 +6,11 @@ export const metadata: Metadata = {
   description: 'Find answers to the most common questions about OpenClaw: what it is, how to use it, pricing, supported platforms, security, and more.',
   alternates: {
     canonical: 'https://openclaw101.vip/faq',
+    languages: {
+      en: 'https://openclaw101.vip/en/faq',
+      zh: 'https://openclaw101.vip/zh/faq',
+      'x-default': 'https://openclaw101.vip/en/faq',
+    },
   },
 }
 

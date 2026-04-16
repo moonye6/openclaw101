@@ -48,6 +48,11 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     alternates: {
       canonical: `${SITE_URL}/tutorials`,
+      languages: {
+        en: `${SITE_URL}/en/tutorials`,
+        zh: `${SITE_URL}/zh/tutorials`,
+        'x-default': `${SITE_URL}/en/tutorials`,
+      },
     },
   };
 }

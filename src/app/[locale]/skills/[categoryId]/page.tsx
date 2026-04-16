@@ -43,6 +43,11 @@ export async function generateMetadata({
     },
     alternates: {
       canonical: `${SITE_URL}/skills/${categoryId}`,
+      languages: {
+        en: `${SITE_URL}/en/skills/${categoryId}`,
+        zh: `${SITE_URL}/zh/skills/${categoryId}`,
+        'x-default': `${SITE_URL}/en/skills/${categoryId}`,
+      },
     },
   };
 }

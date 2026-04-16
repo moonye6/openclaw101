@@ -25,10 +25,15 @@ export async function generateMetadata({
       description: isZh
         ? '发现人们如何在现实中使用 AI 智能体。'
         : 'Discover how people use AI agents in real life.',
-      url: `${SITE_URL}/${locale}/use-cases`,
+      url: `${SITE_URL}/use-cases`,
     },
     alternates: {
-      canonical: `${SITE_URL}/${locale}/use-cases`,
+      canonical: `${SITE_URL}/use-cases`,
+      languages: {
+        en: `${SITE_URL}/en/use-cases`,
+        zh: `${SITE_URL}/zh/use-cases`,
+        'x-default': `${SITE_URL}/en/use-cases`,
+      },
     },
   };
 }

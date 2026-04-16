@@ -24,6 +24,11 @@ export async function generateMetadata({
     },
     alternates: {
       canonical: `${SITE_URL}/guide`,
+      languages: {
+        en: `${SITE_URL}/en/guide`,
+        zh: `${SITE_URL}/zh/guide`,
+        'x-default': `${SITE_URL}/en/guide`,
+      },
     },
   };
 }

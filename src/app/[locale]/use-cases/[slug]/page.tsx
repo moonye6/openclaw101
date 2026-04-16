@@ -44,10 +44,15 @@ export async function generateMetadata({
       : `Learn how to use AI agents for ${title}. Step-by-step examples and commands included.`,
     openGraph: {
       title: `${title} — AI Agent Use Case`,
-      url: `${SITE_URL}/${locale}/use-cases/${slug}`,
+      url: `${SITE_URL}/use-cases/${slug}`,
     },
     alternates: {
-      canonical: `${SITE_URL}/${locale}/use-cases/${slug}`,
+      canonical: `${SITE_URL}/use-cases/${slug}`,
+      languages: {
+        en: `${SITE_URL}/en/use-cases/${slug}`,
+        zh: `${SITE_URL}/zh/use-cases/${slug}`,
+        'x-default': `${SITE_URL}/en/use-cases/${slug}`,
+      },
     },
   };
 }

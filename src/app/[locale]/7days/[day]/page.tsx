@@ -38,6 +38,11 @@ export async function generateMetadata({
     },
     alternates: {
       canonical: `${SITE_URL}/learn/${dayNum}`,
+      languages: {
+        en: `${SITE_URL}/en/7days/${dayNum}`,
+        zh: `${SITE_URL}/zh/7days/${dayNum}`,
+        'x-default': `${SITE_URL}/en/7days/${dayNum}`,
+      },
     },
   };
 }
