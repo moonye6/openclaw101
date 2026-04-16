@@ -11,6 +11,7 @@ interface BlogPostClientProps {
   post: BlogPost;
   locale: string;
   content: string;
+  relatedPosts?: BlogPost[];
 }
 
 interface TocItem {
@@ -176,7 +177,7 @@ function markdownToHtml(text: string): { html: string; toc: TocItem[] } {
   return { html: out.join(''), toc };
 }
 
-export function BlogPostClient({ post, locale, content }: BlogPostClientProps) {
+export function BlogPostClient({ post, locale, content, relatedPosts = [] }: BlogPostClientProps) {
   const params = useParams();
   const currentLocale = (params.locale as string) || locale;
   const isZh = currentLocale === 'zh';
@@ -325,46 +326,74 @@ export function BlogPostClient({ post, locale, content }: BlogPostClientProps) {
         </div>
       </div>
 
-      {/* Related Links */}
+      {/* Related Articles */}
       <section className="py-8 bg-[#111827] border-t border-white/[0.08]">
         <div className="container mx-auto px-4 max-w-4xl">
           <h2 className="text-xl font-bold text-white mb-4">
-            {isZh ? '相关资源' : 'Related Resources'}
+            {isZh ? '相关文章' : 'Related Articles'}
           </h2>
           <div className="grid md:grid-cols-3 gap-4">
-            <Link
-              href="/learn/1"
-              className="p-4 bg-[#0B0F19] border border-white/[0.08] rounded-lg hover:border-brand/30 transition-all duration-300"
-            >
-              <h3 className="font-semibold text-white mb-1">
-                {isZh ? '7 天学习路径' : '7-Day Learning Path'}
-              </h3>
-              <p className="text-sm text-[#9CA3AF]">
-                {isZh ? '从入门到精通' : 'From beginner to master'}
-              </p>
-            </Link>
-            <Link
-              href="/skills"
-              className="p-4 bg-[#0B0F19] border border-white/[0.08] rounded-lg hover:border-brand/30 transition-all duration-300"
-            >
-              <h3 className="font-semibold text-white mb-1">
-                {isZh ? '精选技能' : 'Featured Skills'}
-              </h3>
-              <p className="text-sm text-[#9CA3AF]">
-                {isZh ? '扩展 AI 能力' : 'Extend AI capabilities'}
-              </p>
-            </Link>
-            <Link
-              href="/tutorials"
-              className="p-4 bg-[#0B0F19] border border-white/[0.08] rounded-lg hover:border-brand/30 transition-all duration-300"
-            >
-              <h3 className="font-semibold text-white mb-1">
-                {isZh ? '全部教程' : 'All Tutorials'}
-              </h3>
-              <p className="text-sm text-[#9CA3AF]">
-                {isZh ? '深入学习' : 'Deep dive'}
-              </p>
-            </Link>
+            {relatedPosts.length > 0 ? (
+              relatedPosts.map((related) => (
+                <Link
+                  key={related.slug}
+                  href={`/blog/${related.slug}`}
+                  className="p-4 bg-[#0B0F19] border border-white/[0.08] rounded-lg hover:border-brand/30 transition-all duration-300"
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-xs font-medium text-brand-light bg-brand/10 px-2 py-0.5 rounded-full">
+                      {isZh ? related.category : related.categoryEn}
+                    </span>
+                    <span className="text-xs text-[#6B7280] flex items-center gap-1">
+                      <Clock className="w-3 h-3" />
+                      {related.readingTime} {isZh ? '分钟' : 'min'}
+                    </span>
+                  </div>
+                  <h3 className="font-semibold text-white mb-1 line-clamp-2 text-sm">
+                    {isZh ? related.title : related.titleEn}
+                  </h3>
+                  <p className="text-xs text-[#9CA3AF] line-clamp-2">
+                    {isZh ? related.excerpt : related.excerptEn}
+                  </p>
+                </Link>
+              ))
+            ) : (
+              <>
+                <Link
+                  href="/learn/1"
+                  className="p-4 bg-[#0B0F19] border border-white/[0.08] rounded-lg hover:border-brand/30 transition-all duration-300"
+                >
+                  <h3 className="font-semibold text-white mb-1">
+                    {isZh ? '7 天学习路径' : '7-Day Learning Path'}
+                  </h3>
+                  <p className="text-sm text-[#9CA3AF]">
+                    {isZh ? '从入门到精通' : 'From beginner to master'}
+                  </p>
+                </Link>
+                <Link
+                  href="/skills"
+                  className="p-4 bg-[#0B0F19] border border-white/[0.08] rounded-lg hover:border-brand/30 transition-all duration-300"
+                >
+                  <h3 className="font-semibold text-white mb-1">
+                    {isZh ? '精选技能' : 'Featured Skills'}
+                  </h3>
+                  <p className="text-sm text-[#9CA3AF]">
+                    {isZh ? '扩展 AI 能力' : 'Extend AI capabilities'}
+                  </p>
+                </Link>
+                <Link
+                  href="/tutorials"
+                  className="p-4 bg-[#0B0F19] border border-white/[0.08] rounded-lg hover:border-brand/30 transition-all duration-300"
+                >
+                  <h3 className="font-semibold text-white mb-1">
+                    {isZh ? '全部教程' : 'All Tutorials'}
+                  </h3>
+                  <p className="text-sm text-[#9CA3AF]">
+                    {isZh ? '深入学习' : 'Deep dive'}
+                  </p>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </section>

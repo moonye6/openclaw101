@@ -1,9 +1,0 @@
-# robots.txt for OpenClaw
-User-agent: *
-Allow: /
-
-# Sitemap
-Sitemap: https://openclaw101.vip/sitemap.xml
-
-# Crawl-delay
-Crawl-delay: 1

@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { blogPosts, getBlogPostBySlug, BlogPost } from '@/data/blog';
+import { blogPosts, getBlogPostBySlug, getRelatedPosts, BlogPost } from '@/data/blog';
 import { BlogPostClient } from './BlogPostClient';
 
 const SITE_URL = 'https://openclaw101.vip';
@@ -12,7 +12,12 @@ export const revalidate = 3600;
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  return blogPosts.map((post) => ({ locale: 'en', slug: post.slug }));
+  const params: { locale: string; slug: string }[] = [];
+  for (const post of blogPosts) {
+    params.push({ locale: 'en', slug: post.slug });
+    params.push({ locale: 'zh', slug: post.slug });
+  }
+  return params;
 }
 
 export async function generateMetadata({
@@ -20,38 +25,48 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const post = getBlogPostBySlug(slug);
 
   if (!post) return {};
 
+  const isZh = locale === 'zh';
+  const title = isZh ? post.title : post.titleEn;
+  const description = isZh ? post.excerpt : post.excerptEn;
+
   return {
-    title: post.titleEn,
-    description: post.excerptEn,
+    title,
+    description,
     openGraph: {
-      title: post.titleEn,
-      description: post.excerptEn,
+      title,
+      description,
       url: `${SITE_URL}/blog/${slug}`,
       type: 'article',
       publishedTime: post.date,
       authors: [post.author],
+      locale: isZh ? 'zh_CN' : 'en_US',
       images: [
         {
           url: `${SITE_URL}${post.image}`,
           width: 1200,
           height: 630,
-          alt: post.titleEn,
+          alt: title,
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: post.titleEn,
-      description: post.excerptEn,
+      title,
+      description,
       images: [`${SITE_URL}${post.image}`],
     },
     alternates: {
       canonical: `${SITE_URL}/blog/${slug}`,
+      languages: {
+        en: `${SITE_URL}/en/blog/${slug}`,
+        zh: `${SITE_URL}/zh/blog/${slug}`,
+        'x-default': `${SITE_URL}/en/blog/${slug}`,
+      },
     },
   };
 }
@@ -61,21 +76,29 @@ export default async function BlogPostPage({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const post = getBlogPostBySlug(slug);
 
   if (!post) {
     notFound();
   }
 
-  const title = post.titleEn;
-  const content = post.contentEn;
+  const isZh = locale === 'zh';
+  const title = isZh ? post.title : post.titleEn;
+  const content = isZh ? post.content : post.contentEn;
+  const description = isZh ? post.excerpt : post.excerptEn;
+  const category = isZh ? post.category : post.categoryEn;
+
+  // Calculate word count properly: for English count words, for Chinese count characters
+  const wordCount = isZh
+    ? content.replace(/\s/g, '').length
+    : content.split(/\s+/).filter(Boolean).length;
 
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: title,
-    description: post.excerptEn,
+    description,
     author: {
       '@type': 'Person',
       name: post.author,
@@ -93,7 +116,10 @@ export default async function BlogPostPage({
     datePublished: post.date,
     dateModified: post.date,
     image: `${SITE_URL}${post.image}`,
-    wordCount: content.length,
+    wordCount,
+    keywords: post.tags.join(', '),
+    articleSection: category,
+    inLanguage: isZh ? 'zh-CN' : 'en',
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': `${SITE_URL}/blog/${slug}`,
@@ -134,7 +160,7 @@ export default async function BlogPostPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <BlogPostClient post={post} locale="en" content={content} />
+      <BlogPostClient post={post} locale={locale} content={content} relatedPosts={getRelatedPosts(slug, 3)} />
     </>
   );
 }

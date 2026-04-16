@@ -19,6 +19,11 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     alternates: {
       canonical: `${SITE_URL}/skills`,
+      languages: {
+        en: `${SITE_URL}/en/skills`,
+        zh: `${SITE_URL}/zh/skills`,
+        'x-default': `${SITE_URL}/en/skills`,
+      },
     },
   };
 }

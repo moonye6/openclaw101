@@ -23,6 +23,15 @@ export async function generateMetadata({
   return {
     alternates: {
       canonical: SITE_URL,
+      languages: {
+        en: `${SITE_URL}/en`,
+        zh: `${SITE_URL}/zh`,
+        'x-default': `${SITE_URL}/en`,
+      },
+    },
+    openGraph: {
+      locale: locale === 'zh' ? 'zh_CN' : 'en_US',
+      alternateLocale: locale === 'zh' ? ['en_US'] : ['zh_CN'],
     },
   };
 }
