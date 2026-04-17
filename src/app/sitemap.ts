@@ -3,7 +3,7 @@ import { tutorials } from '@/data/tutorials'
 import { skillCategories } from '@/data/skills'
 import { blogPosts } from '@/data/blog'
 
-const BUILD_DATE = new Date('2026-04-09')
+const BUILD_DATE = new Date('2026-04-17')
 
 // SEO core slugs — get highest priority (0.9)
 const SEO_CORE_SLUGS = new Set([

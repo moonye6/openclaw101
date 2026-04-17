@@ -116,20 +116,41 @@
       "errors_learned": []
     }
   ],
-  "current_session": "S007",
+    {
+      "id": "S008",
+      "date": "2026-04-17",
+      "task": "P0/P1/P2 SEO 修复 — hreflang 幽灵引用、Canonical、Blog JSON-LD、manifest、Footer、seo-diagnosis 更新",
+      "status": "completed",
+      "changes": [
+        "[locale]/layout.tsx: 移除 generateMetadata 中的 zh hreflang 和固定 canonical 覆盖",
+        "[locale]/page.tsx: 移除首页 zh hreflang 幽灵引用",
+        "blog/page.tsx: 移除 zh hreflang；<main> → <div>；新增 Blog JSON-LD schema",
+        "blog/[slug]/page.tsx: 移除 zh hreflang；generateStaticParams 只生成 en 路由",
+        "Footer.tsx: /blog → links.blog，/faq → links.faq（修复重复文案）",
+        "en.json / zh.json: 新增 footer.links.blog 和 footer.links.faq 翻译 key",
+        "manifest.json: 修正描述从 '414+ tutorials / 5490+ skills' → '60+ tutorials and 97+ skills'",
+        "sitemap.ts: BUILD_DATE 更新至 2026-04-17",
+        "SEO_STRATEGY.md: 重写前半部分，标记所有已完成项，更新 Phase 0 行动清单",
+        "seo-diagnosis.ts: generateTechnicalIssues 更新，过时问题标为已修复，保留当前待解决问题"
+      ],
+      "errors_learned": []
+    }
+  ],
+  "current_session": "S008",
   "next_actions": [
+    "Owner 操作：登录 GSC 提交 sitemap，检查 Coverage 报告确认 /zh/* 404 消失",
     "新增安全加固教程分类 (CONTENT_ROADMAP T3)",
     "新增 API/开发者教程 (CONTENT_ROADMAP T4)",
     "新增新手快速上手博客 (CONTENT_ROADMAP B1)"
   ],
   "metrics": {
-    "total_sessions": 7,
+    "total_sessions": 8,
     "total_features_completed": 23,
     "features_in_progress": 0,
     "total_tests": 114,
     "test_pass_rate": "TBD",
-    "known_issues": 1,
-    "issues_fixed_this_session": 0,
+    "known_issues": 0,
+    "issues_fixed_this_session": 6,
     "error_patterns_documented": 8,
     "context_utilization_target": "< 40%"
   }
