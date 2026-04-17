@@ -1,29 +1,43 @@
 # OpenClaw 101 SEO Optimization Strategy
 
-## Phase 0: Fix Critical Blockers (Day 1)
+> **Last updated**: 2026-04-17 | **Stage**: 1→2 (Cold start → Index growth)
 
-### 0.1 Verify Google Can Crawl the Site
-- [ ] Log in to Google Search Console (https://search.google.com/search-console)
-- [ ] Check "Pages" report — how many pages indexed?
-- [ ] Check "Sitemaps" — is sitemap.xml submitted and readable?
-- [ ] Use "URL Inspection" tool to test homepage crawl
-- [ ] Check if Cloudflare/Vercel WAF blocks Googlebot (check server logs)
+---
 
-### 0.2 Fix robots.txt Conflict
-- [ ] Verify the LIVE robots.txt at openclaw101.vip/robots.txt matches the code
-- [ ] If CDN/hosting is injecting extra rules, disable that feature
-- [ ] robots.txt should ONLY contain:
-  ```
-  User-agent: *
-  Allow: /
-  Disallow: /api/
-  Sitemap: https://openclaw101.vip/sitemap.xml
-  ```
+## ✅ Completed (as of 2026-04-17)
 
-### 0.3 Submit Sitemap to Google
-- [ ] Go to Search Console > Sitemaps
-- [ ] Submit: https://openclaw101.vip/sitemap.xml
-- [ ] Verify it returns 200 (not 403)
+### Technical Foundation
+- [x] Sitemap — Dynamic, priority tiers (core 0.9 / others 0.7), BUILD_DATE updated
+- [x] robots.ts — Dynamic, `/api/` blocked, Sitemap URL correct
+- [x] RSS Feed — RSS 2.0 + Atom (blog + tutorials)
+- [x] GA4 (G-JSHGKV6LDM) + AdSense + ads.txt
+- [x] Security headers (X-Content-Type-Options / X-Frame-Options / Referrer-Policy)
+- [x] ISR revalidate 3600s on all pages
+
+### Structured Data (JSON-LD)
+- [x] Home → WebSite + Organization (with SearchAction)
+- [x] Blog list → Blog schema + top 10 BlogPosting items *(new 2026-04-17)*
+- [x] Blog detail → BlogPosting + BreadcrumbList
+- [x] FAQ → FAQPage schema
+- [x] Learning path → Course schema
+
+### P0 Critical Fixes *(committed e6dd94a, 2026-04-17)*
+- [x] Ghost hreflang zh references removed from layout / home / blog list / blog detail
+- [x] Canonical URLs corrected — each page declares its own canonical (not root)
+- [x] `<main>` nesting fixed — blog list page root changed to `<div>`
+- [x] generateStaticParams — blog detail only generates `locale: 'en'` routes
+- [x] Footer duplicate link text fixed (blog/faq use distinct i18n keys)
+- [x] manifest.json description corrected (was stale "414+ tutorials / 5490+ skills")
+
+---
+
+## Phase 0: Verify Crawlability *(Owner Action Required — Manual)*
+
+- [ ] Log in to Google Search Console → check "Pages" report (how many indexed?)
+- [ ] Submit sitemap: https://openclaw101.vip/sitemap.xml
+- [ ] URL Inspection on homepage — verify crawlable, no blocked resources
+- [ ] Verify live robots.txt: `curl https://openclaw101.vip/robots.txt`
+- [ ] Check for lingering `/zh/*` 404s from old hreflang in Coverage report
 
 ---
 

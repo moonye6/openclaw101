@@ -444,51 +444,42 @@ function generateRecommendations(report: SEOAuditReport): string[] {
 function generateTechnicalIssues(): string[] {
   const issues: string[] = [];
 
-  // 已知技术问题（基于代码审计）
+  // ── 已修复项（e6dd94a 2026-04-17） ──
   issues.push(
-    `[🔴 robots.txt 冲突] 存在双重 robots.txt 配置：public/robots.txt（静态）和 src/app/robots.ts（动态）。Next.js 动态版本会覆盖静态版本，但静态版本有 Crawl-delay: 1 而动态版本缺少此配置。建议删除 public/robots.txt，在 robots.ts 中统一配置。`
+    `[✅ 已修复 2026-04-17] robots.txt 冲突：public/robots.txt 早已不存在，仅保留 src/app/robots.ts 动态版本（/api/ blocked）。原问题描述已过时。`
   );
 
   issues.push(
-    `[🟡 robots.txt 不完整] 动态 robots.ts 只 disallow 了 /api/，建议也 disallow /_next/、/images/ 等非内容路径。`
+    `[✅ 已修复 2026-04-17] hreflang 幽灵引用：routing.ts 仅配置 locales: ['en']，zh 路由已移除。layout / home / blog list / blog detail 中的 zh language alternates 已全部删除，不再生成 /zh/* 幽灵 URL。`
   );
 
   issues.push(
-    `[🟡 hreflang 缺失] 网站支持 en/zh 双语，但 locale layout 的 generateMetadata 中未设置 hreflang alternates。搜索引擎无法知道同一页面有不同语言版本，可能导致重复内容问题。建议在 [locale]/layout.tsx 的 generateMetadata 中添加：
-    alternates: {
-      languages: {
-        'en': 'https://openclaw101.vip/en',
-        'zh': 'https://openclaw101.vip/zh',
-      }
-    }`
+    `[✅ 已修复 2026-04-17] canonical URL 错误：[locale]/layout.tsx 原来将所有页面 canonical 覆盖为根域名。现已移除 layout 中的 generateMetadata canonical 覆盖，每个页面自行声明正确的 canonical。`
   );
 
   issues.push(
-    `[🟡 canonical URL 问题] 根 layout.tsx 和 [locale]/layout.tsx 的 canonical 都指向 https://openclaw101.vip，但实际的 locale 页面 URL 是 /en/... 和 /zh/...。每个 locale 的 canonical 应该指向对应语言版本的 URL。`
+    `[✅ 已修复 2026-04-17] 结构化数据：博客列表页已新增 Blog schema（含前10篇 BlogPosting）；博客详情页 BlogPosting + BreadcrumbList 早已存在。现已全面覆盖。`
+  );
+
+  // ── 当前仍存在的问题 ──
+  issues.push(
+    `[🟡 内链密度] 建议系统化地在每篇文章底部添加"相关文章"区块（3篇推荐），增强站内链接图密度，提升 PageRank 流动效率。`
   );
 
   issues.push(
-    `[🟢 结构化数据完善] 网站已实现 FAQPage、Course、WebSite、Organization、BreadcrumbList 等 Schema 类型。但博客文章页面建议添加 Article/BlogPosting Schema 和 author 信息。`
+    `[🟡 AdSense + GA 影响 Core Web Vitals] 页面加载了 AdSense 和 GA4 脚本，可能影响 LCP/CLS。建议用 Lighthouse 检测 Core Web Vitals 后决定是否延迟加载。`
   );
 
   issues.push(
-    `[🟡 Open Graph locale] 根 layout 的 OG locale 固定为 "en_US"，中文页面应该使用 "zh_CN"。建议在 locale layout 中动态设置 OG locale。`
+    `[🟢 RSS Feed] /feed.xml 已配置 RSS 2.0 + Atom，覆盖博客和教程，有助于内容发现和 Google News 收录。`
   );
 
   issues.push(
-    `[🟢 RSS Feed] 已配置 RSS Feed（/feed.xml），有助于内容发现和搜索引擎索引。`
+    `[🟢 Sitemap] 动态 sitemap 正常，BUILD_DATE 已更新至 2026-04-17，优先级分层：核心文章 0.9 / 博客 0.7 / 教程 0.6 / 技能分类 0.7。`
   );
 
   issues.push(
-    `[🟢 Sitemap] 已配置动态 sitemap，包含优先级分层（核心 SEO 文章 0.9、分类页面 0.7-0.8）。共有 ${13 + 39 + 7 + 60 + 17} 个 URL 条目。`
-  );
-
-  issues.push(
-    `[🟡 内链结构] 博客文章之间存在交叉链接（如 API Reference → AgentSkills），但建议系统化地在每篇文章底部添加 "相关文章" 区块，增强站内链接图密度。`
-  );
-
-  issues.push(
-    `[🟡 AdSense 与 Core Web Vitals] 页面加载了 Google AdSense 和 GA 脚本，可能影响 LCP/CLS。建议用 Lighthouse 检测 Core Web Vitals 分数。`
+    `[🟢 结构化数据全覆盖] WebSite + Organization（首页）、Blog + BlogPosting（列表页）、BlogPosting + BreadcrumbList（详情页）、FAQPage、Course（学习路径）。`
   );
 
   return issues;
