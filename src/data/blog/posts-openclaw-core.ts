@@ -3109,9 +3109,9 @@ Run \`openclaw doctor\` — it checks config validity, Skill versions, and commo
     id: 13,
     slug: "openclaw-vs-claude-code",
     title: "OpenClaw vs Claude Code：谁才是最好的 AI 编程助手？",
-    titleEn: "OpenClaw vs Claude Code — Which AI Coding Tool to Use (2026)",
+    titleEn: "OpenClaw vs Claude Code (2026) Comparison",
     excerpt: "Claude Code 是 Anthropic 官方的编程助手，OpenClaw 是开源社区的明星项目。两者有什么区别？该选哪一个？从多平台支持、开源性、技能生态、自托管、定价全方位对比。",
-    excerptEn: "Feature comparison: execution scope, platform support, browser control, skills ecosystem, and pricing. When to use each — and how to combine them.",
+    excerptEn: "Compare OpenClaw and Claude Code side by side: execution scope, self-hosting, skills ecosystem, browser control, and pricing. Which fits your workflow in 2026, and can you use both together?",
     content: `2026 年，AI 编程助手市场百花齐放。Claude Code 和 OpenClaw 是其中最受关注的两款产品。
 
 Claude Code 由 Anthropic 官方推出，闭源商业化；OpenClaw 是开源社区的明星项目，GitHub 336k+ stars。
@@ -6902,9 +6902,9 @@ The Telegram, QQ, and WhatsApp channel adapters and the new ClawHub signing flow
     id: 7,
     slug: "openclaw-vs-cursor-vs-manus",
     title: "OpenClaw vs Cursor vs Manus：2026 年 AI Agent 大比拼",
-    titleEn: "OpenClaw vs Cursor vs Manus: 2026 AI Agent Comparison",
+    titleEn: "OpenClaw vs Cursor vs Manus (2026)",
     excerpt: "深度对比 4 款热门 AI Agent：OpenClaw、Cursor、Manus、AutoGPT。从执行能力、平台支持、成本、适用场景全方位分析。",
-    excerptEn: "In-depth comparison of 4 popular AI agents: OpenClaw, Cursor, Manus, AutoGPT. Analysis from execution capability, platform support, cost, and use cases.",
+    excerptEn: "Compare OpenClaw, Cursor, Manus, and AutoGPT: which AI agent wins on execution, self-hosting, ecosystem, and price? Side-by-side table with use-case recommendations.",
     content: `2026 年，AI Agent 成为科技圈最热门的话题之一。
 
 不再是"聊天机器人"，而是真正能**动手做事**的 AI 助手。
