@@ -5249,9 +5249,9 @@ Most OpenClaw errors are predictable and fixable. The key is: understand what fa
     id: 31,
     slug: "openclaw-docker-compose-setup",
     title: "OpenClaw Docker Compose 部署完整指南",
-    titleEn: "OpenClaw Docker Compose Setup — Complete Deployment Guide (2026)",
+    titleEn: "OpenClaw Docker Compose Setup Guide (2026)",
     excerpt: "使用 Docker Compose 一键部署 OpenClaw，包含数据持久化、环境变量配置、多服务编排和生产环境最佳实践。",
-    excerptEn: "Deploy OpenClaw with Docker Compose in minutes. Includes docker-compose.yml examples, environment variables, persistent storage, multi-service setup, and production tips.",
+    excerptEn: "Deploy OpenClaw with Docker Compose: docker-compose.yml examples, env vars, persistent storage, multi-service setup, and production tips.",
     content: `如果你正在寻找一种可靠、可重复、易于维护的方式来运行 OpenClaw，Docker Compose 是最佳选择。它把所有依赖打包在容器里，不会污染宿主机环境，升级回滚都只需要一条命令。本文将从零开始，带你完成 OpenClaw 的 Docker Compose 部署，涵盖基础配置、高级多服务编排和生产环境加固。
 
 ## 为什么用 Docker Compose 部署 OpenClaw

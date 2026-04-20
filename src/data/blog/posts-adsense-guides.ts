@@ -2303,4 +2303,851 @@ Mostly LLM API — personal cloud use is \$2–$5/month. Local LLM is zero API c
     readingTime: 8,
     image: "/og-image.png"
   },
+  {
+    id: 37,
+    slug: "openclaw-discord-integration",
+    title: "OpenClaw Discord Bot 接入教程（2026）",
+    titleEn: "OpenClaw Discord Integration Guide (2026)",
+    excerpt: "用 OpenClaw 搭一个 Discord Bot：创建 App、配置 Gateway Intent、连接 OpenClaw、自定义 Slash Command。",
+    excerptEn: "Set up an OpenClaw Discord bot: create the App, configure Gateway Intents, wire to OpenClaw, add slash commands.",
+    content: `OpenClaw 官方支持多种渠道接入，Discord 是其中最受开发者社区欢迎的一个。无论你是想搭一个团队内部的 AI 助手机器人，还是为开源项目提供自动化答疑，这篇教程都会带你完整走完整个流程。
+
+> 相关阅读：[OpenClaw 支持哪些渠道接入？](/blog/openclaw-supported-channels)
+
+---
+
+## 为什么选择 Discord Bot？
+
+Discord 已经成为开发者、游戏社区和开源项目的核心协作平台。把 OpenClaw 接入 Discord 有以下几个典型场景：
+
+- **团队内部助手**：在私有服务器里，让 OpenClaw 回答技术问题、执行代码审查 Skill。
+- **社区自动答疑**：在开源项目服务器里，自动回复常见问题，减轻维护者负担。
+- **工作流触发器**：通过 Slash Command 触发 CI/CD 流程或远程脚本执行。
+- **学习陪练**：在学习型社区中，让 Bot 陪学员做编程练习和代码 Review。
+
+---
+
+## 前置条件
+
+在开始之前，请确认以下几项：
+
+1. **已安装 OpenClaw**（版本 ≥ 1.4.0）——参见 [OpenClaw 安装教程](/blog/how-to-install-openclaw)
+2. **Discord 账号**，并拥有目标服务器的"管理服务器"权限
+3. **Node.js 18+** 或 **Python 3.10+**（取决于你选择的适配器）
+4. 一个可以公网访问的服务器，或使用 [ngrok](https://ngrok.com) 做本地隧道测试
+
+---
+
+## 五步完成接入
+
+### 第一步：在 Discord Developer Portal 创建应用
+
+1. 访问 [https://discord.com/developers/applications](https://discord.com/developers/applications)，点击 **New Application**。
+2. 填写应用名称（如 \`OpenClaw Bot\`），点击 **Create**。
+3. 进入左侧菜单 **Bot**，点击 **Add Bot**，确认添加。
+4. 在 Bot 页面，找到 **TOKEN** 一栏，点击 **Reset Token** 生成令牌，**立即复制保存**（只显示一次）。
+5. 向下滚动，在 **Privileged Gateway Intents** 区域，开启以下两项：
+   - \`MESSAGE CONTENT INTENT\`
+   - \`SERVER MEMBERS INTENT\`（如需成员信息功能）
+
+> **安全提示**：Bot Token 是最高权限凭证，绝对不要提交到 Git 或写在代码里。
+
+### 第二步：安装 OpenClaw Discord 适配器
+
+OpenClaw 官方提供 \`@openclaw/adapter-discord\` 包：
+
+\`\`\`bash
+npm install @openclaw/adapter-discord
+\`\`\`
+
+如果你使用 Python 环境：
+
+\`\`\`bash
+pip install openclaw-discord
+\`\`\`
+
+### 第三步：配置 OpenClaw
+
+在 OpenClaw 配置文件（默认 \`~/.openclaw/config.yml\`）中添加 Discord 适配器配置：
+
+\`\`\`yaml
+adapters:
+  discord:
+    enabled: true
+    token: \${DISCORD_BOT_TOKEN}
+    prefix: "/"
+    allowedChannels:
+      - "general"
+      - "ai-help"
+    skills:
+      - code-review
+      - explain
+      - summarize
+\`\`\`
+
+然后在你的 Shell 环境中设置 Token：
+
+\`\`\`bash
+export DISCORD_BOT_TOKEN="your_bot_token_here"
+\`\`\`
+
+推荐把这一行加到 \`.env\` 文件，再通过 \`dotenv\` 或 \`direnv\` 自动加载。
+
+### 第四步：生成邀请链接，将 Bot 拉入服务器
+
+1. 回到 Discord Developer Portal，进入你的应用页面，选择左侧 **OAuth2 → URL Generator**。
+2. 在 **SCOPES** 中勾选 \`bot\` 和 \`applications.commands\`。
+3. 在 **BOT PERMISSIONS** 中勾选：
+   - \`Send Messages\`
+   - \`Read Message History\`
+   - \`Use Slash Commands\`
+   - \`Embed Links\`（可选，用于富文本回复）
+4. 复制底部生成的 URL，在浏览器打开，选择目标服务器，点击 **授权**。
+
+### 第五步：启动 Bot
+
+\`\`\`bash
+openclaw start --adapter discord
+\`\`\`
+
+成功启动后，你会看到类似以下输出：
+
+\`\`\`
+[OpenClaw] Discord adapter connected.
+[OpenClaw] Bot is online: OpenClaw Bot#1234
+[OpenClaw] Listening on channels: general, ai-help
+\`\`\`
+
+此时在 Discord 服务器里发送 \`/ping\`，Bot 应当回复 \`Pong!\`。
+
+---
+
+## Slash Command 说明
+
+OpenClaw Discord 适配器默认注册以下 Slash Commands：
+
+| 命令 | 说明 |
+|------|------|
+| \`/ask [问题]\` | 向 OpenClaw 提问，支持自然语言 |
+| \`/review [代码片段]\` | 触发代码审查 Skill |
+| \`/explain [代码]\` | 解释代码逻辑 |
+| \`/summarize [URL]\` | 总结网页或文档内容 |
+| \`/skill [技能名]\` | 手动调用指定 Skill |
+
+你也可以在配置文件中自定义命令映射：
+
+\`\`\`yaml
+commands:
+  - name: "debug"
+    skill: "code-debug"
+    description: "分析并修复代码 Bug"
+\`\`\`
+
+---
+
+## 常见错误
+
+**错误：\`[DISALLOWED_INTENTS]\` 连接失败**
+
+原因：没有在 Developer Portal 开启 \`MESSAGE CONTENT INTENT\`。回到 Bot 设置页面，打开该开关后重新启动。
+
+**错误：Bot 在线但不响应 @提及**
+
+原因：适配器默认只监听 Slash Command，不监听 @提及消息。在配置中加入 \`listenMentions: true\` 即可开启。
+
+**错误：\`Missing Access\` 权限报错**
+
+原因：邀请 Bot 时没有勾选 \`Use Slash Commands\` 权限。需要将 Bot 踢出服务器，重新生成邀请链接（勾选正确权限）后重新邀请。
+
+---
+
+## 常见问题（FAQ）
+
+**Q：一个 OpenClaw 实例能同时接入多个 Discord 服务器吗？**
+
+A：可以。Bot 一旦被邀请到多个服务器，默认对所有服务器生效。如果需要针对不同服务器配置不同的 Skill 白名单，可以在配置中使用 \`guildOverrides\` 字段做分服配置。
+
+**Q：OpenClaw Discord Bot 支持私信（DM）吗？**
+
+A：默认不开启私信功能，防止滥用。如需支持，在配置文件加入 \`allowDM: true\`，并建议同时配置速率限制（\`rateLimit\`）。
+
+**Q：如何让 Bot 只在特定频道响应，而不是全服务器？**
+
+A：在 \`config.yml\` 的 \`allowedChannels\` 字段中列出频道名称或频道 ID（推荐用 ID，频道改名后不失效）。留空则表示响应所有频道。
+
+---
+
+## 下一步
+
+- 了解更多可用 Skill：[2026 年最佳 OpenClaw Skills 推荐](/blog/best-openclaw-skills-2026)
+- 接入其他平台：[OpenClaw QQ Bot 原生接入指南](/blog/openclaw-qq-bot-native-integration)
+- 深入了解频道适配器机制：[OpenClaw 支持哪些渠道？](/blog/openclaw-supported-channels)
+`,
+    contentEn: `OpenClaw supports multiple channel adapters, and Discord is one of the most popular among developer communities. Whether you want to build an internal AI assistant for your team server or provide automated Q&A for an open-source project, this guide walks you through the complete setup.
+
+> Related reading: [Which channels does OpenClaw support?](/blog/openclaw-supported-channels)
+
+---
+
+## Why a Discord Bot?
+
+Discord has become the central collaboration platform for developers, gaming communities, and open-source projects. Connecting OpenClaw to Discord unlocks several practical use cases:
+
+- **Internal team assistant**: Run OpenClaw inside a private server to answer technical questions and trigger code review Skills.
+- **Community auto-support**: Automatically reply to common questions in an open-source project server, reducing maintainer burden.
+- **Workflow triggers**: Use Slash Commands to kick off CI/CD pipelines or remote script executions.
+- **Learning companion**: Help learners in study communities with coding exercises and code reviews.
+
+---
+
+## Prerequisites
+
+Before starting, confirm the following:
+
+1. **OpenClaw installed** (version ≥ 1.4.0) — see [OpenClaw Installation Guide](/blog/how-to-install-openclaw)
+2. **A Discord account** with "Manage Server" permission on your target server
+3. **Node.js 18+** or **Python 3.10+** depending on your chosen adapter
+4. A publicly accessible server, or use [ngrok](https://ngrok.com) for local tunnel testing
+
+---
+
+## Five Steps to Integration
+
+### Step 1: Create an Application in the Discord Developer Portal
+
+1. Go to [https://discord.com/developers/applications](https://discord.com/developers/applications) and click **New Application**.
+2. Enter a name (e.g., \`OpenClaw Bot\`) and click **Create**.
+3. In the left menu, go to **Bot** and click **Add Bot**, then confirm.
+4. Under the **TOKEN** section, click **Reset Token** to generate your token. **Copy it immediately** — it is only shown once.
+5. Scroll down to **Privileged Gateway Intents** and enable:
+   - \`MESSAGE CONTENT INTENT\`
+   - \`SERVER MEMBERS INTENT\` (if you need member data)
+
+> **Security note**: Your Bot Token is a full-access credential. Never commit it to Git or hardcode it in source files.
+
+### Step 2: Install the OpenClaw Discord Adapter
+
+The official \`@openclaw/adapter-discord\` package is available on npm:
+
+\`\`\`bash
+npm install @openclaw/adapter-discord
+\`\`\`
+
+For Python environments:
+
+\`\`\`bash
+pip install openclaw-discord
+\`\`\`
+
+### Step 3: Configure OpenClaw
+
+Add the Discord adapter configuration to your OpenClaw config file (default: \`~/.openclaw/config.yml\`):
+
+\`\`\`yaml
+adapters:
+  discord:
+    enabled: true
+    token: \${DISCORD_BOT_TOKEN}
+    prefix: "/"
+    allowedChannels:
+      - "general"
+      - "ai-help"
+    skills:
+      - code-review
+      - explain
+      - summarize
+\`\`\`
+
+Set the token as an environment variable in your shell:
+
+\`\`\`bash
+export DISCORD_BOT_TOKEN="your_bot_token_here"
+\`\`\`
+
+Add this line to a \`.env\` file and load it automatically with \`dotenv\` or \`direnv\` for convenience.
+
+### Step 4: Generate an Invite Link and Add the Bot to Your Server
+
+1. Back in the Developer Portal, navigate to **OAuth2 → URL Generator** for your application.
+2. Under **SCOPES**, check \`bot\` and \`applications.commands\`.
+3. Under **BOT PERMISSIONS**, check:
+   - \`Send Messages\`
+   - \`Read Message History\`
+   - \`Use Slash Commands\`
+   - \`Embed Links\` (optional, for rich reply formatting)
+4. Copy the generated URL at the bottom, open it in a browser, select your target server, and click **Authorize**.
+
+### Step 5: Start the Bot
+
+\`\`\`bash
+openclaw start --adapter discord
+\`\`\`
+
+On successful startup, you should see output like:
+
+\`\`\`
+[OpenClaw] Discord adapter connected.
+[OpenClaw] Bot is online: OpenClaw Bot#1234
+[OpenClaw] Listening on channels: general, ai-help
+\`\`\`
+
+Type \`/ping\` in your Discord server — the bot should respond with \`Pong!\`.
+
+---
+
+## Slash Commands Reference
+
+The OpenClaw Discord adapter registers the following Slash Commands by default:
+
+| Command | Description |
+|---------|-------------|
+| \`/ask [question]\` | Ask OpenClaw anything in natural language |
+| \`/review [code]\` | Trigger the code review Skill |
+| \`/explain [code]\` | Explain what a piece of code does |
+| \`/summarize [URL]\` | Summarize a webpage or document |
+| \`/skill [skill-name]\` | Manually invoke a specific Skill |
+
+You can also define custom command mappings in the config file:
+
+\`\`\`yaml
+commands:
+  - name: "debug"
+    skill: "code-debug"
+    description: "Analyze and fix code bugs"
+\`\`\`
+
+---
+
+## Common Errors
+
+**Error: \`[DISALLOWED_INTENTS]\` connection failure**
+
+Cause: \`MESSAGE CONTENT INTENT\` was not enabled in the Developer Portal. Go to your Bot settings page, enable the toggle, and restart.
+
+**Error: Bot is online but ignores @mentions**
+
+Cause: The adapter listens for Slash Commands only by default, not @mentions. Add \`listenMentions: true\` to your config to enable this.
+
+**Error: \`Missing Access\` permission error**
+
+Cause: \`Use Slash Commands\` was not checked when generating the invite link. Kick the bot from the server, regenerate the invite URL with the correct permissions, and re-invite it.
+
+---
+
+## FAQ
+
+**Q: Can a single OpenClaw instance serve multiple Discord servers at once?**
+
+A: Yes. Once the bot is invited to multiple servers, it operates across all of them by default. To apply different Skill allowlists per server, use the \`guildOverrides\` field in your config.
+
+**Q: Does the OpenClaw Discord Bot support Direct Messages (DMs)?**
+
+A: DM support is disabled by default to prevent abuse. To enable it, add \`allowDM: true\` to your config file, and consider setting up rate limiting (\`rateLimit\`) at the same time.
+
+**Q: How do I restrict the bot to respond only in specific channels?**
+
+A: List channel names or channel IDs in the \`allowedChannels\` field of \`config.yml\`. Using channel IDs is recommended since they remain stable even if channels are renamed. An empty list means the bot responds in all channels.
+
+---
+
+## Next Steps
+
+- Explore available Skills: [Best OpenClaw Skills for 2026](/blog/best-openclaw-skills-2026)
+- Connect to other platforms: [OpenClaw QQ Bot Native Integration](/blog/openclaw-qq-bot-native-integration)
+- Learn about the channel adapter architecture: [OpenClaw Supported Channels](/blog/openclaw-supported-channels)
+`,
+    author: "OpenClaw 101",
+    date: "2026-04-20",
+    category: "OpenClaw 进阶",
+    categoryEn: "OpenClaw Advanced",
+    tags: ["openclaw","discord","bot","integration","2026","setup"],
+    readingTime: 6,
+    image: "/og-image.png"
+  },
+  {
+    id: 38,
+    slug: "can-openclaw-work-with-claude-code",
+    title: "OpenClaw 能和 Claude Code 一起用吗？（2026）",
+    titleEn: "Can OpenClaw Work with Claude Code? (2026)",
+    excerpt: "OpenClaw 和 Claude Code 不是竞品。一个是 Agent 运行时，一个是编程助手。",
+    excerptEn: "OpenClaw and Claude Code are not competitors. One is an agent runtime, the other a coding assistant.",
+    content: `**可以，而且两者配合得很好。** OpenClaw 是 Agent 运行时平台，Claude Code 是面向编程任务的 AI 终端助手。它们定位不同，不存在功能上的替代关系，反而能形成互补。
+
+> 相关对比：[OpenClaw vs Claude Code 深度对比](/blog/openclaw-vs-claude-code)
+
+---
+
+## 各自是什么？
+
+### OpenClaw
+
+OpenClaw 是一个 **Agent 运行时**。它的核心职责是：
+
+- 加载并执行 Skill（技能模块）
+- 管理多渠道接入（Discord、QQ、Telegram、CLI 等）
+- 跨 Session 持久化记忆与上下文
+- 统一调度工具调用（MCP、API、文件系统）
+
+你可以把 OpenClaw 理解为一个"Agent 操作系统"——它不在乎具体用什么大模型，可以挂载 Claude、GPT、本地模型等任意后端。
+
+### Claude Code
+
+Claude Code 是 Anthropic 官方出品的 **CLI 编程助手**。它的核心职责是：
+
+- 在终端中理解并修改代码库
+- 执行复杂的多步骤编程任务
+- 与 Git、测试框架、构建工具深度集成
+- 通过 MCP 协议与外部工具通信
+
+Claude Code 是专为"写代码、改代码、调代码"这一场景打磨的工具，底层固定使用 Claude 系列模型。
+
+---
+
+## 三种组合模式
+
+### 模式 A：Claude Code 作为 OpenClaw 的后端模型
+
+如果你在 OpenClaw 中配置了 Claude API，Claude Code 使用的底层能力（Claude 模型）和 OpenClaw 调用的是同一套。你可以在 OpenClaw 中定义好 Skill 和渠道，让 Claude 的推理能力驱动整个 Agent 流程。
+
+\`\`\`yaml
+# ~/.openclaw/config.yml
+model:
+  provider: anthropic
+  name: claude-opus-4-5
+  apiKey: \${ANTHROPIC_API_KEY}
+\`\`\`
+
+### 模式 B：Claude Code 负责开发，OpenClaw 负责部署运行
+
+这是最常见的实际工作流：
+
+1. 用 **Claude Code** 编写和调试 OpenClaw 的 Skill 文件（\`.skill.ts\` 或 \`.skill.py\`）
+2. 编写完成后，通过 OpenClaw CLI 加载并运行这些 Skill
+3. 用 Claude Code 持续迭代优化 Skill 逻辑
+
+这个模式下，Claude Code 是开发工具，OpenClaw 是运行环境——职责分明。
+
+### 模式 C：通过 MCP 双向互通
+
+OpenClaw 支持 MCP（Model Context Protocol）协议。你可以把 OpenClaw 暴露为一个 MCP 服务端，让 Claude Code 在编程任务中直接调用 OpenClaw 的 Skill 和记忆系统。
+
+\`\`\`bash
+# 启动 OpenClaw MCP 服务
+openclaw serve --protocol mcp --port 3100
+
+# 在 Claude Code 中注册 MCP 服务
+claude mcp add openclaw http://localhost:3100
+\`\`\`
+
+详细配置可参考：[OpenClaw LocalAI 集成指南](/blog/openclaw-localai-integration)
+
+---
+
+## 只用 OpenClaw 就够了的场景
+
+- 需要同时接入多个渠道（Discord + QQ + Web UI）
+- 需要跨会话持久化记忆
+- 需要管理多个 Skill 模块，对外提供服务
+- 你的团队成员不是程序员，需要通过对话界面使用 AI
+
+---
+
+## 只用 Claude Code 就够了的场景
+
+- 纯粹的编程任务：写代码、重构、Debug、代码审查
+- 项目内的一次性任务，不需要部署成持续运行的服务
+- 需要深度操作文件系统、Git 历史、测试套件
+- 个人开发者的日常编程辅助，不涉及多渠道发布
+
+---
+
+## 两者都需要的场景
+
+| 场景 | OpenClaw 的角色 | Claude Code 的角色 |
+|------|----------------|-------------------|
+| 构建 Discord AI 助手 | 运行 Bot，管理渠道和 Skill | 开发和调试 Skill 代码 |
+| 持续运行的编程辅助服务 | 提供 API 端点，持久化上下文 | 编写服务逻辑和集成测试 |
+| 团队知识库 Bot | 接入多渠道，调度检索 Skill | 编写 RAG 逻辑和 Skill 文件 |
+| 自动化代码审查 Bot | 监听 PR 事件，推送结果 | 实现代码审查 Skill 的具体逻辑 |
+
+---
+
+## 常见问题（FAQ）
+
+**Q：OpenClaw 和 Claude Code 会互相冲突吗？**
+
+A：不会。两者可以在同一台机器上同时运行，也可以通过 MCP 协议互相通信。它们共享同一个 Anthropic API Key，但调用是完全独立的。
+
+**Q：OpenClaw 能调用 Claude Code 的 Slash Command（如 \`/commit\`）吗？**
+
+A：不能直接调用。Claude Code 的 Slash Command 是 CLI 会话内的功能，不对外暴露为 API。但你可以在 OpenClaw Skill 中通过 \`exec\` 工具调用 \`claude\` CLI 命令来间接触发。
+
+**Q：如果我只有一个 Anthropic API Key，两边同时用会有什么影响？**
+
+A：两者共享同一个 Key 和同一个速率限制配额。在高并发场景下可能遇到 \`429 Too Many Requests\`。建议在 OpenClaw 中配置 \`rateLimitBuffer\` 参数，为 Claude Code 的交互式任务预留配额。
+
+---
+
+## 下一步
+
+- 查看完整渠道支持：[OpenClaw 支持哪些渠道？](/blog/openclaw-supported-channels)
+- 了解 Skill 生态：[2026 年最佳 OpenClaw Skills](/blog/best-openclaw-skills-2026)
+- 深入对比三款工具：[OpenClaw vs Cursor vs Manus](/blog/openclaw-vs-cursor-vs-manus)
+`,
+    contentEn: `**Yes, and they work well together.** OpenClaw is an agent runtime platform; Claude Code is an AI terminal assistant purpose-built for programming tasks. They occupy different roles and do not replace each other — they complement each other.
+
+> Related comparison: [OpenClaw vs Claude Code: Deep Dive](/blog/openclaw-vs-claude-code)
+
+---
+
+## What Each Tool Is
+
+### OpenClaw
+
+OpenClaw is an **agent runtime**. Its core responsibilities are:
+
+- Loading and executing Skills (modular capability units)
+- Managing multi-channel integrations (Discord, QQ, Telegram, CLI, and more)
+- Persisting memory and context across sessions
+- Orchestrating tool calls (MCP, APIs, file systems)
+
+Think of OpenClaw as an "agent operating system." It is model-agnostic — you can attach Claude, GPT, a local model, or any compatible backend.
+
+### Claude Code
+
+Claude Code is Anthropic's official **CLI coding assistant**. Its core responsibilities are:
+
+- Understanding and modifying codebases directly from the terminal
+- Executing complex, multi-step programming tasks
+- Deep integration with Git, test frameworks, and build tools
+- Communicating with external tools via the MCP protocol
+
+Claude Code is sharpened specifically for the "write, edit, debug code" use case, and it runs exclusively on Claude models.
+
+---
+
+## Three Combination Patterns
+
+### Pattern A: Claude Code as OpenClaw's Underlying Model
+
+When you configure the Claude API in OpenClaw, both tools draw on the same underlying model capability. You define Skills and channels in OpenClaw, and Claude's reasoning drives the entire agent pipeline.
+
+\`\`\`yaml
+# ~/.openclaw/config.yml
+model:
+  provider: anthropic
+  name: claude-opus-4-5
+  apiKey: \${ANTHROPIC_API_KEY}
+\`\`\`
+
+### Pattern B: Claude Code for Development, OpenClaw for Deployment
+
+This is the most common real-world workflow:
+
+1. Use **Claude Code** to write and debug OpenClaw Skill files (\`.skill.ts\` or \`.skill.py\`)
+2. Once written, load and run those Skills using the OpenClaw CLI
+3. Use Claude Code to continuously iterate on Skill logic
+
+In this pattern, Claude Code is the development tool and OpenClaw is the runtime environment — clear separation of concerns.
+
+### Pattern C: Two-Way Communication via MCP
+
+OpenClaw supports the Model Context Protocol (MCP). You can expose OpenClaw as an MCP server, allowing Claude Code to call OpenClaw's Skills and memory system directly during coding tasks.
+
+\`\`\`bash
+# Start the OpenClaw MCP server
+openclaw serve --protocol mcp --port 3100
+
+# Register the MCP server in Claude Code
+claude mcp add openclaw http://localhost:3100
+\`\`\`
+
+For detailed configuration, see: [OpenClaw LocalAI Integration Guide](/blog/openclaw-localai-integration)
+
+---
+
+## When OpenClaw Alone Is Enough
+
+- You need to serve multiple channels simultaneously (Discord + QQ + Web UI)
+- You need persistent memory across sessions
+- You are managing multiple Skill modules and exposing them as a service
+- Your users are not developers and need a conversational interface to interact with AI
+
+---
+
+## When Claude Code Alone Is Enough
+
+- Pure programming tasks: writing code, refactoring, debugging, code review
+- One-off project tasks that do not need to run as a persistent service
+- Deep interaction with the file system, Git history, or test suites
+- Day-to-day coding assistance for individual developers without multi-channel publishing needs
+
+---
+
+## When You Need Both
+
+| Use Case | OpenClaw's Role | Claude Code's Role |
+|----------|-----------------|--------------------|
+| Building a Discord AI assistant | Run the bot, manage channels and Skills | Develop and debug the Skill code |
+| Persistent coding assistance service | Provide API endpoints, persist context | Write service logic and integration tests |
+| Team knowledge base bot | Connect multiple channels, orchestrate retrieval Skills | Write RAG logic and Skill files |
+| Automated code review bot | Listen for PR events, push results | Implement the code review Skill logic |
+
+---
+
+## FAQ
+
+**Q: Will OpenClaw and Claude Code conflict with each other?**
+
+A: No. Both can run simultaneously on the same machine and communicate with each other via MCP. They may share the same Anthropic API key, but their calls are entirely independent.
+
+**Q: Can OpenClaw call Claude Code's Slash Commands (like \`/commit\`)?**
+
+A: Not directly. Claude Code's Slash Commands are session-internal features, not exposed as an external API. However, you can call the \`claude\` CLI binary from within an OpenClaw Skill using the \`exec\` tool to trigger them indirectly.
+
+**Q: If I only have one Anthropic API key, what happens when both tools use it simultaneously?**
+
+A: Both tools share the same key and the same rate-limit quota. Under high concurrency you may hit \`429 Too Many Requests\`. Consider configuring the \`rateLimitBuffer\` parameter in OpenClaw to reserve quota for Claude Code's interactive tasks.
+
+---
+
+## Next Steps
+
+- See the full list of supported channels: [OpenClaw Supported Channels](/blog/openclaw-supported-channels)
+- Explore the Skills ecosystem: [Best OpenClaw Skills for 2026](/blog/best-openclaw-skills-2026)
+- Three-way comparison: [OpenClaw vs Cursor vs Manus](/blog/openclaw-vs-cursor-vs-manus)
+`,
+    author: "OpenClaw 101",
+    date: "2026-04-20",
+    category: "OpenClaw 进阶",
+    categoryEn: "OpenClaw Advanced",
+    tags: ["openclaw","claude-code","comparison","mcp","2026"],
+    readingTime: 5,
+    image: "/og-image.png"
+  },
+  {
+    id: 39,
+    slug: "openclaw-vs-cursor",
+    title: "OpenClaw vs Cursor（2026）",
+    titleEn: "OpenClaw vs Cursor (2026) Comparison",
+    excerpt: "OpenClaw 是 Agent 运行时，Cursor 是 AI 代码编辑器。区别、选择、配合。",
+    excerptEn: "Compare OpenClaw vs Cursor: agent runtime vs AI code editor. Differences, choices, and how they work together.",
+    content: `这个问题经常被问到。OpenClaw 和 Cursor 都在"AI + 开发"这个大赛道上，但它们解决的是完全不同的问题。搞清楚这一点，才能做出合理的工具选择，而不是被营销话术带跑偏。
+
+> 延伸阅读：[OpenClaw vs Cursor vs Manus 三向对比](/blog/openclaw-vs-cursor-vs-manus)
+
+---
+
+## 核心差异一览
+
+| 维度 | OpenClaw | Cursor |
+|------|----------|--------|
+| **本质** | Agent 运行时平台 | AI 代码编辑器（基于 VS Code） |
+| **主要场景** | 部署和运行 AI Agent | 在 IDE 内辅助写代码 |
+| **渠道支持** | Discord、QQ、Telegram、CLI、Web 等 | 仅 IDE 内部 |
+| **跨会话记忆** | 原生支持 | 无 |
+| **Skill/插件体系** | 开放 Skill 生态，可自定义 | Cursor Rules + 扩展，较封闭 |
+| **模型灵活性** | 支持任意 LLM 后端 | 绑定 Claude、GPT、Gemini（官方支持列表） |
+| **本地模型** | 支持（通过 LocalAI/Ollama） | 不支持 |
+| **界面** | CLI 为主，可选 Web UI | 图形化 IDE |
+| **使用门槛** | 需要配置，偏技术向 | 开箱即用，门槛低 |
+| **定价** | 开源免费，API 费用自付 | 订阅制（$20/月起） |
+
+---
+
+## Cursor 擅长什么
+
+Cursor 的核心优势在于**编辑器内的代码生成与补全体验**。如果你的主要需求是：
+
+- **Tab 补全**：在打字过程中实时预测和补全代码，比 GitHub Copilot 的感知更强
+- **多文件编辑（Composer）**：用自然语言描述需求，Cursor 自动跨多个文件做出修改
+- **代码库问答（Codebase Chat）**：用 \`@codebase\` 提问，AI 理解整个项目结构后回答
+- **视觉调试**：截图贴进 Cursor，让 AI 帮你定位界面问题
+- **内联编辑（Cmd+K）**：选中代码块，一句话完成重构或 Bug 修复
+
+对于独立开发者或小团队，Cursor 的**开箱即用**体验非常友好，几乎不需要额外配置就能提升日常编码效率。
+
+---
+
+## OpenClaw 擅长什么
+
+OpenClaw 的核心优势在于**把 AI 能力部署为持续运行的服务**。如果你的主要需求是：
+
+- **多渠道发布**：同一套 Agent 逻辑，同时服务 Discord、QQ、企业微信、API 端点
+- **自定义 Skill**：把复杂的 AI 工作流封装为可复用的 Skill 模块
+- **持久化记忆**：跨会话、跨用户记住上下文，构建有"记忆"的 AI 助手
+- **本地/私有模型**：对数据隐私有要求，接入本地部署的 Ollama 或 LocalAI
+- **自动化流程**：监听事件（如 GitHub PR、定时任务）并自动触发 Agent 执行
+
+如果你是在**为用户或团队搭建 AI 服务**，而不只是辅助自己写代码，OpenClaw 是更合适的选择。
+
+---
+
+## 什么时候选 OpenClaw
+
+- 你需要把 AI 助手部署到 Discord、Telegram 或企业内部平台
+- 你在开发需要持久化状态的 AI 应用（客服 Bot、知识库问答、代码审查自动化）
+- 你需要本地运行模型，不能把代码或数据发送到第三方 API
+- 你的技术团队需要一个可编程、可扩展的 Agent 基础设施
+
+---
+
+## 什么时候选 Cursor
+
+- 你的主要需求是让个人编码工作更快、更顺
+- 你不想花时间配置 AI 工具，希望安装即用
+- 你重度使用 VS Code 生态（插件、快捷键、主题），不想迁移工作流
+- 预算充足，愿意为打磨精良的编辑器体验付费
+
+---
+
+## 什么时候两者都选
+
+这是完全合理的组合。典型工作流：
+
+1. 用 **Cursor** 编写 OpenClaw 的 Skill 文件和配置，享受智能补全和 Composer 多文件编辑
+2. 用 **OpenClaw** 加载并运行这些 Skill，把它部署到 Discord 服务器或内部平台
+3. 用 Cursor 继续迭代 Skill 逻辑，OpenClaw 热加载更新
+
+两者的边界很清晰：Cursor 是**写代码的工具**，OpenClaw 是**运行 Agent 的平台**。
+
+也可以参考：[OpenClaw 能和 Claude Code 一起用吗？](/blog/can-openclaw-work-with-claude-code)
+
+---
+
+## 常见问题（FAQ）
+
+**Q：Cursor 能替代 OpenClaw 吗？**
+
+A：不能。Cursor 没有渠道适配器、没有 Skill 系统、没有跨会话记忆，也无法部署成一个持续运行的 Bot 服务。Cursor 的定位是"更聪明的代码编辑器"，不是 Agent 运行时。
+
+**Q：OpenClaw 能替代 Cursor 吗？**
+
+A：对于日常编码来说，也不能。OpenClaw 没有 IDE 内联编辑、没有 Tab 补全、没有视觉调试这些功能。如果你想用 OpenClaw 辅助写代码，它更像 Claude Code（CLI 方式），而不像 Cursor（GUI 方式）。
+
+**Q：Cursor 支持接入 OpenClaw 的 Skill 吗？**
+
+A：目前 Cursor 不支持直接调用 OpenClaw Skill。但如果 OpenClaw 暴露了 MCP 服务端，理论上 Cursor 未来支持 MCP 后可以集成。目前更成熟的 MCP 集成是通过 [OpenClaw VSCode 扩展](/blog/openclaw-vscode-extension) 实现的。
+
+---
+
+## 下一步
+
+- 安装 OpenClaw：[OpenClaw 安装完整指南](/blog/how-to-install-openclaw)
+- 了解 OpenClaw VSCode 插件：[OpenClaw VSCode 扩展使用指南](/blog/openclaw-vscode-extension)
+- 查看三款工具对比：[OpenClaw vs Cursor vs Manus](/blog/openclaw-vs-cursor-vs-manus)
+`,
+    contentEn: `This question comes up often. OpenClaw and Cursor both live in the "AI + development" space, but they solve fundamentally different problems. Getting that distinction right leads to smarter tool choices — not decisions driven by marketing noise.
+
+> Extended comparison: [OpenClaw vs Cursor vs Manus: Three-Way Breakdown](/blog/openclaw-vs-cursor-vs-manus)
+
+---
+
+## Core Differences at a Glance
+
+| Dimension | OpenClaw | Cursor |
+|-----------|----------|--------|
+| **What it is** | Agent runtime platform | AI code editor (VS Code–based) |
+| **Primary use case** | Deploy and run AI agents | AI-assisted coding inside an IDE |
+| **Channel support** | Discord, QQ, Telegram, CLI, Web, and more | IDE only |
+| **Cross-session memory** | Native support | None |
+| **Skill/plugin system** | Open Skill ecosystem, fully customizable | Cursor Rules + extensions, relatively closed |
+| **Model flexibility** | Any LLM backend | Claude, GPT, Gemini (official support list) |
+| **Local models** | Supported (via LocalAI/Ollama) | Not supported |
+| **Interface** | CLI-first, optional Web UI | Graphical IDE |
+| **Setup effort** | Configuration required, developer-oriented | Works out of the box, low barrier |
+| **Pricing** | Open source, pay for your own API | Subscription ($20/month and up) |
+
+---
+
+## What Cursor Does Best
+
+Cursor's core strength is the **in-editor code generation and completion experience**. If your primary needs are:
+
+- **Tab completion**: Real-time code prediction as you type, with sharper awareness than GitHub Copilot
+- **Multi-file editing (Composer)**: Describe what you need in natural language; Cursor makes coordinated changes across files
+- **Codebase Q&A**: Ask questions with \`@codebase\` and get answers that reflect the full project structure
+- **Visual debugging**: Paste a screenshot into Cursor and let AI help pinpoint UI issues
+- **Inline editing (Cmd+K)**: Select a code block and refactor or fix it in a single sentence
+
+For independent developers and small teams, Cursor's **zero-configuration start** is genuinely compelling — it improves daily coding velocity with almost no setup.
+
+---
+
+## What OpenClaw Does Best
+
+OpenClaw's core strength is **deploying AI capabilities as persistent, running services**. If your primary needs are:
+
+- **Multi-channel publishing**: Run the same agent logic across Discord, QQ, enterprise chat, and API endpoints simultaneously
+- **Custom Skills**: Package complex AI workflows into reusable, composable Skill modules
+- **Persistent memory**: Remember context across sessions and users, building AI assistants that actually remember things
+- **Local or private models**: Meet data privacy requirements by connecting to self-hosted Ollama or LocalAI
+- **Automated pipelines**: Listen for events (GitHub PRs, cron schedules) and automatically trigger agent execution
+
+If you are **building AI services for users or a team** — rather than just augmenting your own coding — OpenClaw is the more appropriate choice.
+
+---
+
+## When to Pick OpenClaw
+
+- You need to deploy an AI assistant to Discord, Telegram, or an internal enterprise platform
+- You are building AI applications that require persistent state (support bots, knowledge-base Q&A, automated code review)
+- You need to run models locally and cannot send code or data to third-party APIs
+- Your engineering team needs a programmable, extensible agent infrastructure
+
+---
+
+## When to Pick Cursor
+
+- Your primary goal is making your personal coding work faster and smoother
+- You do not want to spend time configuring AI tools — install and go
+- You are deeply invested in the VS Code ecosystem (extensions, keybindings, themes) and do not want to migrate your workflow
+- You have budget for a polished, well-designed editor experience
+
+---
+
+## When to Use Both
+
+This is a completely reasonable combination. A typical workflow:
+
+1. Use **Cursor** to write OpenClaw Skill files and config, taking advantage of smart completion and multi-file Composer edits
+2. Use **OpenClaw** to load and run those Skills, deploying them to a Discord server or internal platform
+3. Keep iterating on Skill logic in Cursor; OpenClaw hot-reloads the updates
+
+The boundary is clean: Cursor is the **tool for writing code**, OpenClaw is the **platform for running agents**.
+
+Also relevant: [Can OpenClaw Work with Claude Code?](/blog/can-openclaw-work-with-claude-code)
+
+---
+
+## FAQ
+
+**Q: Can Cursor replace OpenClaw?**
+
+A: No. Cursor has no channel adapters, no Skill system, no cross-session memory, and no way to deploy a continuously running bot service. Cursor is positioned as "a smarter code editor," not an agent runtime.
+
+**Q: Can OpenClaw replace Cursor?**
+
+A: Not for day-to-day coding either. OpenClaw lacks inline IDE editing, tab completion, and visual debugging. If you want OpenClaw to help you write code, it behaves more like Claude Code (CLI mode) than Cursor (GUI mode).
+
+**Q: Does Cursor support calling OpenClaw Skills?**
+
+A: Not currently. Cursor does not natively invoke OpenClaw Skills. However, if OpenClaw exposes an MCP server, future MCP support in Cursor could make integration possible. The most mature MCP integration today is through the [OpenClaw VSCode Extension](/blog/openclaw-vscode-extension).
+
+---
+
+## Next Steps
+
+- Install OpenClaw: [Complete OpenClaw Installation Guide](/blog/how-to-install-openclaw)
+- Use OpenClaw inside VS Code: [OpenClaw VSCode Extension Guide](/blog/openclaw-vscode-extension)
+- Three-way tool comparison: [OpenClaw vs Cursor vs Manus](/blog/openclaw-vs-cursor-vs-manus)
+`,
+    author: "OpenClaw 101",
+    date: "2026-04-20",
+    category: "OpenClaw 进阶",
+    categoryEn: "OpenClaw Advanced",
+    tags: ["openclaw","cursor","comparison","ai-editor","2026"],
+    readingTime: 5,
+    image: "/og-image.png"
+  },
 ];

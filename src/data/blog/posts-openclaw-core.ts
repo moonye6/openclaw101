@@ -3111,7 +3111,7 @@ Run \`openclaw doctor\` — it checks config validity, Skill versions, and commo
     title: "OpenClaw vs Claude Code：谁才是最好的 AI 编程助手？",
     titleEn: "OpenClaw vs Claude Code (2026) Comparison",
     excerpt: "Claude Code 是 Anthropic 官方的编程助手，OpenClaw 是开源社区的明星项目。两者有什么区别？该选哪一个？从多平台支持、开源性、技能生态、自托管、定价全方位对比。",
-    excerptEn: "Compare OpenClaw and Claude Code side by side: execution scope, self-hosting, skills ecosystem, browser control, and pricing. Which fits your workflow in 2026, and can you use both together?",
+    excerptEn: "Compare OpenClaw vs Claude Code: self-hosting, skills, browser control, pricing. Which fits your 2026 workflow? Can you use both?",
     content: `2026 年，AI 编程助手市场百花齐放。Claude Code 和 OpenClaw 是其中最受关注的两款产品。
 
 Claude Code 由 Anthropic 官方推出，闭源商业化；OpenClaw 是开源社区的明星项目，GitHub 336k+ stars。
