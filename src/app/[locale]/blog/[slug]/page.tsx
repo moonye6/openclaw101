@@ -8,6 +8,38 @@ const SITE_URL = 'https://openclaw101.vip';
 // Enable ISR - revalidate every hour
 export const revalidate = 3600;
 
+/**
+ * Extract FAQ Q&A pairs from markdown content for FAQPage JSON-LD.
+ * Handles two patterns:
+ *   1. **Q: question**\n\nanswer
+ *   2. ### question\n\nanswer (under a ## FAQ heading)
+ */
+function extractFaqPairs(content: string): Array<{ question: string; answer: string }> {
+  // Find the FAQ section
+  const faqMatch = content.match(/##\s+(?:FAQ|Frequently Asked Questions)\s*\n([\s\S]*?)(?=\n##\s|\n\*---|$)/i);
+  if (!faqMatch) return [];
+
+  const faqSection = faqMatch[1];
+  const pairs: Array<{ question: string; answer: string }> = [];
+
+  // Pattern 1: **Q: question**\n(A: answer OR plain answer)
+  const boldQPattern = /\*\*Q:\s*(.+?)\*\*\s*\n+(?:A:\s*)?([\s\S]*?)(?=\n\*\*Q:|\n###|\n##|$)/g;
+  let m;
+  while ((m = boldQPattern.exec(faqSection)) !== null) {
+    pairs.push({ question: m[1].trim(), answer: m[2].trim().replace(/\n/g, ' ').slice(0, 500) });
+  }
+
+  // Pattern 2: ### question (if pattern 1 found nothing)
+  if (pairs.length === 0) {
+    const h3Pattern = /###\s+(.+?)\s*\n\n([\s\S]*?)(?=\n###|\n##|$)/g;
+    while ((m = h3Pattern.exec(faqSection)) !== null) {
+      pairs.push({ question: m[1].trim(), answer: m[2].trim().replace(/\n/g, ' ').slice(0, 500) });
+    }
+  }
+
+  return pairs;
+}
+
 // Return 404 for slugs not in generateStaticParams
 export const dynamicParams = false;
 
@@ -140,6 +172,21 @@ export default async function BlogPostPage({
     ],
   };
 
+  // Extract FAQ pairs for FAQPage JSON-LD (if the post has a FAQ section)
+  const faqPairs = extractFaqPairs(content);
+  const faqJsonLd = faqPairs.length > 0 ? {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqPairs.map((pair) => ({
+      '@type': 'Question',
+      name: pair.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: pair.answer,
+      },
+    })),
+  } : null;
+
   return (
     <>
       <script
@@ -150,6 +197,12 @@ export default async function BlogPostPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      )}
       <BlogPostClient post={post} locale={locale} content={content} relatedPosts={getRelatedPosts(slug, 3)} />
     </>
   );
