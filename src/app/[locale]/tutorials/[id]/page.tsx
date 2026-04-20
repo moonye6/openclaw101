@@ -31,7 +31,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, id } = await params;
   const tutorial = getTutorialById(id);
-  if (!tutorial) return {};
+  if (!tutorial) notFound();
 
   const isZh = locale === 'zh';
   const cat = getCategoryInfo(tutorial.category);

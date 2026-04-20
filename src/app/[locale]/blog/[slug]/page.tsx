@@ -23,7 +23,7 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const post = getBlogPostBySlug(slug);
 
-  if (!post) return {};
+  if (!post) notFound();
 
   const isZh = locale === 'zh';
   const title = isZh ? post.title : post.titleEn;
