@@ -26,7 +26,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, day } = await params;
   const learningDay = learningPath.find(d => d.day === Number(day));
-  if (!learningDay) return {};
+  if (!learningDay) notFound();
 
   const isZh = locale === 'zh';
   const title = isZh ? learningDay.title : learningDay.titleEn;

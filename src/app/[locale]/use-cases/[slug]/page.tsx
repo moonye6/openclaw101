@@ -21,7 +21,7 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const uc = getUseCaseBySlug(slug);
 
-  if (!uc) return {};
+  if (!uc) notFound();
 
   const isZh = locale === 'zh';
   const titles: Record<string, { en: string; zh: string }> = {

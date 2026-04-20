@@ -20,7 +20,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, categoryId } = await params;
   const category = getCategoryById(categoryId);
-  if (!category) return {};
+  if (!category) notFound();
 
   const isZh = locale === 'zh';
   const catName = isZh ? category.nameZh : category.name;

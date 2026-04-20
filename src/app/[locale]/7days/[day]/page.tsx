@@ -21,7 +21,7 @@ export async function generateMetadata({
   const { locale, day: dayStr } = await params;
   const dayNum = parseInt(dayStr, 10);
   const dayContent = getDayContent(dayNum);
-  if (!dayContent) return {};
+  if (!dayContent) notFound();
 
   const isZh = locale === 'zh';
   const title = isZh ? dayContent.titleZh : dayContent.titleEn;
