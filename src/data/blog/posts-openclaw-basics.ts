@@ -6,9 +6,9 @@ export const postsOpenclawBasics: BlogPost[] = [
     id: 2,
     slug: "openclaw-telegram-tutorial",
     title: "10分钟搞定 OpenClaw + Telegram 机器人配置",
-    titleEn: "10 Minutes to Set Up OpenClaw + Telegram Bot",
-    excerpt: "手把手教你配置 OpenClaw + Telegram 机器人，随时随地与 AI 对话。",
-    excerptEn: "Step-by-step guide to configure OpenClaw + Telegram bot.",
+    titleEn: "OpenClaw Telegram Bot Tutorial (2026)",
+    excerpt: "手把手教你配置 OpenClaw + Telegram 机器人：BotFather 注册、Token 配置、命令设置、AI 接入，10 分钟完成。",
+    excerptEn: "Complete OpenClaw Telegram bot tutorial: register with BotFather, configure your token, set up commands, connect AI skills, and deploy. Working bot in 10 minutes, no coding required.",
     content: `想把 Telegram 变成你的 AI 私人助理？这篇文章手把手教你配置 OpenClaw + Telegram 机器人，10 分钟内完成。不需要任何编程经验，只要你会用 Telegram，就能跟着做。
 
 ## 为什么选择 Telegram？
@@ -529,9 +529,9 @@ Installed skills are automatically available in the Telegram bot. For example, i
     id: 3,
     slug: "openclaw-best-skills",
     title: "OpenClaw 最佳技能推荐：提升效率的 10 个必备插件",
-    titleEn: "OpenClaw Skills Marketplace (2026) – Best Skills & How to Use",
-    excerpt: "从图像生成到视频分析，这些技能将让你的 OpenClaw 如虎添翼。",
-    excerptEn: "From image generation to video analysis, these skills will supercharge your OpenClaw.",
+    titleEn: "10 Best OpenClaw Skills (2026) — Must-Have Plugins",
+    excerpt: "精选 10 个最实用的 OpenClaw 技能：Shell 执行、文件读写、图像生成、视频分析、网页抓取等。附安装命令和使用场景。",
+    excerptEn: "The 10 must-have OpenClaw skills for 2026: shell execution, file operations, image generation, web scraping, and more. Install commands, use cases, and how to pick the right skill for your workflow.",
     content: `OpenClaw 装好之后，默认就能处理文件、写代码、搜网页。这些通用能力覆盖大部分日常任务，但总有一些场景需要更专业的工具——比如生成图片、操作飞书文档、转录会议录音。
 
 这就是技能（Skills）存在的意义。技能是社区开发的扩展包，安装后直接集成到 OpenClaw 的工作流中。ClawHub 是官方技能市场，目前已有数百个技能可选。
