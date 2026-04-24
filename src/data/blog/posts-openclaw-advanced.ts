@@ -1275,7 +1275,7 @@ This combination truly delivers the vision of "conversation as automation" — j
     title: "重磅！OpenClaw v2026.3.31 原生集成 QQ 机器人——国内首个官方接入的社交平台",
     titleEn: "OpenClaw QQ Bot & Channel Setup Guide (2026)",
     excerpt: "OpenClaw 原生支持 QQ Bot 和 QQ Channel 接入。本文给出 BotFather 注册、Token 配置、Channel 权限、插件安装的完整 3 步部署流程，附常见报错。",
-    excerptEn: "How to set up OpenClaw on QQ — native Bot and Channel support, step by step. Covers the @tencent-connect/openclaw-qqbot plugin, permission scopes, and the 3-step deploy. Beginner-friendly.",
+    excerptEn: "Set up OpenClaw on QQ: native Bot and Channel support, step by step. Covers the qqbot plugin, permission scopes, and the 3-step deploy.",
     content: `4 月 1 日凌晨，OpenClaw 正式发布 v2026.3.31 版本。此次更新最大的亮点是：**原生内置 QQ 机器人（QQ Bot）官方插件**，QQ 成为国内首个被 OpenClaw 官方原生接入的社交平台。
 
 腾讯轻量云协同 QQ 团队贡献的 QQ Bot 代码已正式合入 OpenClaw 主仓库，OpenClaw 创始人 Peter Steinberger 也公开点赞了这一里程碑事件。
