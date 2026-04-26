@@ -9,8 +9,8 @@ export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'OpenClaw Skills Marketplace — Browse 97+ ClawHub Skills (2026)',
-    description: 'Complete directory of 97+ OpenClaw community skills on ClawHub. AI image generation, Telegram bots, smart home, video processing & more. One-command install.',
+    title: 'OpenClaw Skills Marketplace — 97+ ClawHub Skills with One-Command Install (2026)',
+    description: 'Browse 97+ tested OpenClaw community skills. Install with one command. AI image gen, Telegram bots, smart home, video, SEO automation — every skill includes GitHub source and benchmarks.',
     openGraph: {
       title: 'OpenClaw Skills Marketplace — 97+ ClawHub Skills',
       description: '97+ community skills for OpenClaw. AI image generation, Telegram bots, smart home & more.',

@@ -7155,10 +7155,10 @@ The Telegram, QQ, and WhatsApp channel adapters and the new ClawHub signing flow
   {
     id: 7,
     slug: "openclaw-vs-cursor-vs-manus",
-    title: "OpenClaw vs Cursor vs Manus：2026 年 AI Agent 大比拼",
-    titleEn: "OpenClaw vs Cursor vs Manus (2026)",
-    excerpt: "深度对比 4 款热门 AI Agent：OpenClaw、Cursor、Manus、AutoGPT。从执行能力、平台支持、成本、适用场景全方位分析。",
-    excerptEn: "Compare OpenClaw, Cursor, Manus, and AutoGPT: which AI agent wins on execution, self-hosting, ecosystem, and price? Side-by-side table with use-case recommendations.",
+    title: "OpenClaw vs Cursor vs Manus 2026：3 个真实任务对比 + 选型推荐",
+    titleEn: "OpenClaw vs Cursor vs Manus — 2026 Comparison (3 Real Tasks Tested)",
+    excerpt: "用 3 个真实工程任务对比 OpenClaw、Cursor、Manus、AutoGPT：执行能力、自托管、成本、生态系统。附决策表和适用场景。",
+    excerptEn: "OpenClaw vs Cursor vs Manus vs AutoGPT — head-to-head on 3 real engineering tasks. Execution speed, self-hosting, ecosystem, and price compared. Verdict table inside.",
     content: `2026 年，AI Agent 成为科技圈最热门的话题之一。
 
 不再是"聊天机器人"，而是真正能**动手做事**的 AI 助手。

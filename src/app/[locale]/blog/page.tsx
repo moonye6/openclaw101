@@ -9,8 +9,8 @@ export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'Blog — AI Agent & Telegram Bot Guides | OpenClaw 101',
-    description: 'Practical tutorials on Telegram bots, AI agents, automation workflows, and no-code tools.',
+    title: 'OpenClaw Blog — 50+ Tutorials on AI Agents, Telegram Bots, Workflows (Updated Weekly)',
+    description: '50+ tutorials and comparisons on OpenClaw, AI agents, Telegram bots, and automation workflows. New posts weekly with real benchmarks.',
     alternates: {
       canonical: 'https://openclaw101.vip/blog',
     },
