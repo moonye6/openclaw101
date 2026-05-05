@@ -14,6 +14,7 @@
     "check:links": "node scripts/check-internal-links.mjs",
     "audit:inbound-links": "node scripts/audit-inbound-links.mjs",
     "audit:inbound-links:gate": "node scripts/audit-inbound-links.mjs --gate",
+    "sync:gsc": "node scripts/gsc-sync.mjs",
     "validate": "pnpm typecheck && pnpm lint && pnpm lint:structure && pnpm check:routes && pnpm check:links && pnpm check:blog",
     "test": "playwright test",
     "test:e2e": "playwright test",
