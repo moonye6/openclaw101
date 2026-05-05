@@ -62,7 +62,7 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <Link href="/guide">
+          <Link href="/blog/how-to-create-telegram-bot">
             <Button
               size="lg"
               className="bg-brand text-white hover:bg-brand-light shadow-lg shadow-brand/25 px-8"
@@ -71,7 +71,7 @@ export function HeroSection() {
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </Link>
-          <Link href="/examples">
+          <Link href="/skills">
             <Button
               size="lg"
               variant="outline"

@@ -5,10 +5,10 @@
     "description": "搭建 Telegram Bot、AI 助手和自动化工作流 — 无需编程。新手友好的教程、真实案例和实用指南。",
     "hero": {
       "title": "OpenClaw 指南、教程和实战案例",
-      "subtitle": "了解 OpenClaw 是什么、如何工作、如何使用——包含分步指南、真实案例和新手友好的讲解。",
-      "badge": "免费指南 · 新手友好",
-      "cta": "从新手指南开始",
-      "learnMore": "浏览实战案例",
+      "subtitle": "10 分钟搭好第一个 Telegram Bot。看 OpenClaw vs LangChain / Cursor / Claude Code 深度对比。浏览 17 个技能分类、114+ 真实技能。42 篇深度文章，中英双语 — 独立运营、免费、无需注册。",
+      "badge": "独立 · 免费 · 中英双语",
+      "cta": "从 Telegram Bot 教程开始",
+      "learnMore": "浏览 114+ 技能",
       "stats": {
         "tutorials": "精选教程",
         "skills": "社区技能",

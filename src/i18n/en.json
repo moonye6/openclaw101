@@ -5,10 +5,10 @@
     "description": "Build Telegram Bots, AI Assistants, and Automation Workflows — Even Without Coding. Beginner-friendly tutorials, real examples, and practical guides.",
     "hero": {
       "title": "OpenClaw Guides, Tutorials, and Practical Examples",
-      "subtitle": "Learn what OpenClaw is, how it works, and how to use it with step-by-step guides, real examples, and beginner-friendly explanations.",
-      "badge": "Free Guides · Beginner Friendly",
-      "cta": "Start with the Beginner Guide",
-      "learnMore": "Explore Examples",
+      "subtitle": "Build your first Telegram bot in 10 minutes. Compare OpenClaw against LangChain, Cursor, and Claude Code. Browse 17 skill categories with 114+ skills. 42 in-depth articles, bilingual EN / 中文 — independent, free, no signup.",
+      "badge": "Independent · Free · Bilingual",
+      "cta": "Start with the Telegram bot tutorial",
+      "learnMore": "Browse 114+ skills",
       "stats": {
         "tutorials": "Tutorials",
         "skills": "Skills",
