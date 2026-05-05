@@ -273,7 +273,11 @@ AI Agent 不再是遥不可及的未来技术。今天，你就可以用 OpenCla
 - [Telegram Bot 实战案例](/blog/telegram-bot-examples)（找灵感）
 - [Telegram 自动化指南](/blog/telegram-automation-guide)（构建工作流）
 - [Telegram Bot API 教程](/blog/telegram-bot-api-tutorial)（深入技术）
-- [最佳工具对比](/blog/best-telegram-bot-tools)（选择工具）`,
+- [最佳工具对比](/blog/best-telegram-bot-tools)（选择工具）
+
+🎯 **场景化用法**：
+- [OpenClaw 个人知识管理（PKM）工作流](/blog/openclaw-pkm)
+- [Claude Code 能配合 OpenClaw 吗？](/blog/can-openclaw-work-with-claude-code)`,
     contentEn: `AI agents are everywhere in tech conversations right now, and for good reason. They represent a fundamental shift in how software works — moving from tools that wait for instructions to systems that can pursue goals on their own. But there is a lot of hype mixed in with the substance, and it can be hard to separate the two.
 
 This guide cuts through the noise. Whether you are a developer, a product manager, or someone who is simply curious about where AI is heading, you will walk away with a solid understanding of what AI agents actually are, how they work under the hood, and how to build one yourself.
@@ -553,7 +557,11 @@ The best time to start building with AI agents was six months ago. The second be
 - [Telegram Bot Examples](/blog/telegram-bot-examples) (get inspired)
 - [Telegram Automation Guide](/blog/telegram-automation-guide) (build workflows)
 - [Telegram Bot API Tutorial](/blog/telegram-bot-api-tutorial) (go deeper)
-- [Best Tool Comparison](/blog/best-telegram-bot-tools) (choose your tools)`,
+- [Best Tool Comparison](/blog/best-telegram-bot-tools) (choose your tools)
+
+🎯 **Scenario use cases:**
+- [OpenClaw personal knowledge management (PKM) workflow](/blog/openclaw-pkm)
+- [Can Claude Code work with OpenClaw?](/blog/can-openclaw-work-with-claude-code)`,
     author: "OpenClaw 101",
     date: "2026-04-07",
     category: "AI Agent 指南",

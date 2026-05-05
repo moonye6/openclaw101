@@ -1820,7 +1820,16 @@ OpenClaw 本身非常轻量，1 核 1GB 内存就够跑了。瓶颈在 LLM API �
 
 **Q：企业部署需要注意什么？**
 
-三个关键点：一是数据安全，确保 API Key 通过密钥管理服务（如 AWS Secrets Manager 或 HashiCorp Vault）管理，不要硬编码；二是访问控制，通过反向代理配置用户认证；三是审计日志，开启 \`openclaw config set logging.audit true\` 记录所有用户操作。`,
+三个关键点：一是数据安全，确保 API Key 通过密钥管理服务（如 AWS Secrets Manager 或 HashiCorp Vault）管理，不要硬编码；二是访问控制，通过反向代理配置用户认证；三是审计日志，开启 \`openclaw config set logging.audit true\` 记录所有用户操作。
+
+---
+
+🚢 **延伸部署阅读**：
+- [OpenClaw Docker Compose 部署完整指南](/blog/openclaw-docker-compose-setup)
+- [OpenClaw 自托管完整教程](/blog/openclaw-self-hosting-guide)
+- [企业部署案例与合规要点](/blog/openclaw-enterprise-use-cases)
+- [国家知识产权局风险提示 — 智能体撰写专利文件需警惕](/blog/openclaw-security-patent-risk-warning)
+- 部署过程出错？[OpenClaw 常见错误排查手册](/blog/openclaw-error-troubleshooting)`,
     contentEn: `OpenClaw supports multiple deployment methods: local machine, home server, VPS, one-click cloud platform, and enterprise private cloud. Pick the wrong one and you waste money or hit limitations. This article compares all five options in detail to help you find the best fit.
 
 ## Deployment Overview
@@ -2196,7 +2205,16 @@ One-click platforms handle OS management, security updates, SSL certificates, an
 
 **Q: What should I watch out for in enterprise deployments?**
 
-Three key areas: first, data security — manage API keys through a secrets manager (like AWS Secrets Manager or HashiCorp Vault), never hardcode them; second, access control — configure user authentication through a reverse proxy; third, audit logging — enable \`openclaw config set logging.audit true\` to record all user actions.`,
+Three key areas: first, data security — manage API keys through a secrets manager (like AWS Secrets Manager or HashiCorp Vault), never hardcode them; second, access control — configure user authentication through a reverse proxy; third, audit logging — enable \`openclaw config set logging.audit true\` to record all user actions.
+
+---
+
+🚢 **Related deployment reading**:
+- [OpenClaw Docker Compose deployment guide](/blog/openclaw-docker-compose-setup) — multi-container production stack
+- [OpenClaw self-hosting guide](/blog/openclaw-self-hosting-guide) — full enterprise self-host walkthrough
+- [Enterprise use cases & deployment patterns](/blog/openclaw-enterprise-use-cases) — real-world rollout case studies
+- [Patent compliance advisory](/blog/openclaw-security-patent-risk-warning) — when AI-drafted IP filings need review
+- Hit issues during install? [Common errors troubleshooting](/blog/openclaw-error-troubleshooting)`,
     author: "OpenClaw 101",
     date: "2026-03-17",
     category: "部署指南",
@@ -2575,7 +2593,7 @@ npm 和 Docker 安装方式都需要联网下载。安装完成后，如果使�
 
 安装完成后，推荐跟着我们的 [7天学习路径](/learn/1) 继续学习！
 
-如果安装过程中遇到问题，先看 [OpenClaw 常见错误排查](/blog/openclaw-common-errors) 和 [安装故障诊断完整指南](/blog/openclaw-installation-troubleshooting)。担心使用成本？看 [OpenClaw 是免费的吗 — 完整定价解读](/blog/is-openclaw-free-pricing-guide)。`,
+如果安装过程中遇到问题，先看 [OpenClaw 常见错误排查](/blog/openclaw-common-errors) 和 [安装故障诊断完整指南](/blog/openclaw-installation-troubleshooting)。担心使用成本？看 [OpenClaw 是免费的吗 — 完整定价解读](/blog/is-openclaw-free-pricing-guide)。生产环境部署？读 [OpenClaw 安全完整指南](/blog/openclaw-security-guide) 和 [企业部署案例](/blog/openclaw-enterprise-use-cases)。`,
     contentEn: `This is the definitive OpenClaw installation guide for 2026. Whether you are on macOS, Linux, or Windows, this tutorial covers everything you need: three installation methods (npm, Docker, from source), platform-specific instructions, first-time setup, configuration deep dive, upgrading, and troubleshooting common issues.
 
 ## Prerequisites
@@ -2939,7 +2957,7 @@ For enterprise deployment, we recommend Docker Compose or Kubernetes. OpenClaw p
 
 After installation, follow our [7-Day Learning Path](/learn/1) to continue learning!
 
-Hit a problem during install? Start with [OpenClaw common errors](/blog/openclaw-common-errors) and the [installation troubleshooting guide](/blog/openclaw-installation-troubleshooting). Worried about cost? See [Is OpenClaw free? — full pricing breakdown](/blog/is-openclaw-free-pricing-guide).`,
+Hit a problem during install? Start with [OpenClaw common errors](/blog/openclaw-common-errors) and the [installation troubleshooting guide](/blog/openclaw-installation-troubleshooting). Worried about cost? See [Is OpenClaw free? — full pricing breakdown](/blog/is-openclaw-free-pricing-guide). Locking down a production install? Read the [OpenClaw security guide](/blog/openclaw-security-guide) and the [enterprise rollout patterns](/blog/openclaw-enterprise-use-cases).`,
     author: "Dr. Sarah Kim",
     date: "2026-03-25",
     category: "安装教程",
@@ -3182,7 +3200,15 @@ OpenClaw，没有悬念。它的设计目标就是让非技术用户也能使用
 
 做选择之前，先问自己一个问题：**你是想用 AI，还是想做 AI？**
 
-想用 AI → OpenClaw。想做 AI → LangChain。想两者都要 → 两个都装上，各司其职。`,
+想用 AI → OpenClaw。想做 AI → LangChain。想两者都要 → 两个都装上，各司其职。
+
+---
+
+🔍 **更多对比阅读**：
+- [OpenClaw vs ChatGPT](/blog/openclaw-vs-chatgpt)
+- [OpenClaw vs Cursor](/blog/openclaw-vs-cursor)
+- [OpenClaw vs Claude Code](/blog/openclaw-vs-claude-code)
+- 自动化场景对比：[OpenClaw + n8n 自动化工作流终极组合](/blog/openclaw-n8n-automation)`,
     contentEn: `OpenClaw and LangChain are the two most talked-about AI agent frameworks heading into 2026. Both are evolving rapidly, and community debates about which one to pick show no signs of slowing down. But here is the thing: they solve fundamentally different problems for fundamentally different audiences. This article is not going to declare a winner. Instead, it will help you figure out which framework fits your specific situation.
 
 We will compare the two across five dimensions -- architecture, learning curve, use cases, community ecosystem, and real-world performance -- with code examples and a decision matrix so you can walk away with a clear answer.
@@ -3410,7 +3436,15 @@ For most scenarios, the performance difference is negligible. The dominant laten
 
 Before you choose, ask yourself one question: **Do you want to use AI, or do you want to build AI?**
 
-Want to use AI? OpenClaw. Want to build AI? LangChain. Want both? Install both and let each one do what it does best.`,
+Want to use AI? OpenClaw. Want to build AI? LangChain. Want both? Install both and let each one do what it does best.
+
+---
+
+🔍 **More comparisons**:
+- [OpenClaw vs ChatGPT](/blog/openclaw-vs-chatgpt)
+- [OpenClaw vs Cursor](/blog/openclaw-vs-cursor)
+- [OpenClaw vs Claude Code](/blog/openclaw-vs-claude-code)
+- Workflow automation comparison: [OpenClaw + n8n — automation playbook](/blog/openclaw-n8n-automation)`,
     author: "Alex Chen",
     date: "2026-03-27",
     category: "对比评测",
@@ -3698,7 +3732,13 @@ ClawHub 上的所有技能都经过基础安全审核。但连接第三方 API �
 
 **Q: 安装的技能数量有限制吗？**
 
-目前没有硬性限制。但我们建议保持 5 到 8 个技能处于活跃状态。太多活跃技能会拖慢首次响应速度，因为 OpenClaw 需要加载它们的上下文。可以用 \`openclaw skills disable <skill-name>\` 禁用暂时不用的技能，而不需要卸载。`,
+目前没有硬性限制。但我们建议保持 5 到 8 个技能处于活跃状态。太多活跃技能会拖慢首次响应速度，因为 OpenClaw 需要加载它们的上下文。可以用 \`openclaw skills disable <skill-name>\` 禁用暂时不用的技能，而不需要卸载。
+
+---
+
+🧰 **延伸技能集成**：
+- [OpenClaw + Browser Use — 让 AI 自动操控浏览器](/blog/openclaw-browser-use-integration)
+- [OpenClaw + n8n 自动化工作流终极组合](/blog/openclaw-n8n-automation)`,
     contentEn: `The ClawHub marketplace hosts thousands of community-built skills, but which ones are truly worth installing? After extensive testing, we have curated the 25 most useful skills organized by category. This guide also explains how skills work under the hood, how to evaluate skills on ClawHub before installing them, and how to create your own.
 
 ## What Are OpenClaw Skills and How Do They Work?
@@ -3997,6 +4037,11 @@ Yes. Add \`version: "x.y.z"\` to the skill entry in your config. ClawHub uses se
 - Want the 10-skill starter pack? See [OpenClaw Skills Marketplace](/blog/openclaw-best-skills).
 - Building your own Skill? Check the [OpenClaw API Reference](/blog/openclaw-api-reference).
 - Browse the full [Skills directory](/skills) for 97+ curated picks.
+
+🧰 **Skill integration deep dives**:
+- [OpenClaw + Browser Use — let AI drive the browser](/blog/openclaw-browser-use-integration)
+- [OpenClaw + n8n — automation playbook](/blog/openclaw-n8n-automation)
+- [OpenClaw personal knowledge management workflow](/blog/openclaw-pkm)
 `,
     author: "Marco Liu",
     date: "2026-03-29",
@@ -4278,7 +4323,14 @@ npm install -g openclaw
 
 ---
 
-安装问题是正常的，不是你做错了什么。重要的是：先修好环境，逐步测试，使用清晰的命令。一旦安装成功，OpenClaw 的能力会让你惊喜。`,
+安装问题是正常的，不是你做错了什么。重要的是：先修好环境，逐步测试，使用清晰的命令。一旦安装成功，OpenClaw 的能力会让你惊喜。
+
+---
+
+🛠 **延伸排查阅读**：
+- [OpenClaw 常见错误及解决方案](/blog/openclaw-common-errors)
+- [OpenClaw 错误排查完整手册](/blog/openclaw-error-troubleshooting)
+- [Docker Compose 部署 — 标准化环境避免本地踩坑](/blog/openclaw-docker-compose-setup)`,
     contentEn: `OpenClaw is powerful — but it is not a plug-and-play tool.
 
 From my experience, most installation problems come from:
@@ -4559,7 +4611,14 @@ If \`claw --version\` works but \`claw "say hello"\` does not, it is a configura
 
 ---
 
-Installation problems are normal — they are not a sign you are doing something wrong. What matters is: fix the environment first, test step by step, and use clear commands. Once the setup works, OpenClaw becomes incredibly powerful. The installation phase is where most people quit, but it is also the shortest part of the journey.`,
+Installation problems are normal — they are not a sign you are doing something wrong. What matters is: fix the environment first, test step by step, and use clear commands. Once the setup works, OpenClaw becomes incredibly powerful. The installation phase is where most people quit, but it is also the shortest part of the journey.
+
+---
+
+🛠 **More troubleshooting reading**:
+- [OpenClaw common errors handbook](/blog/openclaw-common-errors)
+- [OpenClaw error troubleshooting — full reference](/blog/openclaw-error-troubleshooting)
+- [Docker Compose deployment — standardize the environment, skip local quirks](/blog/openclaw-docker-compose-setup)`,
     author: "Alex Chen",
     date: "2026-04-09",
     category: "配置教程",
@@ -4907,7 +4966,13 @@ If you have confirmed the issue is not environmental (steps 1-3 in the debug wor
 
 ---
 
-Most OpenClaw errors are predictable and fixable. The key is: understand what failed (not just that it failed), fix the environment first, and use clear, structured commands. Once these are stable, OpenClaw becomes extremely reliable.`,
+Most OpenClaw errors are predictable and fixable. The key is: understand what failed (not just that it failed), fix the environment first, and use clear, structured commands. Once these are stable, OpenClaw becomes extremely reliable.
+
+---
+
+🛠 **延伸排查阅读**：
+- [OpenClaw 常见错误及解决方案完整手册](/blog/openclaw-error-troubleshooting)
+- [OpenClaw 安装故障诊断指南](/blog/openclaw-installation-troubleshooting)`,
     contentEn: `If OpenClaw "doesn't work", it's usually one of these errors. This guide lists the most common real-world issues — and exactly how to fix them.
 
 ## Why OpenClaw Errors Are So Common
@@ -5240,7 +5305,13 @@ If you have confirmed the issue is not environmental (steps 1-3 in the debug wor
 
 ---
 
-Most OpenClaw errors are predictable and fixable. The key is: understand what failed (not just that it failed), fix the environment first, and use clear, structured commands. Once these are stable, OpenClaw becomes extremely reliable.`,
+Most OpenClaw errors are predictable and fixable. The key is: understand what failed (not just that it failed), fix the environment first, and use clear, structured commands. Once these are stable, OpenClaw becomes extremely reliable.
+
+---
+
+🛠 **More troubleshooting reading**:
+- [OpenClaw error troubleshooting — full handbook](/blog/openclaw-error-troubleshooting)
+- [OpenClaw installation troubleshooting](/blog/openclaw-installation-troubleshooting)`,
     author: "Alex Chen",
     date: "2026-04-09",
     category: "Troubleshooting",

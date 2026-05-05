@@ -1466,7 +1466,14 @@ OpenClaw v2026.3.31 的 QQ Bot 原生集成，不仅仅是一个技术更新，�
 - 🔌 **全场景覆盖**：私聊、群聊、频道一网打尽
 - 🎬 **富媒体支持**：图片、音频、视频全量支持
 
-想试试在 QQ 里和你的 AI 助手聊天吗？现在就升级到最新版本吧！`,
+想试试在 QQ 里和你的 AI 助手聊天吗？现在就升级到最新版本吧！
+
+---
+
+📡 **其他渠道接入**：
+- [OpenClaw Discord Bot 接入教程](/blog/openclaw-discord-integration)
+- [OpenClaw Telegram Bot 配置](/blog/openclaw-telegram-tutorial)
+- [OpenClaw 飞书集成](/blog/openclaw-feishu-tutorial)`,
     contentEn: `On April 1st, OpenClaw officially released v2026.3.31. The biggest highlight: **native QQ Bot plugin built-in**, making QQ the first social platform in China to be officially integrated into OpenClaw.
 
 The QQ Bot code, contributed by Tencent Lighthouse team in collaboration with the QQ team, has been merged into the OpenClaw main repository. OpenClaw founder Peter Steinberger publicly endorsed this milestone.
@@ -1694,6 +1701,7 @@ Ready to chat with your AI assistant in QQ? Upgrade to the latest version now!
 
 - Want to add more channels? See [OpenClaw Supported Channels](/blog/openclaw-supported-channels) for the full platform list.
 - Prefer Telegram first? Start with the [openclaw telegram tutorial](/blog/openclaw-telegram-tutorial).
+- Need Discord? See [OpenClaw Discord integration tutorial](/blog/openclaw-discord-integration).
 - Need WhatsApp reach? Read the [openclaw whatsapp integration](/blog/openclaw-whatsapp-integration) guide.
 - Broader config reference: [OpenClaw Configuration Guide](/blog/openclaw-configuration-guide).
 `,

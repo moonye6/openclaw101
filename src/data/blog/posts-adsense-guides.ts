@@ -856,6 +856,13 @@ schedules:
 
 ---
 
+🎯 **延伸场景阅读**：
+- [OpenClaw 个人知识管理（PKM）工作流](/blog/openclaw-pkm)
+- [OpenClaw + n8n 自动化终极组合](/blog/openclaw-n8n-automation)
+- [OpenClaw + Browser Use — 让 AI 自动操控浏览器](/blog/openclaw-browser-use-integration)
+
+---
+
 *本文最后更新：2026 年 4 月*
 *内容由 OpenClaw 101 编辑团队审核*`,
     contentEn: `OpenClaw isn't just an AI chat tool — its real power lies in automated workflows.
@@ -1280,6 +1287,13 @@ Both. The same workflow definition runs on your laptop with \`openclaw start\` o
 **Q: How do I debug a workflow that breaks?**
 
 Run it with \`--log-level debug\` to see every Skill invocation. Each Skill logs its inputs, outputs, and elapsed time — so you can pinpoint the slow or failing step quickly.
+
+---
+
+🎯 **More workflow patterns**:
+- [OpenClaw personal knowledge management (PKM)](/blog/openclaw-pkm)
+- [OpenClaw + n8n — automation playbook](/blog/openclaw-n8n-automation)
+- [OpenClaw + Browser Use — let AI drive the browser](/blog/openclaw-browser-use-integration)
 `,
     author: "Marco Liu",
     date: "2026-04-08",
@@ -1366,7 +1380,9 @@ skill.yaml 里 \`requires\` 字段声明依赖，安装时自动拉起。循环�
 
 - 浏览 [Best OpenClaw Skills 2026](/blog/best-openclaw-skills-2026) 查看推荐的 25 个 Skill
 - 读 [OpenClaw Best Skills](/blog/openclaw-best-skills) 了解必装的 10 款核心 Skill
-- 了解 [OpenClaw API Reference](/blog/openclaw-api-reference) 看 Skill SDK 细节`,
+- 了解 [OpenClaw API Reference](/blog/openclaw-api-reference) 看 Skill SDK 细节
+- 浏览器控制场景：[OpenClaw + Browser Use 集成](/blog/openclaw-browser-use-integration)
+- 个人知识管理场景：[OpenClaw PKM 工作流](/blog/openclaw-pkm)`,
     contentEn: `AgentSkills are the core abstraction in the OpenClaw ecosystem — each Skill is a reusable piece of capability an agent can invoke on demand, like "send a Telegram message", "query a database", or "call an external API". ClawHub is the official distribution registry where community-built Skills are published and installed from.
 
 This guide covers what AgentSkills are, the 2026 ClawHub upgrades, and what you need to do as both a user and a publisher.
@@ -1467,7 +1483,7 @@ Per agent. Your config file pins specific Skill versions for a given agent, so u
 | Telegram | ✅ | — | 稳定 | [10 分钟搭建教程](/blog/openclaw-telegram-tutorial) |
 | QQ | ✅ (v2026.3.31) | — | 稳定 | [QQ Bot 配置指南](/blog/openclaw-qq-bot-native-integration) |
 | Feishu / 飞书 | ✅ | — | 稳定 | [Feishu 完整教程](/blog/openclaw-feishu-tutorial) |
-| Discord | — | ✅ | 可用 | ClawHub 搜索 \`discord-bridge\` |
+| Discord | — | ✅ | 可用 | [Discord 接入完整教程](/blog/openclaw-discord-integration) |
 | Slack | — | ✅ | 可用 | ClawHub 搜索 \`slack-adapter\` |
 | WhatsApp | — | ✅ (Cloud API) | 实验 | [WhatsApp 接入指南](/blog/openclaw-whatsapp-integration) |
 
@@ -1539,7 +1555,7 @@ WhatsApp 目前通过 Meta 官方的 Cloud API 对接，属于实验性支持：
 | Telegram | ✅ | — | Stable | [10-minute setup](/blog/openclaw-telegram-tutorial) |
 | QQ | ✅ (v2026.3.31) | — | Stable | [QQ Bot setup guide](/blog/openclaw-qq-bot-native-integration) |
 | Feishu | ✅ | — | Stable | [Feishu complete guide](/blog/openclaw-feishu-tutorial) |
-| Discord | — | ✅ | Usable | ClawHub: \`discord-bridge\` |
+| Discord | — | ✅ | Usable | [Discord integration tutorial](/blog/openclaw-discord-integration) |
 | Slack | — | ✅ | Usable | ClawHub: \`slack-adapter\` |
 | WhatsApp | — | ✅ (Cloud API) | Experimental | [WhatsApp integration](/blog/openclaw-whatsapp-integration) |
 
