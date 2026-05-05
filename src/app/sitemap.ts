@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next'
 import { tutorials } from '@/data/tutorials'
 import { skillCategories } from '@/data/skills'
 import { blogPosts } from '@/data/blog'
+import { useCases } from '@/data/use-cases'
 
 const BUILD_DATE = new Date('2026-04-17')
 
@@ -92,6 +93,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/skills/${category.id}`,
       lastModified: BUILD_DATE,
       changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    })
+  }
+
+  // Use-case detail pages
+  for (const uc of useCases) {
+    entries.push({
+      url: `${baseUrl}/use-cases/${uc.slug}`,
+      lastModified: BUILD_DATE,
+      changeFrequency: 'monthly' as const,
       priority: 0.7,
     })
   }
