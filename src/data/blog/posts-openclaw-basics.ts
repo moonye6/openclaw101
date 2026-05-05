@@ -2573,7 +2573,9 @@ npm 和 Docker 安装方式都需要联网下载。安装完成后，如果使�
 
 ## 下一步
 
-安装完成后，推荐跟着我们的 [7天学习路径](/learn/1) 继续学习！`,
+安装完成后，推荐跟着我们的 [7天学习路径](/learn/1) 继续学习！
+
+如果安装过程中遇到问题，先看 [OpenClaw 常见错误排查](/blog/openclaw-common-errors) 和 [安装故障诊断完整指南](/blog/openclaw-installation-troubleshooting)。担心使用成本？看 [OpenClaw 是免费的吗 — 完整定价解读](/blog/is-openclaw-free-pricing-guide)。`,
     contentEn: `This is the definitive OpenClaw installation guide for 2026. Whether you are on macOS, Linux, or Windows, this tutorial covers everything you need: three installation methods (npm, Docker, from source), platform-specific instructions, first-time setup, configuration deep dive, upgrading, and troubleshooting common issues.
 
 ## Prerequisites
@@ -2935,7 +2937,9 @@ For enterprise deployment, we recommend Docker Compose or Kubernetes. OpenClaw p
 
 ## Next Steps
 
-After installation, follow our [7-Day Learning Path](/learn/1) to continue learning!`,
+After installation, follow our [7-Day Learning Path](/learn/1) to continue learning!
+
+Hit a problem during install? Start with [OpenClaw common errors](/blog/openclaw-common-errors) and the [installation troubleshooting guide](/blog/openclaw-installation-troubleshooting). Worried about cost? See [Is OpenClaw free? — full pricing breakdown](/blog/is-openclaw-free-pricing-guide).`,
     author: "Dr. Sarah Kim",
     date: "2026-03-25",
     category: "安装教程",
