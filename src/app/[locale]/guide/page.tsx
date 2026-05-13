@@ -4,7 +4,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 
 const SITE_URL = 'https://openclaw101.vip';
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {

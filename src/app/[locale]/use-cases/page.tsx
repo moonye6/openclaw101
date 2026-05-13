@@ -3,7 +3,7 @@ import { UseCasesContent } from '@/components/use-cases/UseCasesContent';
 
 const SITE_URL = 'https://openclaw101.vip';
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 export async function generateMetadata({
   params,

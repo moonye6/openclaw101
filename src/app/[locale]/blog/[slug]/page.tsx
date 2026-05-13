@@ -5,8 +5,8 @@ import { BlogPostClient } from './BlogPostClient';
 
 const SITE_URL = 'https://openclaw101.vip';
 
-// Enable ISR - revalidate every hour
-export const revalidate = 3600;
+// Enable ISR - revalidate daily
+export const revalidate = 86400;
 
 /**
  * Extract FAQ Q&A pairs from markdown content for FAQPage JSON-LD.

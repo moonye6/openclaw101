@@ -4,6 +4,9 @@ import { skillCategories } from '@/data/skills'
 import { blogPosts } from '@/data/blog'
 import { useCases } from '@/data/use-cases'
 
+// Sitemap regenerates daily. Vercel CDN caches per vercel.json (.xml = 7-day s-maxage).
+export const revalidate = 86400
+
 const BUILD_DATE = new Date('2026-04-17')
 
 // SEO core slugs — get highest priority (0.9)

@@ -1,5 +1,9 @@
 import { NextResponse } from 'next/server';
 
+// Static data — force pure static, never hit a runtime function.
+export const dynamic = 'force-static'
+export const revalidate = false
+
 // 对标网站教程数据
 const REFERENCE_TUTORIALS = [
   // Official

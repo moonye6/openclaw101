@@ -4,8 +4,8 @@ import { blogPosts } from '@/data/blog';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import { JsonLd } from '@/components/seo/JsonLd';
 
-// Enable ISR - revalidate every hour
-export const revalidate = 3600;
+// Enable ISR - revalidate daily
+export const revalidate = 86400;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {

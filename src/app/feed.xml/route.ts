@@ -4,6 +4,10 @@ import { blogPosts } from '@/data/blog'
 
 const SITE_URL = 'https://openclaw101.vip'
 
+// RSS feed regenerates daily. CDN cache via next.config.ts (1-day s-maxage).
+export const revalidate = 86400
+export const dynamic = 'force-static'
+
 export async function GET() {
   const rss = new RSS({
     title: 'OpenClaw 101 — Guides, Tutorials & Blog',

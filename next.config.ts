@@ -39,14 +39,52 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      // Detail pages (content immutable once published) — 30-day CDN, 7-day stale.
+      // Edits propagate via deploy or daily ISR rebuild.
       {
-        // Page cache — ISR strategy
+        source: '/blog/:slug',
+        headers: [
+          { key: 'Cache-Control', value: 'public, s-maxage=2592000, stale-while-revalidate=604800' },
+        ],
+      },
+      {
+        source: '/tutorials/:id',
+        headers: [
+          { key: 'Cache-Control', value: 'public, s-maxage=2592000, stale-while-revalidate=604800' },
+        ],
+      },
+      {
+        source: '/skills/:id',
+        headers: [
+          { key: 'Cache-Control', value: 'public, s-maxage=2592000, stale-while-revalidate=604800' },
+        ],
+      },
+      {
+        source: '/use-cases/:slug',
+        headers: [
+          { key: 'Cache-Control', value: 'public, s-maxage=2592000, stale-while-revalidate=604800' },
+        ],
+      },
+      {
+        source: '/learn/:day',
+        headers: [
+          { key: 'Cache-Control', value: 'public, s-maxage=2592000, stale-while-revalidate=604800' },
+        ],
+      },
+      // RSS — daily cache; matches new post drops within 24h via ISR.
+      {
+        source: '/feed.xml',
+        headers: [
+          { key: 'Cache-Control', value: 'public, s-maxage=86400, stale-while-revalidate=86400' },
+        ],
+      },
+      // Default for list pages, home, guide, examples, faq, static info.
+      // Was: s-maxage=300, stale-while-revalidate=60 (5-min cache → constant origin hits).
+      // Now: 1-day CDN + 7-day stale. Performance ↑ ~288×.
+      {
         source: '/((?!api|_next|_vercel).*)',
         headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, s-maxage=300, stale-while-revalidate=60',
-          },
+          { key: 'Cache-Control', value: 'public, s-maxage=86400, stale-while-revalidate=604800' },
         ],
       },
     ];
