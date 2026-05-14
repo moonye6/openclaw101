@@ -29,7 +29,7 @@ const REPORT_DIR = process.env.GSC_REPORT_DIR || 'report/gsc';
 
 function fail(code, msg) {
   console.error(`✗ ${msg}`);
-  console.error(`  See report/gsc/README.md for setup steps.`);
+  console.error(`  See docs/seo/gsc-quickstart.md for 5-min setup, or gsc-setup.md for full details.`);
   process.exit(code);
 }
 

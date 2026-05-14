@@ -4,6 +4,36 @@
 
 ---
 
+## Added from /plan-ceo-review (2026-05-14) — Reassessment Response
+
+### TD-007 — Wk0 Manual Setup Bundle [P0, BLOCKING Approach C]
+
+**What:** Three manual prerequisite actions before any Wk1 code change:
+1. GSC URL Inspection — sample 20 random unindexed pages, classify by reason (`/zh/*` legacy / `/en/*` legacy / `/7days/*` legacy / real content / other). Record in `report/seo/wk0-investigation.md` §7.
+2. Domain Rating lookup — visit https://ahrefs.com/website-authority-checker, enter `openclaw101.vip`, record DR. Or Moz DA via https://moz.com/domain-analysis.
+3. GSC service account credentials — follow `docs/seo/gsc-setup.md`, create service account JSON at `~/.gsc/service-account.json`, grant access in Search Console, set env vars, run `pnpm sync:gsc` successfully one time. Verify `report/gsc/2026-05-14-weekly.md` written.
+
+**Why:** Approach C from CEO plan v3 (2026-05-14) is hard-blocked on these three actions. Without baseline measurement, every subsequent change is blind. Without DR, we don't know if SEO is authority-bound. Without URL Inspection sample, we don't know if 186 unindexed pages are real or legacy redirects.
+
+**Pros:**
+- Unblocks Approach C execution
+- Establishes measurement baseline for 4-week exit criteria
+- Wk0 investigation has been deferred since 2026-05-05; this is the final commitment
+- ~30 minutes total user effort
+
+**Cons:**
+- All three are user-side actions, no CC delegation possible
+- Easy to procrastinate; sets Approach C clock running
+
+**Context:** This is the operational floor for the 2026-05-14 reassessment-response plan. CP-3 GSC scaffold was built 2026-05-05 (commit 932b319). Credentials never configured. Three weeks of "I'll do it later" — now hard-locked. See ~/.gstack/projects/openclaw101/ceo-plans/2026-05-14-reassessment-response.md decision D3.
+
+**Effort:** human ~30 min total / CC: 0 (cannot delegate)
+**Priority:** P0 (blocks Wk1 of Approach C)
+**Depends on:** none
+**Decided:** 2026-05-14 — Add to TODOS.md
+
+---
+
 ## Deferred from /plan-ceo-review (2026-05-05) — SEO Strategy Pivot
 
 ### TD-001 — Backlink Outreach Workflow [P1 → P0 conditional]
