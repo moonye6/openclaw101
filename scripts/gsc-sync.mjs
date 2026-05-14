@@ -23,6 +23,8 @@ import { homedir } from 'node:os';
 import { resolve } from 'node:path';
 
 const KEY_PATH_RAW = process.env.GSC_SERVICE_ACCOUNT_KEY_PATH;
+const CLIENT_EMAIL = process.env.GSC_CLIENT_EMAIL;
+const PRIVATE_KEY = process.env.GSC_PRIVATE_KEY;
 const SITE_URL = process.env.GSC_SITE_URL;
 const DAYS = Number(process.env.GSC_REPORT_DAYS || 28);
 const REPORT_DIR = process.env.GSC_REPORT_DIR || 'report/gsc';
@@ -33,23 +35,34 @@ function fail(code, msg) {
   process.exit(code);
 }
 
-if (!KEY_PATH_RAW) fail(2, 'Missing GSC_SERVICE_ACCOUNT_KEY_PATH env var');
 if (!SITE_URL) fail(2, 'Missing GSC_SITE_URL env var (e.g. sc-domain:openclaw101.vip)');
 
-const KEY_PATH = KEY_PATH_RAW.startsWith('~')
-  ? resolve(homedir(), KEY_PATH_RAW.slice(2))
-  : resolve(KEY_PATH_RAW);
-
-if (!existsSync(KEY_PATH)) fail(2, `Service account key not found: ${KEY_PATH}`);
-
+// Two auth modes supported:
+// 1. JSON file path via GSC_SERVICE_ACCOUNT_KEY_PATH (original)
+// 2. Env vars GSC_CLIENT_EMAIL + GSC_PRIVATE_KEY (compatible with googleapis-style .env)
 let serviceAccount;
-try {
-  serviceAccount = JSON.parse(readFileSync(KEY_PATH, 'utf8'));
-} catch (e) {
-  fail(2, `Cannot parse service account JSON at ${KEY_PATH}: ${e.message}`);
-}
-if (!serviceAccount.client_email || !serviceAccount.private_key) {
-  fail(2, 'Service account JSON missing client_email or private_key');
+
+if (KEY_PATH_RAW) {
+  const KEY_PATH = KEY_PATH_RAW.startsWith('~')
+    ? resolve(homedir(), KEY_PATH_RAW.slice(2))
+    : resolve(KEY_PATH_RAW);
+  if (!existsSync(KEY_PATH)) fail(2, `Service account key not found: ${KEY_PATH}`);
+  try {
+    serviceAccount = JSON.parse(readFileSync(KEY_PATH, 'utf8'));
+  } catch (e) {
+    fail(2, `Cannot parse service account JSON at ${KEY_PATH}: ${e.message}`);
+  }
+  if (!serviceAccount.client_email || !serviceAccount.private_key) {
+    fail(2, 'Service account JSON missing client_email or private_key');
+  }
+} else if (CLIENT_EMAIL && PRIVATE_KEY) {
+  // Env-var mode — accept private key with escaped \n (common in .env files)
+  serviceAccount = {
+    client_email: CLIENT_EMAIL,
+    private_key: PRIVATE_KEY.replace(/\\n/g, '\n'),
+  };
+} else {
+  fail(2, 'Missing credentials. Provide either GSC_SERVICE_ACCOUNT_KEY_PATH (JSON file path) OR GSC_CLIENT_EMAIL + GSC_PRIVATE_KEY env vars.');
 }
 
 // ---------------------------------------------------------------------------
